@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const Logica = require('../logica/Logica.js')
 const reglasREST = require('./ReglasREST.js')
 
-//const path = require('path');
+const path = require('path');
 // .....................................................................
 // .....................................................................
 async function cargarLogica(fichero) {
@@ -29,7 +29,7 @@ async function cargarLogica(fichero) {
 async function main() {
     var laLogica = await cargarLogica('../bd/datos.bd');
     var servidorExpress = express();
-    //servidorExpress.use(express.static(path.join(__dirname, '../ux')));
+    servidorExpress.use(express.static(path.join(__dirname, '../ux')));
     servidorExpress.use(bodyParser.text({ type: 'application/json' }))
     var reglas = reglasREST.cargar(servidorExpress, laLogica);
     // arrancao el servidor

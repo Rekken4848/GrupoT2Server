@@ -154,7 +154,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var datos = JSON.parse(peticion.body)
 
-            await laLogica.borrarMediciones(datos.dispositivo_id)
+            await laLogica.borrarMedicionesPorDispositivo(datos.dispositivo_id)
 
             // todo ok
             respuesta.send("Filas borradas de la tabla Medicion con dispositivo_id: " + datos.dispositivo_id)
