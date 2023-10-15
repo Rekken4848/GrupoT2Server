@@ -45,7 +45,13 @@ function getUltimaMedicion() {
         }
 
     }).then(function (datos) {
-        enviarDatos(datos)
+        // Obtener el elemento div por su ID
+        var valorGasDiv = document.getElementById("valorGas")
+        var valorTempDiv = document.getElementById("valorTemp")
+
+        // Cambiar el texto del div
+        valorGasDiv.textContent = "El valor del gas es: " + datos.Vgas
+        valorTempDiv.textContent = "El valor de la temperatura es: " + datos.Vtemp
     })
 }
 // .......................................................
