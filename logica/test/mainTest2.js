@@ -66,7 +66,7 @@ describe( "Tarea 2: Insertar distintas Mediciones y filtrar", function() {
     it( "Busco las medidas entre unas determinadas fechas",
         async function() {
             var res = await laLogica.buscarMedicionesEntreFechas('2023-10-15 19:30:00', '2023-10-15 22:00:00')
-                assert.equal( res.length, 3, "¿no hay dos resulados?" )
+                assert.equal( res.length, 3, "¿no hay tres resulados?" )
                 assert.equal( res[0].fecha, '2023-10-15 20:00:00', "¿no es 2023-10-15 20:00:00?" )
                 assert.equal( res[1].fecha, '2023-10-15 21:00:00', "¿no es 2023-10-15 21:00:00?" )
                 assert.equal( res[2].fecha, '2023-10-15 22:00:00', "¿no es 2023-10-15 22:00:00?" )

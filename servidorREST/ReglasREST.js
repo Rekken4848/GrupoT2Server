@@ -30,7 +30,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // llamo a la función adecuada de la lógica
             var res = await laLogica.buscarMedicionPorDispositivo(dispositivo_id)
             // si el array de resultados no tiene una casilla ...
-            if (res.length >= 1) {
+            console.log(res.length)
+            if (res.length < 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la medicion con dispositivo_id: " + dispositivo_id)
                 return
@@ -67,15 +68,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var fechaInicio = peticion.params.fechaInicio
             var fechaFin = peticion.params.fechaFin
 
-            var res = await laLogica.getMedicionesEntreFechas(fechaInicio, fechaFin)
+            var res = await laLogica.buscarMedicionesEntreFechas(fechaInicio, fechaFin)
 
-            if (res.length != 1) {
+            if (res.length < 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen mediciones entre esas fechas")
                 return
             }
             // todo ok
-            respuesta.send(JSON.stringify(res[0]))
+            respuesta.send(JSON.stringify(res))
         }) // get /matricula
     // .......................................................
     // GET /todasMediciones/
@@ -87,14 +88,16 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getTodasLasMediciones()
 
-            if (res.length >= 1) {
+            console.log(res)
+
+            if (res.length < 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen mediciones")
                 return
             }
 
             // todo ok
-            respuesta.send(JSON.stringify(res[0]))
+            respuesta.send(JSON.stringify(res))
         }) // get /matricula
     // .......................................................
     // .......................................................

@@ -35,7 +35,7 @@ describe( "Tarea 1: Insertar Medicion y buscar por dispositivo", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Primero borro las medidas que pueda haber de ese dispositivo",
+    it( "Inserto la medicion",
         async function() {
             await laLogica.insertarMedicion( {Vgas: 10.45, Vtemp: 20.45, fecha: '2023-10-15 19:00:00', dispositivo_id: "Id_para_Test" } )
     }) // it
