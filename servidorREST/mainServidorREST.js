@@ -29,6 +29,15 @@ async function cargarLogica(fichero) {
 async function main() {
     var laLogica = await cargarLogica('../bd/datos.bd');
     var servidorExpress = express();
+    // Habilita CORS para todas las rutas
+    //servidorExpress.use(cors());
+    // Middleware para habilitar CORS (Cross-Origin Resource Sharing)
+    servidorExpress.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*'); // Permite cualquier origen de solicitud
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos permitidos
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        next();
+    });
     servidorExpress.use(express.static(path.join(__dirname, '../ux')));
     servidorExpress.use(bodyParser.text({ type: 'application/json' }))
     var reglas = reglasREST.cargar(servidorExpress, laLogica);
