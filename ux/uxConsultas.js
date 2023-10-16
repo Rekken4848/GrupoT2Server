@@ -3,8 +3,8 @@ function enviarDatos(datos) {
 }
 
 function obtenerGasYTemperatura(){
-    getUltimaMedicion()
-    //setInterval(getUltimaMedicion, 5000);
+    //getUltimaMedicion()
+    setInterval(getUltimaMedicion, 5000);
 }
 
 obtenerGasYTemperatura()

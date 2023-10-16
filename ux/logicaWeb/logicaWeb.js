@@ -33,6 +33,7 @@ function buscarMedicionPorDispositivo(dispositivo_id) {
 // getUltimaMedicion() --> Medicion
 // .......................................................
 function getUltimaMedicion() {
+    console.log("Repite")
     fetch('http://localhost:8080/ultimaMedicion', {
         method: "GET"
     }).then(function (respuesta) {
