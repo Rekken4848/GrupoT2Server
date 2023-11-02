@@ -42,7 +42,7 @@ module.exports = class Logica {
         return new Promise( (resolver, rechazar) => {
             this.laConexion.run(
                 "delete from Medicion where dispositivo_id=$dispositivo_id;",
-
+                valoresParaSQL,
                 (err)=> ( err ? rechazar(err) : resolver() )
             )
         })
