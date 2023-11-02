@@ -140,7 +140,7 @@ module.exports = class Logica {
     // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
     // .................................................................
     getMedicionesPorAdmin(dni_admin) {
-        var textoSQL = "select Medicion.id, Medicion.valor, Medicion.tipo_valor_id, Medicion.fecha, Medicion.lugar from Medicion, MedicionDispositivo, Dispositivo, Persona, Direccion, Zona_Admin, Admin  where Medicion.id=MedicionDispositivo.medicion_id and MedicionDispositivo.dispositivo_id=Dispositivo.dispositivo_id and Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=Zona_Admin.zona and ZonaAdmin.dni=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var textoSQL = "select Medicion.id, Medicion.valor, Medicion.tipo_valor_id, Medicion.fecha, Medicion.lugar from Medicion, Medicion_Dispositivo, Dispositivo, Persona, Direccion, Zona_Admin, Admin  where Medicion.id=Medicion_Dispositivo.medicion_id and Medicion_Dispositivo.dispositivo_id=Dispositivo.dispositivo_id and Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=Zona_Admin.zona and Zona_Admin.dni=Admin.dni_admin and Admin.dni_admin=$dni_admin";
         var valoresParaSQL = { $dni_admin: dni_admin }
         return new Promise((resolver, rechazar) => {
             this.laConexion.all(textoSQL, valoresParaSQL,
@@ -778,7 +778,7 @@ module.exports = class Logica {
     // {anuncio_id:texto, contenido:texto, titulo:texto}
     // .................................................................
     getAnunciosPorAdmin(dni_admin) {
-        var textoSQL = "select * from Anuncio, AdminAnuncio, Admin where Anuncio.anuncio_id=AdminAnuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var textoSQL = "select * from Anuncio, Admin_Anuncio, Admin where Anuncio.anuncio_id=Admin_Anuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
         var valoresParaSQL = { $dni_admin: dni_admin }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
@@ -793,9 +793,9 @@ module.exports = class Logica {
     // <--
     // {anuncio_id:texto, contenido:texto, titulo:texto}
     // .................................................................
-    getAnunciosPorDispositivo(dispoditivo_id) {
-        var textoSQL = "select * from Anuncio, AdminAnuncio, Admin, Zona_Admin, Direccion, Persona, Dispositivo where Anuncio.anuncio_id=AdminAnuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=Zona_Admin.dni_admin and Zona_Admin.zona=Direccion.codigo_postal and Direccion.dni=Persona.dni and Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=$dispositivo_id";
-        var valoresParaSQL = { $dispoditivo_id: dispoditivo_id } 
+    getAnunciosPorDispositivo(dispositivo_id) {
+        var textoSQL = "select * from Anuncio, Dispositivo_Anuncio where Anuncio.anuncio_id=Dispositivo_Anuncio.anuncio_id and Dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispositivo_id: dispositivo_id } 
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
@@ -822,11 +822,9 @@ module.exports = class Logica {
     // dni_admin:texto
     // -->    
     // borrarAnunciosPorAdmin() <--
-    // <--
-    // {anuncio_id:texto, contenido:texto, titulo:texto}
     // .................................................................
     borrarAnunciosPorAdmin(dni_admin) {
-        var textoSQL = "delete Anuncio.anuncio_id, Anuncio.contenido, Anuncio.titulo from Anuncio, AdminAnuncio, Admin where Anuncio.anuncio_id=AdminAnuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var textoSQL = "delete Anuncio.anuncio_id, Anuncio.contenido, Anuncio.titulo from Anuncio, Admin_Anuncio, Admin where Anuncio.anuncio_id=Admin_Anuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
         var valoresParaSQL = { $dni_admin: dni_admin }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
@@ -838,12 +836,10 @@ module.exports = class Logica {
     // dispositivo_id:texto
     // -->    
     // borrarAnunciosPorDispositivo() <--
-    // <--
-    // {anuncio_id:texto, contenido:texto, titulo:texto}
     // .................................................................
-    borrarAnunciosPorDispositivo(dispoditivo_id) {
-        var textoSQL = "delete Anuncio.anuncio_id, Anuncio.contenido, Anuncio.titulo from Anuncio, AdminAnuncio, Admin, Zona_Admin, Direccion, Persona, Dispositivo where Anuncio.anuncio_id=AdminAnuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=Zona_Admin.dni_admin and Zona_Admin.zona=Direccion.codigo_postal and Direccion.dni=Persona.dni and Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=$dispositivo_id";
-        var valoresParaSQL = { $dispoditivo_id: dispoditivo_id }
+    borrarAnunciosPorDispositivo(dispositivo_id) {
+        var textoSQL = "delete Anuncio.anuncio_id, Anuncio.contenido, Anuncio.titulo from Anuncio, Dispositivo_Anuncio where Anuncio.anuncio_id=Dispositivo_Anuncio.anuncio_id and Dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
@@ -854,8 +850,6 @@ module.exports = class Logica {
     // anuncio_id:texto
     // -->    
     // borrarAnunciosPorId() <--
-    // <--
-    // {anuncio_id:texto, contenido:texto, titulo:texto}
     // .................................................................
     borrarAnunciosPorId(anuncio_id) {
         var textoSQL = "delete * from Anuncio where anuncio_id=$anuncio_id";
@@ -866,6 +860,197 @@ module.exports = class Logica {
             })
         })
     } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // dispositivo
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dispositivo_id:texto, dni_empleado:texto}
+    // -->
+    // insertarDispositivo() -->
+    // .................................................................
+    insertarDispositivo(datos) {
+        var textoSQL =
+            'insert into Dispositivo (dispositivo_id, dni_empleado ) values( $dispositivo_id, $dni_empleado );'
+        var valoresParaSQL = { $dispositivo_id: datos.dispositivo_id, $dni_empleado: datos.dni_empleado }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << UPDATE >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dispositivo_id:texto, dni_empleado:texto}
+    // -->
+    // actualizarDispositivo() -->
+    // .................................................................
+    actualizarDispositivo(datos) {
+        var textoSQL =
+            'update Dispositivo set dispositivo_id=$dispositivo_id, dni_empleado=$dni_empleado;'
+        var valoresParaSQL = { $dispositivo_id: datos.dispositivo_id, $dni_empleado: datos.dni_empleado }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << GET >>
+    // .................................................................
+
+    // .................................................................
+    // getTodosLosDispositivos() <--
+    // <--
+    // {dispositivo_id:texto, dni_empleado:texto}
+    // .................................................................
+    getTodosLosDispositivos() {
+        var textoSQL = "select * from Dispositivo";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // dni:texto
+    // -->    
+    // getDispositivoPorPersona() <--
+    // <--
+    // {dispositivo_id:texto, dni_empleado:texto}
+    // .................................................................
+    getDispositivoPorPersona(dni) {
+        var textoSQL = "select * from Dispositivo, Persona where Dispositivo.dni_empleado=Persona.dni and Persona.dni=$dni";
+        var valoresParaSQL = { $dni: dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // zona:texto
+    // -->    
+    // getDispositivosPorZona() <--
+    // <--
+    // {dispositivo_id:texto, dni_empleado:texto}
+    // .................................................................
+    getDispositivosPorZona(zona) {
+        var textoSQL = "select * from Dispositivo, Persona, Direccion where Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=$zona";
+        var valoresParaSQL = { $zona: zona }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // dni_admin:texto
+    // -->    
+    // getDispositivosPorAdmin() <--
+    // <--
+    // {dispositivo_id:texto, dni_empleado:texto}
+    // .................................................................
+    getDispositivosPorAdmin(dni_admin) {
+        var textoSQL = "select * from Dispositivo, Persona, Direccion, Zona_Admin, Admin where Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=Zona_Admin.zona and Zona_Admin.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var valoresParaSQL = { $dni_admin: dni_admin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // medicion_id:texto
+    // -->    
+    // getDispositivoPorMedicion() <--
+    // <--
+    // {dispositivo_id:texto, dni_empleado:texto}
+    // .................................................................
+    getDispositivoPorMedicion(medicion_id) {
+        var textoSQL = "select * from Dispositivo, Medicion_Dispositivo where Dispositivo.dni_empleado=Persona.dni and Persona.dni=$dni";
+        var valoresParaSQL = { $medicion_id: medicion_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarDispositivos() -->
+    // .................................................................
+    borrarDispositivos() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Dispositivo;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // dispositivo_id:texto
+    // -->    
+    // borrarDispositivoPorId() <--
+    // .................................................................
+    borrarDispositivoPorId(dispositivo_id) {
+        var textoSQL = "delete * from Dispositivo where dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // dni_empleado:texto
+    // -->    
+    // borrarDispositivoPorPersona() <--
+    // .................................................................
+    borrarDispositivoPorPersona(dni_empleado) {
+        var textoSQL = "delete * from Dispositivo where dni_empleado=$dni_empleado";
+        var valoresParaSQL = { $dni_empleado: dni_empleado }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // dni_admin:texto
+    // -->    
+    // borrarDispositivoPorAdmin() <--
+    // <--
+    // {dispositivo_id:texto, dni_empleado:texto}
+    // .................................................................
+    borrarDispositivosPorAdmin(dni_admin) {
+        var textoSQL = "elete Dispositivo.dispositivo_id, Dispositivo.dni_empleado from Dispositivo, Persona, Direccion, Zona_Admin, Admin where Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=Zona_Admin.zona and Zona_Admin.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var valoresParaSQL = { $dni_admin: dni_admin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    
     
 
 
