@@ -1067,7 +1067,7 @@ module.exports = class Logica {
     // -->
     // insertarTipoValor() -->
     // .................................................................
-    insertarDispositivo(datos) {
+    insertarTipoValor(datos) {
         var textoSQL =
             'insert into TipoValor (tipo_valor_id, tipo_valor ) values( $tipo_valor_id, $tipo_valor );'
         var valoresParaSQL = { $tipo_valor_id: datos.tipo_valor_id, $tipo_valor: datos.tipo_valor }
@@ -1120,6 +1120,118 @@ module.exports = class Logica {
     borrarTipoValor(datos) {
         var textoSQL = "delete * from TipoValor where tipo_valor_id=$tipo_valor_id";
         var valoresParaSQL = { $tipo_valor_id: datos.tipo_valor_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // Zona_Admin
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni_admin:texto, zona:texto}
+    // -->
+    // insertarZonaAdmin() -->
+    // .................................................................
+    insertarZonaAdmin(datos) {
+        var textoSQL =
+            'insert into Zona_Admin (dni_admin, zona ) values( $dni_admin, $zona );'
+        var valoresParaSQL = { $dni_admin: datos.dni_admin, $zona: datos.zona }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << UPDATE >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni_admin:texto, zona:texto}
+    // -->
+    // actualizarZonaAdmin() -->
+    // .................................................................
+    actualizarZonaAdmin(datos) {
+        var textoSQL =
+            'update Zona_Admin set dni_admin=$dni_admin, zona=$zona;'
+        var valoresParaSQL = { $dni_admin: datos.dni_admin, $zona: datos.zona }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << GET >>
+    // .................................................................
+
+    // .................................................................
+    // getTodasLasZonas() <--
+    // <--
+    // {dni_admin:texto, zona:texto}
+    // .................................................................
+    getTodasLasZonas() {
+        var textoSQL = "select * from Zona_Admin";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // dni:texto
+    // -->    
+    // getZonaPorDNI() <--
+    // <--
+    // {dni_admin:texto, zona:texto}
+    // .................................................................
+    getZonaPorDNI(dni) {
+        var textoSQL = "select * from Zona_Admin where dni_admin=$dni";
+        var valoresParaSQL = { $dni: dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarTodasLasZonas() -->
+    // .................................................................
+    borrarTodasLasZonas() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Zona_Admin;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // dni_admin:texto
+    // -->
+    // borrarZonaPorDNI() -->
+    // .................................................................
+    borrarZonaPorDNI(dni_admin) {
+        var textoSQL = "delete * from Zona_Admin where dni_admin=$dni_admin";
+        var valoresParaSQL = { $dni_admin: datos.dni_admin }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
