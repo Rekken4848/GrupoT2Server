@@ -221,9 +221,9 @@ describe( "Tarea 2: Funciones basicas de Direccion", function() {
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
+                assert.equal(respuesta.statusCode, 404, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal(solucion.dni, "12345678A", "¿El dni de la direccion no es 12345678A?")
+                assert.equal( solucion.length, 0, "¿hay un resulado?" )
                 hecho()
             } // callback
         ) //
@@ -270,9 +270,9 @@ describe( "Tarea 2: Funciones basicas de Direccion", function() {
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
+                assert.equal(respuesta.statusCode, 404, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal(solucion.dni, "12345678A", "¿El dni de la direccion no es 12345678A?")
+                assert.equal( solucion.length, 0, "¿hay un resulado?" )
                 hecho()
             } // callback
         ) //

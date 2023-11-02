@@ -116,7 +116,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var tipo_valor = peticion.params.tipo_valor
 
-            var res = await laLogica.buscarMedicionesEntreFechas(tipo_valor)
+            var res = await laLogica.buscarMedicionPorTipoValor(tipo_valor)
 
             if (res.length < 1) {
                 // 404: not found

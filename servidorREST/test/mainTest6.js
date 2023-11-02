@@ -15,12 +15,12 @@ const IP_PUERTO = "http://localhost:8080"
 describe( "Tarea 2: Funciones basicas de TipoValor", function() {
     // ....................................................
     // ....................................................
-    it( "Primero borro zonas que pueda haber en la bbdd", function( hecho ) {
-        var zonas = {  }
+    it( "Primero borro tipos de valor que pueda haber en la bbdd", function( hecho ) {
+        var tipo_valor = {  }
         request.post(
-            { url : IP_PUERTO+"/borrarTodasLasZonas",
+            { url : IP_PUERTO+"/borrarTiposValor",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zonas )
+                body : JSON.stringify( tipo_valor )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -31,60 +31,12 @@ describe( "Tarea 2: Funciones basicas de TipoValor", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una persona para que funcione el admin", function( hecho ) {
-        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
+    it( "Inserto el tipo valor", function( hecho ) {
+        var tipo_valor = { tipo_valor: 'CO3' }
         request.post(
-            { url : IP_PUERTO+"/persona",
+            { url : IP_PUERTO+"/tipoValor",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( persona )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Inserto un admin para que funcione la zona", function( hecho ) {
-        var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
-        request.post(
-            { url : IP_PUERTO+"/admin",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( admin )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Inserto la zona", function( hecho ) {
-        var zona = { dni_admin: '12345678A', zona: '03601' }
-        request.post(
-            { url : IP_PUERTO+"/zona",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Actualizo la zona", function( hecho ) {
-        var zona = { dni_admin: '12345678A', contrasenya: '03602' }
-        request.post(
-            { url : IP_PUERTO+"/actualizarZona",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( tipo_valor )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -98,44 +50,26 @@ describe( "Tarea 2: Funciones basicas de TipoValor", function() {
     it( "Busco la zona anteriormente introducido", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/zona/12345678A",
+                url: IP_PUERTO + "/todosTipoValor",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal(solucion.dni, "12345678A", "¿El dni del zona_admin no es 12345678A?")
+                assert.equal(solucion.tipo_valor, "CO3", "¿El dni del zona_admin no es CO3?")
                 hecho()
             } // callback
         ) //
     }) // it
     // ....................................................
     // ....................................................
-    it( "Busco todas las zonas", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/todasZonas",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal( solucion.length, 1, "¿no hay un resulado?" )
-                assert.equal(solucion.dni, "12345678A", "¿El dni del zona_admin no es 12345678A?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Borro zona por dni", function( hecho ) {
-        var zona = { dni: '12345678A' }
+    it( "Borro tipo valor", function( hecho ) {
+        var tipo_valor = { tipo_valor: 'CO3' }
         request.post(
-            { url : IP_PUERTO+"/borrarZonaPorDNI",
+            { url : IP_PUERTO+"/borrarTipoValor",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( tipo_valor )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -146,10 +80,10 @@ describe( "Tarea 2: Funciones basicas de TipoValor", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Compruebo que la zona se ha borrado", function (hecho) {
+    it( "Busco la zona anteriormente introducido", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/zona/12345678A",
+                url: IP_PUERTO + "/todosTipoValor",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
