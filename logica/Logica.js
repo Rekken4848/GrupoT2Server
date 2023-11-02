@@ -21,6 +21,140 @@ module.exports = class Logica {
                     cb( err)
                 })
     } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // mediciones
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{valor:float, tipo_valor_id:int, fecha:DATETIME, lugar:POINT}
+    // -->
+    // insertarMedicion() -->
+    // .................................................................
+    insertarMedicion(datos) {
+        var textoSQL =
+            'insert into Medicion (valor, tipo_valor_id, fecha, lugar) values( $valor, $tipo_valor_id, $fecha, $lugar );'
+        var valoresParaSQL = { $valor: datos.valor, $tipo_valor_id: datos.tipo_valor_id, $fecha: datos.fecha, $lugar: datos.lugar }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << GET >>
+    // .................................................................
+
+    // .................................................................
+    // dispositivo_id:Texto
+    // -->
+    // buscarMedicionPorDispositivo() <--
+    // <--
+    // {$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}
+    // .................................................................
+    buscarMedicionPorDispositivo(dispositivo) {
+        var textoSQL = "select * from Medicion where dispositivo_id=$dispositivo";
+        var valoresParaSQL = { $dispositivo_id: dispositivo }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // getUltimaMedicion() <--
+    // <--
+    // {$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}
+    // .................................................................
+    getUltimaMedicion() {
+        var textoSQL = "select * from Medicion order by fecha desc limit 1";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // getTodasLasMediciones() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
+    // .................................................................
+    getTodasLasMediciones() {
+        var textoSQL = "select * from Medicion";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // fechaInicio:fecha, fechaFin:fecha
+    // -->
+    // getMedicionesEntreFechas() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
+    // .................................................................
+    getMedicionesEntreFechas(fechaInicio, fechaFin) {
+        var textoSQL = "select * from Medicion where fecha between $fechaInicio and $fechaFin";
+        var valoresParaSQL = { $fechaInicio: fechaInicio, $fechaFin: fechaFin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // tipoValor:texto
+    // -->
+    // getMedicionesPorTipoValor() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
+    // .................................................................
+    getMedicionesPorTipoValor(tipoValor) {
+        var textoSQL = "select Medicion.id, Medicion.valor, Medicion.tipo_valor_id, Medicion.fecha, Medicion.lugar from Medicion, TipoValor where Medicion.tipo_valor_id=TipoValor.tipo_valor_id and TipoValor.tipo_valor=$tipo_valor";
+        var valoresParaSQL = { $tipo_valor: tipoValor }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // dni_admin:texto
+    // -->
+    // getMedicionesPorAdmin() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
+    // .................................................................
+    getMedicionesPorAdmin(dni_admin) {
+        var textoSQL = "select Medicion.id, Medicion.valor, Medicion.tipo_valor_id, Medicion.fecha, Medicion.lugar from Medicion, MedicionDispositivo, Dispositivo, Persona, Direccion, Zona_Admin, Admin  where Medicion.id=MedicionDispositivo.medicion_id and MedicionDispositivo.dispositivo_id=Dispositivo.dispositivo_id and Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=Zona_Admin.zona and ZonaAdmin.dni=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var valoresParaSQL = { $dni_admin: dni_admin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+    
     // .................................................................
     // borrarMediciones() -->
     // .................................................................
@@ -37,93 +171,33 @@ module.exports = class Logica {
     // -->
     // borrarMedicionesPorDispositivo() -->
     // .................................................................
-    borrarMedicionesPorDispositivo( dispositivo_id ) {
-        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
+    borrarMedicionesPorDispositivo( dispositivo ) {
+        var valoresParaSQL = { $dispositivo: dispositivo }
         return new Promise( (resolver, rechazar) => {
             this.laConexion.run(
-                "delete from Medicion where dispositivo_id=$dispositivo_id;",
+                "delete from Medicion where dispositivo_id=$dispositivo;",
                 valoresParaSQL,
                 (err)=> ( err ? rechazar(err) : resolver() )
             )
         })
     } // ()
     // .................................................................
-    // datos:{dni:Texto, nombre:Texto: apellidos:Texto}
+    // fechaInicio:DATETIME, fechaFin:DATETIME
     // -->
-    // insertarMedicion() -->
+    // borrarMedicionesEntreFechas() -->
     // .................................................................
-    insertarMedicion( datos ) {
-        var textoSQL =
-            'insert into Medicion (Vgas, Vtemp, fecha, dispositivo_id) values( $Vgas, $Vtemp, $fecha, $dispositivo_id );'
-        var valoresParaSQL = { $Vgas: datos.Vgas, $Vtemp: datos.Vtemp, $fecha: datos.fecha, $dispositivo_id: datos.dispositivo_id  }
-        return new Promise( (resolver, rechazar) => {
-            this.laConexion.run( textoSQL, valoresParaSQL, function( err ) {
-                ( err ? rechazar(err) : resolver() )
-            })
-        })
-    } // ()
-    // .................................................................
-    // dispositivo_id:Texto
-    // -->
-    // buscarMedicionPorDispositivo() <--
-    // <--
-    // {$id:N, $Vgas:R, $Vtemp:R, $fecha:fecha, $dispositivo_id:Texto}
-    // .................................................................
-    buscarMedicionPorDispositivo( dispositivo_id ) {
-        var textoSQL = "select * from Medicion where dispositivo_id=$dispositivo_id";
-        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
-        return new Promise( (resolver, rechazar) => {
-            this.laConexion.all( textoSQL, valoresParaSQL,
-                ( err, res ) => {
-                    ( err ? rechazar(err) : resolver(res) )
-            })
-        })
-    } // ()
-    // .................................................................
-    // getUltimaMedicion() <--
-    // <--
-    // {$id:N, $Vgas:R, $Vtemp:R, $fecha:fecha, $dispositivo_id:Texto}
-    // .................................................................
-    getUltimaMedicion() {
-        var textoSQL = "select * from Medicion order by fecha desc limit 1";
-        return new Promise( (resolver, rechazar) => {
-            this.laConexion.all( textoSQL,
-                ( err, res ) => {
-                    ( err ? rechazar(err) : resolver(res) )
-            })
-        })
-    } // ()
-    // .................................................................
-    // getTodasLasMediciones() <--
-    // <--
-    // Lista<{$id:N, $Vgas:R, $Vtemp:R, $fecha:fecha, $dispositivo_id:Texto}>
-    // .................................................................
-    getTodasLasMediciones() {
-        var textoSQL = "select * from Medicion";
-        return new Promise( (resolver, rechazar) => {
-            this.laConexion.all( textoSQL,
-                ( err, res ) => {
-                    ( err ? rechazar(err) : resolver(res) )
-            })
-        })
-    } // ()
-    // .................................................................
-    // fechaInicio:fecha, fechaFin:fecha
-    // -->
-    // buscarMedicionesEntreFechas() <--
-    // <--
-    // Lista<{$id:N, $Vgas:R, $Vtemp:R, $fecha:fecha, $dispositivo_id:Texto}>
-    // .................................................................
-    buscarMedicionesEntreFechas( fechaInicio, fechaFin ) {
-        var textoSQL = "select * from Medicion where fecha between $fechaInicio and $fechaFin";
+    borrarMedicionesEntreFechas(fechaInicio, fechaFin) {
         var valoresParaSQL = { $fechaInicio: fechaInicio, $fechaFin: fechaFin }
-        return new Promise( (resolver, rechazar) => {
-            this.laConexion.all( textoSQL, valoresParaSQL,
-                ( err, res ) => {
-                    ( err ? rechazar(err) : resolver(res) )
-            })
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Medicion where fecha between $fechaInicio and $fechaFin;",
+                valoresParaSQL,
+                (err) => (err ? rechazar(err) : resolver())
+            )
         })
     } // ()
+
+
     // .................................................................
     // cerrar() -->
     // .................................................................
