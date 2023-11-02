@@ -1380,11 +1380,79 @@ module.exports = class Logica {
             })
         })
     } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // Medicion_Dispositivo
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{medicion_id:texto, dispositivo_id:texto}
+    // -->
+    // insertarMedicionDispositivo() -->
+    // .................................................................
+    insertarMedicionDispositivo(datos) {
+        var textoSQL =
+            'insert into Medicion_Dispositivo (medicion_id, dispositivo_id ) values( $medicion_id, $dispositivo_id );'
+        var valoresParaSQL = { $medicion_id: datos.medicion_id, $dispositivo_id: datos.dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarTodosMedicionDispositivo() -->
+    // .................................................................
+    borrarTodosMedicionDispositivo() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Medicion_Dispositivo;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // medicion_id:texto
+    // -->
+    // borrarMedicionDispositivoPorMedicion() -->
+    // .................................................................
+    borrarMedicionDispositivoPorMedicion(medicion_id) {
+        var textoSQL = "delete * from Medicion_Dispositivo where medicion_id=$medicion_id";
+        var valoresParaSQL = { $medicion_id: medicion_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // dispositivo_id:texto
+    // -->
+    // borrarMedicionDispositivoPorDispositivo() -->
+    // .................................................................
+    borrarMedicionDispositivoPorDispositivo(dispositivo_id) {
+        var textoSQL = "delete * from Medicion_Dispositivo where dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
     
-    
-
-
-
     // .................................................................
     // cerrar() -->
     // .................................................................
