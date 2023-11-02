@@ -12,7 +12,7 @@ const IP_PUERTO = "http://localhost:8080"
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 1: Funciones basicas de Persona", function() {
+describe( "Tarea 1: Insertar Medicion y buscar por dispositivo en el servidor", function() {
     // ....................................................
     // PRUEBA
     // ....................................................
@@ -29,12 +29,12 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Primero borro las personas que pueda haber en la bbdd", function( hecho ) {
-        var persona = {  }
+    it( "Primero borro las mediciones que pueda haber de ese dispositivo", function( hecho ) {
+        var medicion = { dispositivo_id: "Id_para_Test" }
         request.post(
-            { url : IP_PUERTO+"/borrarPersonas",
+            { url : IP_PUERTO+"/borrarMedicionesPorDispositivo",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( persona )
+                body : JSON.stringify( medicion )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -45,7 +45,7 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una persona", function( hecho ) {
+    it( "Inserto la medicion", function( hecho ) {
         var medicion = { Vgas: 10.45, Vtemp: 20.45, fecha: '2023-10-15 19:00:00', dispositivo_id: "Id_para_Test" }
         request.post(
             { url : IP_PUERTO+"/medicion",
