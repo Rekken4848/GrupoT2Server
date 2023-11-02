@@ -357,6 +357,181 @@ module.exports = class Logica {
         })
     } // ()
 
+    // .................................................................
+    //
+    // <<recurso>>
+    // persona
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // -->
+    // insertarPersona() -->
+    // .................................................................
+    insertarPersona(datos) {
+        var textoSQL =
+            'insert into Persona (dni, nombre, apellidos, correo, telefono ) values( $dni, $nombre, $apellidos, $correo, $telefono );'
+        var valoresParaSQL = { $dni: datos.dni, $nombre: datos.nombre, $apellidos: datos.apellidos, $correo: datos.correo, $telefono: datos.telefono }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << UPDATE >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // -->
+    // actualizarPersona() -->
+    // .................................................................
+    actualizarPersona(datos) {
+        var textoSQL =
+            'update Persona set dni=$dni, nombre=$nombre, apellidos=$apellidos, correo=$correo, telefono=$telefono where dni=$dni;'
+        var valoresParaSQL = { $dni: datos.dni, $nombre: datos.nombre, $apellidos: datos.apellidos, $correo: datos.correo, $telefono: datos.telefono }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << GET >>
+    // .................................................................
+
+    // .................................................................
+    // getTodasLasPersonas() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getTodasLasPersonas() {
+        var textoSQL = "select * from Personas";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // dni:texto
+    // -->    
+    // getPersonaPorDNI() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getPersonaPorDNI(dni) {
+        var textoSQL = "select * from Persona where dni=$dni";
+        var valoresParaSQL = { $dni: dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // zona:texto
+    // -->    
+    // getPersonaPorZona() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getPersonasPorZona(zona) {
+        var textoSQL = "select * from Persona, Direccion where Persona.dni=Direccion.dni and Direccion.codigo_postal=$zona";
+        var valoresParaSQL = { $zona: zona }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // dispositivo_id:texto
+    // -->    
+    // getPersonaPorDispositivo() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getPersonaPorDispositivo(dispositivo_id) {
+        var textoSQL = "select * from Persona, Dispositivo where Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispoditivo_id: dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // apellidos:texto
+    // -->    
+    // getPersonaPorApellidos() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getPersonasPorApellidos(apellidos) {
+        var textoSQL = "select * from Persona where apellidos=$apellidos";
+        var valoresParaSQL = { $apellidos: apellidos }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarPersonas() -->
+    // .................................................................
+    borrarPersonas() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Persona;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // dni:texto
+    // --> 
+    // borrarAdminsPorDNI() -->
+    // .................................................................
+    borrarPersonaPorDNI(dni) {
+        var textoSQL = "delete * from Persona where dni=$dni";
+        var valoresParaSQL = { $dni: dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // dispositivo_id:texto
+    // --> 
+    // borrarPersonaPorDispositivo() -->
+    // .................................................................
+    borrarPersonaPorDispositivo(dispositivo_dni) {
+        var textoSQL = "delete Persona.dni, Persona.nombre, Persona.apellidos, Persona.correo, Persona.telefono from Persona, Dispositivo where Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispositivo_dni: dispositivo_dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+ 
 
 
     // .................................................................
