@@ -1,3 +1,2 @@
 -- insertarMedicion.sql
-insert into Medicion (Vgas, Vtemp, fecha, dispositivo_id) values ( 12.34, 22.40, '2023-10-15 16:32:40', 'ID de Prueba');
-insert into Medicion (Vgas, Vtemp, fecha, dispositivo_id) values ( 13.34, 23.40, '2023-10-15 17:32:40', 'ID de Prueba 2');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '2023-10-15 16:32:40', '10.1234,20.5678');
