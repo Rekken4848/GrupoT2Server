@@ -1,5 +1,5 @@
 // ........................................................
-// mainTest3.js
+// mainTest7.js
 // ........................................................
 var request = require('request')
 var assert = require('assert')
@@ -12,7 +12,7 @@ const IP_PUERTO = "http://localhost:8080"
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 2: Funciones basicas de Zona_Admin", function() {
+describe( "Tarea 2: Funciones basicas de Medicion", function() {
     // ....................................................
     // ....................................................
     it( "Primero borro zonas que pueda haber en la bbdd", function( hecho ) {
@@ -133,7 +133,7 @@ describe( "Tarea 2: Funciones basicas de Zona_Admin", function() {
     it( "Borro zona por dni", function( hecho ) {
         var zona = { dni: '12345678A' }
         request.post(
-            { url : IP_PUERTO+"/borrarDireccionesPorZona",
+            { url : IP_PUERTO+"/borrarZonaPorDNI",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
                 body : JSON.stringify( zona )
             },
