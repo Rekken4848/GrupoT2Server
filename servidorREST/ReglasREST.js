@@ -1485,6 +1485,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
+    /**
+ * Obtiene un dispositivo por el DNI de la persona asociada.
+ *
+ * @function
+ * @name obtenerDispositivoPorPersona
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el dispositivo no se encuentra.
+ */
     // .......................................................
     // GET /dispositivo/<dni>
     // .......................................................
@@ -1505,6 +1514,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
+        /**
+ * Obtiene dispositivos por el DNI del administrador asociado.
+ *
+ * @function
+ * @name obtenerDispositivosPorAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si los dispositivos no se encuentran.
+ */
     // .......................................................
     // GET /dispositivoAdmin/<dni_admin>
     // .......................................................
@@ -1524,6 +1542,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
+        /**
+ * Obtiene todos los dispositivos.
+ *
+ * @function
+ * @name obtenerTodosLosDispositivos
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si no se encuentran dispositivos.
+ */
     // .......................................................
     // GET /todosDispositivos/
     // .......................................................
@@ -1545,6 +1572,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
+        /**
+ * Obtiene dispositivos por la zona asociada.
+ *
+ * @function
+ * @name obtenerDispositivosPorZona
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si los dispositivos no se encuentran en la zona especificada.
+ */
     // .......................................................
     // GET /dispositivoZona/<zona>
     // .......................................................
@@ -1565,6 +1601,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
+        /**
+ * Obtiene dispositivos por el ID de la medición asociada.
+ *
+ * @function
+ * @name obtenerDispositivosPorMedicion
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si los dispositivos no se encuentran para la medición especificada.
+ */
     // .......................................................
     // GET /dispositivoMedicion/<medicion_id>
     // .......................................................
@@ -1590,6 +1635,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
+    /**
+ * Inserta un nuevo dispositivo.
+ *
+ * @function
+ * @name insertarDispositivo
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el dispositivo no se ha creado correctamente.
+ */
     // .......................................................
     // POST /dispositivo/<datos>
     // .......................................................
@@ -1617,6 +1671,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................UPDATE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Actualiza un dispositivo existente.
+ *
+ * @function
+ * @name actualizarDispositivo
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el dispositivo no se ha actualizado correctamente.
+ */
     // .......................................................
     // POST /actualizarDispositivo/<datos>
     // .......................................................
@@ -1644,6 +1707,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Borra todos los dispositivos.
+ *
+ * @function
+ * @name borrarTodosLosDispositivos
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarDispositivos/<tabla>
     // .......................................................
@@ -1657,6 +1728,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Dispositivo")
         }) //
+        /**
+ * Borra un dispositivo por su ID.
+ *
+ * @function
+ * @name borrarDispositivoPorId
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarDispositivoPorId/<tabla>
     // .......................................................
@@ -1672,6 +1751,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Dispositivo con dispositivo_id: " + datos.dispositivo_id)
         }) //
+        /**
+ * Borra dispositivos por el DNI de la persona asociada.
+ *
+ * @function
+ * @name borrarDispositivosPorPersona
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarDispositivoPorPersona/<tabla>
     // .......................................................
@@ -1687,6 +1774,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Dispositivo con dni: " + datos.dni)
         }) //
+        /**
+ * Borra dispositivos por el DNI del administrador asociado.
+ *
+ * @function
+ * @name borrarDispositivosPorAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarDispositivoPorAdmin/<tabla>
     // .......................................................
@@ -1717,6 +1812,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
+    /**
+ * Obtiene todos los tipos de valor.
+ *
+ * @function
+ * @name obtenerTodosLosTiposValor
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si no se encuentran tipos de valor.
+ */
     // .......................................................
     // GET /todosTipoValor/
     // .......................................................
@@ -1743,6 +1847,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
+    /**
+ * Inserta un nuevo tipo de valor.
+ *
+ * @function
+ * @name insertarTipoValor
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el tipo de valor no se ha creado correctamente.
+ */
     // .......................................................
     // POST /tipoValor/<datos>
     // .......................................................
@@ -1770,6 +1883,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Borra todos los tipos de valor.
+ *
+ * @function
+ * @name borrarTodosLosTiposValor
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarTiposValor/<tabla>
     // .......................................................
@@ -1783,6 +1904,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla TipoValor")
         }) //
+        /**
+ * Borra un tipo de valor por su valor.
+ *
+ * @function
+ * @name borrarTipoValor
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarTipoValor/<tabla>
     // .......................................................
@@ -1813,6 +1942,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
+    /**
+ * Obtiene la zona por el DNI del administrador.
+ *
+ * @function
+ * @name obtenerZonaPorDNI
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si no se encuentra la zona.
+ */
     // .......................................................
     // GET /zona/<dni_admin>
     // .......................................................
@@ -1833,6 +1971,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
+        /**
+ * Obtiene todas las zonas.
+ *
+ * @function
+ * @name obtenerTodasLasZonas
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si no se encuentran zonas.
+ */
     // .......................................................
     // GET /todasZonas/
     // .......................................................
@@ -1859,6 +2006,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
+    /**
+ * Inserta una nueva zona administrativa.
+ *
+ * @function
+ * @name insertarZonaAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la zona no se ha creado correctamente.
+ */
     // .......................................................
     // POST /zona/<datos>
     // .......................................................
@@ -1886,6 +2042,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................UPDATE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Actualiza una zona administrativa por el DNI del administrador.
+ *
+ * @function
+ * @name actualizarZonaAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la zona no se ha actualizado correctamente.
+ */
     // .......................................................
     // POST /actualizarZona/<datos>
     // .......................................................
@@ -1913,6 +2078,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
+/**
+ * Borra todas las zonas administrativas.
+ *
+ * @function
+ * @name borrarTodasLasZonasAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarTodasLasZonas/<tabla>
     // .......................................................
@@ -1926,6 +2099,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Zona_admin")
         }) //
+        /**
+ * Borra una zona administrativa por el DNI del administrador.
+ *
+ * @function
+ * @name borrarZonaPorDNIAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarZonaPorDNI/<tabla>
     // .......................................................
@@ -1956,6 +2137,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
+    /**
+ * Inserta un nuevo administrador para un anuncio.
+ *
+ * @function
+ * @name insertarAdminAnuncio
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el administrador del anuncio no se ha creado correctamente.
+ */
     // .......................................................
     // POST /admin_anuncio/<datos>
     // .......................................................
@@ -1983,6 +2173,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Borra todos los administradores de anuncios.
+ *
+ * @function
+ * @name borrarTodosAdminAnuncio
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarTodosAdminAnuncio/<tabla>
     // .......................................................
@@ -1996,6 +2194,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Admin_anuncio")
         }) //
+        /**
+ * Borra un administrador de anuncios por el DNI del administrador.
+ *
+ * @function
+ * @name borrarAdminAnuncioPorAdmin
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el administrador del anuncio no se ha borrado correctamente.
+ */
     // .......................................................
     // POST /borrarAdminAnuncioPorAdmin/<tabla>
     // .......................................................
@@ -2011,6 +2218,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Admin_anuncio con dni_admin: " + datos.dni_admin)
         }) //
+        /**
+ * Borra un administrador de anuncios por el ID del anuncio.
+ *
+ * @function
+ * @name borrarAdminAnuncioPorAnuncio
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si el administrador del anuncio no se ha borrado correctamente.
+ */
     // .......................................................
     // POST /borrarAdminAnuncioPorAnuncio/<tabla>
     // .......................................................
@@ -2041,6 +2257,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
+    /**
+ * Inserta una nueva relación entre un dispositivo y un anuncio.
+ *
+ * @function
+ * @name insertarDispositivoAnuncio
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la relación entre dispositivo y anuncio no se ha creado correctamente.
+ */
     // .......................................................
     // POST /dispositivo_anuncio/<datos>
     // .......................................................
@@ -2068,6 +2293,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Borra todas las relaciones entre dispositivos y anuncios.
+ *
+ * @function
+ * @name borrarTodosDispositivoAnuncio
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarTodosDispositivoAnuncio/<tabla>
     // .......................................................
@@ -2081,6 +2314,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Dispositivo_anuncio")
         }) //
+        /**
+ * Borra una relación entre dispositivo y anuncio por el ID del dispositivo.
+ *
+ * @function
+ * @name borrarDispositivoAnuncioPorDispositivo
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la relación entre dispositivo y anuncio no se ha borrado correctamente.
+ */
     // .......................................................
     // POST /borrarDispositivoAnuncioPorDispositivo/<tabla>
     // .......................................................
@@ -2096,6 +2338,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Dispositivo_anuncio con dispositivo_id: " + datos.dispositivo_id)
         }) //
+        /**
+ * Borra una relación entre dispositivo y anuncio por el ID del anuncio.
+ *
+ * @function
+ * @name borrarDispositivoAnuncioPorAnuncio
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la relación entre dispositivo y anuncio no se ha borrado correctamente.
+ */
     // .......................................................
     // POST /borrarDispositivoAnuncioPorAnuncio/<tabla>
     // .......................................................
@@ -2126,6 +2377,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
+    /**
+ * Inserta una nueva relación entre una medición y un dispositivo.
+ *
+ * @function
+ * @name insertarMedicionDispositivo
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la relación entre medición y dispositivo no se ha creado correctamente.
+ */
     // .......................................................
     // POST /medicion_dispositivo/<datos>
     // .......................................................
@@ -2153,6 +2413,14 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
+    /**
+ * Borra todas las relaciones entre mediciones y dispositivos.
+ *
+ * @function
+ * @name borrarTodosMedicionDispositivo
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ */
     // .......................................................
     // POST /borrarTodosMedicionDispositivo/<tabla>
     // .......................................................
@@ -2166,6 +2434,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Medicion_dispositivo")
         }) //
+        /**
+ * Borra una relación entre medición y dispositivo por el ID de la medición.
+ *
+ * @function
+ * @name borrarMedicionDispositivoPorMedicion
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la relación entre medición y dispositivo no se ha borrado correctamente.
+ */
     // .......................................................
     // POST /borrarMedicionDispositivoPorMedicion/<tabla>
     // .......................................................
@@ -2181,6 +2458,15 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Medicion_dispositivo con medicion_id: " + datos.medicion_id)
         }) //
+        /**
+ * Borra una relación entre medición y dispositivo por el ID del dispositivo.
+ *
+ * @function
+ * @name borrarMedicionDispositivoPorDispositivo
+ * @param {Object} peticion - Objeto de solicitud.
+ * @param {Object} respuesta - Objeto de respuesta.
+ * @throws {Error} 404 - Si la relación entre medición y dispositivo no se ha borrado correctamente.
+ */
     // .......................................................
     // POST /borrarMedicionDispositivoPorDispositivo/<tabla>
     // .......................................................
