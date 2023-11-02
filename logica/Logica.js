@@ -1309,6 +1309,77 @@ module.exports = class Logica {
             })
         })
     } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // Dispositivo_Anuncio
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dispositivo_id:texto, anuncio_id:texto}
+    // -->
+    // insertarDispositivoAnuncio() -->
+    // .................................................................
+    insertarDispositivoAnuncio(datos) {
+        var textoSQL =
+            'insert into Dispositivo_Anuncio (dispositivo_id, anuncio_id ) values( $dispositivo_id, $anuncio_id );'
+        var valoresParaSQL = { $dispositivo_id: datos.dispositivo_id, $anuncio_id: datos.anuncio_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarTodosDispositivoAnuncio() -->
+    // .................................................................
+    borrarTodosDispositivoAnuncio() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Dispositivo_Anuncio;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // dispositivo_id:texto
+    // -->
+    // borrarDispositivoAnuncioPorDispositivo() -->
+    // .................................................................
+    borrarDispositivoAnuncioPorDispositivo(dispositivo_id) {
+        var textoSQL = "delete * from Dispositivo_Anuncio where dispositivo_id=$dispositivo_id";
+        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // anuncio_id:texto
+    // -->
+    // borrarDispositivoAnuncioPorAnuncio() -->
+    // .................................................................
+    borrarDispositivoAnuncioPorAnuncio(anuncio_id) {
+        var textoSQL = "delete * from Dispositivo_Anuncio where anuncio_id=$anuncio_id";
+        var valoresParaSQL = { $anuncio_id: anuncio_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
     
     
 
