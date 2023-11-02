@@ -531,7 +531,181 @@ module.exports = class Logica {
         })
     } // ()
 
- 
+    // .................................................................
+    //
+    // <<recurso>>
+    // direccion
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // -->
+    // insertarDireccion() -->
+    // .................................................................
+    insertarDireccion(datos) {
+        var textoSQL =
+            'insert into Direccion (dni, codigo_postal, ccaa, provincia, calle ) values( $dni, $codigo_postal, $ccaa, $provincia, $calle );'
+        var valoresParaSQL = { $dni: datos.dni, $codigo_postal: datos.codigo_postal, $ccaa: datos.ccaa, $provincia: datos.provincia, $calle: datos.calle }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << UPDATE >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // -->
+    // actualizarDireccion() -->
+    // .................................................................
+    actualizarPersona(datos) {
+        var textoSQL =
+            'update Direccion set dni=$dni, codigo_postal=$codigo_postal, ccaa=$ccaa, provincia=$provincia, calle=$calle where dni=$dni;'
+        var valoresParaSQL = { $dni: datos.dni, $codigo_postal: datos.codigo_postal, $ccaa: datos.ccaa, $provincia: datos.provincia, $calle: datos.calle }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << GET >>
+    // .................................................................
+
+    // .................................................................
+    // getTodasLasDirecciones() <--
+    // <--
+    // {dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // .................................................................
+    getTodasLasDirecciones() {
+        var textoSQL = "select * from Direccione";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // dni:texto
+    // -->    
+    // getDireccionPorDNI() <--
+    // <--
+    // {dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // .................................................................
+    getDireccionPorDNI(dni) {
+        var textoSQL = "select * from Direccion where dni=$dni";
+        var valoresParaSQL = { $dni: dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // cp:texto
+    // -->    
+    // getDireccionPorCodigoPostal() <--
+    // <--
+    // {dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // .................................................................
+    getDireccionPorCodigoPostal(cp) {
+        var textoSQL = "select * from Direccion where codigo_postal=$cp";
+        var valoresParaSQL = { $cp: cp }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // ccaa:texto
+    // -->    
+    // getDireccionPorCCAA() <--
+    // <--
+    // {dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // .................................................................
+    getDireccionPorCCAA(ccaa) {
+        var textoSQL = "select * from Direccion where ccaa=$ccaa";
+        var valoresParaSQL = { $ccaa: ccaa }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // provincia:texto
+    // -->    
+    // getDireccionPorProvincia() <--
+    // <--
+    // {dni:texto, codigo_postal:texto, ccaa:texto, provincia:texto, calle:texto}
+    // .................................................................
+    getDireccionPorProvincia(provincia) {
+        var textoSQL = "select * from Direccion where provincia=$provincia";
+        var valoresParaSQL = { $provincia: provincia }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarDirecciones() -->
+    // .................................................................
+    borrarDirecciones() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Direccion;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // dni:texto
+    // --> 
+    // borrarDireccionesPorDNI() -->
+    // .................................................................
+    borrarDireccionesPorDNI(dni) {
+        var textoSQL = "delete * from Direccion where dni=$dni";
+        var valoresParaSQL = { $dni: dni }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // zona:texto
+    // --> 
+    // borrarDireccionesPorZona() -->
+    // .................................................................
+    borrarDireccionesPorZona(zona) {
+        var textoSQL = "select * from Direccion where codigo_postal=$zona";
+        var valoresParaSQL = { $zona: zona }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    
+
 
 
     // .................................................................
