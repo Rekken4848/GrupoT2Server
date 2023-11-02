@@ -1,4 +1,32 @@
-// .....................................................................
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ReglasREST.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ReglasREST.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// .....................................................................
 // ReglasREST.js
 // .....................................................................
 // .....................................................................
@@ -14,7 +42,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     }) // get /prueba
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ....................medicion...........................
     // .......................................................
     // .......................................................
@@ -34,7 +62,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
  * @throws {Error} 404 - Si la medición no se encuentra.
  */
     // .......................................................
-    // GET /medicion/<dispositivo_id>
+    // GET /medicion/&lt;dispositivo_id>
     // .......................................................
     servidorExpress.get(
         '/medicion/:dispositivo_id',
@@ -47,7 +75,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var res = await laLogica.buscarMedicionPorDispositivo(dispositivo_id)
             // si el array de resultados no tiene una casilla ...
             console.log(res.length)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la medicion con dispositivo_id: " + dispositivo_id)
                 return
@@ -55,15 +83,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) // get /persona
-        /**
- * Obtiene la última medición.
- *
- * @function
- * @name obtenerUltimaMedicion
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la última medición no se encuentra.
- */
     // .......................................................
     // GET /ultimaMedicion/
     // .......................................................
@@ -82,17 +101,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) // get /matricula
-        /**
- * Obtiene mediciones entre dos fechas.
- *
- * @function
- * @name obtenerMedicionesEntreFechas
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran mediciones entre las fechas proporcionadas.
- */
     // .......................................................
-    // GET /medicionEntreFechas/<fechaInicio, fechaFin>
+    // GET /medicionEntreFechas/&lt;fechaInicio, fechaFin>
     // .......................................................
     servidorExpress.get(
         '/medicionEntreFechas/:fechaInicio/:fechaFin',
@@ -104,7 +114,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.buscarMedicionesEntreFechas(fechaInicio, fechaFin)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen mediciones entre esas fechas")
                 return
@@ -112,15 +122,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) // get /matricula
-        /**
- * Obtiene todas las mediciones.
- *
- * @function
- * @name obtenerTodasLasMediciones
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran mediciones.
- */
     // .......................................................
     // GET /todasMediciones/
     // .......................................................
@@ -133,7 +134,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen mediciones")
                 return
@@ -142,17 +143,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) // get /matricula
-        /**
- * Obtiene mediciones por tipo de valor.
- *
- * @function
- * @name obtenerMedicionPorTipoValor
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran mediciones para el tipo de valor proporcionado.
- */
     // .......................................................
-    // GET /medicionTipoValor/<tipo_valor>
+    // GET /medicionTipoValor/&lt;tipo_valor>
     // .......................................................
     servidorExpress.get(
         '/medicionTipoValor/:tipo_valor',
@@ -163,7 +155,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.buscarMedicionPorTipoValor(tipo_valor)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen mediciones entre esas fechas")
                 return
@@ -171,17 +163,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) // get /matricula
-        /**
- * Obtiene mediciones por administrador.
- *
- * @function
- * @name obtenerMedicionesPorAdmin
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran mediciones para el administrador proporcionado.
- */
     // .......................................................
-    // GET /medicionAdmin/<dni_admin>
+    // GET /medicionAdmin/&lt;dni_admin>
     // .......................................................
     servidorExpress.get(
         '/medicionAdmin/:dni_admin',
@@ -192,7 +175,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.buscarMedicionesEntreFechas(dni_admin)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen mediciones entre esas fechas")
                 return
@@ -205,17 +188,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
-            /**
- * Inserta una nueva medición.
- *
- * @function
- * @name insertarMedicion
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la medición no se ha creado correctamente.
- */
     // .......................................................
-    // POST /medicion/<datos>
+    // POST /medicion/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/medicion',
@@ -228,7 +202,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getUltimaMedicion()
 
-            if (res.length != 1 & datos.fecha == res[0].fecha) {
+            if (res.length != 1 &amp; datos.fecha == res[0].fecha) {
                 // 404: not found
                 respuesta.status(404).send("No se creo la medicion.")
                 return
@@ -240,17 +214,9 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // ......................DELETE...........................
     // .......................................................
-    // ....................................................... 
-/**
- * Borra todas las mediciones.
- *
- * @function
- * @name borrarTodasLasMediciones
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
-    // ....................................................... 
-    // POST /borrarMediciones/<tabla>
+    // .......................................................
+    // .......................................................
+    // POST /borrarMediciones/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarMediciones',
@@ -262,17 +228,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Medicion")
         }) // post /borrarMediciones
-        /**
- * Borra mediciones por dispositivo ID.
- *
- * @function
- * @name borrarMedicionesPorDispositivo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si las mediciones no se han borrado correctamente.
- */
     // .......................................................
-    // POST /borrarMedicionesPorDispositivo/<tabla>
+    // POST /borrarMedicionesPorDispositivo/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarMedicionesPorDispositivo',
@@ -286,17 +243,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Medicion con dispositivo_id: " + datos.dispositivo_id)
         }) // post /borrarMediciones
-        /**
- * Borra mediciones entre dos fechas.
- *
- * @function
- * @name borrarMedicionesEntreFechas
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si las mediciones no se han borrado correctamente.
- */
     // .......................................................
-    // POST /borrarMedicionesEntreFechas/<tabla>
+    // POST /borrarMedicionesEntreFechas/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarMedicionesEntreFechas',
@@ -315,7 +263,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // .....................admin.............................
     // .......................................................
     // .......................................................
@@ -325,17 +273,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
-    /**
- * Obtiene un administrador por su DNI.
- *
- * @function
- * @name obtenerAdminPorDNI
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el administrador no se encuentra.
- */
     // .......................................................
-    // GET /admin/<dni_admin>
+    // GET /admin/&lt;dni_admin>
     // .......................................................
     servidorExpress.get(
         '/admin/:dni_admin',
@@ -348,7 +287,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var res = await laLogica.getAdminPorDNI(dni_admin)
             // si el array de resultados no tiene una casilla ...
             console.log(res.length)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré el admin con dni_admin: " + dni_admin)
                 return
@@ -356,17 +295,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene un administrador por su correo electrónico.
- *
- * @function
- * @name obtenerAdminPorCorreo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el administrador no se encuentra.
- */
     // .......................................................
-    // GET /adminCorreo/<correo>
+    // GET /adminCorreo/&lt;correo>
     // .......................................................
     servidorExpress.get(
         '/adminCorreo/:correo',
@@ -376,7 +306,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var correo = peticion.params.correo
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getAdminPorCorreo(correo)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré el admin con correo: " + correo)
                 return
@@ -384,15 +314,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene todos los administradores.
- *
- * @function
- * @name obtenerTodosLosAdmins
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran administradores.
- */
     // .......................................................
     // GET /todosAdmins/
     // .......................................................
@@ -405,7 +326,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen admins")
                 return
@@ -414,17 +335,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
-        /**
- * Obtiene un administrador por el ID de su dispositivo.
- *
- * @function
- * @name obtenerAdminPorDispositivo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el administrador no se encuentra.
- */
     // .......................................................
-    // GET /adminDispositivo/<dispositivo_id>
+    // GET /adminDispositivo/&lt;dispositivo_id>
     // .......................................................
     servidorExpress.get(
         '/adminDispositivo/:dispositivo_id',
@@ -435,7 +347,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getAdminPorDispositivo(dispositivo_id)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré el admin con dispositivo_id: " + dispositivo_id)
                 return
@@ -443,17 +355,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
-       /**
- * Obtiene un administrador por la zona.
- *
- * @function
- * @name obtenerAdminPorZona
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el administrador no se encuentra.
- */
     // .......................................................
-    // GET /adminZona/<zona>
+    // GET /adminZona/&lt;zona>
     // .......................................................
     servidorExpress.get(
         '/adminZona/:zona',
@@ -464,7 +367,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getAdminPorZona(zona)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré el admin con zona: " + zona)
                 return
@@ -477,17 +380,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
-    /**
- * Inserta un nuevo administrador.
- *
- * @function
- * @name insertarAdmin
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el administrador no se ha creado correctamente.
- */
     // .......................................................
-    // POST /admin/<datos>
+    // POST /admin/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/admin',
@@ -513,17 +407,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................UPDATE...........................
     // .......................................................
     // .......................................................
-    /**
- * Actualiza un administrador existente.
- *
- * @function
- * @name actualizarAdmin
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el administrador no se ha actualizado correctamente.
- */
     // .......................................................
-    // POST /actualizarAdmin/<datos>
+    // POST /actualizarAdmin/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/actualizarAdmin',
@@ -536,7 +421,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getAdminPorDNI(datos.dni_admin)
 
-            if (res.length != 1 && datos != res) {
+            if (res.length != 1 &amp;&amp; datos != res) {
                 // 404: not found
                 respuesta.status(404).send("No se actualizó el admin.")
                 return
@@ -549,16 +434,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
-    /**
- * Borra todos los administradores.
- *
- * @function
- * @name borrarTodosLosAdmins
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarAdmins/<tabla>
+    // POST /borrarAdmins/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAdmins',
@@ -570,16 +447,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Admin")
         }) // post /borrarMediciones
-        /**
- * Borra un administrador por su DNI.
- *
- * @function
- * @name borrarAdminPorDNI
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarAdminPorDNI/<tabla>
+    // POST /borrarAdminPorDNI/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAdminPorDNI',
@@ -598,7 +467,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // .....................persona...........................
     // .......................................................
     // .......................................................
@@ -608,17 +477,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
-    /**
- * Obtiene una persona por su DNI.
- *
- * @function
- * @name obtenerPersonaPorDNI
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la persona no se encuentra.
- */
     // .......................................................
-    // GET /persona/<dni>
+    // GET /persona/&lt;dni>
     // .......................................................
     servidorExpress.get(
         '/persona/:dni',
@@ -629,7 +489,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getPersonaPorDNI(dni)
             // si el array de resultados no tiene una casilla ...
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la persona con dni: " + dni)
                 return
@@ -637,17 +497,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene personas por apellidos.
- *
- * @function
- * @name obtenerPersonasPorApellidos
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si las personas no se encuentran.
- */
     // .......................................................
-    // GET /personasApellidos/<apellidos>
+    // GET /personasApellidos/&lt;apellidos>
     // .......................................................
     servidorExpress.get(
         '/personasApellidos/:apellidos',
@@ -657,7 +508,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var apellidos = peticion.params.apellidos
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getPersonasPorApellidos(apellidos)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré las personas con apellidos: " + apellidos)
                 return
@@ -665,15 +516,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene todas las personas.
- *
- * @function
- * @name obtenerTodasLasPersonas
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran personas.
- */
     // .......................................................
     // GET /todasPersonas/
     // .......................................................
@@ -686,7 +528,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen personas")
                 return
@@ -695,17 +537,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
-        /**
- * Obtiene una persona por el ID de su dispositivo.
- *
- * @function
- * @name obtenerPersonaPorDispositivo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la persona no se encuentra.
- */
     // .......................................................
-    // GET /personaDispositivo/<dispositivo_id>
+    // GET /personaDispositivo/&lt;dispositivo_id>
     // .......................................................
     servidorExpress.get(
         '/personaDispositivo/:dispositivo_id',
@@ -716,7 +549,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getPersonaPorDispositivo(dispositivo_id)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la persona con dispositivo_id: " + dispositivo_id)
                 return
@@ -724,17 +557,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
-        /**
- * Inserta una nueva persona.
- *
- * @function
- * @name obtenerPersonaPorZona
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la persona no se ha creado correctamente.
- */
     // .......................................................
-    // GET /personaZona/<zona>
+    // GET /personaZona/&lt;zona>
     // .......................................................
     servidorExpress.get(
         '/personaZona/:zona',
@@ -745,7 +569,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getPersonasPorZona(zona)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré las personas con zona: " + zona)
                 return
@@ -758,17 +582,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
-    /**
- * Inserta una nueva persona.
- *
- * @function
- * @name insertarPersona
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la persona no se ha creado correctamente.
- */
     // .......................................................
-    // POST /persona/<datos>
+    // POST /persona/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/persona',
@@ -794,17 +609,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................UPDATE...........................
     // .......................................................
     // .......................................................
-    /**
- * Actualiza una persona existente.
- *
- * @function
- * @name actualizarPersona
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la persona no se ha actualizado correctamente.
- */
     // .......................................................
-    // POST /actualizarPersona/<datos>
+    // POST /actualizarPersona/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/actualizarPersona',
@@ -817,7 +623,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getPersonaPorDNI(datos.dni)
 
-            if (res.length != 1 && datos != res) {
+            if (res.length != 1 &amp;&amp; datos != res) {
                 // 404: not found
                 respuesta.status(404).send("No se actualizó la persona.")
                 return
@@ -830,16 +636,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
-    /**
- * Borra todas las personas.
- *
- * @function
- * @name borrarTodasLasPersonas
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarPersonas/<tabla>
+    // POST /borrarPersonas/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarPersonas',
@@ -851,16 +649,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Persona")
         }) //
-        /**
- * Borra una persona por su DNI.
- *
- * @function
- * @name borrarPersonaPorDNI
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarPersonaPorDNI/<tabla>
+    // POST /borrarPersonaPorDNI/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarPersonaPorDNI',
@@ -874,16 +664,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Persona con dni: " + datos.dni)
         }) //
-        /**
- * Borra una persona por el ID de su dispositivo.
- *
- * @function
- * @name borrarPersonaPorDispositivo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarPersonaPorDispositivo/<tabla>
+    // POST /borrarPersonaPorDispositivo/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarPersonaPorDispositivo',
@@ -902,7 +684,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ...................direccion...........................
     // .......................................................
     // .......................................................
@@ -912,17 +694,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
-    /**
- * Obtiene una dirección por el DNI de la persona asociada.
- *
- * @function
- * @name obtenerDireccionPorDNI
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la dirección no se encuentra.
- */
     // .......................................................
-    // GET /direccion/<dni>
+    // GET /direccion/&lt;dni>
     // .......................................................
     servidorExpress.get(
         '/direccion/:dni',
@@ -933,7 +706,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getDireccionPorDNI(dni)
             // si el array de resultados no tiene una casilla ...
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la direccion con dni: " + dni)
                 return
@@ -941,17 +714,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene direcciones por código postal.
- *
- * @function
- * @name obtenerDireccionesPorCodigoPostal
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si las direcciones no se encuentran.
- */
     // .......................................................
-    // GET /direccionCP/<CP>
+    // GET /direccionCP/&lt;CP>
     // .......................................................
     servidorExpress.get(
         '/direccionCP/:cp',
@@ -961,7 +725,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var cp = peticion.params.cp
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getDireccionesPorCodigoPostal(cp)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré las direcciones con cp: " + cp)
                 return
@@ -969,15 +733,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene todas las direcciones.
- *
- * @function
- * @name obtenerTodasLasDirecciones
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran direcciones.
- */
     // .......................................................
     // GET /todasDirecciones/
     // .......................................................
@@ -990,7 +745,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen direcciones")
                 return
@@ -999,17 +754,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
-        /**
- * Obtiene direcciones por comunidad autónoma (CCAA).
- *
- * @function
- * @name obtenerDireccionesPorCCAA
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la dirección no se encuentra.
- */
     // .......................................................
-    // GET /direccionCCAA/<ccaa>
+    // GET /direccionCCAA/&lt;ccaa>
     // .......................................................
     servidorExpress.get(
         '/direccionCCAA/:ccaa',
@@ -1020,7 +766,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getDireccionesPorCCAA(ccaa)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la direccion con ccaa: " + ccaa)
                 return
@@ -1028,17 +774,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res))
         }) //
-        /**
- * Obtiene direcciones por provincia.
- *
- * @function
- * @name obtenerDireccionesPorProvincia
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si las direcciones no se encuentran.
- */
     // .......................................................
-    // GET /direccionProvincia/<provincia>
+    // GET /direccionProvincia/&lt;provincia>
     // .......................................................
     servidorExpress.get(
         '/direccionProvincia/:provincia',
@@ -1049,7 +786,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getDireccionesPorProvincia(provincia)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré las personas con provincia: " + provincia)
                 return
@@ -1062,17 +799,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
-    /**
- * Inserta una nueva dirección.
- *
- * @function
- * @name insertarDireccion
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la dirección no se ha creado correctamente.
- */
     // .......................................................
-    // POST /direccion/<datos>
+    // POST /direccion/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/direccion',
@@ -1098,17 +826,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................UPDATE...........................
     // .......................................................
     // .......................................................
-    /**
- * Actualiza una dirección existente.
- *
- * @function
- * @name actualizarDireccion
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si la dirección no se ha actualizado correctamente.
- */
     // .......................................................
-    // POST /actualizarDireccion/<datos>
+    // POST /actualizarDireccion/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/actualizarDireccion',
@@ -1121,7 +840,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getDireccionPorDNI(datos.dni)
 
-            if (res.length != 1 && datos != res) {
+            if (res.length != 1 &amp;&amp; datos != res) {
                 // 404: not found
                 respuesta.status(404).send("No se actualizó la direccion.")
                 return
@@ -1134,16 +853,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
-    /**
- * Borra todas las direcciones.
- *
- * @function
- * @name borrarTodasLasDirecciones
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarDirecciones/<tabla>
+    // POST /borrarDirecciones/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDirecciones',
@@ -1155,16 +866,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Direccion")
         }) //
-        /**
- * Borra una dirección por el DNI de la persona asociada.
- *
- * @function
- * @name borrarDireccionPorDNI
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarDireccionPorDNI/<tabla>
+    // POST /borrarDireccionPorDNI/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDireccionPorDNI',
@@ -1178,16 +881,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Direccion con dni: " + datos.dni)
         }) //
-        /**
- * Borra direcciones por zona.
- *
- * @function
- * @name borrarDireccionesPorZona
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarDireccionesPorZona/<tabla>
+    // POST /borrarDireccionesPorZona/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDireccionesPorZona',
@@ -1206,7 +901,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // .....................anuncio...........................
     // .......................................................
     // .......................................................
@@ -1216,17 +911,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................GET.............................
     // .......................................................
     // .......................................................
-    /**
- * Obtiene anuncios por el DNI del administrador asociado.
- *
- * @function
- * @name obtenerAnunciosPorAdmin
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si los anuncios no se encuentran.
- */
     // .......................................................
-    // GET /anuncioAdmin/<dni_admin>
+    // GET /anuncioAdmin/&lt;dni_admin>
     // .......................................................
     servidorExpress.get(
         '/anuncioAdmin/:dni_admin',
@@ -1237,7 +923,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getAnunciosPorAdmin(dni_admin)
             // si el array de resultados no tiene una casilla ...
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré los anuncios con dni_admin: " + dni_admin)
                 return
@@ -1245,17 +931,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene anuncios por el ID del dispositivo asociado.
- *
- * @function
- * @name obtenerAnunciosPorDispositivo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si los anuncios no se encuentran.
- */
     // .......................................................
-    // GET /anuncioDispositivo/<dispositivo_id>
+    // GET /anuncioDispositivo/&lt;dispositivo_id>
     // .......................................................
     servidorExpress.get(
         '/anuncioDispositivo/:dispositivo_id',
@@ -1265,7 +942,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var dispositivo_id = peticion.params.dispositivo_id
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getAnunciosPorDispositivo(dispositivo_id)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré los anuncios con dispositivo_id: " + dispositivo_id)
                 return
@@ -1273,15 +950,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send(JSON.stringify(res[0]))
         }) //
-        /**
- * Obtiene todos los anuncios.
- *
- * @function
- * @name obtenerTodosLosAnuncios
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si no se encuentran anuncios.
- */
     // .......................................................
     // GET /todosAnuncios/
     // .......................................................
@@ -1294,7 +962,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen anuncios")
                 return
@@ -1308,17 +976,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................POST............................
     // .......................................................
     // .......................................................
-    /**
- * Inserta un nuevo anuncio.
- *
- * @function
- * @name insertarAnuncio
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el anuncio no se ha creado correctamente.
- */
     // .......................................................
-    // POST /anuncio/<datos>
+    // POST /anuncio/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/anuncio',
@@ -1344,17 +1003,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................UPDATE...........................
     // .......................................................
     // .......................................................
-    /**
- * Actualiza un anuncio existente.
- *
- * @function
- * @name actualizarAnuncio
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- * @throws {Error} 404 - Si el anuncio no se ha actualizado correctamente.
- */
     // .......................................................
-    // POST /actualizarAnuncio/<datos>
+    // POST /actualizarAnuncio/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/actualizarAnuncio',
@@ -1367,7 +1017,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             /*var res = await laLogica.getDireccionPorDNI(datos.dni)
 
-            if (res.length != 1 && datos != res) {
+            if (res.length != 1 &amp;&amp; datos != res) {
                 // 404: not found
                 respuesta.status(404).send("No se actualizó la direccion.")
                 return
@@ -1380,16 +1030,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ......................DELETE...........................
     // .......................................................
     // .......................................................
-/**
- * Borra todos los anuncios.
- *
- * @function
- * @name borrarTodosLosAnuncios
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarAnuncios/<tabla>
+    // POST /borrarAnuncios/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAnuncios',
@@ -1401,16 +1043,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Anuncio")
         }) //
-        /**
- * Borra anuncios por el DNI del administrador asociado.
- *
- * @function
- * @name borrarAnunciosPorAdmin
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarAnunciosPorAdmin/<tabla>
+    // POST /borrarDireccionPorDNI/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAnunciosPorAdmin',
@@ -1424,16 +1058,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Anuncio con dni_admin: " + datos.dni_admin)
         }) //
-        /**
- * Borra anuncios por el ID del dispositivo asociado.
- *
- * @function
- * @name borrarAnunciosPorDispositivo
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarAnunciosPorDispositivo/<tabla>
+    // POST /borrarAnunciosPorDispositivo/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAnunciosPorDispositivo',
@@ -1447,16 +1073,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // todo ok
             respuesta.send("Filas borradas de la tabla Anuncio con dispositivo_id: " + datos.dispositivo_id)
         }) //
-        /**
- * Borra un anuncio por su ID.
- *
- * @function
- * @name borrarAnuncioPorId
- * @param {Object} peticion - Objeto de solicitud.
- * @param {Object} respuesta - Objeto de respuesta.
- */
     // .......................................................
-    // POST /borrarAnuncioPorId/<tabla>
+    // POST /borrarAnuncioPorId/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAnuncioPorId',
@@ -1475,7 +1093,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ..................dispositivo..........................
     // .......................................................
     // .......................................................
@@ -1486,7 +1104,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // GET /dispositivo/<dni>
+    // GET /dispositivo/&lt;dni>
     // .......................................................
     servidorExpress.get(
         '/dispositivo/:dni',
@@ -1497,7 +1115,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getDispositivoPorPersona(dni)
             // si el array de resultados no tiene una casilla ...
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré el dispositivo con dni: " + dni)
                 return
@@ -1506,7 +1124,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res[0]))
         }) //
     // .......................................................
-    // GET /dispositivoAdmin/<dni_admin>
+    // GET /dispositivoAdmin/&lt;dni_admin>
     // .......................................................
     servidorExpress.get(
         '/dispositivoAdmin/:dni_admin',
@@ -1516,7 +1134,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var dni_admin = peticion.params.dni_admin
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getDispositivosPorAdmin(dni_admin)
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré los dispositivos con dni_admin: " + dni_admin)
                 return
@@ -1536,7 +1154,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen dispositivos")
                 return
@@ -1546,7 +1164,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
-    // GET /dispositivoZona/<zona>
+    // GET /dispositivoZona/&lt;zona>
     // .......................................................
     servidorExpress.get(
         '/dispositivoZona/:zona',
@@ -1557,7 +1175,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getDispositivosPorZona(zona)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré los dispositivos con zona: " + zona)
                 return
@@ -1566,7 +1184,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
-    // GET /dispositivoMedicion/<medicion_id>
+    // GET /dispositivoMedicion/&lt;medicion_id>
     // .......................................................
     servidorExpress.get(
         '/dispositivoMedicion/:medicion_id',
@@ -1577,7 +1195,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getDispositivosPorMedicion(medicion_id)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré los dispositivos con medicion_id: " + medicion_id)
                 return
@@ -1591,7 +1209,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /dispositivo/<datos>
+    // POST /dispositivo/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/dispositivo',
@@ -1618,7 +1236,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /actualizarDispositivo/<datos>
+    // POST /actualizarDispositivo/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/actualizarDispositivo',
@@ -1631,7 +1249,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getDispositivoPorPersona(datos.dni)
 
-            if (res.length != 1 && datos != res) {
+            if (res.length != 1 &amp;&amp; datos != res) {
                 // 404: not found
                 respuesta.status(404).send("No se actualizó el dispositivo.")
                 return
@@ -1645,7 +1263,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /borrarDispositivos/<tabla>
+    // POST /borrarDispositivos/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDispositivos',
@@ -1658,7 +1276,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Dispositivo")
         }) //
     // .......................................................
-    // POST /borrarDispositivoPorId/<tabla>
+    // POST /borrarDispositivoPorId/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDispositivoPorId',
@@ -1673,7 +1291,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Dispositivo con dispositivo_id: " + datos.dispositivo_id)
         }) //
     // .......................................................
-    // POST /borrarDispositivoPorPersona/<tabla>
+    // POST /borrarDispositivoPorPersona/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDispositivoPorPersona',
@@ -1688,7 +1306,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Dispositivo con dni: " + datos.dni)
         }) //
     // .......................................................
-    // POST /borrarDispositivoPorAdmin/<tabla>
+    // POST /borrarDispositivoPorAdmin/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDispositivosPorAdmin',
@@ -1707,7 +1325,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ....................tipoValor..........................
     // .......................................................
     // .......................................................
@@ -1729,7 +1347,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen tipos de valores")
                 return
@@ -1744,7 +1362,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /tipoValor/<datos>
+    // POST /tipoValor/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/tipoValor',
@@ -1771,7 +1389,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /borrarTiposValor/<tabla>
+    // POST /borrarTiposValor/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarTiposValor',
@@ -1784,7 +1402,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla TipoValor")
         }) //
     // .......................................................
-    // POST /borrarTipoValor/<tabla>
+    // POST /borrarTipoValor/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarTipoValor',
@@ -1803,7 +1421,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ...................zona_admin..........................
     // .......................................................
     // .......................................................
@@ -1814,7 +1432,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // GET /zona/<dni_admin>
+    // GET /zona/&lt;dni_admin>
     // .......................................................
     servidorExpress.get(
         '/zona/:dni_admin',
@@ -1825,7 +1443,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getZonaPorDNI(dni_admin)
             // si el array de resultados no tiene una casilla ...
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la zona con dni_admin: " + dni_admin)
                 return
@@ -1845,7 +1463,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             console.log(res)
 
-            if (res.length < 1) {
+            if (res.length &lt; 1) {
                 // 404: not found
                 respuesta.status(404).send("no existen zonas")
                 return
@@ -1860,7 +1478,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /zona/<datos>
+    // POST /zona/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/zona',
@@ -1887,7 +1505,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /actualizarZona/<datos>
+    // POST /actualizarZona/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/actualizarZona',
@@ -1900,7 +1518,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var res = await laLogica.getZonaPorDNI(datos.dni_admin)
 
-            if (res.length != 1 && datos != res) {
+            if (res.length != 1 &amp;&amp; datos != res) {
                 // 404: not found
                 respuesta.status(404).send("No se actualizó la zona.")
                 return
@@ -1914,7 +1532,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /borrarTodasLasZonas/<tabla>
+    // POST /borrarTodasLasZonas/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarTodasLasZonas',
@@ -1927,7 +1545,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Zona_admin")
         }) //
     // .......................................................
-    // POST /borrarZonaPorDNI/<tabla>
+    // POST /borrarZonaPorDNI/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarZonaPorDNI',
@@ -1946,7 +1564,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ..................admin_anuncio........................
     // .......................................................
     // .......................................................
@@ -1957,7 +1575,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /admin_anuncio/<datos>
+    // POST /admin_anuncio/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/admin_anuncio',
@@ -1984,7 +1602,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /borrarTodosAdminAnuncio/<tabla>
+    // POST /borrarTodosAdminAnuncio/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarTodosAdminAnuncio',
@@ -1997,7 +1615,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Admin_anuncio")
         }) //
     // .......................................................
-    // POST /borrarAdminAnuncioPorAdmin/<tabla>
+    // POST /borrarAdminAnuncioPorAdmin/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAdminAnuncioPorAdmin',
@@ -2012,7 +1630,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Admin_anuncio con dni_admin: " + datos.dni_admin)
         }) //
     // .......................................................
-    // POST /borrarAdminAnuncioPorAnuncio/<tabla>
+    // POST /borrarAdminAnuncioPorAnuncio/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarAdminAnuncioPorAnuncio',
@@ -2031,7 +1649,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ...............dispositivo_anuncio.....................
     // .......................................................
     // .......................................................
@@ -2042,7 +1660,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /dispositivo_anuncio/<datos>
+    // POST /dispositivo_anuncio/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/dispositivo_anuncio',
@@ -2069,7 +1687,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /borrarTodosDispositivoAnuncio/<tabla>
+    // POST /borrarTodosDispositivoAnuncio/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarTodosDispositivoAnuncio',
@@ -2082,7 +1700,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Dispositivo_anuncio")
         }) //
     // .......................................................
-    // POST /borrarDispositivoAnuncioPorDispositivo/<tabla>
+    // POST /borrarDispositivoAnuncioPorDispositivo/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDispositivoAnuncioPorDispositivo',
@@ -2097,7 +1715,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Dispositivo_anuncio con dispositivo_id: " + datos.dispositivo_id)
         }) //
     // .......................................................
-    // POST /borrarDispositivoAnuncioPorAnuncio/<tabla>
+    // POST /borrarDispositivoAnuncioPorAnuncio/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarDispositivoAnuncioPorAnuncio',
@@ -2116,7 +1734,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
     // .......................................................
     // .......................................................
-    // ..................<<recursos>>.........................
+    // ..................&lt;&lt;recursos>>.........................
     // ...............medicion_dispositivo....................
     // .......................................................
     // .......................................................
@@ -2127,7 +1745,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /medicion_dispositivo/<datos>
+    // POST /medicion_dispositivo/&lt;datos>
     // .......................................................
     servidorExpress.post(
         '/medicion_dispositivo',
@@ -2154,7 +1772,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
-    // POST /borrarTodosMedicionDispositivo/<tabla>
+    // POST /borrarTodosMedicionDispositivo/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarTodosMedicionDispositivo',
@@ -2167,7 +1785,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Medicion_dispositivo")
         }) //
     // .......................................................
-    // POST /borrarMedicionDispositivoPorMedicion/<tabla>
+    // POST /borrarMedicionDispositivoPorMedicion/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarMedicionDispositivoPorMedicion',
@@ -2182,7 +1800,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send("Filas borradas de la tabla Medicion_dispositivo con medicion_id: " + datos.medicion_id)
         }) //
     // .......................................................
-    // POST /borrarMedicionDispositivoPorDispositivo/<tabla>
+    // POST /borrarMedicionDispositivoPorDispositivo/&lt;tabla>
     // .......................................................
     servidorExpress.post(
         '/borrarMedicionDispositivoPorDispositivo',
@@ -2200,4 +1818,26 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // ..............................................................................................................
 } // cargar()
 // .....................................................................
-// .....................................................................
+// .....................................................................</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#obtenerMedicionPorDispositivo">obtenerMedicionPorDispositivo</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 02 2023 17:16:59 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
