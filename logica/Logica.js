@@ -1231,7 +1231,78 @@ module.exports = class Logica {
     // .................................................................
     borrarZonaPorDNI(dni_admin) {
         var textoSQL = "delete * from Zona_Admin where dni_admin=$dni_admin";
-        var valoresParaSQL = { $dni_admin: datos.dni_admin }
+        var valoresParaSQL = { $dni_admin: dni_admin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // Admin_Anuncio
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{dni_admin:texto, anuncio_id:texto}
+    // -->
+    // insertarAdminAnuncio() -->
+    // .................................................................
+    insertarAdminAnuncio(datos) {
+        var textoSQL =
+            'insert into Admin_Anuncio (dni_admin, anuncio_id ) values( $dni_admin, $anuncio_id );'
+        var valoresParaSQL = { $dni_admin: datos.dni_admin, $anuncio_id: datos.anuncio_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarTodosAdminAnuncio() -->
+    // .................................................................
+    borrarTodosAdminAnuncio() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from Admin_Anuncio;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // dni_admin:texto
+    // -->
+    // borrarAdminAnuncioPorAdmin() -->
+    // .................................................................
+    borrarAdminAnuncioPorAdmin(dni_admin) {
+        var textoSQL = "delete * from Admin_Anuncio where dni_admin=$dni_admin";
+        var valoresParaSQL = { $dni_admin: dni_admin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+    // .................................................................
+    // anuncio_id:texto
+    // -->
+    // borrarAdminAnuncioPorAnuncio() -->
+    // .................................................................
+    borrarAdminAnuncioPorAnuncio(anuncio_id) {
+        var textoSQL = "delete * from Admin_Anuncio where anuncio_id=$anuncio_id";
+        var valoresParaSQL = { $anuncio_id: anuncio_id }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
