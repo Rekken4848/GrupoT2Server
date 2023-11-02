@@ -167,15 +167,15 @@ module.exports = class Logica {
         })
     } // ()
     // .................................................................
-    // dispositivo_id:Texto
+    // datos:{dispositivo_id:texto, dni_empleado:texto}
     // -->
     // borrarMedicionesPorDispositivo() -->
     // .................................................................
-    borrarMedicionesPorDispositivo( dispositivo ) {
-        var valoresParaSQL = { $dispositivo: dispositivo }
+    borrarMedicionesPorDispositivo( datos ) {
+        var valoresParaSQL = { $dispositivo_id: datos.dispositivo_id }
         return new Promise( (resolver, rechazar) => {
             this.laConexion.run(
-                "delete from Medicion where dispositivo_id=$dispositivo;",
+                "delete from Medicion where dispositivo_id=$dispositivo_id;",
                 valoresParaSQL,
                 (err)=> ( err ? rechazar(err) : resolver() )
             )
@@ -1044,6 +1044,82 @@ module.exports = class Logica {
     borrarDispositivosPorAdmin(dni_admin) {
         var textoSQL = "elete Dispositivo.dispositivo_id, Dispositivo.dni_empleado from Dispositivo, Persona, Direccion, Zona_Admin, Admin where Dispositivo.dni_empleado=Persona.dni and Persona.dni=Direccion.dni and Direccion.codigo_postal=Zona_Admin.zona and Zona_Admin.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
         var valoresParaSQL = { $dni_admin: dni_admin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //
+    // <<recurso>>
+    // tipoValor
+    //
+    // .................................................................
+
+    // .................................................................
+    //  << POST >>
+    // .................................................................
+
+    // .................................................................
+    // datos:{tipo_valor_id:texto, tipo_valor:texto}
+    // -->
+    // insertarTipoValor() -->
+    // .................................................................
+    insertarDispositivo(datos) {
+        var textoSQL =
+            'insert into TipoValor (tipo_valor_id, tipo_valor ) values( $tipo_valor_id, $tipo_valor );'
+        var valoresParaSQL = { $tipo_valor_id: datos.tipo_valor_id, $tipo_valor: datos.tipo_valor }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
+                (err ? rechazar(err) : resolver())
+            })
+        })
+    } // ()
+
+    // .................................................................
+    //  << GET >>
+    // .................................................................
+
+    // .................................................................
+    // getTodosLosTipoValor() <--
+    // <--
+    // {tipo_valor_id:texto, tipo_valor:texto}
+    // .................................................................
+    getTodosLosTipoValor() {
+        var textoSQL = "select * from TipoValor";
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+
+    // .................................................................
+    //  << DELETE >>
+    // .................................................................
+
+    // .................................................................
+    // borrarTiposValor() -->
+    // .................................................................
+    borrarTiposValor() {
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.run(
+                "delete from TipoValor;",
+                (err) => (err ? rechazar(err) : resolver())
+            )
+        })
+    } // ()
+    // .................................................................
+    // datos: { tipo_valor_id: texto, tipo_valor: texto }
+    // -->
+    // borrarTipoValor() -->
+    // .................................................................
+    borrarTipoValor(datos) {
+        var textoSQL = "delete * from TipoValor where tipo_valor_id=$tipo_valor_id";
+        var valoresParaSQL = { $tipo_valor_id: datos.tipo_valor_id }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
