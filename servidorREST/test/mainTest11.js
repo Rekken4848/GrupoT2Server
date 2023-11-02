@@ -15,10 +15,10 @@ const IP_PUERTO = "http://localhost:8080"
 describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     // ....................................................
     // ....................................................
-    it( "Primero borro Medicion_Dispositivo que pueda haber en la bbdd", function( hecho ) {
+    it( "Primero borro dispositivo_anuncio que pueda haber en la bbdd", function( hecho ) {
         var Medicion_Dispositivo = {  }
         request.post(
-            { url : IP_PUERTO+"/borrarTodosMedicionDispositivo",
+            { url : IP_PUERTO+"/borrarTodosDispositivoAnuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
                 body : JSON.stringify( Medicion_Dispositivo )
             },
@@ -31,28 +31,12 @@ describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto un tipo valor para que funcione la medicion", function( hecho ) {
-        var tipo_valor = { tipo_valor: 'CO3' }
+    it( "Inserto un anuncio para que funcione", function( hecho ) {
+        var anuncio = { contenido: 'Se me ha roto muy fuerte el sensor.', titulo: 'Se rompió el sensor' }
         request.post(
-            { url : IP_PUERTO+"/tipoValor",
+            { url : IP_PUERTO+"/anuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( tipo_valor )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Inserto la medicion para continuar", function( hecho ) {
-        var zona = { valor: 12.34, tipo_valor_id: 1, fecha: '2023-10-15 16:32:40', lugar: '10.1234,20.5678' }
-        request.post(
-            { url : IP_PUERTO+"/medicion",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -95,12 +79,12 @@ describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una Medicion_Dispositivo", function( hecho ) {
-        var medicion_dispositivo = { dispositivo_id: 'FFFFFFFFFF', anuncio_id: 1 }
+    it( "Inserto una dispositivo_anuncio", function( hecho ) {
+        var dispositivo_anuncio = { dispositivo_id: 'FFFFFFFFFF', anuncio_id: 1 }
         request.post(
-            { url : IP_PUERTO+"/medicion_dispositivo",
+            { url : IP_PUERTO+"/dispositivo_anuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion_dispositivo )
+                body : JSON.stringify( dispositivo_anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -111,12 +95,12 @@ describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Borro medicion_dispositivo por medicion", function( hecho ) {
-        var medicion = { medicion_id: 1 }
+    it( "Borro dispositivo_anuncio por dispositivo", function( hecho ) {
+        var dispositivo = { medicion_id: 1 }
         request.post(
-            { url : IP_PUERTO+"/borrarMedicionDispositivoPorMedicion",
+            { url : IP_PUERTO+"/borrarDispositivoAnuncioPorDispositivo",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -128,27 +112,11 @@ describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     // ....................................................
     // ....................................................
     it( "Inserto un tipo valor para que funcione la medicion", function( hecho ) {
-        var tipo_valor = { tipo_valor: 'CO3' }
+        var anuncio = { contenido: 'Se me ha roto muy fuerte el sensor.', titulo: 'Se rompió el sensor' }
         request.post(
-            { url : IP_PUERTO+"/tipoValor",
+            { url : IP_PUERTO+"/anuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( tipo_valor )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Inserto la medicion para continuar", function( hecho ) {
-        var zona = { valor: 12.34, tipo_valor_id: 1, fecha: '2023-10-15 16:32:40', lugar: '10.1234,20.5678' }
-        request.post(
-            { url : IP_PUERTO+"/medicion",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -191,12 +159,12 @@ describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una Medicion_Dispositivo", function( hecho ) {
-        var medicion_dispositivo = { medicion_id: 1, dispositivo_id: 'FFFFFFFFFF' }
+    it( "Inserto una dispositivo_anuncio", function( hecho ) {
+        var dispositivo_anuncio = { dispositivo_id: 'FFFFFFFFFF', anuncio_id: 1 }
         request.post(
-            { url : IP_PUERTO+"/medicion_dispositivo",
+            { url : IP_PUERTO+"/dispositivo_anuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion_dispositivo )
+                body : JSON.stringify( dispositivo_anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -207,12 +175,12 @@ describe( "Tarea 2: Funciones basicas de dispositivo_anuncio", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Borro medicion_dispositivo por dispositivo", function( hecho ) {
-        var dispositivo = { dispositivo_id: 'FFFFFFFFFF' }
+    it( "Borro dispositivo_anuncio por anuncio", function( hecho ) {
+        var anuncio = { anuncio_id: 1 }
         request.post(
-            { url : IP_PUERTO+"/borrarMedicionDispositivoPorDispositivo",
+            { url : IP_PUERTO+"/borrarDispositivoAnuncioPorAnuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( dispositivo )
+                body : JSON.stringify( anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
