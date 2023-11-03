@@ -9,7 +9,7 @@ var assert = require ('assert')
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 2: Funciones basicas de Medicion", function() {
+describe( "Tarea 3: Funciones basicas de Anuncio", function() {
     // ....................................................
     // ....................................................
     var laLogica = null
@@ -29,36 +29,36 @@ describe( "Tarea 2: Funciones basicas de Medicion", function() {
     // ....................................................
     // ....................................................
     // ....................................................
-    it("Borrar todas las mediciones", async function () {
+    it("Borrar todos los anuncios", async function () {
         //await laLogica.borrarTodosAdminAnuncio()
         //await laLogica.borrarTodosDispositivoAnuncio()
 
         //await laLogica.borrarTodosMedicionDispositivo()
         //await laLogica.borrarMediciones()
 
-        //await laLogica.borrarAnuncios()
+        await laLogica.borrarAnuncios()
         //await laLogica.borrarTiposValor()
         //await laLogica.borrarDispositivos()
         //await laLogica.borrarDirecciones()
         //await laLogica.borrarTodasLasZonas()
-        await laLogica.borrarAdmins()
+        //await laLogica.borrarAdmins()
         //await laLogica.borrarPersonas()
 
         //assert.equal(res.length, 0, "¿hay un resulado?")
     }) // it
     // ....................................................
     // ....................................................
-    it("Inserto una medicion", async function () {
-        await laLogica.insertarMedicion({ valor: 80, tipo_valor_id: 5, fecha: '2023-10-15 19:00:00', lugar: "Id_para_Test" })
+    it("Inserto un anuncio", async function () {
+        await laLogica.insertarAnuncio({ anuncio_id: 10, contenido: "Prueba", titulo: 'Titulo prueba' })
     }) // it
 
 
     // ....................................................
     // ....................................................
-    it( "Busco la medida mas reciente",
+    it( "Busco todos los anuncios",
         async function() {
-            var res = await laLogica.getUltimaMedicion()
-        }) // it
+            var res = await laLogica.getTodosLosAnuncios()
+    }) // it
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",
