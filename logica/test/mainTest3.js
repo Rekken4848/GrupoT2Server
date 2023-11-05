@@ -29,36 +29,53 @@ describe( "Tarea 3: Funciones basicas de Anuncio", function() {
     // ....................................................
     // ....................................................
     // ....................................................
-    it("Borrar todos los anuncios", async function () {
-        //await laLogica.borrarTodosAdminAnuncio()
-        //await laLogica.borrarTodosDispositivoAnuncio()
 
-        //await laLogica.borrarTodosMedicionDispositivo()
-        //await laLogica.borrarMediciones()
-
-        await laLogica.borrarAnuncios()
-        //await laLogica.borrarTiposValor()
-        //await laLogica.borrarDispositivos()
-        //await laLogica.borrarDirecciones()
-        //await laLogica.borrarTodasLasZonas()
-        //await laLogica.borrarAdmins()
-        //await laLogica.borrarPersonas()
-
-        //assert.equal(res.length, 0, "¿hay un resulado?")
-    }) // it
-    // ....................................................
-    // ....................................................
     it("Inserto un anuncio", async function () {
         await laLogica.insertarAnuncio({ anuncio_id: 10, contenido: "Prueba", titulo: 'Titulo prueba' })
     }) // it
 
+    // ....................................................
+    // ....................................................
+
+    it("Actualizamos un anuncio", async function () {
+        await laLogica.actualizarAnuncio({ anuncio_id: 10, contenido: "Prueba2", titulo: 'Titulo prueba 2' })
+    }) // it
 
     // ....................................................
     // ....................................................
+
     it( "Busco todos los anuncios",
         async function() {
-            var res = await laLogica.getTodosLosAnuncios()
+            await laLogica.getTodosLosAnuncios()
     }) // it
+
+    // ....................................................
+    // ....................................................
+
+    it("Busco anuncios por admin",
+        async function () {
+            await laLogica.getAnunciosPorAdmin('44444443Insert')
+        }) // it
+
+    // ....................................................
+    // ....................................................
+
+    it("Busco anuncios por dispositivos",
+        async function () {
+            await laLogica.getAnunciosPorDispositivo('dispositivoInsert2')
+        }) // it
+
+    // ....................................................
+    // ....................................................
+
+    //----- borrar test para prueba global de todos los tests -------->>
+    it("Borramos anuncio por el id",
+        async function () {
+            await laLogica.borrarAnunciosPorId(10)
+        }) // it
+    //----- borrar test para prueba global de todos los tests --------<<
+
+
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",

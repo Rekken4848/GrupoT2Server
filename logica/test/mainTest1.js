@@ -27,44 +27,75 @@ describe( "Tarea 1: Funciones basicas de persona", function() {
             })
     }) // it
 
-
-    // ....................................................
-    // ....................................................
-    it("Borrar todas las personas", async function () {
-        //await laLogica.borrarTodosAdminAnuncio()
-        //await laLogica.borrarTodosDispositivoAnuncio()
-
-        //await laLogica.borrarTodosMedicionDispositivo()
-        //await laLogica.borrarMediciones()
-
-        //await laLogica.borrarAnuncios()
-        //await laLogica.borrarTiposValor()
-        //await laLogica.borrarDispositivos()
-        //await laLogica.borrarDirecciones()
-        //await laLogica.borrarTodasLasZonas()
-        //await laLogica.borrarAdmins()
-        await laLogica.borrarPersonas()
-        
-        //assert.equal(res.length, 0, "¿hay un resulado?")
-    }) // it
-
     // ....................................................
     // ....................................................
 
     it("Inserto una persona", async function () {
-        var persona = { dni: '44444444E', nombre: 'Mario', apellidos: 'Casas', correo: 'mariocasas@gmail.com', telefono: '999999999' }
+        var persona = { dni: '44444444T', nombre: 'Mario', apellidos: 'Casas', correo: 'mariocasas@gmail.com', telefono: '999999999' }
         await laLogica.insertarPersona(persona)
     }) // it
 
-    
     // ....................................................
     // ....................................................
-    it( "Buscamos todas las personas",
-        async function() {
-            await laLogica.getTodasLasPersonas(  )
+
+    it("Actualizamos una persona", async function () {
+        var persona = { dni: '44444444T', nombre: 'Mario2', apellidos: 'Casas2', correo: 'mariocasas2@gmail.com', telefono: '999999991' }
+        await laLogica.actualizarPersona(persona)
     }) // it
+
     // ....................................................
     // ....................................................
+
+    it("Buscamos todas las personas",
+        async function () {
+            await laLogica.getTodasLasPersonas()
+        }) // it
+
+    // ....................................................
+    // ....................................................
+
+    it("Buscamos persona por dni",
+        async function () {
+            await laLogica.getPersonaPorDNI('44444444T')
+    }) // it
+
+    // ....................................................
+    // ....................................................
+
+    it("Buscamos personas por apellido",
+        async function () {
+            await laLogica.getPersonasPorApellidos('Casas2')
+    }) // it
+
+    // ....................................................
+    // ....................................................
+
+    it("Buscamos personas por zona/codigo postal",
+        async function () {
+            await laLogica.getPersonasPorZona('12345')
+    }) // it
+
+    // ....................................................
+    // ....................................................
+
+    it("Buscamos personas por Dispositivo",
+        async function () {
+            await laLogica.getPersonaPorDispositivo('dispositivoInsert2')
+    }) // it
+
+    // ....................................................
+    // ....................................................
+
+    //----- borrar test para prueba global de todos los tests -------->>
+    it("Borramos persona por el dni",
+        async function () {
+            await laLogica.borrarPersonaPorDNI('44444444T')
+    }) // it
+    //----- borrar test para prueba global de todos los tests --------<<
+
+    // ....................................................
+    // ....................................................
+
     it( "cerrar conexión a la base de datos",
         async function() {
             try {

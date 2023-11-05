@@ -29,36 +29,24 @@ describe( "Tarea 4: Funciones basicas de TipoValor", function() {
     // ....................................................
     // ....................................................
     // ....................................................
-    it("Borrar todos los TipoValor", async function () {
-        //await laLogica.borrarTodosAdminAnuncio()
-        //await laLogica.borrarTodosDispositivoAnuncio()
-
-        //await laLogica.borrarTodosMedicionDispositivo()
-        //await laLogica.borrarMediciones()
-
-        //await laLogica.borrarAnuncios()
-        await laLogica.borrarTiposValor()
-        //await laLogica.borrarDispositivos()
-        //await laLogica.borrarDirecciones()
-        //await laLogica.borrarTodasLasZonas()
-        //await laLogica.borrarAdmins()
-        //await laLogica.borrarPersonas()
-
-        //assert.equal(res.length, 0, "¿hay un resulado?")
-    }) // it
-    // ....................................................
-    // ....................................................
     it("Inserto un TipoValor", async function () {
-        await laLogica.insertarTipoValor({ tipo_valor_id: 7, tipo_valor: "Prueba"})
+        await laLogica.insertarTipoValor({ tipo_valor_id: 4, tipo_valor: "Prueba"})
     }) // it
-
 
     // ....................................................
     // ....................................................
     it( "Busco todos los TipoValor",
         async function() {
-            var res = await laLogica.getTodosLosTipoValor()
+            await laLogica.getTodosLosTipoValor()
     }) // it
+
+    // ....................................................
+    // ....................................................
+    it("Borrar el TipoValor",
+        async function () {
+            await laLogica.borrarTipoValor(4)
+        }) // it
+
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",

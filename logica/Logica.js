@@ -463,7 +463,7 @@ module.exports = class Logica {
     // .................................................................
     getPersonaPorDispositivo(dispositivo_id) {
         var textoSQL = "select Persona.* from Persona, Dispositivo where Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=$dispositivo_id";
-        var valoresParaSQL = { $dispoditivo_id: dispositivo_id }
+        var valoresParaSQL = { $dispositivo_id: dispositivo_id }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
@@ -778,7 +778,7 @@ module.exports = class Logica {
     // Lista<{anuncio_id:texto, contenido:texto, titulo:texto}>
     // .................................................................
     getAnunciosPorAdmin(dni_admin) {
-        var textoSQL = "select Anuncio.* from Anuncio, Admin_Anuncio, Admin where Anuncio.anuncio_id=Admin_Anuncio.anuncio_id and Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
+        var textoSQL = "select Anuncio.* from Anuncio, Admin_Anuncio, Admin where Anuncio.anuncio_id=Admin_Anuncio.anuncio_id and Admin_Anuncio.dni_admin=Admin.dni_admin and Admin.dni_admin=$dni_admin";
         var valoresParaSQL = { $dni_admin: dni_admin }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
@@ -899,7 +899,7 @@ module.exports = class Logica {
     // .................................................................
     actualizarDispositivo(datos) {
         var textoSQL =
-            'update Dispositivo set dni_empleado=$dni_empleado where dispositivo_id=$dispositivo_id,;'
+            'update Dispositivo set dni_empleado=$dni_empleado where dispositivo_id=$dispositivo_id;'
         var valoresParaSQL = { $dispositivo_id: datos.dispositivo_id, $dni_empleado: datos.dni_empleado }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
@@ -1117,7 +1117,7 @@ module.exports = class Logica {
     // .................................................................
     borrarTipoValor(datos) {
         var textoSQL = "delete from TipoValor where tipo_valor_id=$tipo_valor_id";
-        var valoresParaSQL = { $tipo_valor_id: datos.tipo_valor_id }
+        var valoresParaSQL = { $tipo_valor_id: datos }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
