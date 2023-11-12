@@ -1,5 +1,5 @@
 // ........................................................
-// mainTest4.js
+// mainTest5.js
 // ........................................................
 var request = require('request')
 var assert = require('assert')
@@ -12,7 +12,7 @@ const IP_PUERTO = "http://localhost:8080"
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 4: Funciones basicas de Direccion", function() {
+describe( "Tarea 5: Funciones basicas de Dispositivo", function() {
     // ....................................................
     // ....................................................
     it( "Primero vacio la bbdd", function( hecho ) {
@@ -31,12 +31,12 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Primero borro direcciones que pueda haber en la bbdd", function( hecho ) {
-        var zonas = {  }
+    it( "Primero borro dispositivos que pueda haber en la bbdd", function( hecho ) {
+        var dispositivo = {  }
         request.post(
-            { url : IP_PUERTO+"/borrarDirecciones",
+            { url : IP_PUERTO+"/borrarDispositivos",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zonas )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -47,7 +47,7 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una persona para que funcione el admin", function( hecho ) {
+    it( "Inserto una persona para que funcione el dispositivo", function( hecho ) {
         var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
         request.post(
             { url : IP_PUERTO+"/persona",
@@ -63,12 +63,12 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto un admin para que funcione la zona", function( hecho ) {
-        var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
+    it( "Inserto el dispositivo", function( hecho ) {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678A' }
         request.post(
-            { url : IP_PUERTO+"/admin",
+            { url : IP_PUERTO+"/dispositivo",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( admin )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -79,12 +79,12 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto un zona para que funcione la direccion", function( hecho ) {
-        var zona = { dni_admin: '12345678A', zona: '03601' }
+    it( "Inserto una segunda persona para que funcione el dispositivo actualizado", function( hecho ) {
+        var persona = { dni: '12345678B', nombre: 'JuanDE', apellidos: 'MataDE', correo: 'juanmata@gmail.com', telefono: '666666666' }
         request.post(
-            { url : IP_PUERTO+"/zona",
+            { url : IP_PUERTO+"/persona",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( persona )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -95,12 +95,12 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto la direccion", function( hecho ) {
-        var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Madrid', calle: 'Calle De Madrid' }
+    it( "Actualizo el dispositivo", function( hecho ) {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678B' }
         request.post(
-            { url : IP_PUERTO+"/direccion",
+            { url : IP_PUERTO+"/actualizarDispositivo",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( direccion )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -111,43 +111,27 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Actualizo la zona", function( hecho ) {
-        var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Getafe', calle: 'Calle De Madrid' }
-        request.post(
-            { url : IP_PUERTO+"/actualizarDireccion",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( direccion )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco la direccion anteriormente introducido", function (hecho) {
+    it( "Busco el dispositivo anteriormente introducido", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/direccion/12345678A",
+                url: IP_PUERTO + "/dispositivo/12345678B",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal(solucion.dni, "12345678A", "¿El dni de la direccion no es 12345678A?")
+                assert.equal(solucion.dni_empleado, "12345678B", "¿El dni del dispositivo no es 12345678A?")
                 hecho()
             } // callback
         ) //
     }) // it
     // ....................................................
     // ....................................................
-    it( "Busco todas las direcciones", function (hecho) {
+    it( "Busco todos los dispositivos", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/todasDirecciones",
+                url: IP_PUERTO + "/todosDispositivos",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
@@ -155,70 +139,19 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
                 assert.equal( solucion.length, 1, "¿no hay un resulado?" )
-                assert.equal(solucion[0].dni, "12345678A", "¿El dni de la direccion no es 12345678A?")
+                assert.equal(solucion[0].dni_empleado, "12345678B", "¿El dni del dispositivo no es 12345678A?")
                 hecho()
             } // callback
         ) //
     }) // it
     // ....................................................
     // ....................................................
-    it( "Busco la direccion anteriormente introducido por cp", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/direccionCP/03601",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion[0].codigo_postal, "03601", "¿cp no es 03601?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco la direccion anteriormente introducido por ccaa", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/direccionCCAA/Madrid",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion[0].ccaa, "Madrid", "¿ccaa no es Madrid?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco la direccion anteriormente introducido por provincia", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/direccionProvincia/Getafe",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion[0].provincia, "Getafe", "¿provincia no es Getafe?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Borro direccion por dni", function( hecho ) {
-        var direccion = { dni: '12345678A' }
+    it( "Borro dispositivo por id", function( hecho ) {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF' }
         request.post(
-            { url : IP_PUERTO+"/borrarDireccionPorDNI",
+            { url : IP_PUERTO+"/borrarDispositivoPorId",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( direccion )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -229,28 +162,28 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Compruebo que se borro", function (hecho) {
+    it( "Compruebo que el dispositivo se ha borrado", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/direccion/12345678A",
+                url: IP_PUERTO + "/dispositivo/12345678B",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 404, "¿El código no es 200 (OK)")
-                assert.equal( carga, "no encontré la direccion con dni: " + "12345678A", "¿No se ha borrado la direccion?" )
+                assert.equal( carga, "no encontré el dispositivo con dni: " + "12345678B", "¿No se ha borrado el dispositivo?" )
                 hecho()
             } // callback
         ) //
-    })
+    }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto la direccion para borrar de otra forma", function( hecho ) {
-        var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Madrid', calle: 'Calle De Madrid' }
+    it( "Inserto el dispositivo otra vez para borrar de otra forma", function( hecho ) {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678A' }
         request.post(
-            { url : IP_PUERTO+"/direccion",
+            { url : IP_PUERTO+"/dispositivo",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( direccion )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -261,12 +194,12 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Borro direccion por zona", function( hecho ) {
-        var zona = { zona: '03601' }
+    it( "Borro dispositivo por persona", function( hecho ) {
+        var dispositivo = { dni_empleado: '12345678A' }
         request.post(
-            { url : IP_PUERTO+"/borrarDireccionesPorZona",
+            { url : IP_PUERTO+"/borrarDispositivoPorPersona",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -277,18 +210,18 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Compruebo que se borro de la otra forma", function (hecho) {
+    it( "Compruebo que la zona se ha borrado de la otra forma", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/direccion/12345678A",
+                url: IP_PUERTO + "/dispositivo/12345678A",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 404, "¿El código no es 200 (OK)")
-                assert.equal( carga, "no encontré la direccion con dni: " + "12345678A", "¿No se ha borrado la direccion?" )
+                assert.equal( carga, "no encontré el dispositivo con dni: " + "12345678A", "¿No se ha borrado el dispositivo?" )
                 hecho()
             } // callback
         ) //
-    })
+    }) // it
 })

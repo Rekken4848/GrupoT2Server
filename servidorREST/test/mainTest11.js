@@ -1,5 +1,5 @@
 // ........................................................
-// mainTest1.js
+// mainTest8.js
 // ........................................................
 var request = require('request')
 var assert = require('assert')
@@ -12,21 +12,7 @@ const IP_PUERTO = "http://localhost:8080"
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 1: Funciones basicas de Persona", function() {
-    // ....................................................
-    // PRUEBA
-    // ....................................................
-    it("probar que GET /prueba responde ¡Funciona!", function (hecho) {
-        request.get(
-            { url: IP_PUERTO + "/prueba", headers: { 'User-Agent': 'hugo' } },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                assert.equal(carga, "¡Funciona!", "¿La carga no es ¡Funciona!?")
-                hecho()
-            } // callback()
-        ) // .get
-    }) // it
+describe( "Tarea 11: Funciones basicas de dispositivo_anuncio", function() {
     // ....................................................
     // ....................................................
     it( "Primero vacio la bbdd", function( hecho ) {
@@ -45,12 +31,12 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Primero borro las personas que pueda haber en la bbdd", function( hecho ) {
-        var persona = {  }
+    it( "Primero borro dispositivo_anuncio que pueda haber en la bbdd", function( hecho ) {
+        var Medicion_Dispositivo = {  }
         request.post(
-            { url : IP_PUERTO+"/borrarPersonas",
+            { url : IP_PUERTO+"/borrarTodosDispositivoAnuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( persona )
+                body : JSON.stringify( Medicion_Dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -61,8 +47,24 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una persona", function( hecho ) {
-        var persona = { dni: '44444444B', nombre: 'Mario', apellidos: 'Casas', correo: 'mariocasas@gmail.com', telefono: '999999999' }
+    it( "Inserto un anuncio para que funcione", function( hecho ) {
+        var anuncio = { contenido: 'Se me ha roto muy fuerte el sensor.', titulo: 'Se rompió el sensor' }
+        request.post(
+            { url : IP_PUERTO+"/anuncio",
+                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
+                body : JSON.stringify( anuncio )
+            },
+            function( err, respuesta, carga ) {
+                assert.equal( err, null, "¿ha habido un error?" )
+                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Inserto una persona para que funcione el dispositivo", function( hecho ) {
+        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
         request.post(
             { url : IP_PUERTO+"/persona",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
@@ -77,12 +79,12 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Actualizo una persona", function( hecho ) {
-        var persona = { dni: '44444444B', nombre: 'Mario', apellidos: 'Casas', correo: 'mariocasas2@gmail.com', telefono: '999999999' }
+    it( "Inserto el dispositivo para continuar", function( hecho ) {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678A' }
         request.post(
-            { url : IP_PUERTO+"/actualizarPersona",
+            { url : IP_PUERTO+"/dispositivo",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( persona )
+                body : JSON.stringify( dispositivo )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -93,64 +95,12 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Busco la persona anteriormente introducida", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/persona/44444444B",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion.dni, "44444444B", "¿El dni de la persona no es 44444444B?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco todas las personas", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/todasPersonas",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal( solucion.length, 1, "¿no hay un resulado?" )
-                assert.equal(solucion[0].dni, "44444444B", "¿El dni de la persona no es 44444444B?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco la persona anteriormente introducida por apellidos", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/personasApellidos/Casas",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion.apellidos, "Casas", "¿Los apellidos de la persona no son Casas?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Borro la persona por dni", function( hecho ) {
-        var persona = { dni: '44444444B' }
+    it( "Inserto una dispositivo_anuncio", function( hecho ) {
+        var dispositivo_anuncio = { dispositivo_id: 'FFFFFFFFFF', anuncio_id: 1 }
         request.post(
-            { url : IP_PUERTO+"/borrarPersonaPorDNI",
+            { url : IP_PUERTO+"/dispositivo_anuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( persona )
+                body : JSON.stringify( dispositivo_anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -161,16 +111,48 @@ describe( "Tarea 1: Funciones basicas de Persona", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Comprobar que la persona se ha borrado", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/persona/44444444B",
-                headers: { 'User-Agent': 'hugo' }
+    it( "Borro dispositivo_anuncio por dispositivo", function( hecho ) {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF' }
+        request.post(
+            { url : IP_PUERTO+"/borrarDispositivoAnuncioPorDispositivo",
+                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
+                body : JSON.stringify( dispositivo )
             },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 404, "¿El código no es 404 (OK)")
-                assert.equal( carga, "no encontré la persona con dni: " + "44444444B", "¿No se ha borrado la persona?" )
+            function( err, respuesta, carga ) {
+                assert.equal( err, null, "¿ha habido un error?" )
+                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Inserto una dispositivo_anuncio", function( hecho ) {
+        var dispositivo_anuncio = { dispositivo_id: 'FFFFFFFFFF', anuncio_id: 1 }
+        request.post(
+            { url : IP_PUERTO+"/dispositivo_anuncio",
+                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
+                body : JSON.stringify( dispositivo_anuncio )
+            },
+            function( err, respuesta, carga ) {
+                assert.equal( err, null, "¿ha habido un error?" )
+                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Borro dispositivo_anuncio por anuncio", function( hecho ) {
+        var anuncio = { anuncio_id: 1 }
+        request.post(
+            { url : IP_PUERTO+"/borrarDispositivoAnuncioPorAnuncio",
+                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
+                body : JSON.stringify( anuncio )
+            },
+            function( err, respuesta, carga ) {
+                assert.equal( err, null, "¿ha habido un error?" )
+                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
                 hecho()
             } // callback
         ) //

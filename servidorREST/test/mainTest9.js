@@ -1,5 +1,5 @@
 // ........................................................
-// mainTest3.js
+// mainTest9.js
 // ........................................................
 var request = require('request')
 var assert = require('assert')
@@ -12,7 +12,7 @@ const IP_PUERTO = "http://localhost:8080"
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
+describe( "Tarea 9: Funciones basicas de anuncio", function() {
     // ....................................................
     // ....................................................
     it( "Primero vacio la bbdd", function( hecho ) {
@@ -31,10 +31,10 @@ describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Primero borro zonas que pueda haber en la bbdd", function( hecho ) {
+    it( "Primero borro anuncios que pueda haber en la bbdd", function( hecho ) {
         var zonas = {  }
         request.post(
-            { url : IP_PUERTO+"/borrarTodasLasZonas",
+            { url : IP_PUERTO+"/borrarAnuncios",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
                 body : JSON.stringify( zonas )
             },
@@ -47,12 +47,12 @@ describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una persona para que funcione el admin", function( hecho ) {
-        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
+    it( "Inserto un anuncio", function( hecho ) {
+        var anuncio = { contenido: 'Se me ha roto muy fuerte el sensor.', titulo: 'Se rompió el sensor' }
         request.post(
-            { url : IP_PUERTO+"/persona",
+            { url : IP_PUERTO+"/anuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( persona )
+                body : JSON.stringify( anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -63,12 +63,12 @@ describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto un admin para que funcione la zona", function( hecho ) {
-        var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
+    it( "Actualizo el anuncio", function( hecho ) {
+        var anuncio = { contenido: 'Se me ha roto muy fuerte el sensor.', titulo: 'Se arreglo el sensor' }
         request.post(
-            { url : IP_PUERTO+"/admin",
+            { url : IP_PUERTO+"/actualizarAnuncio",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( admin )
+                body : JSON.stringify( anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -79,59 +79,10 @@ describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto la zona", function( hecho ) {
-        var zona = { dni_admin: '12345678A', zona: '03601' }
-        request.post(
-            { url : IP_PUERTO+"/zona",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Actualizo la zona", function( hecho ) {
-        var zona = { dni_admin: '12345678A', zona: '03602' }
-        request.post(
-            { url : IP_PUERTO+"/actualizarZona",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco la zona anteriormente introducida", function (hecho) {
+    it( "Busco todos los anuncios", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/zona/12345678A",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion.dni_admin, "12345678A", "¿El dni del zona_admin no es 12345678A?")
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco todas las zonas", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/todasZonas",
+                url: IP_PUERTO + "/todosAnuncios",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
@@ -139,39 +90,23 @@ describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
                 assert.equal( solucion.length, 1, "¿no hay un resulado?" )
-                assert.equal(solucion[0].dni_admin, "12345678A", "¿El dni del zona_admin no es 12345678A?")
+                assert.equal(solucion[0].contenido, "Se me ha roto muy fuerte el sensor.", "¿El contenido del anuncio no es ese?")
                 hecho()
             } // callback
         ) //
     }) // it
     // ....................................................
     // ....................................................
-    it( "Borro zona por dni", function( hecho ) {
-        var zona = { dni_admin: '12345678A' }
+    it( "Borro anuncio por id", function( hecho ) {
+        var anuncio = { anuncio_id: 1 }
         request.post(
-            { url : IP_PUERTO+"/borrarZonaPorDNI",
+            { url : IP_PUERTO+"/borrarAnuncioPorId",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( zona )
+                body : JSON.stringify( anuncio )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
                 assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Compruebo que la zona se ha borrado", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/zona/12345678A",
-                headers: { 'User-Agent': 'hugo' }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 404, "¿El código no es 200 (OK)")
-                assert.equal( carga, "no encontré la zona con dni_admin: " + "12345678A", "¿No se ha borrado la zona?" )
                 hecho()
             } // callback
         ) //

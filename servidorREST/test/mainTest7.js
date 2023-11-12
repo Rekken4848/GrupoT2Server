@@ -1,5 +1,5 @@
 // ........................................................
-// mainTest2.js
+// mainTest7.js
 // ........................................................
 var request = require('request')
 var assert = require('assert')
@@ -12,10 +12,26 @@ const IP_PUERTO = "http://localhost:8080"
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 2: Insertar distintas Mediciones y filtrar en el server", function() {
+describe( "Tarea 7: Funciones basicas de Medicion", function() {
     // ....................................................
     // ....................................................
-    it( "Primero borro todas las mediciones", function( hecho ) {
+    it( "Primero vacio la bbdd", function( hecho ) {
+        var vacio = {  }
+        request.post(
+            { url : IP_PUERTO+"/borrarTodasLasTablas",
+                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
+                body : JSON.stringify( vacio )
+            },
+            function( err, respuesta, carga ) {
+                assert.equal( err, null, "¿ha habido un error?" )
+                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Primero borro mediciones que pueda haber en la bbdd", function( hecho ) {
         var medicion = {  }
         request.post(
             { url : IP_PUERTO+"/borrarMediciones",
@@ -31,12 +47,12 @@ describe( "Tarea 2: Insertar distintas Mediciones y filtrar en el server", funct
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto distintas mediciones para probar posteriormente los filtros 1", function( hecho ) {
-        var medicion = { Vgas: 10.45, Vtemp: 20.45, fecha: '2023-10-15 19:00:00', dispositivo_id: "Id_para_Test" }
+    it( "Inserto un tipo valor para que funcione la medicion", function( hecho ) {
+        var tipo_valor = { tipo_valor: 'CO3' }
         request.post(
-            { url : IP_PUERTO+"/medicion",
+            { url : IP_PUERTO+"/tipoValor",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion )
+                body : JSON.stringify( tipo_valor )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -47,12 +63,12 @@ describe( "Tarea 2: Insertar distintas Mediciones y filtrar en el server", funct
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto distintas mediciones para probar posteriormente los filtros 2", function( hecho ) {
-        var medicion = { Vgas: 11.45, Vtemp: 21.45, fecha: '2023-10-15 20:00:00', dispositivo_id: "Id_para_Test2" }
+    it( "Inserto la medicion", function( hecho ) {
+        var zona = { valor: 12.34, tipo_valor_id: 1, fecha: '2023-10-15 16:32:40', lugar: '10.1234,20.5678' }
         request.post(
             { url : IP_PUERTO+"/medicion",
                 headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion )
+                body : JSON.stringify( zona )
             },
             function( err, respuesta, carga ) {
                 assert.equal( err, null, "¿ha habido un error?" )
@@ -63,39 +79,7 @@ describe( "Tarea 2: Insertar distintas Mediciones y filtrar en el server", funct
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto distintas mediciones para probar posteriormente los filtros 3", function( hecho ) {
-        var medicion = { Vgas: 12.45, Vtemp: 22.45, fecha: '2023-10-15 21:00:00', dispositivo_id: "Id_para_Test3" }
-        request.post(
-            { url : IP_PUERTO+"/medicion",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Inserto distintas mediciones para probar posteriormente los filtros 4", function( hecho ) {
-        var medicion = { Vgas: 13.45, Vtemp: 23.45, fecha: '2023-10-15 22:00:00', dispositivo_id: "Id_para_Test4" }
-        request.post(
-            { url : IP_PUERTO+"/medicion",
-                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
-                body : JSON.stringify( medicion )
-            },
-            function( err, respuesta, carga ) {
-                assert.equal( err, null, "¿ha habido un error?" )
-                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-                hecho()
-            } // callback
-        ) //
-    }) // it
-    // ....................................................
-    // ....................................................
-    it( "Busco la medida mas reciente", function (hecho) {
+    it( "Busco la medicion anteriormente introducido", function (hecho) {
         request.get(
             {
                 url: IP_PUERTO + "/ultimaMedicion",
@@ -105,15 +89,14 @@ describe( "Tarea 2: Insertar distintas Mediciones y filtrar en el server", funct
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                //assert.equal( solucion.length, 1, "¿no hay un resulado?" )
-                assert.equal( solucion.fecha, '2023-10-15 22:00:00', "¿no es 2023-10-15 22:00:00?" )
+                assert.equal(solucion.valor, 12.34, "¿valor no es 12.34?")
                 hecho()
             } // callback
         ) //
     }) // it
     // ....................................................
     // ....................................................
-    it( "Busco todas las medidas", function (hecho) {
+    it( "Busco todas las mediciones", function (hecho) {
         request.get(
             {
                 url: IP_PUERTO + "/todasMediciones",
@@ -123,31 +106,76 @@ describe( "Tarea 2: Insertar distintas Mediciones y filtrar en el server", funct
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal( solucion.length, 4, "¿no hay cuatro resulados?" )
-                assert.equal( solucion[0].fecha, '2023-10-15 19:00:00', "¿no es 2023-10-15 19:00:00?" )
-                assert.equal( solucion[1].fecha, '2023-10-15 20:00:00', "¿no es 2023-10-15 20:00:00?" )
-                assert.equal( solucion[2].fecha, '2023-10-15 21:00:00', "¿no es 2023-10-15 21:00:00?" )
-                assert.equal( solucion[3].fecha, '2023-10-15 22:00:00', "¿no es 2023-10-15 22:00:00?" )
+                assert.equal( solucion.length, 1, "¿no hay un resulado?" )
+                assert.equal(solucion[0].valor, 12.34, "¿valor no es 12.34?")
                 hecho()
             } // callback
         ) //
     }) // it
     // ....................................................
     // ....................................................
-    it( "Busco las medidas entre unas determinadas fechas", function (hecho) {
+    it( "Busco medicion por tipo valor", function (hecho) {
         request.get(
             {
-                url: IP_PUERTO + "/medicionEntreFechas/2023-10-15 19:30:00/2023-10-15 22:00:00",
+                url: IP_PUERTO + "/medicionTipoValor/CO3",
                 headers: { 'User-Agent': 'hugo' }
             },
             function (err, respuesta, carga) {
                 assert.equal(err, null, "¿ha habido un error?")
                 assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal( solucion.length, 3, "¿no hay tres resulados?" )
-                assert.equal( solucion[0].fecha, '2023-10-15 20:00:00', "¿no es 2023-10-15 20:00:00?" )
-                assert.equal( solucion[1].fecha, '2023-10-15 21:00:00', "¿no es 2023-10-15 21:00:00?" )
-                assert.equal( solucion[2].fecha, '2023-10-15 22:00:00', "¿no es 2023-10-15 22:00:00?" )
+                assert.equal( solucion.length, 1, "¿no hay un resulado?" )
+                assert.equal(solucion[0].valor, 12.34, "¿valor no es 12.34?")
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Busco medicion entre fechas", function (hecho) {
+        request.get(
+            {
+                url: IP_PUERTO + "/medicionEntreFechas/2023-10-15 10:32:40/2023-10-15 20:32:40",
+                headers: { 'User-Agent': 'hugo' }
+            },
+            function (err, respuesta, carga) {
+                assert.equal(err, null, "¿ha habido un error?")
+                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
+                var solucion = JSON.parse(carga)
+                assert.equal( solucion.length, 1, "¿no hay un resulado?" )
+                assert.equal(solucion[0].valor, 12.34, "¿valor no es 12.34?")
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Borro medicion entre fechas", function( hecho ) {
+        var tipo_valor = { fechaInicio: '2023-10-15 10:32:40', fechaFin: '2023-10-15 20:32:40' }
+        request.post(
+            { url : IP_PUERTO+"/borrarMedicionesEntreFechas",
+                headers : { 'User-Agent' : 'hugo', 'Content-Type' : 'application/json' },
+                body : JSON.stringify( tipo_valor )
+            },
+            function( err, respuesta, carga ) {
+                assert.equal( err, null, "¿ha habido un error?" )
+                assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
+                hecho()
+            } // callback
+        ) //
+    }) // it
+    // ....................................................
+    // ....................................................
+    it( "Compruebo que la medicion se ha borrado", function (hecho) {
+        request.get(
+            {
+                url: IP_PUERTO + "/medicionEntreFechas/2023-10-15 10:32:40/2023-10-15 20:32:40",
+                headers: { 'User-Agent': 'hugo' }
+            },
+            function (err, respuesta, carga) {
+                assert.equal(err, null, "¿ha habido un error?")
+                assert.equal(respuesta.statusCode, 404, "¿El código no es 200 (OK)")
+                assert.equal( carga, "no existen mediciones entre esas fechas", "¿No se ha borrado la medicion?" )
                 hecho()
             } // callback
         ) //

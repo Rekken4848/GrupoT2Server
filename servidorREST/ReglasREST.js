@@ -13,6 +13,19 @@ module.exports.cargar = function (servidorExpress, laLogica) {
         respuesta.send("¡Funciona!")
     }) // get /prueba
     // .......................................................
+    // POST /borrarPersonas/<tabla>
+    // .......................................................
+    servidorExpress.post(
+        '/borrarTodasLasTablas',
+        async function (peticion, respuesta) {
+            console.log(" * POST /borrarTodasLasTablas ")
+
+            await laLogica.borrarTodasLasTablas()
+
+            // todo ok
+            respuesta.send("Filas borradas de todas las tablas")
+        }) //
+    // .......................................................
     // .......................................................
     // ..................<<recursos>>.........................
     // ....................medicion...........................
@@ -75,7 +88,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var fechaInicio = peticion.params.fechaInicio
             var fechaFin = peticion.params.fechaFin
 
-            var res = await laLogica.buscarMedicionesEntreFechas(fechaInicio, fechaFin)
+            var res = await laLogica.getMedicionesEntreFechas(fechaInicio, fechaFin)
 
             if (res.length < 1) {
                 // 404: not found
@@ -116,7 +129,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var tipo_valor = peticion.params.tipo_valor
 
-            var res = await laLogica.buscarMedicionesEntreFechas(tipo_valor)
+            var res = await laLogica.getMedicionesPorTipoValor(tipo_valor)
 
             if (res.length < 1) {
                 // 404: not found
@@ -136,7 +149,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var dni_admin = peticion.params.dni_admin
 
-            var res = await laLogica.buscarMedicionesEntreFechas(dni_admin)
+            var res = await laLogica.getMedicionesPorAdmin(dni_admin)
 
             if (res.length < 1) {
                 // 404: not found
@@ -215,8 +228,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             console.log(" * POST /borrarMedicionesEntreFechas ")
 
             var datos = JSON.parse(peticion.body)
-
-            await laLogica.borrarMedicionesPorDispositivo(datos.fechaInicio, datos.fechaFin)
+            console.log(datos.fechaInicio + "EEEEE" + datos.fechaFin)
+            await laLogica.borrarMedicionesEntreFechas(datos.fechaInicio, datos.fechaFin)
 
             // todo ok
             respuesta.send("Filas borradas de la tabla Medicion entre las fechas: " + datos.fechaInicio + "y" + datos.fechaFin)
@@ -557,7 +570,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             await laLogica.insertarPersona(datos)
 
-            var res = await laLogica.getAdminPorDNI(datos.dni)
+            var res = await laLogica.getPersonaPorDNI(datos.dni)
 
             if (res.length != 1) {
                 // 404: not found
@@ -694,7 +707,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
                 return
             }
             // todo ok
-            respuesta.send(JSON.stringify(res[0]))
+            respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
     // GET /todasDirecciones/
@@ -1075,8 +1088,10 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             console.log(" * GET /dispositivo/:dni ")
             // averiguo el dni
             var dni = peticion.params.dni
+            console.log("Dispositivo busco dni:" + dni)
             // llamo a la función adecuada de la lógica
             var res = await laLogica.getDispositivoPorPersona(dni)
+            console.log("Dispositivo busco res:" + res.length)
             // si el array de resultados no tiene una casilla ...
             if (res.length < 1) {
                 // 404: not found
@@ -1180,10 +1195,10 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             console.log(" * POST /dispositivo ")
 
             var datos = JSON.parse(peticion.body)
-
+            
             await laLogica.insertarDispositivo(datos)
-
-            var res = await laLogica.getDispositivoPorPersona(datos.dni)
+            
+            var res = await laLogica.getDispositivoPorPersona(datos.dni_empleado)
 
             if (res.length != 1) {
                 // 404: not found
@@ -1210,7 +1225,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             await laLogica.actualizarDispositivo(datos)
 
-            var res = await laLogica.getDispositivoPorPersona(datos.dni)
+            var res = await laLogica.getDispositivoPorPersona(datos.dni_empleado)
 
             if (res.length != 1 && datos != res) {
                 // 404: not found
@@ -1263,10 +1278,10 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var datos = JSON.parse(peticion.body)
 
-            await laLogica.borrarDispositivoPorPersona(datos.dni)
+            await laLogica.borrarDispositivoPorPersona(datos.dni_empleado)
 
             // todo ok
-            respuesta.send("Filas borradas de la tabla Dispositivo con dni: " + datos.dni)
+            respuesta.send("Filas borradas de la tabla Dispositivo con dni: " + datos.dni_empleado)
         }) //
     // .......................................................
     // POST /borrarDispositivoPorAdmin/<tabla>
@@ -1373,7 +1388,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             console.log(" * POST /borrarTipoValor ")
 
             var datos = JSON.parse(peticion.body)
-
+            console.log(datos.tipo_valor)
             await laLogica.borrarTipoValor(datos.tipo_valor)
 
             // todo ok
