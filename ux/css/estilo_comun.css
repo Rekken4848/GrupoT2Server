@@ -1,0 +1,76 @@
+/*
+* #miMapita {height: 400px;}
+*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+button{
+    border: 0px;
+    border-radius: 0.6vh;
+}
+
+.iconoMoverse{
+    height: 60%;
+    width: 60%;
+}
+
+.baseEnlaceZonaLanding{
+    background-image: url(../images/circulo_base_con_sombra.svg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: 0.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8vh;
+    height: 8vh;
+    margin: 2vh;
+}
+@media(max-width: 1000px){
+    .baseEnlaceZonaLanding{
+        width: 4vh;
+        height: 4vh;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Footer
+* ------------------------------------------------------------------
+*/
+
+footer {
+    background-color: rgb(92, 92, 92);
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer img {
+    height: 7vh;
+}
+
+footer #textoFooter {
+    font-size: 17;
+    margin-left: 2vh;
+    color: white;
+}
+
+footer #textoFooter p {
+    margin: 0px;
+}

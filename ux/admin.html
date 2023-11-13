@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+
+    <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
+    <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+    <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+        html {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- cabecera de la pagina -------------------------------------------------------- -->
+    <header class="cabecera" role="banner">
+    
+        <a href="#" id="logoCleanCloud">
+            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+        </a>
+    
+        <div id="fondoHeader">
+            <button type="button" class="boton" id="descargarMapa">Map</button>
+
+            <div id="headerUserContainer">
+                <img src="images/avatar.png" alt="icono de avatar de usuario">
+                <div id="headerUserNombre">
+                    <p id="AdminName">Admin</p>
+                </div>
+            </div>
+        </div>
+    
+    </header>
+    <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
+
+    <div id="fondoPagina">
+        <div id="marcaNotifAvisosContenedor">
+            <div id="marcaNotifAvisos">
+                <p id="numeroAvisos">7</p>
+            </div>
+            <img src="images/campana_icono.svg" alt="icono campana notificaciones">
+        </div>
+
+        <div id="filtrosYHerramientasContenedor">
+            <div id="contenedorIzquierdo">
+                <input type="text" name="EmailFilter" id="emailFilter" placeholder="Filter by email">
+                <button id="botonMasFiltrado"><img src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
+            </div>
+            <div id="contenedorDerecho">
+                <button id="botonEditarTrabajador"><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
+                <button id="botonAnyadirTrabajador"><img src="images/plus.png" alt="icono anyadir trabajador"></button>
+            </div>
+        </div>
+
+        <div id="contenedorEmpleadosLista">
+            <table id="tablaEmpleados">
+                <tr id="leyendaTabla">
+                    <td id="IDTabla">ID</td>
+                    <td id="emailTabla">Email</td>
+                    <td id="NameTabla">First Name</td>
+                    <td id="ApellidoTabla">Last Name</td>
+                    <td id="SNTable">SN</td>
+                    <td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>
+                </tr>
+                
+                <tr id="DNItrabajor">
+                    <td id="IDTabla">1</td>
+                    <td id="emailTabla">emailprueba@gmail.com</td>
+                    <td id="NameTabla">Vanessa</td>
+                    <td id="ApellidoTabla">Lason</td>
+                    <td id="SNTable">56</td>
+                    <td id="conectionTable"><img src="images/wifi_icono.png" alt="conexion icono" class="wifiIcono"><img src="images/trianguloPeligro_icono.svg" alt="icono error de conexion" id="errorConexionTablaImagen"></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+    
+
+    <!-- footer -------------------------------------------------------- -->
+    <footer>
+        <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+        <div id="textoFooter">
+            <p>© Generalitat</p>
+            <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
+        </div>
+    </footer>
+
+    <!-- popup filtro -------------------------------------------------------- -->
+    <div id="contenedorPopUps">
+        <div id="divClose">
+            <img src="images/cross.png" alt="icono cerrar">
+        </div>
+        <div id="tituloPopUpFiltros">
+            <p id="tagsMostradosTitulo">Shown Tags</p>
+            <p id="searchByTitulo">Search By</p>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="tituloFiltroEspecificado">
+                <p class="tituloFiltroEspecificadoTexto">Device Info</p>
+            </div>
+            <div class="OpcionesFiltro">
+                <p class="opcionesIzquierda">
+                    <label><input type="checkbox" name="deviceSerialNumber" value="deviceSerialNumber" id="deviceSerialNumberFiltro">Device Serial Number</label><br>
+                    <label><input type="checkbox" name="valueType" value="valueType" id="valueTypeFiltro">Value Type</label><br>
+                    <label><input type="checkbox" name="location" value="location" id="locationFiltro">Location</label><br>
+                </p>
+                <p class="opcionesDerecha">
+                    <label><input type="checkbox" name="values" value="values" id="valuesFiltro">Values</label><br>
+                    <label><input type="checkbox" name="dateTime" value="dateTime" id="dateTimeFiltro">Date-Time</label><br>
+                </p>
+            </div>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="tituloFiltroEspecificado">
+                <p class="tituloFiltroEspecificadoTexto">Person Info</p>
+            </div>
+            <div class="OpcionesFiltro">
+                <p class="opcionesIzquierda">
+                    <label><input type="checkbox" name="personID" value="personID"id="personIDFiltro">Person ID</label><br>
+                    <label><input type="checkbox" name="email" value="email" id="emailFiltro">Email</label><br>
+                    <label><input type="checkbox" name="tel" value="tel" id="telFiltro">Tlf</label><br>
+                </p>
+                <p class="opcionesDerecha">
+                    <label><input type="checkbox" name="name" value="name" id="nameFiltro">Name</label><br>
+                    <label><input type="checkbox" name="surname" value="surname" id="surnameFiltro">Surname</label><br>
+                </p>
+            </div>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="tituloFiltroEspecificado">
+                <p class="tituloFiltroEspecificadoTexto">Location</p>
+            </div>
+            <div class="OpcionesFiltro">
+                <p class="opcionesIzquierda">
+                    <label><input type="checkbox" name="street" value="street" id="streetFiltro">Street</label><br>
+                    <label><input type="checkbox" name="province" value="province" id="provinceFiltro">Province</label><br>
+                </p>
+                <p class="opcionesDerecha">
+                    <label><input type="checkbox" name="postalCode" value="postalCode" id="postalCodeFiltro">Postal Code</label><br>
+                    <label><input type="checkbox" name="ccaa" value="ccaa" id="ccaaFiltro">CCAA</label><br>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup anyadir -------------------------------------------------------- -->
+    <div id="contenedorPopUpsAnyadir">
+        <div id="divClose">
+            <img src="images/cross.png" alt="icono cerrar">
+        </div>
+        <div id="tituloPopUpFiltros">
+            <p id="adminTitulo">Admin</p>
+            <p id="personTitulo">Person</p>
+            <p id="deviceTitulo">Device</p>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="insertarDato">
+                <p>DNI</p>
+                <input type="text" name="dni" id="dnianyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Name</p>
+                <input type="text" name="name" id="nameanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Surname</p>
+                <input type="text" name="surname" id="surnameanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Email</p>
+                <input type="text" name="email" id="emailanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Tlf_N°</p>
+                <input type="text" name="tel" id="telanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>CCAA</p>
+                <input type="text" name="ccaa" id="ccaaanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Province</p>
+                <input type="text" name="province" id="provinceanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Postal Code</p>
+                <input type="text" name="postalCode" id="postalCodeanyadir">
+            </div>
+            <div class="insertarDato">
+                <p>Street</p>
+                <input type="text" name="street" id="streetanyadir">
+            </div>
+
+            <div id="botonConfirmarDiv">
+                <button id="botonConfirmar">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup editar -------------------------------------------------------- -->
+    <div id="contenedorPopUpsEditar">
+        <div id="divClose">
+            <img src="images/cross.png" alt="icono cerrar">
+        </div>
+        <div id="tituloPopUpFiltros">
+            <p id="personTituloEditar">Person</p>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="editarDato">
+                <p>DNI</p>
+                <input type="text" name="dni" id="dnieditar">
+                <img src="images/padlock.png" alt="candado icono">
+            </div>
+            <div class="editarDato">
+                <p>Name</p>
+                <input type="text" name="name" id="nameeditar">
+                <img src="images/padlock.png" alt="candado icono">
+            </div>
+            <div class="editarDato">
+                <p>Surname</p>
+                <input type="text" name="surname" id="surnameeditar">
+                <img src="images/padlock.png" alt="candado icono">
+            </div>
+            <div class="editarDato">
+                <p>Email</p>
+                <input type="text" name="email" id="emaileditar">
+            </div>
+            <div class="editarDato">
+                <p>Tlf_N°</p>
+                <input type="text" name="tel" id="teleditar">
+            </div>
+            <div class="editarDato">
+                <p>CCAA</p>
+                <input type="text" name="ccaa" id="ccaaeditar">
+            </div>
+            <div class="editarDato">
+                <p>Province</p>
+                <input type="text" name="province" id="provinceeditar">
+            </div>
+            <div class="editarDato">
+                <p>Postal Code</p>
+                <input type="text" name="postalCode" id="postalCodeeditar">
+            </div>
+            <div class="editarDato">
+                <p>Street</p>
+                <input type="text" name="street" id="streeteditar">
+            </div>
+
+            <div id="deviceAsociadoEditar">
+                <p id="deviceAssociadoTitulo">Device's assosiated</p>
+                <!-- aqui irian los nombres de los dispositivos -->
+            </div>
+    
+            <div id="botonConfirmarDiv">
+                <button id="botonConfirmar">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+
+/* ------------------------------------------------------------------
+*   Header
+* ------------------------------------------------------------------
+*/
+
+.cabecera{
+    display: flex;
+    flex-direction: row;
+    height: 8vh;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#fondoHeader {
+    background-image: url(../images/fondo_info_geometrico_horizontal.png);
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 100%;
+    width:100%;
+}
+
+#logoCleanCloud, #logoCleanCloud img{
+    height: 100%;
+}
+
+#descargarMapa{
+    background: rgba(233, 233, 233, 0.4);
+    height: 60%;
+    color: rgb(255, 255, 255);
+    margin-right: 3vh;
+}
+
+#descargarMapa:hover {
+    background: rgba(209, 209, 209, 0.4);
+}
+
+@media(max-width: 1000px){
+    .cabecera{
+        height: 6vh;
+    }
+    #descargarMapa{
+        font-size: 30;
+    }
+    #logoCleanCloud img{
+        width: 25vh;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Zona mapa
+* ------------------------------------------------------------------
+*/
+
+#zonaMapa{
+    background-image: url(../images/mapa_fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#zonaMapaSuperior{
+    height: 5vh;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 5vh;
+    padding-top: 2vh;
+}
+#zonaMapaSuperior input{
+    margin-right: 2vh;
+}
+#zonaMapaSuperior input,
+#zonaMapaSuperior select {
+    height: 3vh;
+    width: 20vh;
+    border-radius: 0.5vh 0.5vh 0px 0px;
+    border: 0px;
+}
+#zonaMapaSuperior select{
+    width: 7vh;
+}
+
+#zonaMapaInferior{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: end;
+    height: 25vh;
+}
+
+#mediaDiariaMapa{
+    width: 60vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#titulo_mediaDiariaMapa{
+    background-color: rgba(233, 233, 233, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:30;
+    color: black;
+    height: 6vh;
+    width: 90%;
+    border: 0px;
+    border-radius: 1vh;
+}
+
+#contenido_mediaDiariaMapa{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    height: 14vh;
+    margin-bottom: 2vh;
+    border: 0px;
+    border-radius: 1vh;
+}
+
+#contenido_mediaDiariaMapa div {
+    background-color: rgba(233, 233, 233, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 30%;
+    border: 0px;
+    border-radius: 1vh;
+}
+
+#contenido_mediaDiariaMapa div h3, #contenido_mediaDiariaMapa div h4{
+    font-size: 40;
+    margin: 0px;
+}
+
+#valorO3Mapa{
+    color: rgb(109, 175, 9);
+}
+#valorCOMapa {
+    color: red;
+}
+
+@media(max-width: 1000px){
+    #zonaMapa{
+        height: 94vh;
+    }
+    #zonaMapaInferior{
+        justify-content: space-between;
+    }
+    #mediaDiariaMapa{
+        width: 30vh;
+        height: 85%;
+    }
+    #contenido_mediaDiariaMapa{
+        margin: 0px 0px 0px 0px;
+    }
+
+    #zonaMapaSuperior{
+        padding-right: 2vh;
+    }
+    #zonaMapaSuperior input,
+    #zonaMapaSuperior select{
+        width: 15vh;
+        font-size: 30;
+    }
+    #zonaMapaSuperior select {
+        width: 7vh;
+    }
+    #zonaMapaSuperior select option{
+        font-size: 15;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Zona informacion
+* ------------------------------------------------------------------
+*/
+
+#zonaInformacion{
+    background-image: url(../images/fondo_info_geometrico_horizontal.png);
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#zonaInformacionTitulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50;
+    height: 15vh;
+    width: 100%;
+}
+
+#contenidoZonaInformacion{
+    display: flex;
+    height: 75vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#informacionIzquierdaSuperior, #informacionDerechaInferior{
+    height: 75vh;
+    width: 65vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5vh;
+}
+#informacionDerechaInferior {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#contenedorInfoDesc{
+    background-color: rgba(233, 233, 233, 0.8);
+    width: 59vh;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vh 1vh 0vh 0vh;
+}
+#contenedorInfoDescImagen {
+    width: 60vh;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#contenedorInfoDescImagen img{
+    width: 100%;
+    height: 100%;
+    margin-left: 0.5vh;
+}
+#infoDescripcionTexto{
+    width: 80%;
+    font-size: 25;
+}
+
+#guiaColores{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50vh;
+}
+#guiaColores div {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+#guiaColores div img {
+    width: 5vh;
+    height: 5vh;
+}
+#guiaColores div p {
+    width: 50vh;
+    font-size: 25;
+}
+
+#guiaMapa {
+    background-color:rgba(233, 233, 233, 0.6);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 50vh;
+    border-radius: 1vh;
+}
+#guiaMapa img{
+    width: 30vh;
+    height: 30vh;
+}
+#guiaMapaIndicaciones{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30vh;
+    height: 30vh;
+}
+#guiaMapaIndicacionesTexto{
+    font-size: 30;
+    margin-left: 1vh;
+}
+#guiaMapaIndicacionesValores{
+    width: 26vh;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vh;
+}
+#ejemploValoresOzono, #ejemploValoresCO{
+    background-color: whitesmoke;
+    height: 15vh;
+    width: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 25;
+    margin: 0px;
+}
+#ejemploValoresOzono{
+    border-radius: 1vh 0vh 0vh 1vh;
+}
+#ejemploValoresCO {
+    border-radius: 0vh 1vh 1vh 0vh;
+}
+
+#valorOzonoEjemplo{
+    color: rgb(109, 175, 9);
+}
+#valorCOEjemplo {
+    color: red;
+}
+
+#enlaceAMapaDesdeInfo{
+    align-items: center;
+    justify-content: end;
+    display: flex;
+    height: 10vh;
+    width: 100%;
+}
+
+@media(max-width: 1000px) {
+    #zonaInformacion{
+        height: auto;
+    }
+    #zonaInformacionTitulo{
+        margin-top: 2vh;
+        height: 10vh;
+        margin-bottom: 0px;
+        font-size: 90;
+    }
+
+    #contenidoZonaInformacion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin-bottom: -15vh;
+        margin-top: -10vh;
+    }
+
+    #informacionIzquierdaSuperior,
+    #informacionDerechaInferior{
+        height: 40%;
+        width: 90%;
+        margin: 0px;
+    }
+    #informacionIzquierdaSuperior{
+        margin-bottom: 3vh;
+    }
+    #contenedorInfoDesc{
+        width: 100%;
+    }
+    #contenedorInfoDescImagen{
+        width: 100%;
+        height: 40%;
+    }
+    #infoDescripcionTexto{
+        font-size: 45;
+    }
+
+    #guiaColores div p{
+        width: 70%;
+        font-size: 45;
+    }
+
+    #guiaMapa img{
+        width: 40%;
+        height: 80%;
+    }
+    #guiaMapaIndicaciones{
+        width: 40%;
+    }
+    #guiaMapaIndicacionesTexto {
+        font-size: 40;
+        margin-top: 2vh;
+    }
+    #guiaMapaIndicacionesValores{
+        width: 90%;
+    }
+
+    #ejemploValoresOzono,
+    #ejemploValoresCO{
+        font-size: 40;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Zona contaminantes
+* ------------------------------------------------------------------
+*/
+
+#zonaContaminantes{
+    background-image: url(../images/fondo_info_cala.png);
+    background-size: cover;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.contenedorContaminante{
+    background-color: rgba(233, 233, 233, 0.8);
+    width: 70vh;
+    margin-top: 5vh;
+    border-radius: 3vh;
+}
+.contenedorContaminanteTitulo{
+    display: flex;
+    justify-content: center;
+}
+.contenedorContaminanteTexto{
+    padding-left: 5vh;
+    padding-right: 5vh;
+    padding-top: 2vh ;
+    font-size: 20;
+}
+.contenedorContaminante img{
+    width: 100%;
+    border-radius: 0vh 0vh 3vh 3vh;
+}
+
+@media(max-width: 1000px) {
+    #infoContaminantes{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .contenedorContaminante{
+        width: 90%;
+    }
+    .contenedorContaminanteTitulo{
+        font-size: 50;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+*   PopUp Descargar mapa
+* ------------------------------------------------------------------
+*/
+#contenedorDescargarMapa{
+    background-color: rgb(240, 240, 240);
+    border-radius: 1vh;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: large;
+    padding-bottom: 2vh;
+
+    position: absolute;
+    top: 9vh;
+    left: 10vh;
+    
+    visibility:hidden;
+}
+
+#divClose{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin: 2vh;
+}
+#divClose img{
+    width: 3vh;
+    margin-right: 2vh;
+}
+
+#zonaMapaPopUp{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#MapaPreview {
+    width: 80%;
+}
+#MapaPreview img{
+    width: 100%;
+}
+
+#tituloMapaDescarga, #formatoYDescarga{
+    margin-top: 2vh;
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+#tituloMapaDescarga input{
+    height: 50%;
+    width: 100%;
+    background: rgba(233, 233, 233, 0);
+    border: 0px;
+    border-bottom: 2px solid black;
+    margin-left: 1vh;
+}
+
+#formatoYDescarga{
+    display: flex;
+    justify-content: space-between;
+}
+#formatoContenedor{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+#formatoContenedor select{
+    height: 50%;
+    margin-left: 1vh;
+}
+
+#buttonDownload{
+    color: white;
+    background-color: rgb(95, 192, 160);
+    width: 15vh;
+    height: 5vh;
+    font-size: larger;
+}
+
+@media(max-width: 1000px){
+    #contenedorDescargarMapa{
+        font-size: 1.5vh;
+        left: 5vh;
+    }
+
+    #formatoContenedor select{
+        height: 2vh;
+        font-size: 1.5vh;
+    }
+
+    #buttonDownload{
+        font-size: 2vh;
+        width: 10vh;
+    }
+}
