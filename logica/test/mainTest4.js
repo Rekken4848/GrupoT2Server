@@ -9,44 +9,136 @@ var assert = require ('assert')
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 4: Funciones basicas de TipoValor", function() {
+describe( "Tarea 4: Funciones basicas de Direccion", function() {
     // ....................................................
     // ....................................................
     var laLogica = null
     // ....................................................
     // ....................................................
-    it( "conectar a la base de datos", function( hecho ) {
+    it("conectar a la base de datos", function (hecho) {
         laLogica = new Logica(
             "../bd/datos.bd",
-            function( err ) {
-                if ( err ) {
-                    throw new Error ("No he podido conectar con datos.db")
+            function (err) {
+                if (err) {
+                    throw new Error("No he podido conectar con datos.db")
                 }
                 hecho()
             })
     }) // it
     // ....................................................
     // ....................................................
-    // ....................................................
-    // ....................................................
-    it("Inserto un TipoValor", async function () {
-        await laLogica.insertarTipoValor({ tipo_valor_id: 4, tipo_valor: "Prueba"})
+    it("Primero vacio la bd", async function () {
+        await laLogica.borrarTodasLasTablas()
     }) // it
-
     // ....................................................
     // ....................................................
-    it( "Busco todos los TipoValor",
-        async function() {
-            await laLogica.getTodosLosTipoValor()
+    it("Primero borro direcciones que pueda haber en la bbdd", async function () {
+        await laLogica.borrarDirecciones()
+            var res = await laLogica.getTodasLasDirecciones()
+            assert.equal( res.length, 0, "¿hay un resulado?" )
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Borrar el TipoValor",
+    it("Inserto una persona para que funcione la direccion", async function () {
+        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
+        await laLogica.insertarPersona(persona)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto un admin para que funcione la direccion", async function () {
+        var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
+        await laLogica.insertarAdmin(admin)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto un zona para que funcione la direccion", async function () {
+        var zona = { dni_admin: '12345678A', zona: '03601' }
+        await laLogica.insertarZonaAdmin(zona)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto la direccion", async function () {
+        var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Madrid', calle: 'Calle De Madrid' }
+        await laLogica.insertarDireccion(direccion)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Actualizo la direccion", async function () {
+        var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Getafe', calle: 'Calle De Madrid' }
+        await laLogica.actualizarDireccion(direccion)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco la direccion anteriormente introducido",
         async function () {
-            await laLogica.borrarTipoValor(4)
+            var res = await laLogica.getDireccionPorDNI('12345678A')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].provincia, 'Getafe', "¿no es Getafe?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco todas las direcciones",
+        async function () {
+            var res = await laLogica.getTodasLasDirecciones()
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].provincia, 'Getafe', "¿no es Getafe?" )
         }) // it
-
+        // ....................................................
+    // ....................................................
+    it("Busco la direccion anteriormente introducido por cp",
+        async function () {
+            var res = await laLogica.getDireccionesPorCodigoPostal('03601')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].provincia, 'Getafe', "¿no es Getafe?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco la direccion anteriormente introducido por ccaa",
+        async function () {
+            var res = await laLogica.getDireccionesPorCCAA('Madrid')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].provincia, 'Getafe', "¿no es Getafe?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco la direccion anteriormente introducido por provincia",
+        async function () {
+            var res = await laLogica.getDireccionesPorProvincia('Getafe')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].provincia, 'Getafe', "¿no es Getafe?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Borro direccion por dni",
+        async function () {
+            await laLogica.borrarDireccionPorDNI('12345678A')
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Compruebo que se borro",
+        async function () {
+            var res = await laLogica.getDireccionPorDNI('12345678A')
+                assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto la direccion para borrar de otra forma", async function () {
+        var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Madrid', calle: 'Calle De Madrid' }
+        await laLogica.insertarDireccion(direccion)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Borro direccion por zona",
+        async function () {
+            await laLogica.borrarDireccionesPorZona('03601')
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Compruebo que se borro de la otra forma",
+        async function () {
+            var res = await laLogica.getDireccionPorDNI('12345678A')
+                assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",

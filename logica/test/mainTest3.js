@@ -9,73 +9,87 @@ var assert = require ('assert')
 // ........................................................
 // main ()
 // ........................................................
-describe( "Tarea 3: Funciones basicas de Anuncio", function() {
+describe( "Tarea 3: Funciones basicas de Zona_Admin", function() {
     // ....................................................
     // ....................................................
     var laLogica = null
     // ....................................................
     // ....................................................
-    it( "conectar a la base de datos", function( hecho ) {
+    it("conectar a la base de datos", function (hecho) {
         laLogica = new Logica(
             "../bd/datos.bd",
-            function( err ) {
-                if ( err ) {
-                    throw new Error ("No he podido conectar con datos.db")
+            function (err) {
+                if (err) {
+                    throw new Error("No he podido conectar con datos.db")
                 }
                 hecho()
             })
     }) // it
     // ....................................................
     // ....................................................
-    // ....................................................
-    // ....................................................
-
-    it("Inserto un anuncio", async function () {
-        await laLogica.insertarAnuncio({ anuncio_id: 10, contenido: "Prueba", titulo: 'Titulo prueba' })
+    it("Primero vacio la bd", async function () {
+        await laLogica.borrarTodasLasTablas()
     }) // it
-
     // ....................................................
     // ....................................................
-
-    it("Actualizamos un anuncio", async function () {
-        await laLogica.actualizarAnuncio({ anuncio_id: 10, contenido: "Prueba2", titulo: 'Titulo prueba 2' })
+    it("Primero borro zonas que pueda haber en la bbdd", async function () {
+        await laLogica.borrarTodasLasZonas()
+            var res = await laLogica.getTodasLasZonas()
+            assert.equal( res.length, 0, "¿hay un resulado?" )
     }) // it
-
     // ....................................................
     // ....................................................
-
-    it( "Busco todos los anuncios",
-        async function() {
-            await laLogica.getTodosLosAnuncios()
+    it("Inserto una persona para que funcione la zona", async function () {
+        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
+        await laLogica.insertarPersona(persona)
     }) // it
-
     // ....................................................
     // ....................................................
-
-    it("Busco anuncios por admin",
+    it("Inserto un admin para que funcione la zona", async function () {
+        var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
+        await laLogica.insertarAdmin(admin)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto la zona", async function () {
+        var zona = { dni_admin: '12345678A', zona: '03601' }
+        await laLogica.insertarZonaAdmin(zona)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Actualizo la zona", async function () {
+        var zona = { dni_admin: '12345678A', zona: '03602' }
+        await laLogica.actualizarZonaAdmin(zona)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco la zona anteriormente introducida",
         async function () {
-            await laLogica.getAnunciosPorAdmin('44444443Insert')
-        }) // it
-
+            var res = await laLogica.getZonaPorDNI('12345678A')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].zona, '03602', "¿no es 03602?" )
+    }) // it
     // ....................................................
     // ....................................................
-
-    it("Busco anuncios por dispositivos",
+    it("Busco todas las zonas",
         async function () {
-            await laLogica.getAnunciosPorDispositivo('dispositivoInsert2')
+            var res = await laLogica.getTodasLasZonas()
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].zona, '03602', "¿no es 03602?" )
         }) // it
-
     // ....................................................
     // ....................................................
-
-    //----- borrar test para prueba global de todos los tests -------->>
-    it("Borramos anuncio por el id",
+    it("Borro zona por dni",
         async function () {
-            await laLogica.borrarAnunciosPorId(10)
-        }) // it
-    //----- borrar test para prueba global de todos los tests --------<<
-
-
+            await laLogica.borrarZonaPorDNI('12345678A')
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Compruebo que la zona se ha borrado",
+        async function () {
+            var res = await laLogica.getZonaPorDNI('12345678A')
+                assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",

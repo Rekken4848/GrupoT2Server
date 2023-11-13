@@ -47,7 +47,7 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto una persona para que funcione el admin", function( hecho ) {
+    it( "Inserto una persona para que funcione la direccion", function( hecho ) {
         var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
         request.post(
             { url : IP_PUERTO+"/persona",
@@ -63,7 +63,7 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Inserto un admin para que funcione la zona", function( hecho ) {
+    it( "Inserto un admin para que funcione la dirrecion", function( hecho ) {
         var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
         request.post(
             { url : IP_PUERTO+"/admin",
@@ -111,7 +111,7 @@ describe( "Tarea 4: Funciones basicas de Direccion", function() {
     }) // it
     // ....................................................
     // ....................................................
-    it( "Actualizo la zona", function( hecho ) {
+    it( "Actualizo la direccion", function( hecho ) {
         var direccion = { dni: '12345678A', codigo_postal: '03601', ccaa: 'Madrid', provincia: 'Getafe', calle: 'Calle De Madrid' }
         request.post(
             { url : IP_PUERTO+"/actualizarDireccion",

@@ -15,69 +15,83 @@ describe( "Tarea 2: Funciones basicas de Admin", function() {
     var laLogica = null
     // ....................................................
     // ....................................................
-    it( "conectar a la base de datos", function( hecho ) {
+    it("conectar a la base de datos", function (hecho) {
         laLogica = new Logica(
             "../bd/datos.bd",
-            function( err ) {
-                if ( err ) {
-                    throw new Error ("No he podido conectar con datos.db")
+            function (err) {
+                if (err) {
+                    throw new Error("No he podido conectar con datos.db")
                 }
                 hecho()
             })
     }) // it
     // ....................................................
     // ....................................................
+    it("Primero vacio la bd", async function () {
+        await laLogica.borrarTodasLasTablas()
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Primero borro los admins que pueda haber en la bbdd", async function () {
+        await laLogica.borrarAdmins()
+            var res = await laLogica.getTodosLosAdmins()
+            assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto una persona para que funcione el admin", async function () {
+        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
+        await laLogica.insertarPersona(persona)
+    }) // it
+    // ....................................................
     // ....................................................
     it("Inserto un admin", async function () {
-        await laLogica.insertarAdmin({ dni_admin: '44444444A', contrasenya: 'prueba Contrasenya' })
+        var admin = { dni_admin: '12345678A', contrasenya: '123456789' }
+        await laLogica.insertarAdmin(admin)
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Actualizamos un admin",
+    it("Actualizo un admin", async function () {
+        var admin = { dni_admin: '12345678A', contrasenya: '987654321' }
+        await laLogica.actualizarAdmin(admin)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco el admin anteriormente introducido",
         async function () {
-            await laLogica.actualizarAdmin({ dni_admin: '44444444A', contrasenya: 'prueba Contrasenya 2' })
-        }) // it
+            var res = await laLogica.getAdminPorDNI('12345678A')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].contrasenya, '987654321', "¿no es 987654321?" )
+    }) // it
     // ....................................................
     // ....................................................
-    it( "Busco todos los admins",
-        async function() {
-            await laLogica.getTodosLosAdmins()
-        }) // it
-    // ....................................................
-    // ....................................................
-    it("Busco el admin por dni",
+    it("Busco todos los admins",
         async function () {
-            await laLogica.getAdminPorDNI('44444444A')
+            var res = await laLogica.getTodosLosAdmins()
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].contrasenya, '987654321', "¿no es 987654321?" )
         }) // it
     // ....................................................
     // ....................................................
-    it("Busco el admin por su correo",
+    it("Busco admin por correo",
         async function () {
-            await laLogica.getAdminPorCorreo('mariocasas@gmail.com')
-        }) // it
+            var res = await laLogica.getAdminPorCorreo('juanmata@gmail.com')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].contrasenya, '987654321', "¿no es 987654321?" )
+    }) // it
     // ....................................................
     // ....................................................
-    it("Busco el admin por dispositivo",
+    it("Borro admin por dni",
         async function () {
-            await laLogica.getAdminPorDispositivo('dispositivoInsert2')
-        }) // it
+            await laLogica.borrarAdminPorDNI('12345678A')
+    }) // it
     // ....................................................
     // ....................................................
-    it("Busco el admin por zona",
+    it("Compruebo que el admin se ha borrado",
         async function () {
-            await laLogica.getAdminPorZona('12345')
-        }) // it
-    // ....................................................
-    // ....................................................
-
-    //----- borrar test para prueba global de todos los tests -------->>
-    it("Borrar admin por dni",
-        async function () {
-            await laLogica.borrarAdminsPorDNI('44444444A')
-        }) // it
-    //----- borrar test para prueba global de todos los tests --------<<
-
+            var res = await laLogica.getAdminPorDNI('12345678A')
+                assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",

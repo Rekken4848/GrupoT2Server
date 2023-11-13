@@ -15,62 +15,100 @@ describe( "Tarea 5: Funciones basicas de Dispositivo", function() {
     var laLogica = null
     // ....................................................
     // ....................................................
-    it( "conectar a la base de datos", function( hecho ) {
+    it("conectar a la base de datos", function (hecho) {
         laLogica = new Logica(
             "../bd/datos.bd",
-            function( err ) {
-                if ( err ) {
-                    throw new Error ("No he podido conectar con datos.db")
+            function (err) {
+                if (err) {
+                    throw new Error("No he podido conectar con datos.db")
                 }
                 hecho()
             })
     }) // it
     // ....................................................
     // ....................................................
-    // ....................................................
-    // ....................................................
-    it("Inserto un dispositivo", async function () {
-        await laLogica.insertarDispositivo({ dispositivo_id: 'dispositivoprueba', dni_empleado: '44444443Insert' })
+    it("Primero vacio la bd", async function () {
+        await laLogica.borrarTodasLasTablas()
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Actualizo un dispositivo", async function () {
-        await laLogica.actualizarDispositivo({ dispositivo_id: 'dispositivoprueba', dni_empleado: '44444443Insert' })
+    it("Primero borro dispositivos que pueda haber en la bbdd", async function () {
+        await laLogica.borrarDispositivos()
+            var res = await laLogica.getTodosLosDispositivos()
+            assert.equal( res.length, 0, "¿hay un resulado?" )
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Busco todos los dispositivos", async function () {
-        await laLogica.getTodosLosDispositivos()
+    it("Inserto una persona para que funcione el dispositivo", async function () {
+        var persona = { dni: '12345678A', nombre: 'Juan', apellidos: 'Mata', correo: 'juanmata@gmail.com', telefono: '666666666' }
+        await laLogica.insertarPersona(persona)
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Busco dispositivos por dni de empleado", async function () {
-        await laLogica.getDispositivoPorPersona('44444443Insert')
+    it("Inserto el dispositivo", async function () {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678A' }
+        await laLogica.insertarDispositivo(dispositivo)
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Busco dispositivos por zona/codigo postal", async function () {
-        await laLogica.getDispositivosPorZona('12345')
+    it("Inserto una persona para que funcione el dispositivo actualizado", async function () {
+        var persona = { dni: '12345678B', nombre: 'JuanDE', apellidos: 'MataDE', correo: 'juanmata@gmail.com', telefono: '666666666' }
+        await laLogica.insertarPersona(persona)
     }) // it
-
     // ....................................................
     // ....................................................
-    it("Busco dispositivos por admin", async function () {
-        await laLogica.getDispositivosPorAdmin('44444443Insert')
+    it("Actualizo el dispositivo", async function () {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678B' }
+        await laLogica.actualizarDispositivo(dispositivo)
     }) // it
-
-
     // ....................................................
     // ....................................................
-    it("Borrar un dispositivo por su id",
+    it("Busco el dispositivo anteriormente introducido",
         async function () {
-            await laLogica.borrarDispositivoPorId('dispositivoprueba')
+            var res = await laLogica.getDispositivoPorPersona('12345678B')
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].dni_empleado, '12345678B', "¿no es 12345678B?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Busco todos los dispositivos",
+        async function () {
+            var res = await laLogica.getTodosLosDispositivos()
+                assert.equal( res.length, 1, "¿no hay un resulado?" )
+                assert.equal( res[0].dni_empleado, '12345678B', "¿no es 12345678B?" )
         }) // it
-
+    // ....................................................
+    // ....................................................
+    it("Borro dispositivo por id",
+        async function () {
+            await laLogica.borrarDispositivoPorId('FFFFFFFFFF')
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Compruebo que el dispositivo se ha borrado",
+        async function () {
+            var res = await laLogica.getDispositivoPorPersona('12345678B')
+                assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Inserto el dispositivo otra vez para borrar de otra forma", async function () {
+        var dispositivo = { dispositivo_id: 'FFFFFFFFFF', dni_empleado: '12345678A' }
+        await laLogica.insertarDispositivo(dispositivo)
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Borro dispositivo por persona",
+        async function () {
+            await laLogica.borrarDispositivoPorPersona('12345678A')
+    }) // it
+    // ....................................................
+    // ....................................................
+    it("Compruebo que el dispositivo se ha borrado de la otra forma",
+        async function () {
+            var res = await laLogica.getDispositivoPorPersona('12345678A')
+                assert.equal( res.length, 0, "¿hay un resulado?" )
+    }) // it
     // ....................................................
     // ....................................................
     it( "cerrar conexión a la base de datos",
