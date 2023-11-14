@@ -47,12 +47,12 @@ function getUltimaMedicion() {
 
     }).then(function (datos) {
         // Obtener el elemento div por su ID
-        var valorGasDiv = document.getElementById("valorGas")
-        var valorTempDiv = document.getElementById("valorTemp")
+        //var valorGasDiv = document.getElementById("emailTabla")
 
         // Cambiar el texto del div
-        valorGasDiv.textContent = "El valor del gas es: " + datos.Vgas
-        valorTempDiv.textContent = "El valor de la temperatura es: " + datos.Vtemp
+        //valorGasDiv.textContent = datos.fecha
+
+        enviarDatos(datos.valor)
     })
 }
 // .......................................................
@@ -95,6 +95,26 @@ function getTodasLasMediciones() {
 
     }).then(function (datos) {
         enviarDatos(datos)
+    })
+}
+
+// .......................................................
+// getTodasLasPersonas() -> Lista<Persona>
+// .......................................................
+function getTodasLasPeronas() {
+    fetch('http://localhost:8080/todasPersonas', {
+        method: "GET"
+    }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+
+            return respuesta.json()
+        } else {
+            enviarDatos("hubo un fallo")
+        }
+
+    }).then(function (datos) {
+        llenarTablaPersonas(datos)
     })
 }
 // .......................................................

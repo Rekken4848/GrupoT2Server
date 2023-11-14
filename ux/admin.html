@@ -26,7 +26,7 @@
         </a>
     
         <div id="fondoHeader">
-            <button type="button" class="boton" id="descargarMapa">Map</button>
+            <button type="button" class="boton" id="descargarMapa" onclick="actualizarDatos()">Map</button>
 
             <div id="headerUserContainer">
                 <img src="images/avatar.png" alt="icono de avatar de usuario">
@@ -69,15 +69,6 @@
                     <td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>
                 </tr>
                 
-                <tr id="DNItrabajor">
-                    <td id="IDTabla">1</td>
-                    <td id="emailTabla">emailprueba@gmail.com</td>
-                    <td id="NameTabla">Vanessa</td>
-                    <td id="ApellidoTabla">Lason</td>
-                    <td id="SNTable">56</td>
-                    <td id="conectionTable"><img src="images/wifi_icono.png" alt="conexion icono" class="wifiIcono"><img src="images/trianguloPeligro_icono.svg" alt="icono error de conexion" id="errorConexionTablaImagen"></td>
-                </tr>
-
 
             </table>
         </div>
@@ -265,5 +256,21 @@
         </div>
     </div>
 
+
+    <script src="uxConsultas.js"></script>
+    <script src="logicaWeb/logicaWeb.js"></script>
 </body>
 </html>
+
+<!--
+    Ejemplo fila de tabla
+
+    <tr id="PersonaPrueba">
+        <td id="IDTabla">1</td>
+        <td id="emailTabla">emailprueba@gmail.com</td>
+        <td id="NameTabla">Vanessa</td>
+        <td id="ApellidoTabla">Lason</td>
+        <td id="SNTable">56</td>
+        <td id="conectionTable"><img src="images/wifi_icono.png" alt="conexion icono" class="wifiIcono"><img src="images/trianguloPeligro_icono.svg" alt="icono error de conexion" id="errorConexionTablaImagen"></td>
+    </tr>
+-->
