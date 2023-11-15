@@ -83,12 +83,13 @@ button img{
     width: 3.5vh;
     height: 3.5vh;
 }
-#errorConexionTablaImagen{
+.errorConexionTablaImagen{
     position: relative;
     width: 1.5vh;
     height: 1.5vh;
     bottom: 1vh;
     right: 1vh;
+    visibility: hidden;
 }
 
 #tablaEmpleados{

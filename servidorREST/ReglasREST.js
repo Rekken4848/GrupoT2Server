@@ -46,18 +46,18 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             console.log(" * GET /medicion/:dispositivo_id ")
             // averiguo el dni
             var dispositivo_id = peticion.params.dispositivo_id
-            console.log(dispositivo_id)
+            console.log("dispositivo id: " + dispositivo_id)
             // llamo a la función adecuada de la lógica
             var res = await laLogica.buscarMedicionPorDispositivo(dispositivo_id)
             // si el array de resultados no tiene una casilla ...
-            console.log(res.length)
+            console.log("cantidad de mediciones: " + res.length)
             if (res.length < 1) {
                 // 404: not found
                 respuesta.status(404).send("no encontré la medicion con dispositivo_id: " + dispositivo_id)
                 return
             }
             // todo ok
-            respuesta.send(JSON.stringify(res[0]))
+            respuesta.send(JSON.stringify(res))
         }) // get /persona
     // .......................................................
     // GET /ultimaMedicion/

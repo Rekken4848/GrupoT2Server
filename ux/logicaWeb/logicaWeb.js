@@ -196,3 +196,39 @@ function borrarMedicionesPorDispositivo(dispositivo) {
         }
     })
 }
+
+
+
+function getDispositivoPorPersona(dni) {
+    fetch('http://localhost:8080/dispositivo/' + dni, {
+        method: "GET"
+    }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+
+            return respuesta.json()
+        } else {
+            enviarDatos("hubo un fallo")
+        }
+
+    }).then(function (datos) {
+        getUltimaMedicionPorDispositivo(datos.dispositivo_id, dni)
+    })
+}
+
+function getUltimaMedicionPorDispositivo(dispositivo_id, dni) {
+    fetch('http://localhost:8080/medicion/' + dispositivo_id, {
+        method: "GET"
+    }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+
+            return respuesta.json()
+        } else {
+            enviarDatos("hubo un fallo")
+        }
+
+    }).then(function (datos) {
+        comprobarElEstado(dni, datos[datos.length - 1].fecha)
+    })
+}
