@@ -1,0 +1,66 @@
+/* ------------------------------------------------------------------
+*   Header
+* ------------------------------------------------------------------
+*/
+
+.cabecera {
+    display: flex;
+    height: 8vh;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#fondoHeader {
+    background-image: url(../images/fondo_info_geometrico_horizontal.png);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+    width: 100%;
+}
+
+#logoCleanCloud,
+#logoCleanCloud img {
+    height: 100%;
+}
+
+#descargarMapa {
+    background: rgba(201, 201, 201, 0.4);
+    height: 50%;
+    color: rgb(255, 255, 255);
+    margin-right: 3vh;
+    width: 5vh;
+}
+
+#descargarMapa:hover {
+    background: rgba(209, 209, 209, 0.4);
+}
+
+#headerUserContainer{
+    display: flex;
+    height: 100%;
+    color: white;
+    align-items: center;
+    margin-right: 2vh;
+}
+#headerUserContainer img {
+    height: 60%;
+}
+
+@media(max-width: 1000px) {
+    .cabecera {
+        height: 6vh;
+    }
+
+    #descargarMapa {
+        font-size: 30;
+    }
+
+    #logoCleanCloud img {
+        width: 25vh;
+    }
+}
+
+button{
+    background: rgba(255, 255, 255, 0);
+}
