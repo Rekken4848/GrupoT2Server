@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
 
+    <script src=
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+
+    <script src="admin_filtrar.js"></script>
+    <script src="admin_anyadir.js"></script>
+    <script src="admin_editar.js"></script>
+
+
     <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
@@ -17,7 +26,7 @@
     </style>
     
 </head>
-<body>
+<body onload="setTipoTags('persona');">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
     
@@ -49,37 +58,35 @@
 
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
-                <input type="text" name="EmailFilter" id="emailFilter" placeholder="Filter by email">
-                <button id="botonMasFiltrado"><img src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
+                <input type="text" name="SearchBar" id="searchBar" placeholder="Search by DNI...">
+                <button id="botonMasFiltrado" onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
             </div>
             <div id="contenedorDerecho">
-                <button id="botonEditarTrabajador"><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
-                <button id="botonAnyadirTrabajador"><img src="images/plus.png" alt="icono anyadir trabajador"></button>
+                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
+                <button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button>
             </div>
         </div>
 
         <div id="contenedorEmpleadosLista">
             <table id="tablaEmpleados">
                 <tr id="leyendaTabla">
-                    <td id="IDTabla">ID</td>
-                    <td id="emailTabla">Email</td>
-                    <td id="NameTabla">First Name</td>
-                    <td id="ApellidoTabla">Last Name</td>
-                    <td id="SNTable">SN</td>
-                    <td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>
+                    
+                    <td id="shownTag1">DNI</td>
+                    <td id="shownTag2">Nombre</td>
+                    <td id="shownTag3">Apellido</td>
+                    <td id="shownTag4">Correo</td>
+                    <td id="shownTag5">Tlf</td>
+
+                    <!--<td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>-->
                 </tr>
-                
-                <tr id="DNItrabajor">
-                    <td id="IDTabla">1</td>
-                    <td id="emailTabla">emailprueba@gmail.com</td>
-                    <td id="NameTabla">Vanessa</td>
-                    <td id="ApellidoTabla">Lason</td>
-                    <td id="SNTable">56</td>
-                    <td id="conectionTable"><img src="images/wifi_icono.png" alt="conexion icono" class="wifiIcono"><img src="images/trianguloPeligro_icono.svg" alt="icono error de conexion" id="errorConexionTablaImagen"></td>
-                </tr>
+
+                <tbody id="table-body">
+                    <!-- Table body will be populated with data dynamically -->
+                </tbody>
 
 
             </table>
+            
         </div>
     </div>
     
@@ -96,56 +103,29 @@
     <!-- popup filtro -------------------------------------------------------- -->
     <div id="contenedorPopUps">
         <div id="divClose">
-            <img src="images/cross.png" alt="icono cerrar">
-        </div>
-        <div id="tituloPopUpFiltros">
-            <p id="tagsMostradosTitulo">Shown Tags</p>
-            <p id="searchByTitulo">Search By</p>
+            <button onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Device Info</p>
+                <p class="tituloFiltroEspecificadoTexto">Search By</p>
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
-                    <label><input type="checkbox" name="deviceSerialNumber" value="deviceSerialNumber" id="deviceSerialNumberFiltro">Device Serial Number</label><br>
-                    <label><input type="checkbox" name="valueType" value="valueType" id="valueTypeFiltro">Value Type</label><br>
-                    <label><input type="checkbox" name="location" value="location" id="locationFiltro">Location</label><br>
-                </p>
-                <p class="opcionesDerecha">
-                    <label><input type="checkbox" name="values" value="values" id="valuesFiltro">Values</label><br>
-                    <label><input type="checkbox" name="dateTime" value="dateTime" id="dateTimeFiltro">Date-Time</label><br>
+                    <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni" id="dniFiltro" checked>DNI</label><br>
+                    <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro" value="sn" id="snFiltro">SN</label><br>
+                    <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp" id="cpFiltro">CP</label><br>
                 </p>
             </div>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Person Info</p>
+                <p class="tituloFiltroEspecificadoTexto">Shown Tags</p>
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
-                    <label><input type="checkbox" name="personID" value="personID"id="personIDFiltro">Person ID</label><br>
-                    <label><input type="checkbox" name="email" value="email" id="emailFiltro">Email</label><br>
-                    <label><input type="checkbox" name="tel" value="tel" id="telFiltro">Tlf</label><br>
-                </p>
-                <p class="opcionesDerecha">
-                    <label><input type="checkbox" name="name" value="name" id="nameFiltro">Name</label><br>
-                    <label><input type="checkbox" name="surname" value="surname" id="surnameFiltro">Surname</label><br>
-                </p>
-            </div>
-        </div>
-        <div class="contenedorFiltroEspecificado">
-            <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Location</p>
-            </div>
-            <div class="OpcionesFiltro">
-                <p class="opcionesIzquierda">
-                    <label><input type="checkbox" name="street" value="street" id="streetFiltro">Street</label><br>
-                    <label><input type="checkbox" name="province" value="province" id="provinceFiltro">Province</label><br>
-                </p>
-                <p class="opcionesDerecha">
-                    <label><input type="checkbox" name="postalCode" value="postalCode" id="postalCodeFiltro">Postal Code</label><br>
-                    <label><input type="checkbox" name="ccaa" value="ccaa" id="ccaaFiltro">CCAA</label><br>
+                    <label><input onclick="setTipoTags('persona');" type="radio" name="opcionesTags" value="persona" id="personaFiltro" checked>Persona</label><br>
+                    <label><input onclick="setTipoTags('dispositivo');" type="radio" name="opcionesTags" value="dispositivo" id="dispositivoFiltro">Dispositivo</label><br>
+                    <label><input onclick="setTipoTags('lugar');" type="radio" name="opcionesTags" value="lugar" id="lugarFiltro">Lugar</label><br>
                 </p>
             </div>
         </div>
@@ -154,61 +134,114 @@
     <!-- popup anyadir -------------------------------------------------------- -->
     <div id="contenedorPopUpsAnyadir">
         <div id="divClose">
-            <img src="images/cross.png" alt="icono cerrar">
+            <button onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
-            <p id="adminTitulo">Admin</p>
-            <p id="personTitulo">Person</p>
-            <p id="deviceTitulo">Device</p>
+            <button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button>
+            <button onclick="visibilidadFormAnyadir(1);" id="personTitulo"><p>Person</p></button>
         </div>
         <div class="contenedorFiltroEspecificado">
-            <div class="insertarDato">
-                <p>DNI</p>
-                <input type="text" name="dni" id="dnianyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Name</p>
-                <input type="text" name="name" id="nameanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Surname</p>
-                <input type="text" name="surname" id="surnameanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Email</p>
-                <input type="text" name="email" id="emailanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Tlf_N°</p>
-                <input type="text" name="tel" id="telanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>CCAA</p>
-                <input type="text" name="ccaa" id="ccaaanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Province</p>
-                <input type="text" name="province" id="provinceanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Postal Code</p>
-                <input type="text" name="postalCode" id="postalCodeanyadir">
-            </div>
-            <div class="insertarDato">
-                <p>Street</p>
-                <input type="text" name="street" id="streetanyadir">
-            </div>
+            <form id="formAnyadirPersona" onsubmit="anyadirPersonayDireccion(); return false;">
+                <div class="insertarDato">
+                    <p>DNI</p>
+                    <input required type="text" name="dni" id="dnianyadir" maxlength="10">
+                </div>
+                <div class="insertarDato">
+                    <p>Name</p>
+                    <input required type="text" name="name" id="nameanyadir" maxlength="15">
+                </div>
+                <div class="insertarDato">
+                    <p>Surname</p>
+                    <input required type="text" name="surname" id="surnameanyadir" maxlength="50">
+                </div>
+                <div class="insertarDato">
+                    <p>Email</p>
+                    <input required type="text" name="email" id="emailanyadir">
+                </div>
+                <div class="insertarDato">
+                    <p>Tlf_N°</p>
+                    <input required type="text" name="tel" id="telanyadir" maxlength="20">
+                </div>
+                <div class="insertarDato">
+                    <p>CCAA</p>
+                    <input required type="text" name="ccaa" id="ccaaanyadir" maxlength="30">
+                </div>
+                <div class="insertarDato">
+                    <p>Province</p>
+                    <input required type="text" name="province" id="provinceanyadir" maxlength="30">
+                </div>
+                <div class="insertarDato">
+                    <p>Postal Code</p>
+                    <input required type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
+                </div>
+                <div class="insertarDato">
+                    <p>Street</p>
+                    <input required type="text" name="street" id="streetanyadir" maxlength="200">
+                </div>
+                <div class="insertarDato">
+                    <p>Numero de Serie</p>
+                    <input required type="text" name="name" id="serialnumberanyadir" maxlength="20">
+                </div>
 
-            <div id="botonConfirmarDiv">
-                <button id="botonConfirmar">Add</button>
-            </div>
+                <div id="botonConfirmarDiv">
+                    <button type="submit" id="botonConfirmar">Add</button>
+                </div>
+            </form>
+            <form id="formAnyadirAdmin" onsubmit="anyadirAdminyPersonayDireccion(); return false;" hidden>
+                <div class="insertarDato">
+                    <p>DNI</p>
+                    <input required type="text" name="dni" id="dnianyadiradmin" maxlength="10">
+                </div>
+                <div class="insertarDato">
+                    <p>Name</p>
+                    <input required type="text" name="name" id="nameanyadiradmin" maxlength="15">
+                </div>
+                <div class="insertarDato">
+                    <p>Surname</p>
+                    <input required type="text" name="surname" id="surnameanyadiradmin" maxlength="50">
+                </div>
+                <div class="insertarDato">
+                    <p>Email</p>
+                    <input required type="text" name="email" id="emailanyadiradmin">
+                </div>
+                <div class="insertarDato">
+                    <p>Tlf_N°</p>
+                    <input required type="text" name="tel" id="telanyadiradmin" maxlength="20">
+                </div>
+                <div class="insertarDato">
+                    <p>CCAA</p>
+                    <input required type="text" name="ccaa" id="ccaaanyadiradmin" maxlength="30">
+                </div>
+                <div class="insertarDato">
+                    <p>Province</p>
+                    <input required type="text" name="province" id="provinceanyadiradmin" maxlength="30">
+                </div>
+                <div class="insertarDato">
+                    <p>Postal Code</p>
+                    <input required type="text" name="postalCode" id="postalCodeanyadiradmin" maxlength="5">
+                </div>
+                <div class="insertarDato">
+                    <p>Street</p>
+                    <input required type="text" name="street" id="streetanyadiradmin" maxlength="200">
+                </div>
+                <div class="insertarDato">
+                    <p>Contraseña</p>
+                    <input required type="text" name="street" id="passwordanyadiradmin" maxlength="50">
+                </div>
+
+                <div id="botonConfirmarDiv">
+                    <button type="submit" id="botonConfirmar">Add</button>
+                </div>
+
+            </form>
+            
         </div>
     </div>
 
     <!-- popup editar -------------------------------------------------------- -->
     <div id="contenedorPopUpsEditar">
         <div id="divClose">
-            <img src="images/cross.png" alt="icono cerrar">
+            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="personTituloEditar">Person</p>
@@ -216,17 +249,17 @@
         <div class="contenedorFiltroEspecificado">
             <div class="editarDato">
                 <p>DNI</p>
-                <input type="text" name="dni" id="dnieditar">
+                <input readonly type="text" name="dni" id="dnieditar">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Name</p>
-                <input type="text" name="name" id="nameeditar">
+                <input readonly type="text" name="name" id="nameeditar">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Surname</p>
-                <input type="text" name="surname" id="surnameeditar">
+                <input readonly type="text" name="surname" id="surnameeditar">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
@@ -254,16 +287,20 @@
                 <input type="text" name="street" id="streeteditar">
             </div>
 
-            <div id="deviceAsociadoEditar">
-                <p id="deviceAssociadoTitulo">Device's assosiated</p>
+            <div class="editarDato">
+                <p>Device</p>
+                <input type="text" name="device" id="deviceAssociadoTitulo">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
     
             <div id="botonConfirmarDiv">
-                <button id="botonConfirmar">Confirm</button>
+                <button onclick="eliminarPersona();" id="botonEliminar">Eliminar</button>
+                <button onclick="confirmarEditarPersona();" id="botonConfirmar">Confirm</button>
             </div>
+
         </div>
     </div>
+    
 
 </body>
 </html>
