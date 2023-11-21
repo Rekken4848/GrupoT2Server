@@ -1,0 +1,372 @@
+#fondoPagina{
+    background-image: url(../images/fondo_ciudad.jpg);
+    background-size: cover;
+    padding-top: 2vh;
+    padding-bottom: 3vh ;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    min-height: 79vh ;
+}
+button, button img{
+    background: white;
+    width: 3.5vh;
+    height: 3.5vh;
+    margin: 0px;
+    padding: 0px;
+}
+button img{
+    width: 75%;
+    height: 75%;
+}
+
+
+#marcaNotifAvisosContenedor{
+    height: 4vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding: 2vh;
+}
+#marcaNotifAvisosContenedor img{
+    width: 5vh;
+    height: 5vh;
+}
+#marcaNotifAvisos{
+    background-image: url(../images/punto_rojo_sinBordes.svg);
+    background-size: cover;
+    width: 2.5vh;
+    height: 2.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    color: white;
+
+    position: relative;
+    left: 5vh;
+    visibility: hidden;
+}
+#marcaNotifAvisos p{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+#filtrosYHerramientasContenedor{
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2vh;
+}
+#contenedorIzquierdo, #contenedorDerecho{
+    display: flex;
+    align-items: center;
+}
+#contenedorIzquierdo button,
+#contenedorDerecho button{
+    margin-left: 1vh;
+}
+#contenedorIzquierdo input{
+    height: 3.5vh;
+    width: 20vh;
+    border-radius: 1vh;
+    border: 1px solid gray;
+}
+
+#contenedorEmpleadosLista{
+    background-color: whitesmoke;
+    border-radius: 1vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+}
+.wifiIcono{
+    width: 3.5vh;
+    height: 3.5vh;
+}
+#errorConexionTablaImagen{
+    position: relative;
+    width: 1.5vh;
+    height: 1.5vh;
+    bottom: 1vh;
+    right: 1vh;
+}
+
+#tablaEmpleados{
+    width: 100%;
+}
+#leyendaTabla{
+    font-size: large;
+    font-weight: 700;
+}
+td, tr{
+    border-bottom: 1px solid gainsboro;
+}
+td:nth-child(1){
+    width: 10%;
+}
+td:nth-child(2) {
+    width: 5%;
+}
+td:nth-child(3) {
+    width: 5%;
+}
+td:nth-child(4) {
+    width: 5%;
+}
+td:nth-child(5) {
+    width: 5%;
+}
+td:nth-child(6) {
+    width: 5%;
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width: 1000px){
+    #fondoPagina{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #tablaEmpleados {
+        font-size:smaller;
+    }
+
+    #leyendaTabla {
+        font-size: small;
+    }
+
+        td,
+        tr {
+            font-size: xx-small;
+        }
+}
+
+/* ------------------------------------------------------------------
+*   Pop up filtro
+* ------------------------------------------------------------------
+*/
+#contenedorPopUps {
+    background-color: rgb(240, 240, 240);
+    border-radius: 1vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: larger;
+    padding-bottom: 2vh;
+    font-style: italic;
+
+    position: absolute;
+    top: 9vh;
+    left: 15vw;
+
+    visibility: hidden;
+}
+
+#divClose {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin: 2vh;
+}
+
+#divClose img {
+    background: rgb(240, 240, 240);
+    width: 3vh;
+    margin-right: 2vh;
+}
+#divClose button {
+    background: rgb(240, 240, 240);
+    width: 3vh;
+    margin-right: 2vh;
+}
+
+.tituloFiltroEspecificado p{
+    font-weight: 700;
+    font-style: normal;
+}
+#tituloPopUpFiltros{
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#tituloPopUpFiltros button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5vw;
+    margin-left: 1vw;
+    border-radius: 1vh;
+    padding: 0.5vh;
+}
+#tituloPopUpFiltros p{
+    margin: 0px;
+}
+#tagsMostradosTitulo{
+    color: white;
+    background-color: rgb(76, 156, 130);
+    padding: 0.5vh;
+    border-radius: 1vh;
+}
+#searchByTitulo {
+    color: rgb(76, 156, 130);
+}
+
+.OpcionesFiltro, .contenedorFiltroEspecificado, #tituloPopUpFiltros{
+    width: 80%;
+}
+.OpcionesFiltro{
+    display: flex;
+}
+.opcionesIzquierda, .opcionesDerecha {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media(max-width: 1000px) {
+    #contenedorFiltros {
+        font-size: 1.5vh;
+        left: 5vh;
+        width: 80%;
+    }
+    #contenedorPopUps{
+        width: 90vw;
+        left: 5vw;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Pop up anyadir
+* ------------------------------------------------------------------
+*/
+
+#contenedorPopUpsAnyadir {
+    background-color: rgb(240, 240, 240);
+    border-radius: 1vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: larger;
+    padding-bottom: 2vh;
+    font-style: italic;
+
+    position: absolute;
+    top: 9vh;
+    left: 15vw;
+
+    visibility: hidden;
+}
+
+#adminTitulo{
+    color: red;
+}
+#personTitulo{
+    color: white;
+    background-color: rgb(76, 156, 130) ;
+}
+
+.insertarDato{
+    width: 100%;
+    display: flex;
+    margin-bottom: 1vh;
+    align-items: center;
+}
+.insertarDato input{
+    height: 70%;
+    margin-left: 1vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+.insertarDato p {
+    width: 20%;
+}
+
+#botonConfirmarDiv{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+#botonConfirmar{
+    width: 10vh;
+    color: white;
+    background-color: rgb(76, 156, 130);
+}
+@media(max-width: 1000px) {
+    #contenedorPopUpsAnyadir {
+        font-size: 1.5vh;
+        left: 5vw;
+        width: 90vw;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Pop up editar
+* ------------------------------------------------------------------
+*/
+
+#contenedorPopUpsEditar {
+    background-color: rgb(240, 240, 240);
+    border-radius: 1vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: larger;
+    padding-bottom: 2vh;
+
+    position: absolute;
+    top: 9vh;
+    left: 15vw;
+
+    visibility: hidden;
+}
+
+.contenedorFiltroEspecificado{
+    width: 80%;
+}
+
+.editarDato{
+    display: flex;
+    align-items: center;
+}
+.editarDato p{
+    width: 20%;
+}
+.editarDato input {
+    width: 100%;
+    height: 3vh;
+    margin-left: 1vh;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+.editarDato img {
+    width: 3vh;
+    margin-left: 1vh;
+}
+
+#personTituloEditar{
+    font-weight: 700;
+    font-size: larger;
+}
+
+#botonEliminar{
+    background-color: red;
+    color: white;
+    width: 10vh;
+}
+
+@media(max-width: 1000px) {
+    #contenedorPopUpsEditar {
+        font-size: 1.5vh;
+        left: 5vw;
+        width: 90vw;
+    }
+}

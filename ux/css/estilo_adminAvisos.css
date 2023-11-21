@@ -1,0 +1,75 @@
+#fondoPagAnuncios{
+    background-image: url(../images/fondo_ciudad.jpg);
+    background-size: cover;
+    min-height: 78vh;
+    width: 100%;
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
+    padding-top: 4vh;
+}
+
+
+#contenedorGeneral{
+    background-color: rgba(233, 233, 233, 0.85);
+    width: 65%;
+    border: 0px;
+    border-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom:3vh ;
+    margin-bottom: 4vh;
+}
+
+#tituloPagAnuncios{
+    font-size: x-large;
+    width: 90%;
+}
+
+.contenedorAnuncios{
+    width: 90%;
+}
+.contenedorAnuncios *{
+    margin: 0.5vh;
+    padding: 0px;
+}
+.contenedorAnuncios p {
+    margin: 0px;
+    margin-left: 0px;
+}
+.contenedorAnuncios img {
+    margin: 0px;
+    width: 100%;
+}
+
+.anuncio div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.empleado p, .telefono p, .contenedorAsuntoAnuncio p{
+    font-style: italic;
+}
+.tituloAnuncioDiv p {
+    font-weight: 700;
+    font-size: larger;
+}
+
+.contenidoAnuncio{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+.contenedorDescripcion{
+    max-width: 70%;
+}
+
+@media(max-width: 1000px){
+    #contenedorGeneral{
+        width: 90%;
+    }
+}
