@@ -26,7 +26,7 @@
     </style>
     
 </head>
-<body>
+<body onload="setTipoTags('persona');">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
     
@@ -62,7 +62,7 @@
                 <button id="botonMasFiltrado" onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
             </div>
             <div id="contenedorDerecho">
-                <button id="botonEditarTrabajador" onclick="editando = !editando; if(editando){document.getElementById('botonEditarTrabajador').style.background='green'} else{document.getElementById('botonEditarTrabajador').style.background='white'} "><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
+                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
                 <button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button>
             </div>
         </div>
@@ -230,7 +230,7 @@
                 </div>
 
                 <div id="botonConfirmarDiv">
-                    <button type="submit" id="botonConfirmarAdmin">Add</button>
+                    <button type="submit" id="botonConfirmar">Add</button>
                 </div>
 
             </form>
@@ -294,11 +294,8 @@
             </div>
     
             <div id="botonConfirmarDiv">
-                <button onclick="confirmarEditarPersona();" id="botonConfirmar">Confirm</button>
-            </div>
-
-            <div id="botonEliminarDiv">
                 <button onclick="eliminarPersona();" id="botonEliminar">Eliminar</button>
+                <button onclick="confirmarEditarPersona();" id="botonConfirmar">Confirm</button>
             </div>
 
         </div>

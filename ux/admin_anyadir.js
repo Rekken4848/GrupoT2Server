@@ -3,12 +3,22 @@ function visibilidadFormAnyadir(modo) {
         case 0:
             document.getElementById("formAnyadirAdmin").hidden = false;
             document.getElementById("formAnyadirPersona").hidden = true;
-            document.getElementById("formAnyadirDispositivo").hidden = true; 
+            document.getElementById("formAnyadirDispositivo").hidden = true;
+
+            document.getElementById("personTitulo").style.color='red';
+            document.getElementById("personTitulo").backgroundColor = 'white';
+            document.getElementById("adminTitulo").style.color = 'white';
+            document.getElementById("adminTitulo").style.backgroundColor = 'rgb(76, 156, 130)';
             break
         case 1:
             document.getElementById("formAnyadirAdmin").hidden = true;
             document.getElementById("formAnyadirPersona").hidden = false;
-            document.getElementById("formAnyadirDispositivo").hidden = true; 
+            document.getElementById("formAnyadirDispositivo").hidden = true;
+
+            document.getElementById("adminTitulo").style.color = 'red';
+            document.getElementById("adminTitulo").style.backgroundColor = 'white';
+            document.getElementById("personTitulo").style.color = 'white';
+            document.getElementById("personTitulo").style.backgroundColor = 'rgb(76, 156, 130)';
             break
     }
 }

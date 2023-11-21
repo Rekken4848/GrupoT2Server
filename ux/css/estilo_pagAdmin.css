@@ -44,6 +44,7 @@ button img{
 
     position: relative;
     left: 5vh;
+    visibility: hidden;
 }
 #marcaNotifAvisos p{
     margin: 0px;
@@ -105,13 +106,13 @@ td:nth-child(1){
     width: 10%;
 }
 td:nth-child(2) {
-    width: 30%;
+    width: 5%;
 }
 td:nth-child(3) {
-    width: 25%;
+    width: 5%;
 }
 td:nth-child(4) {
-    width: 25%;
+    width: 5%;
 }
 td:nth-child(5) {
     width: 5%;
@@ -135,6 +136,10 @@ td:nth-child(6) {
         font-size: small;
     }
 
+        td,
+        tr {
+            font-size: xx-small;
+        }
 }
 
 /* ------------------------------------------------------------------
@@ -144,7 +149,7 @@ td:nth-child(6) {
 #contenedorPopUps {
     background-color: rgb(240, 240, 240);
     border-radius: 1vh;
-    width: 50%;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,7 +159,7 @@ td:nth-child(6) {
 
     position: absolute;
     top: 9vh;
-    left: 50vh;
+    left: 15vw;
 
     visibility: hidden;
 }
@@ -167,6 +172,12 @@ td:nth-child(6) {
 }
 
 #divClose img {
+    background: rgb(240, 240, 240);
+    width: 3vh;
+    margin-right: 2vh;
+}
+#divClose button {
+    background: rgb(240, 240, 240);
     width: 3vh;
     margin-right: 2vh;
 }
@@ -181,9 +192,17 @@ td:nth-child(6) {
     justify-content: center;
     align-items: center;
 }
+#tituloPopUpFiltros button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5vw;
+    margin-left: 1vw;
+    border-radius: 1vh;
+    padding: 0.5vh;
+}
 #tituloPopUpFiltros p{
     margin: 0px;
-    margin-right: 3vh;
 }
 #tagsMostradosTitulo{
     color: white;
@@ -213,6 +232,10 @@ td:nth-child(6) {
         left: 5vh;
         width: 80%;
     }
+    #contenedorPopUps{
+        width: 90vw;
+        left: 5vw;
+    }
 }
 
 /* ------------------------------------------------------------------
@@ -223,7 +246,7 @@ td:nth-child(6) {
 #contenedorPopUpsAnyadir {
     background-color: rgb(240, 240, 240);
     border-radius: 1vh;
-    width: 50%;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -233,7 +256,7 @@ td:nth-child(6) {
 
     position: absolute;
     top: 9vh;
-    left: 50vh;
+    left: 15vw;
 
     visibility: hidden;
 }
@@ -244,11 +267,6 @@ td:nth-child(6) {
 #personTitulo{
     color: white;
     background-color: rgb(76, 156, 130) ;
-    border-radius: 1vh;
-    padding: 0.5vh;
-}
-#deviceTitulo{
-    color: rgb(76, 156, 130);
 }
 
 .insertarDato{
@@ -271,7 +289,9 @@ td:nth-child(6) {
 
 #botonConfirmarDiv{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 #botonConfirmar{
     width: 10vh;
@@ -281,8 +301,8 @@ td:nth-child(6) {
 @media(max-width: 1000px) {
     #contenedorPopUpsAnyadir {
         font-size: 1.5vh;
-        left: 5vh;
-        width: 80%;
+        left: 5vw;
+        width: 90vw;
     }
 }
 
@@ -294,7 +314,7 @@ td:nth-child(6) {
 #contenedorPopUpsEditar {
     background-color: rgb(240, 240, 240);
     border-radius: 1vh;
-    width: 50%;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -303,7 +323,7 @@ td:nth-child(6) {
 
     position: absolute;
     top: 9vh;
-    left: 50vh;
+    left: 15vw;
 
     visibility: hidden;
 }
@@ -337,10 +357,16 @@ td:nth-child(6) {
     font-size: larger;
 }
 
+#botonEliminar{
+    background-color: red;
+    color: white;
+    width: 10vh;
+}
+
 @media(max-width: 1000px) {
     #contenedorPopUpsEditar {
         font-size: 1.5vh;
-        left: 5vh;
-        width: 80%;
+        left: 5vw;
+        width: 90vw;
     }
 }

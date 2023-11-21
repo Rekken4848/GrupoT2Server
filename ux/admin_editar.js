@@ -1,6 +1,17 @@
 var editando = false;
 var dni_persona_editando = "";
 
+function cursorLapiz(){
+    editando = !editando;
+    if (editando){ 
+        document.getElementById('botonEditarTrabajador').style.background = 'rgb(189, 182, 156)';
+        document.getElementById('fondoPagina').style.cursor = "url(images/lapiz_icono_para_cursor.svg), help";
+
+    } else { 
+        document.getElementById('botonEditarTrabajador').style.background = 'white';
+        document.getElementById('fondoPagina').style.cursor = 'default';
+    }
+}
 function editarFila(dni_persona) {
     if (!editando) return;
 
