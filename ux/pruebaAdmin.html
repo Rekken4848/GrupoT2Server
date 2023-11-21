@@ -1,0 +1,40 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+  <script>
+    /*function checkLogin(req, res, next){
+      if(req.session.user){
+        next()
+      } else {
+        var err = new Error("User not logged in!")
+        next(err)
+      }
+    }*/
+
+    function comprobarSesion() {
+      fetch('http://localhost:8080/paginaProtegida', {
+        method: "GET"
+      }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+          return respuesta
+        } else {
+          console.log("hubo un fallo")
+        }
+
+      }).then(function (datos) {
+        console.log(datos)
+      })
+    }
+
+    comprobarSesion()
+  </script>
+
+</body>
+
+</html>

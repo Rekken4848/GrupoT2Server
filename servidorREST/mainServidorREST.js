@@ -8,6 +8,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const Logica = require('../logica/Logica.js')
 const reglasREST = require('./ReglasREST.js')
+const login = require('./login.js')
+const session = require('express-session');
+const cookieParser = require('cookie-parser')
 
 const path = require('path');
 // .....................................................................
@@ -29,6 +32,9 @@ async function cargarLogica(fichero) {
 async function main() {
     var laLogica = await cargarLogica('../bd/datos.bd');
     var servidorExpress = express();
+
+    /*servidorExpress.set('view engine', 'jade')
+    servidorExpress.set('views', './views')*/
     // Habilita CORS para todas las rutas
     //servidorExpress.use(cors());
     // Middleware para habilitar CORS (Cross-Origin Resource Sharing)
@@ -38,9 +44,18 @@ async function main() {
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         next();
     });
+    // Configuración de express-session
+    servidorExpress.use(session({
+        secret: 'tu_secreto_aqui', // Cambia esto por una cadena secreta más segura
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false } // En producción, establece secure: true si estás usando HTTPS
+    }));
+    servidorExpress.use(cookieParser())
     servidorExpress.use(express.static(path.join(__dirname, '../ux')));
     servidorExpress.use(bodyParser.text({ type: 'application/json' }))
-    var reglas = reglasREST.cargar(servidorExpress, laLogica);
+    reglasREST.cargar(servidorExpress, laLogica);
+    login.cargar(servidorExpress, laLogica);
     // arrancao el servidor
     var servicio = servidorExpress.listen(8080, function () {
         console.log("servidor REST escuchando en el puerto 8080 ")
