@@ -40,12 +40,20 @@ function logearse(username, password) {
             'Content-Type': 'application/json'
         }
     }).then(function (respuesta) {
-        console.log(respuesta);
-        if (respuesta === true) {
+
+      if (respuesta.ok) {
+        return respuesta.text()
+      } else {
+        console.log("hubo un fallo")
+      }
+
+    }).then(function (datos) {
+        console.log("Los datos bien"+datos)
+        if (datos === "Usuario Correcto") {
             console.log("Todo introducido con éxito");
             //var URLactual = window.location;
             location.href='http://localhost:8080/pruebaAdmin.html'
-        } else if(respuesta === false) {
+        } else if(datos === "Usuario Incorrecto") {
             console.log("hubo un fallo")
             location.href='http://localhost:8080/login.html'
         }

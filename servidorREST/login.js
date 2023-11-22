@@ -97,18 +97,6 @@ module.exports.cargar = function (servidorExpress) {
             var username = datos.username
             var password = datos.password
 
-            /*if(!username || !password){
-                respuesta.render('login', { message: "Por favor, rellena los campos"} )
-            } else {
-                Users.filter(function (user) {
-                    if(user.id === username && user.password === password){
-                        username = user;
-                        respuesta.redirect('/pruebaAdmin')
-                    }
-                })
-                respuesta.render('login', {message: "Invalid credentials!" })
-            }*/
-
 
             // Encriptar la contraseña antes de almacenarla en la base de datos
             //const hashedPassword = await bcrypt.hash(password, 10);
@@ -128,13 +116,12 @@ module.exports.cargar = function (servidorExpress) {
             peticion.session.username = username;
 
             respuesta.send("Usuario Correcto")
-            //respuesta.status(404).send("Usuario Incorrecto")
-            //respuesta.send(getUsuario(username, password))
         }) //
 
     servidorExpress.get(
         '/paginaProtegida',
         function (peticion, respuesta) {
+            console.log(peticion.session)
             // Verificar si el usuario está autenticado
             if (peticion.session.authenticated) {
                 // Acceso permitido, puedes acceder a peticion.session.username si es necesario

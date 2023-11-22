@@ -13,17 +13,18 @@
       }).then(function (respuesta) {
 
         if (respuesta.ok) {
-          return respuesta
+          return respuesta.json()
         } else {
           console.log("hubo un fallo")
         }
 
       }).then(function (datos) {
+        console.log(datos)
         // 'datos' ahora contiene el valor devuelto por el servidor
         if (datos === true) {
           // Acción cuando la respuesta es true
           console.log("Usuario autenticado");
-        } else {
+        } else if (datos === false) {
           // Acción cuando la respuesta es false
           console.log("Usuario no autenticado");
           location.href = "http://localhost:8080/login.html"
