@@ -133,6 +133,23 @@ module.exports = class Logica {
         })
     } // ()
     // .................................................................
+    // fechaInicio:fecha, fechaFin:fecha, dispositivo_id:N
+    // -->
+    // getMedicionesEntreFechasYDispositivo() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
+    // .................................................................
+    getMedicionesEntreFechasYDispositivo(fechaInicio, fechaFin, dispositivo_id) {
+        var textoSQL = "select Medicion.* from Medicion, Medicion_Dispositivo where Medicion.id=Medicion_Dispositivo.medicion_id and Medicion_Dispositivo.dispositivo_id=$dispositivo_id and Medicion.fecha between $fechaInicio and $fechaFin";
+        var valoresParaSQL = { $fechaInicio: fechaInicio, $fechaFin: fechaFin, $dispositivo_id: dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
     // tipoValor:texto
     // -->
     // getMedicionesPorTipoValor() <--
