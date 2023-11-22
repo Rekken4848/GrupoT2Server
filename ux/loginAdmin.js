@@ -40,12 +40,12 @@ function logearse(username, password) {
             'Content-Type': 'application/json'
         }
     }).then(function (respuesta) {
-
-        if (respuesta.ok) {
+        console.log(respuesta);
+        if (respuesta === true) {
             console.log("Todo introducido con éxito");
             //var URLactual = window.location;
             location.href='http://localhost:8080/pruebaAdmin.html'
-        } else {
+        } else if(respuesta === false) {
             console.log("hubo un fallo")
             location.href='http://localhost:8080/login.html'
         }

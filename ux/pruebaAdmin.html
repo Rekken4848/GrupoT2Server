@@ -28,8 +28,18 @@
         }
 
       }).then(function (datos) {
-        console.log(datos)
-      })
+        // 'datos' ahora contiene el valor devuelto por el servidor
+        if (datos === true) {
+          // Acción cuando la respuesta es true
+          console.log("Usuario autenticado");
+        } else {
+          // Acción cuando la respuesta es false
+          console.log("Usuario no autenticado");
+          location.href = "http://localhost:8080/login.html"
+        }
+      }).catch(function (error) {
+        console.log("Error en la solicitud:", error);
+      });
     }
 
     comprobarSesion()

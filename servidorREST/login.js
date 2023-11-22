@@ -138,10 +138,12 @@ module.exports.cargar = function (servidorExpress) {
             // Verificar si el usuario está autenticado
             if (peticion.session.authenticated) {
                 // Acceso permitido, puedes acceder a peticion.session.username si es necesario
-                respuesta.send(`Bienvenido, ${peticion.session.username}!`);
+                //respuesta.send(`Bienvenido, ${peticion.session.username}!`);
+                respuesta.send(true)
             } else {
                 // Usuario no autenticado, redirigir a la página de inicio de sesión
-                respuesta.redirect('/login');
+                //respuesta.redirect('/login');
+                respuesta.send(false)
             }
         });
 }
