@@ -78,7 +78,7 @@ module.exports = class Logica {
     // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
     // .................................................................
     buscarMedicionPorDispositivo(dispositivo) {
-        var textoSQL = "select * from Medicion where dispositivo_id=$dispositivo";
+        var textoSQL = "select Medicion.* from Medicion, Medicion_Dispositivo where Medicion.id=Medicion_Dispositivo.medicion_id and Medicion_Dispositivo.dispositivo_id=$dispositivo_id";
         var valoresParaSQL = { $dispositivo_id: dispositivo }
         return new Promise((resolver, rechazar) => {
             this.laConexion.all(textoSQL, valoresParaSQL,

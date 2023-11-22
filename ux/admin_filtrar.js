@@ -93,9 +93,51 @@ function refrescarTabla() {
                     <td>${item.dni_empleado}</td>
                     <td>${item.dispositivo_id}</td>
                     <td>v</td>
-                    <td><img class="wifiIcono" src="images/wifi_icono.png"></td>
+                    
                   `;
-                  tableBody.appendChild(row);
+                  
+
+                  fetch('http://localhost:8080/medicion/' + item.dispositivo_id)
+                  .then(response => response.json())
+                  .then(datos =>{
+
+                    var today = new Date();
+                    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    var dateTime = date + ' ' + time;
+
+                    var currentTimeMillis = new Date(dateTime).getTime()
+                    var medicionTimeMillis = new Date(datos[datos.length-1].fecha).getTime()
+
+                    var diferencia = currentTimeMillis - medicionTimeMillis
+
+                    var conexioncelda = document.createElement("td")
+                    var imgconexioncelda = document.createElement("img")
+                    imgconexioncelda.src = "images/wifi_icono.png"
+                    imgconexioncelda.setAttribute("class", "wifiIcono")
+                    conexioncelda.appendChild(imgconexioncelda)
+                    conexioncelda.setAttribute("id", "conectionTable")
+                    // 1 hora = 3600000 milisegundos
+                    // 30 minutos = 1800000 milisegundos
+                    // 1 minuto = 60000 milisegundos
+                    // 2 minutos = 120000 milisegundos
+                    // 1 hora y media = 5400000 milisegundos
+                    // 1 dia (24 horas) = 86400000 milisegundos
+                    if (diferencia > 86400000){
+                      var imgconexionceldaerror = document.createElement("img")
+                      imgconexionceldaerror.src = "images/trianguloPeligro_icono.svg"
+                      imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
+                      imgconexionceldaerror.setAttribute("title", "Conexion error with device")
+                      imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
+                      conexioncelda.appendChild(imgconexionceldaerror)
+
+                    }
+                    
+                    row.appendChild(conexioncelda);
+                    tableBody.appendChild(row);
+                  });
+                  
+                  //tableBody.appendChild(row);
                 });
               }
             
