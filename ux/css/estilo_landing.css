@@ -40,9 +40,6 @@
     .cabecera{
         height: 6vh;
     }
-    #descargarMapa{
-        font-size: 30;
-    }
     #logoCleanCloud img{
         width: 25vh;
     }
@@ -108,7 +105,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:30;
     color: black;
     height: 6vh;
     width: 90%;
@@ -139,7 +135,6 @@
 }
 
 #contenido_mediaDiariaMapa div h3, #contenido_mediaDiariaMapa div h4{
-    font-size: 40;
     margin: 0px;
 }
 
@@ -171,13 +166,11 @@
     #zonaMapaSuperior input,
     #zonaMapaSuperior select{
         width: 15vh;
-        font-size: 30;
     }
     #zonaMapaSuperior select {
         width: 7vh;
     }
     #zonaMapaSuperior select option{
-        font-size: 15;
     }
 }
 
@@ -201,9 +194,9 @@
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 50;
     height: 15vh;
     width: 100%;
+    font-size: 250%;
 }
 
 #contenidoZonaInformacion{
@@ -215,7 +208,7 @@
 
 #informacionIzquierdaSuperior, #informacionDerechaInferior{
     height: 75vh;
-    width: 65vh;
+    width: 60%;
     display: flex;
     flex-direction: column;
     margin-left: 5vh;
@@ -251,7 +244,7 @@
 }
 #infoDescripcionTexto{
     width: 80%;
-    font-size: 25;
+    text-align: justify;
 }
 
 #guiaColores{
@@ -271,7 +264,6 @@
 }
 #guiaColores div p {
     width: 50vh;
-    font-size: 25;
 }
 
 #guiaMapa {
@@ -295,8 +287,9 @@
     height: 30vh;
 }
 #guiaMapaIndicacionesTexto{
-    font-size: 30;
     margin-left: 1vh;
+    text-align: justify;
+    padding: 0px 15px 0px 15px;
 }
 #guiaMapaIndicacionesValores{
     width: 26vh;
@@ -314,7 +307,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    font-size: 25;
     margin: 0px;
 }
 #ejemploValoresOzono{
@@ -322,6 +314,14 @@
 }
 #ejemploValoresCO {
     border-radius: 0vh 1vh 1vh 0vh;
+}
+
+#ejemploValoresOzono h4,
+#ejemploValoresOzono h3,
+#ejemploValoresCO h4,
+#ejemploValoresCO h3{
+    margin-bottom: 0.75em;
+    margin-top: 0.75em;
 }
 
 #valorOzonoEjemplo{
@@ -339,6 +339,15 @@
     width: 100%;
 }
 
+@media(max-width: 1270px) {
+
+    #informacionIzquierdaSuperior,
+    #informacionDerechaInferior {
+        width: 50%;
+        margin: 0px;
+    }
+}
+
 @media(max-width: 1000px) {
     #zonaInformacion{
         height: auto;
@@ -347,7 +356,6 @@
         margin-top: 2vh;
         height: 10vh;
         margin-bottom: 0px;
-        font-size: 90;
     }
 
     #contenidoZonaInformacion {
@@ -356,17 +364,16 @@
         align-items: center;
         height: auto;
         margin-bottom: -15vh;
-        margin-top: -10vh;
     }
 
     #informacionIzquierdaSuperior,
     #informacionDerechaInferior{
-        height: 40%;
-        width: 90%;
+        width: 70%;
         margin: 0px;
     }
     #informacionIzquierdaSuperior{
-        margin-bottom: 3vh;
+        margin-bottom: 0vh;
+        margin-top: 10vh;
     }
     #contenedorInfoDesc{
         width: 100%;
@@ -375,13 +382,9 @@
         width: 100%;
         height: 40%;
     }
-    #infoDescripcionTexto{
-        font-size: 45;
-    }
 
     #guiaColores div p{
         width: 70%;
-        font-size: 45;
     }
 
     #guiaMapa img{
@@ -392,16 +395,18 @@
         width: 40%;
     }
     #guiaMapaIndicacionesTexto {
-        font-size: 40;
         margin-top: 2vh;
     }
     #guiaMapaIndicacionesValores{
         width: 90%;
     }
 
-    #ejemploValoresOzono,
-    #ejemploValoresCO{
-        font-size: 40;
+}
+@media(max-width: 500px){
+    #informacionIzquierdaSuperior,
+    #informacionDerechaInferior {
+        width: 90%;
+        margin: 0px;
     }
 }
 
@@ -421,9 +426,27 @@
 }
 .contenedorContaminante{
     background-color: rgba(233, 233, 233, 0.8);
-    width: 70vh;
+    width: 80vw;
     margin-top: 5vh;
     border-radius: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contenedorContaminante table{
+    border: 1px solid black;
+    width: 60vw;
+    border-collapse: collapse;
+    margin-bottom: 3vh;
+}
+.contenedorContaminante table th {
+    border-bottom: 1px solid gray;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.contenedorContaminante table td {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 .contenedorContaminanteTitulo{
     display: flex;
@@ -433,11 +456,6 @@
     padding-left: 5vh;
     padding-right: 5vh;
     padding-top: 2vh ;
-    font-size: 20;
-}
-.contenedorContaminante img{
-    width: 100%;
-    border-radius: 0vh 0vh 3vh 3vh;
 }
 
 @media(max-width: 1000px) {
@@ -447,10 +465,19 @@
         align-items: center;
     }
     .contenedorContaminante{
-        width: 90%;
+        width: 95%;
+        
     }
-    .contenedorContaminanteTitulo{
-        font-size: 50;
+    .contenedorContaminanteTexto {
+        padding-left: 4vw;
+        padding-right: 4vw;
+        padding-top: 1vh;
+    }
+    .contenedorContaminante table {
+        border: 1px solid black;
+        width: 80vw;
+        border-collapse: collapse;
+        margin-bottom: 3vh;
     }
 }
 
@@ -466,7 +493,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: large;
     padding-bottom: 2vh;
 
     position: absolute;
@@ -533,22 +559,18 @@
     background-color: rgb(95, 192, 160);
     width: 15vh;
     height: 5vh;
-    font-size: larger;
 }
 
 @media(max-width: 1000px){
     #contenedorDescargarMapa{
-        font-size: 1.5vh;
         left: 5vh;
     }
 
     #formatoContenedor select{
         height: 2vh;
-        font-size: 1.5vh;
     }
 
     #buttonDownload{
-        font-size: 2vh;
         width: 10vh;
     }
 }

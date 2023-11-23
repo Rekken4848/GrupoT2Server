@@ -6,12 +6,14 @@ html {
     scroll-behavior: smooth;
 }
 
+html *{
+    font-size: 105%;
+}
 body {
     margin: 0px;
     padding: 0px;
     display: flex;
     flex-direction: column;
-
 }
 
 ::-webkit-scrollbar {
@@ -42,10 +44,27 @@ button{
     height: 8vh;
     margin: 2vh;
 }
-@media(max-width: 1000px){
+@media(max-width: 1000px) {
+    .baseEnlaceZonaLanding {
+        width: 6vh;
+        height: 6vh;
+    }
+
+    html * {
+        font-size: 102%;
+    }
+    body{
+        width: fit-content;
+    }
+}
+@media(max-width: 400px ){
     .baseEnlaceZonaLanding{
-        width: 4vh;
-        height: 4vh;
+        width: 6vh;
+        height: 6vh;
+    }
+
+    html * {
+        font-size: 100%;
     }
 }
 
