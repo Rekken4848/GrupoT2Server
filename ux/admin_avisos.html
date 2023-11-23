@@ -6,6 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin's Alerts</title>
 
+    <script>
+        function comprobarSesion() {
+          fetch('http://localhost:8080/paginaProtegida', {
+            method: "GET"
+          }).then(function (respuesta) {
+    
+            if (respuesta.ok) {
+              return respuesta.json()
+            } else {
+              console.log("hubo un fallo")
+            }
+    
+          }).then(function (datos) {
+            console.log(datos)
+            // 'datos' ahora contiene el valor devuelto por el servidor
+            if (datos === true) {
+              // Acción cuando la respuesta es true
+              console.log("Usuario autenticado");
+            } else if (datos === false) {
+              // Acción cuando la respuesta es false
+              console.log("Usuario no autenticado");
+              location.href = "http://localhost:8080/login.html"
+            }
+          }).catch(function (error) {
+            console.log("Error en la solicitud:", error);
+          });
+        }
+    
+        comprobarSesion()
+      </script>
+
     <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_adminAvisos.css" rel="stylesheet" type="text/css">

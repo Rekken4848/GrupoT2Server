@@ -133,4 +133,12 @@ module.exports.cargar = function (servidorExpress) {
                 respuesta.send(false)
             }
         });
+
+    servidorExpress.get(
+        '/usuarioSesion',
+        function (peticion, respuesta) {
+            console.log("Usuario sesion backend: "+peticion.session.username)
+            // Verificar si el usuario está autenticado
+            respuesta.send(peticion.session.username)
+        });
 }

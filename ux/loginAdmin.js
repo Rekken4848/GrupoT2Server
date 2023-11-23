@@ -52,7 +52,8 @@ function logearse(username, password) {
         if (datos === "Usuario Correcto") {
             console.log("Todo introducido con éxito");
             //var URLactual = window.location;
-            location.href='http://localhost:8080/pruebaAdmin.html'
+            //location.href='http://localhost:8080/pruebaAdmin.html'
+            location.href='http://localhost:8080/admin.html'
         } else if(datos === "Usuario Incorrecto") {
             console.log("hubo un fallo")
             location.href='http://localhost:8080/login.html'
