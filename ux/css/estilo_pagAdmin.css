@@ -5,7 +5,7 @@
     padding-bottom: 3vh ;
     padding-left: 5vh;
     padding-right: 5vh;
-    min-height: 79vh ;
+    min-height: 89vh ;
 }
 button, button img{
     background: white;
@@ -19,7 +19,6 @@ button img{
     height: 75%;
 }
 
-
 #marcaNotifAvisosContenedor{
     height: 4vh;
     display: flex;
@@ -30,6 +29,8 @@ button img{
 #marcaNotifAvisosContenedor img{
     width: 5vh;
     height: 5vh;
+
+    visibility: hidden;
 }
 #marcaNotifAvisos{
     background-image: url(../images/punto_rojo_sinBordes.svg);
@@ -95,6 +96,9 @@ button img{
 #tablaEmpleados{
     width: 100%;
 }
+#tablaEmpleados:hover {
+    background-color: whitesmoke;
+}
 #leyendaTabla{
     font-size: large;
     font-weight: 700;
@@ -149,11 +153,11 @@ td:nth-child(6) {
 #contenedorPopUps {
     background-color: rgb(240, 240, 240);
     border-radius: 1vh;
-    width: 70vw;
+    width: 50vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: larger;
+    font-size: 105%;
     padding-bottom: 2vh;
     font-style: italic;
 
@@ -196,7 +200,7 @@ td:nth-child(6) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 5vw;
+    width: 15vw;
     margin-left: 1vw;
     border-radius: 1vh;
     padding: 0.5vh;
@@ -228,7 +232,7 @@ td:nth-child(6) {
 
 @media(max-width: 1000px) {
     #contenedorFiltros {
-        font-size: 1.5vh;
+        font-size: 115%;
         left: 5vh;
         width: 80%;
     }
@@ -250,7 +254,7 @@ td:nth-child(6) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: larger;
+    font-size: 100%;
     padding-bottom: 2vh;
     font-style: italic;
 
@@ -272,7 +276,7 @@ td:nth-child(6) {
 .insertarDato{
     width: 100%;
     display: flex;
-    margin-bottom: 1vh;
+    margin-bottom: 0.25vh;
     align-items: center;
 }
 .insertarDato input{
@@ -281,10 +285,11 @@ td:nth-child(6) {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.3);
     border: 0px;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
 }
 .insertarDato p {
     width: 20%;
+    margin: 1vh;
 }
 
 #botonConfirmarDiv{
@@ -300,7 +305,7 @@ td:nth-child(6) {
 }
 @media(max-width: 1000px) {
     #contenedorPopUpsAnyadir {
-        font-size: 1.5vh;
+        font-size: 115%;
         left: 5vw;
         width: 90vw;
     }
@@ -318,7 +323,7 @@ td:nth-child(6) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: larger;
+    font-size: 100%;
     padding-bottom: 2vh;
 
     position: absolute;
@@ -334,10 +339,12 @@ td:nth-child(6) {
 
 .editarDato{
     display: flex;
+    margin-bottom: 0.25vh;
     align-items: center;
 }
 .editarDato p{
     width: 20%;
+    margin: 1vh;
 }
 .editarDato input {
     width: 100%;
@@ -345,7 +352,7 @@ td:nth-child(6) {
     margin-left: 1vh;
     background-color: rgba(255, 255, 255, 0.3);
     border: 0px;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
 }
 .editarDato img {
     width: 3vh;
@@ -365,8 +372,54 @@ td:nth-child(6) {
 
 @media(max-width: 1000px) {
     #contenedorPopUpsEditar {
-        font-size: 1.5vh;
+        font-size: 115%;
         left: 5vw;
         width: 90vw;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Pop up eliminar
+* ------------------------------------------------------------------
+*/
+
+#contenedorConfirmarEliminar{
+    background-color: rgba(199, 199, 199, 1);
+    border: 2px solid red;
+    border-radius: 1vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: larger;
+    padding-bottom: 4vh;
+
+    position: absolute;
+    top: 13vh;
+    left: 15vw;
+
+    visibility: hidden;
+}
+#contenedorConfirmarEliminar p{
+    width: 80%;
+    margin-bottom: 3vh;
+    font-weight: 700;
+}
+
+#contenedorConfirmarEliminar button img,
+#contenedorConfirmarEliminar button{
+    background-color: rgba(199, 199, 199, 1); 
+}
+
+#botonConfirmarEliminar button{
+    background-color: red;
+    width: fit-content;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+@media(max-width: 1000px) {
+    #contenedorConfirmarEliminar {
+        font-size: 115%;
     }
 }
