@@ -5,7 +5,7 @@ function visibilidadFormAnyadir(modo) {
             document.getElementById("formAnyadirPersona").hidden = true;
             //document.getElementById("formAnyadirDispositivo").hidden = true;
 
-            document.getElementById("personTitulo").style.color='red';
+            document.getElementById("personTitulo").style.color = 'red';
             document.getElementById("personTitulo").style.backgroundColor = 'white';
             document.getElementById("adminTitulo").style.color = 'white';
             document.getElementById("adminTitulo").style.backgroundColor = 'rgb(76, 156, 130)';
@@ -26,35 +26,20 @@ function visibilidadFormAnyadir(modo) {
 async function yaExisteDNI(dni) {
     console.log("comprobando " + dni);
     await fetch('http://localhost:8080/persona/' + dni) // Replace with your API endpoint
-    // return if the response is 404
-    .then(response => {
-        console.log(response.status);
-        if (response.status == 404) {
-            return false;
-        }
-        return true;
-    })
-    .then(data => {})
-    .catch(error => console.error('Error fetching data:', error));
+        // return if the response is 404
+        .then(response => {
+            console.log(response.status);
+            if (response.status == 404) {
+                return false;
+            }
+            return true;
+        })
+        .then(data => { })
+        .catch(error => console.error('Error fetching data:', error));
 }
 
 function anyadirAdminyPersonayDireccion() {
     // if ya existe dni (document.getElementById("dnianyadiradmin").value) return
-
-    var datos = {
-        contrasena: document.getElementById("contrasenaanyadiradmin").value,
-        dni: document.getElementById("dnianyadiradmin").value,
-    }
-    console.log(datos)
-    fetch('http://localhost:8080/admin', {
-        method: "POST",
-        body: JSON.stringify(datos),
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(function (respuesta) {
-    })
 
     var datos = {
         dni: document.getElementById("dnianyadiradmin").value,
@@ -65,6 +50,21 @@ function anyadirAdminyPersonayDireccion() {
     }
     console.log(datos)
     fetch('http://localhost:8080/persona', {
+        method: "POST",
+        body: JSON.stringify(datos),
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (respuesta) {
+    })
+
+    var datos = {
+        contrasena: document.getElementById("contrasenaanyadiradmin").value,
+        dni: document.getElementById("dnianyadiradmin").value,
+    }
+    console.log(datos)
+    fetch('http://localhost:8080/admin', {
         method: "POST",
         body: JSON.stringify(datos),
         credentials: 'same-origin',
@@ -91,6 +91,8 @@ function anyadirAdminyPersonayDireccion() {
         }
     }).then(function (respuesta) {
     })
+    document.getElementById("contenedorPopUpsAnyadir").style.visibility = "hidden";
+
 }
 
 
@@ -110,7 +112,8 @@ function anyadirPersonayDireccion() {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(function (respuesta) {
+    }).then(function (respuesta) { 
+        console.log(respuesta);
     })
 
     var datos = {
@@ -129,10 +132,11 @@ function anyadirPersonayDireccion() {
             'Content-Type': 'application/json'
         }
     }).then(function (respuesta) {
+        console.log(respuesta);
     })
 
     var datos = {
-        dni_empleado: document.getElementById("dnianyadirdispositivo").value,
+        dni_empleado: document.getElementById("dnianyadir").value,
         dispositivo_id: document.getElementById("serialnumberanyadir").value,
     }
     console.log(datos)
@@ -144,6 +148,24 @@ function anyadirPersonayDireccion() {
             'Content-Type': 'application/json'
         }
     }).then(function (respuesta) {
+        console.log(respuesta);
     })
+    document.getElementById("contenedorPopUpsAnyadir").style.visibility = "hidden";
+}
+function showAlert() {
+    alert('Se ha añadido correctamente');
+  }
+
+function submitFormPersona(event) {
+    event.preventDefault();
+    anyadirPersonayDireccion() 
+    setTipoTags('persona');  
+    showAlert();
 }
 
+function submitFormAdmin(event) {
+    event.preventDefault();
+    anyadirAdminyPersonayDireccion() 
+    setTipoTags('persona');  
+    showAlert(); 
+}

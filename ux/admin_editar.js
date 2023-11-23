@@ -1,13 +1,13 @@
 var editando = false;
 var dni_persona_editando = "";
 
-function cursorLapiz(){
+function cursorLapiz() {
     editando = !editando;
-    if (editando){ 
+    if (editando) {
         document.getElementById('botonEditarTrabajador').style.background = 'rgb(189, 182, 156)';
         document.getElementById('fondoPagina').style.cursor = "url(images/lapiz_icono_para_cursor.svg), help";
 
-    } else { 
+    } else {
         document.getElementById('botonEditarTrabajador').style.background = 'white';
         document.getElementById('fondoPagina').style.cursor = 'default';
     }
@@ -25,34 +25,34 @@ function editarFila(dni_persona) {
 
     // Fetch data from the API endpoint
     fetch('http://localhost:8080/persona/' + dni_persona) // Replace with your API endpoint
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("dnieditar").value = data.dni;
-      document.getElementById("nameeditar").value = data.nombre;
-      document.getElementById("surnameeditar").value = data.apellidos;
-      document.getElementById("teleditar").value = data.telefono;
-      document.getElementById("emaileditar").value = data.correo;
-    })
-    .catch(error => console.error('Error fetching data:', error));
-    
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("dnieditar").value = data.dni;
+            document.getElementById("nameeditar").value = data.nombre;
+            document.getElementById("surnameeditar").value = data.apellidos;
+            document.getElementById("teleditar").value = data.telefono;
+            document.getElementById("emaileditar").value = data.correo;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
     // Fetch data from the API endpoint
     fetch('http://localhost:8080/direccion/' + dni_persona) // Replace with your API endpoint
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("ccaaeditar").value = data.ccaa;
-        document.getElementById("provinceeditar").value = data.provincia;
-        document.getElementById("postalCodeeditar").value = data.codigo_postal;
-        document.getElementById("streeteditar").value = data.calle;
-    })
-    .catch(error => console.error('Error fetching data:', error));
-    
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("ccaaeditar").value = data.ccaa;
+            document.getElementById("provinceeditar").value = data.provincia;
+            document.getElementById("postalCodeeditar").value = data.codigo_postal;
+            document.getElementById("streeteditar").value = data.calle;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
     // Fetch data from the API endpoint
     fetch('http://localhost:8080/dispositivo/' + dni_persona) // Replace with your API endpoint
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("deviceAssociadoTitulo").value = data.dispositivo_id;
-    })
-    .catch(error => console.error('Error fetching data:', error));
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("deviceAssociadoTitulo").value = data.dispositivo_id;
+        })
+        .catch(error => console.error('Error fetching data:', error));
 }
 
 function confirmarEditarPersona() {
@@ -162,4 +162,24 @@ function eliminarPersona() {
 
     document.getElementById("contenedorPopUpsEditar").style.visibility = "hidden";
     dni_persona_editando = "";
+}
+
+function showAlertEliminar() {
+    alert('Se ha eliminado correctamente');
+}
+
+function eliminarAndSetTags() {
+    eliminarPersona();
+    setTipoTags('persona');
+    showAlertEliminar();
+}
+
+function showAlertEditar() {
+    alert('Se ha editado correctamente');
+}
+
+function editarAndSetTags() {
+    confirmarEditarPersona();
+    setTipoTags('persona');
+    showAlertEditar();
 }

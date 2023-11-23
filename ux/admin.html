@@ -171,7 +171,7 @@
             <button onclick="visibilidadFormAnyadir(1);" id="personTitulo"><p>Person</p></button>
         </div>
         <div class="contenedorFiltroEspecificado">
-            <form id="formAnyadirPersona" onsubmit="anyadirPersonayDireccion(); return false;">
+            <form id="formAnyadirPersona" onsubmit="submitFormPersona(event); return false;">
                 <div class="insertarDato">
                     <p>DNI</p>
                     <input required type="text" name="dni" id="dnianyadir" maxlength="10">
@@ -267,6 +267,7 @@
             
         </div>
     </div>
+    
 
     <!-- popup editar -------------------------------------------------------- -->
     <div id="contenedorPopUpsEditar">
@@ -279,17 +280,17 @@
         <div class="contenedorFiltroEspecificado">
             <div class="editarDato">
                 <p>DNI</p>
-                <input readonly type="text" name="dni" id="dnieditar">
+                <input readonly type="text" name="dni" id="dnieditar" maxlength="10">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Name</p>
-                <input readonly type="text" name="name" id="nameeditar">
+                <input readonly type="text" name="name" id="nameeditar" maxlength="15">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Surname</p>
-                <input readonly type="text" name="surname" id="surnameeditar">
+                <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
@@ -298,23 +299,23 @@
             </div>
             <div class="editarDato">
                 <p>Tlf_N°</p>
-                <input type="text" name="tel" id="teleditar">
+                <input type="text" name="tel" id="teleditar" maxlength="20">
             </div>
             <div class="editarDato">
                 <p>CCAA</p>
-                <input type="text" name="ccaa" id="ccaaeditar">
+                <input type="text" name="ccaa" id="ccaaeditar" maxlength="30">
             </div>
             <div class="editarDato">
                 <p>Province</p>
-                <input type="text" name="province" id="provinceeditar">
+                <input type="text" name="province" id="provinceeditar" maxlength="30">
             </div>
             <div class="editarDato">
                 <p>Postal Code</p>
-                <input type="text" name="postalCode" id="postalCodeeditar">
+                <input type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
             </div>
             <div class="editarDato">
                 <p>Street</p>
-                <input type="text" name="street" id="streeteditar">
+                <input type="text" name="street" id="streeteditar" maxlength="200">
             </div>
 
             <div class="editarDato">
@@ -324,13 +325,32 @@
             </div>
     
             <div id="botonConfirmarDiv">
-                <button onclick="eliminarPersona();" id="botonEliminar">Eliminar</button>
-                <button onclick="confirmarEditarPersona();" id="botonConfirmar">Confirm</button>
+                <button id="botonEliminar" onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';">Eliminar</button>
+                <button onclick="editarAndSetTags();" id="botonConfirmar">Confirm</button>
             </div>
 
         </div>
     </div>
     
+     <!-- popup confirmarEliminar -------------------------------------------------------- -->
+     <div id="contenedorConfirmarEliminar">
+        <div id="divClose">
+            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
+        </div>
+        <div id="tituloPopUpFiltros">
+            <p id="confirmarEliminar">¿Confirmas el eliminar esta persona?</p>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="editarDato">
+                <p>Una vez eliminada la persona no podras recuperarla</p>
+            </div>
+            <div id="botonConfirmarEliminar">
+                <button onclick="eliminarAndSetTags();" id="botonConfirmarEliminar">Eliminar</button>
+            </div>
+
+        </div>
+    </div>
+
 
 </body>
 </html>

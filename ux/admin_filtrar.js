@@ -98,7 +98,14 @@ function refrescarTabla() {
                   
 
                   fetch('http://localhost:8080/medicion/' + item.dispositivo_id)
-                  .then(response => response.json())
+                  .then(function(respuesta){
+                    if(respuesta.ok){
+                      return respuesta.json()
+                    } else{
+                      console.log("ha habido un error al obtener las mediciones")
+                      tableBody.appendChild(row);
+                    }
+                  })
                   .then(datos =>{
 
                     var today = new Date();
