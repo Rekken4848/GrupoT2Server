@@ -8,6 +8,36 @@
 
 <head>
     <title>Clean Cloud</title>
+    <script>
+        function comprobarSesion() {
+          fetch('http://localhost:8080/paginaProtegida', {
+            method: "GET"
+          }).then(function (respuesta) {
+    
+            if (respuesta.ok) {
+              return respuesta.json()
+            } else {
+              console.log("hubo un fallo")
+            }
+    
+          }).then(function (datos) {
+            console.log(datos)
+            // 'datos' ahora contiene el valor devuelto por el servidor
+            if (datos === true) {
+              // Acción cuando la respuesta es true
+              console.log("Usuario autenticado");
+            } else if (datos === false) {
+              // Acción cuando la respuesta es false
+              console.log("Usuario no autenticado");
+              location.href = "http://localhost:8080/login.html"
+            }
+          }).catch(function (error) {
+            console.log("Error en la solicitud:", error);
+          });
+        }
+    
+        comprobarSesion()
+      </script>
 
     <!-- --------------- estilo y script de leaflet para el mapa ---------------------- -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
