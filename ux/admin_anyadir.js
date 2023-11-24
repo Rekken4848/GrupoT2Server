@@ -169,3 +169,38 @@ function submitFormAdmin(event) {
     setTipoTags('persona');  
     showAlert(); 
 }
+
+function anyadirCodigoPostal() {
+    fetch('http://localhost:8080/usuarioSesion', {
+      method: "GET"
+    }).then(function (respuesta) {
+      if (respuesta.ok) {
+        return respuesta.text();
+      } else {
+        console.log("Hubo un fallo");
+      }
+    }).then(function (datos) {
+      console.log("Datos de la sesion1: " + datos);
+      fetch('http://localhost:8080/zona/' + datos, {
+        method: "GET"
+      }).then(function (respuesta) {
+        if (respuesta.ok) {
+          return respuesta.json();
+        } else {
+          console.log("Hubo un fallo");
+        }
+      }).then(function (datos) {
+        console.log("Datos de la sesion2: " + datos);
+        console.log("Datos de la sesion3: " + datos.zona);
+
+        document.getElementById("postalCodeanyadir").value = datos.zona
+        // Now you can continue your logic here
+        // Add further fetch or data handling as needed
+      }).catch(function (error) {
+        console.error("Error en la tercera llamada:", error);
+      });
+    }).catch(function (error) {
+      console.error("Error en la primera llamada:", error);
+    });
+    document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';
+  }

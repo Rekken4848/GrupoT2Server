@@ -94,7 +94,8 @@
             </div>
             <div id="contenedorDerecho">
                 <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
-                <button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button>
+                <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button-->
+                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="images/plus.png" alt="icono anyadir trabajador"></button>
             </div>
         </div>
 
@@ -201,9 +202,13 @@
                     <p>Province</p>
                     <input required type="text" name="province" id="provinceanyadir" maxlength="30">
                 </div>
-                <div class="insertarDato">
+                <!--div class="insertarDato">
                     <p>Postal Code</p>
                     <input required type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
+                </div-->
+                <div class="insertarDato" id="cp_deladmin">
+                    <p>Postal Code</p>
+                    <input required readonly type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div>
                 <div class="insertarDato">
                     <p>Street</p>

@@ -161,6 +161,7 @@ function eliminarPersona() {
     })
 
     document.getElementById("contenedorPopUpsEditar").style.visibility = "hidden";
+    document.getElementById("contenedorConfirmarEliminar").style.visibility = "hidden";
     dni_persona_editando = "";
 }
 
