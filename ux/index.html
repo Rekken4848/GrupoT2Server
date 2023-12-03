@@ -1,43 +1,48 @@
-
 <!-- ---------------------------------------------------------- -->
 <!-- ejemplo de      https://leafletjs.com/examples/quick-start/ -->
 <!-- ---------------------------------------------------------- -->
 <html>
 
-	<meta name="viewport" content="width=device-width" />
-  <!-- -------------------------------------------------------- -->
-  <!-- -------------------------------------------------------- -->
-  <head>
+<meta name="viewport" content="width=device-width" />
+<!-- -------------------------------------------------------- -->
+<!-- -------------------------------------------------------- -->
+
+<head>
 	<title>Clean Cloud</title>
 
 	<!-- --------------- estilo y script de leaflet para el mapa ---------------------- -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin="" />
 	<!-- Make sure you put this AFTER Leaflet's CSS -->
 
- 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
 	<!-- --------------- fin estilo y script de leaflet para el mapa ----------------------- -->
 
-	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel='stylesheet' type='text/css'>
 	<style>
-		html{
-			font-family: 'Roboto', sans-serif;
+		html {
+			font-family: 'Heebo', sans-serif;
 		}
 	</style>
 
 	<link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
 	<link href="css/estilo_landing.css" rel="stylesheet" type="text/css">
 
-  </head>
+</head>
 
-  <!-- -------------------------------------------------------- -->
-  <!-- -------------------------------------------------------- -->
-  <body>
+<!-- -------------------------------------------------------- -->
+<!-- -------------------------------------------------------- -->
+
+<body>
 
 	<!-- cabecera de la pagina -------------------------------------------------------- -->
 	<header class="cabecera" role="banner">
 
 		<a href="" id="logoCleanCloud">
-			<img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud" >
+			<img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
 		</a>
 
 		<div id="fondoHeader">
@@ -51,46 +56,12 @@
 	<div id="zonaMapa">
 
 		<!-- filtros superiores -------------------------------------------------------- -->
-		<div id="zonaMapaSuperior">
-			<input type="text" placeholder="Search Location">
-			<select name="tipos" id="seleccionadorTipo">
-				<option value="default">All</option>
-				<option value="o3">O3</option>
-				<option value="co">CO</option>
-				<option value="temperatura">°C</option>
-			</select>
-		</div>
 
 		<!-- aqui iria el mapa -->
 		<div></div>
 
 		<!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
 		<div id="zonaMapaInferior">
-
-			<div id="mediaDiariaMapa">
-
-				<div id="titulo_mediaDiariaMapa">Daily's Averege</div>
-
-				<div id="contenido_mediaDiariaMapa">
-
-					<div id="mediaO3">
-						<h4 class="tituloMediaMapa">O3</h4>
-						<h3 class="valorMediaMapa" id="valorO3Mapa">120</h3>
-					</div>
-
-					<div id="mediaCO">
-						<h4 class="tituloMediaMapa">CO</h4>
-						<h3 class="valorMediaMapa" id="valorCOMapa">900</h3>
-					</div>
-
-					<div id="mediaTemperatura">
-						<h4 class="tituloMediaMapa">°C</h4>
-						<h3 class="valorMediaMapa" id="valorTemperaturaMapa">23</h3>
-					</div>
-
-				</div>
-
-			</div>
 
 			<!-- icono de informacion que te lleva abajo -------------------------------------------------------- -->
 			<a href="#zonaInformacion" class="baseEnlaceZonaLanding" id="enlaceInformacionLanding">
@@ -103,313 +74,255 @@
 	<!-- fin de la zona del mapa -------------------------------------------------------- -->
 
 	<!-- zona de informacion -------------------------------------------------------- -->
-	<div id="zonaInformacion">
 
-		<div id="zonaInformacionTitulo">Information</div>
-
-		<div id="contenidoZonaInformacion">
-
-			<div id="informacionIzquierdaSuperior">
-
-				<div id="guiaColores">
-
-					<div class="guiaColorVerde">
-						<img src="images/mapa_punto_verde.svg" alt="punto de color verde">
-						<p class="parrafoGuiaColores">Values recieved by sensor are positive and show healthy amounts</p>
-					</div>
-
-					<div class="guiaColorAmarillo">
-						<img src="images/mapa_punto_amarillo.svg" alt="punto de color Amarillo">
-						<p class="parrafoGuiaColores">Enviroment has acceptable levels of contamination</p>
-					</div>
-
-					<div class="guiaColorRojo">
-						<img src="images/mapa_punto_rojo.svg" alt="punto de color Rojo">
-						<p class="parrafoGuiaColores">Values show dangerous levels that represent a contaminated enviroment</p>
-					</div>
-
-				</div>
-
-				<div id="guiaMapa">
-
-					<img src="images/mapaInfoGuia.png" alt="imagen de muestra del funcionamiento del mapa">
-
-					<div id="guiaMapaIndicaciones">
-
-						<div id="guiaMapaIndicacionesTexto"> Click on a colored zone or point to update the values</div>
-
-						<div id="guiaMapaIndicacionesValores">
-
-							<div id="ejemploValoresOzono">
-								<h4 class="tituloMediaMapa">O3</h4>
-								<h3 class="valorMediaMapa" id="valorOzonoEjemplo">290</h3>
-							</div>
-
-							<!-- <img src="images/linea_vertical.svg" alt="linea separadora" id="lineaSeparadora"> -->
-
-							<div id="ejemploValoresCO">
-								<h4 class="tituloMediaMapa">CO</h4>
-								<h3 class="valorMediaMapa" id="valorCOEjemplo">800</h3>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-			<div id="informacionDerechaInferior">
-
-				<div id="contenedorInfoDesc">
-					<div id="infoDescripcionTexto">
-						<p id="parrafoInfoDescripcionTexto">The map shows you which areas around you might have pollution or contaminants. See where it's safe. So, explore the map, stay safe, and enjoy your surroundings with confidence!</p>
-					</div>
-				</div>
-
-				<div id="contenedorInfoDescImagen">
-					<img src="images/fondo_chica_playa.svg" alt="chica disfrutando el aire puro de la playa">
-				</div>
-
-			</div>
-
-		</div>
-
-		<div id="enlaceAMapaDesdeInfo">
-			<!-- icono de mapa que te lleva arriba -------------------------------------------------------- -->
-			<a href="#logoCleanCloud" class="baseEnlaceZonaLanding" id="enlaceMapaLanding">
-				<img src="images/mapa_icono.svg" alt="enlace al mapa" class="iconoMoverse">
-			</a>
-		</div>
-		
-
-	</div>
 	<!-- fin de la zona de informacion -------------------------------------------------------- -->
 
 	<!-- zona de contaminantes -------------------------------------------------------- -->
+
+
 	<div id="zonaContaminantes">
+
+		<div id="zonaContaminantesSuperior">
+			<h1 id="titulo_contaminantes">Contaminantes</h2>
+				<div id="enlaceAMapaDesdeInfo">
+					<!-- icono de mapa que te lleva arriba -------------------------------------------------------- -->
+					<a href="#logoCleanCloud" class="baseEnlaceZonaLanding" id="enlaceMapaLanding">
+						<img src="images/mapa_icono.svg" alt="enlace al mapa" class="iconoMoverse">
+					</a>
+				</div>
+		</div>
 
 		<div id="infoContaminantes">
 
-			<div id="contaminanteOzono" class="contenedorContaminante">
-				<div class="contenedorContaminanteTexto">
-					<div class="contenedorContaminanteTitulo">
-						<h3 class="tituloContaminanteUnico">Ozono</h3>
+
+			<div class="contaminanteContainer">
+				<div class="wrap animate pop">
+					<div class="overlay">
+						<div class="overlay-content animate slide-left delay-2">
+							<h2 class="animate slide-left pop delay-4">Ozono</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+								Efectos de la salud</p>
+						</div>
+						<div class="image-content1 animate slide delay-5" id="portadaOzono"></div>
+						<div class="dots animate">
+							<div class="dot animate slide-up delay-6"></div>
+							<div class="dot animate slide-up delay-7"></div>
+							<div class="dot animate slide-up delay-8"></div>
+						</div>
 					</div>
+					<div class="text">
+						<p><img class="inset" src="images/ozono.png" alt="" />En niveles elevados, el ozono puede causar
+							irritación en los ojos, la nariz y la garganta. Puede agravar enfermedades respiratorias
+							como el asma, causar tos, dificultad para respirar e inflamación pulmonar. La exposición
+							crónica al ozono puede reducir la función pulmonar, aumentar la sensibilidad a las
+							infecciones pulmonares y contribuir a problemas cardiovasculares.
 
-					<p class="parrafoInfoContaminante">En la troposfera, el O3 se forma de manera secundaria a partir de reacciones químicas complejas desde la proximidad de las fuentes de emisión de sus gases precursores hasta las zonas receptoras de la contaminación, reacciones en las que participan otros gases contaminantes que actúan como precursores, principalmente óxidos de nitrógeno (NO2 secundario, junto al emitido como primario) y compuestos orgánicos volátiles (COVs, tanto antrópicos como biogénicos procedentes de la vegetación). 
 
-  
+						</p>
+					</div>
+				</div>
+				<div id="table">
+					<table class="recomendacionOMSCaptura">
+						<tr>
+							<th>Tipos de umbrales</th>
+							<th>Parámetro</th>
+							<th>Valor del umbral</th>
+						</tr>
+						<tr>
+							<td>Umbral de alerta</td>
+							<td>Promedio horario</td>
+							<td>240 μg/m3</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 
-						La velocidad y el grado de formación de O3 se ven muy incrementados con el aumento de la radiación solar, las emisiones antropogénicas de precursores y el ciclo biológico de emisiones biogénicas de COVs. Por ello sus niveles son más elevados en el sur de Europa y en primavera y verano. 
-						
-						  
-						
-						Además, sus niveles son superiores en las periferias de las grandes urbes y en las zonas rurales porque la reacción fotoquímica necesita una cierta distancia para generar O3 a partir de sus precursores. Una vez formado y en entornos urbanos con altos niveles de NO, el O3 se consume rápidamente mediante la oxidación de NO a NO2. Es por ello que en zonas urbanas de tráfico los niveles de O3 suelen ser muy bajos, mucho más bajos que en entornos poco contaminados, en donde se recibe el O3 generado durante el transporte de masas de aire desde zonas contaminadas urbanas e industriales, y no existe NO local que lo pueda consumir. 
-					</p>
 
-					<h4 class="tituloEfectosSaludContaminante">-Efectos de salud</h4>
-					<p class="parrafoInfoContaminante">El gas ozono (O3) tiene un efecto positivo en la estratosfera (a unos 10-50 km de la superficie terrestre), ya que protege de la radiación ultravioleta. Sin embargo, a cotas inferiores, en la troposfera (la capa de la atmósfera en contacto con la tierra), se convierte en un contaminante que actúa como un potente y agresivo agente oxidante. 
+			<div class="contaminanteContainer">
+				<div class="wrap animate pop">
+					<div class="overlay">
+						<div class="overlay-content animate slide-left delay-2">
+							<h2 class="animate slide-left pop delay-4">Óxidos de nitrógeno</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+								Efectos de la salud</p>
+						</div>
+						<div class="image-content2 animate slide delay-5" id="portadaNitrogeno"></div>
+						<div class="dots animate">
+							<div class="dot animate slide-up delay-6"></div>
+							<div class="dot animate slide-up delay-7"></div>
+							<div class="dot animate slide-up delay-8"></div>
+						</div>
+					</div>
+					<div class="text">
+						<p><img class="inset" src="images/nitrogeno.png" alt="" />Es un gas irritante que afecta las
+							vías respiratorias superiores e inferiores. Puede causar tos, sibilancias, dificultad para
+							respirar y agravar el asma. La exposición a largo plazo puede disminuir la función pulmonar
+							y aumentar el riesgo de infecciones respiratorias.
 
-  
-
-						La exposición a elevados niveles del mismo origina problemas respiratorios sobre la salud humana (irritación, inflamación, insuficiencias respiratorias, asma) y puede contribuir a incrementar la mortalidad prematura; también puede dañar la vegetación, afectar al crecimiento de cultivos y bosques, reducir la absorción de CO2 por las plantas, alterar la estructura de los ecosistemas y reducir la biodiversidad. Además, es un gas de efecto invernadero, que contribuye al calentamiento de la atmósfera. Así pues, por su claro impacto en la salud y los ecosistemas, los niveles de O3 en aire ambiente están también regulados en la normativa ambiental. 
-					</p>
+						</p>
+					</div>
 				</div>
 
-				<table class="recomendacionOMSCaptura">
-					<tr>
-					  <th>Tipos de umbrales</th>
-					  <th>Parámetro</th>
-					  <th>Valor del umbral</th>
-					</tr>
-					<tr>
-					  <td>Umbral de alerta</td>
-					  <td>Promedio horario</td>
-					  <td>240 μg/m3</td>
-					</tr>
-				  </table>
+				<div id="table">
+					<table class="recomendacionOMSCaptura">
+						<tr>
+							<th>Tipos de umbrales</th>
+							<th>Parámetro</th>
+							<th>Valor del umbral</th>
+						</tr>
+						<tr>
+							<td>Umbral de alerta</td>
+							<td>Promedio horario</td>
+							<td>200 μg/m3</td>
+						</tr>
+					</table>
+				</div>
+
+
 
 			</div>
 
-			<div id="contaminanteCO" class="contenedorContaminante">
-				<div class="contenedorContaminanteTexto">
 
-					<div class="contenedorContaminanteTitulo">
-						<h3 class="tituloContaminanteUnico">Óxidos de nitrógeno</h3>
+			<div class="contaminanteContainer">
+
+
+				<div class="wrap animate pop">
+					<div class="overlay">
+						<div class="overlay-content animate slide-left delay-2">
+							<h2 class="animate slide-left pop delay-4">Dióxido de azufre</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+								Efectos
+								de la salud</p>
+						</div>
+						<div class="image-content3 animate slide delay-5" id="portadaAzufre"></div>
+						<div class="dots animate">
+							<div class="dot animate slide-up delay-6"></div>
+							<div class="dot animate slide-up delay-7"></div>
+							<div class="dot animate slide-up delay-8"></div>
+						</div>
 					</div>
-					
-					<p class="parrafoInfoContaminante">Como contaminantes, son gases que se emiten en los procesos de combustión que se llevan a cabo en relación con el tráfico (sobre todo vehículos automóviles, y en especial de motores diésel) y con el transporte en general, así como en instalaciones industriales de alta temperatura y de generación eléctrica. 
+					<div class="text">
+						<p><img class="inset" src="images/azufre.png" alt="" />La exposición al dióxido de azufre puede
+							irritar las vías respiratorias, provocando tos, dificultad para respirar, sibilancias y
+							exacerbación del asma. Además, puede causar enfermedades respiratorias crónicas y dañar el
+							tejido pulmonar. El SO2 contribuye a la formación de partículas finas que pueden penetrar
+							profundamente en los pulmones.
+						</p>
+					</div>
 
-   
-
-						En ambiente urbano, generalmente más del 75% del NO2 en aire ambiente es aportado por el tráfico rodado. Esta contribución es mayor que la que aporta al Inventario Nacional de Emisiones debido a que los ciudadanos viven muy próximos al tráfico rodado, y aunque en tonelaje las emisiones son inferiores a las de otras fuentes, su contribución a la exposición humana en ciudades es muy superior 
-						
-						  
-						
-						A lo largo de los años se ha producido global y paulatinamente una disminución de las emisiones de estos contaminantes, que resulta más marcada si se atiende a focos individuales como el tráfico (que continúa siendo el principal contribuyente) o a la combustión en las industrias energéticas, que han experimentado una caída importante a partir del año 2008. 
-						
-						  
-						
-						Los niveles más altos de NOx se alcanzan en las grandes aglomeraciones urbanas y en sus zonas metropolitanas, así como en el entorno de las vías de comunicación con tráfico más denso. </p>
-					
-					<h4 class="tituloEfectosSaludContaminante">-Efectos de salud</h4>
-					<p class="parrafoInfoContaminante">Los denominados óxidos de nitrógeno engloban tanto al monóxido (NO) como al dióxido de nitrógeno (NO2). De las dos, es ésta última la principal forma química con efectos adversos sobre la salud; además, el NO se oxida con facilidad, dando lugar a NO2 rápidamente una vez presente en la atmósfera. 
-
-  
-
-						Dichos efectos adversos son de muy diversa naturaleza, y se pueden producir sobre la salud humana (inflamación de las vías aéreas, afecciones de órganos, como hígado o bazo, o de sistemas, como el sistema circulatorio o el inmunitario, que propician a su vez infecciones pulmonares e insuficiencias respiratorias) y sobre el medio ambiente (acidificación y eutrofización de ecosistemas, afecciones metabólicas, limitación del crecimiento vegetal). Los procesos de acidificación pueden también afectar a las edificaciones. 
-						
-						  
-						
-						Por otra parte, los NOx contribuyen igualmente de forma secundaria a la formación de partículas inorgánicas (por ser precursores del ácido nítrico, HNO3, y por tanto del nitrato, NO3- en partículas), y también actúan como precursores de la formación de ozono (O3) y de otros contaminantes fotoquímicos (por ejemplo, al reaccionar con compuestos orgánicos volátiles, COVs), lo que potencialmente agrava las consecuencias mencionadas sobre la salud y el medio ambiente y conlleva efectos sobre el clima. </p>
-					
 				</div>
-				
-				<table class="recomendacionOMSCaptura">
-					<tr>
-					  <th>Tipos de umbrales</th>
-					  <th>Parámetro</th>
-					  <th>Valor del umbral</th>
-					</tr>
-					<tr>
-					  <td>Umbral de alerta</td>
-					  <td>Promedio horario</td>
-					  <td>30 μg/m3</td>
-					</tr>
-				  </table>
+
+				<div id="table">
+					<table class="recomendacionOMSCaptura">
+						<tr>
+							<th>Tipos de umbrales</th>
+							<th>Parámetro</th>
+							<th>Valor del umbral</th>
+						</tr>
+						<tr>
+							<td>Umbral de alerta</td>
+							<td>Promedio horario</td>
+							<td>350 μg/m3</td>
+						</tr>
+					</table>
+				</div>
+
+
 			</div>
 
-			<div id="contaminanteCO" class="contenedorContaminante">
-				<div class="contenedorContaminanteTexto">
-
-					<div class="contenedorContaminanteTitulo">
-						<h3 class="tituloContaminanteUnico">Dióxido de azufre</h3>
+			<div class="contaminanteContainer">
+				<div class="wrap animate pop">
+					<div class="overlay">
+						<div class="overlay-content animate slide-left delay-2">
+							<h2 class="animate slide-left pop delay-4">Monóxido de Carbono</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+								Efectos
+								de la salud</p>
+						</div>
+						<div class="image-content4 animate slide delay-5" id="portadaMónoxido"></div>
+						<div class="dots animate">
+							<div class="dot animate slide-up delay-6"></div>
+							<div class="dot animate slide-up delay-7"></div>
+							<div class="dot animate slide-up delay-8"></div>
+						</div>
 					</div>
-					
-					<p class="parrafoInfoContaminante">El origen del SO2 es, es principalmente antropogénico. Es un gas que se origina sobre todo durante la combustión de carburantes fósiles que contienen azufre (petróleo, combustibles sólidos), llevada a cabo sobre todo en los procesos industriales de alta temperatura y de generación eléctrica. 
-
-   
-
-						El principal emisor de SO2 es el sector industrial, con lo cual la distribución temporal de los niveles de SO2 suele venir determinada por los periodos en los que la industria emisora que afecta a la estación está en funcionamiento. </p>
-					
-					<h4 class="tituloEfectosSaludContaminante">-Efectos de salud</h4>
-					<p class="parrafoInfoContaminante">El dióxido de azufre (SO2) está regulado en la normativa a causa de su potencial efecto sobre la salud y los ecosistemas. 
-
-  
-
-						Este contaminante puede producir, incluso a grandes distancias del foco emisor, efectos adversos sobre la salud (tales como irritación e inflamación del sistema respiratorio, afecciones e insuficiencias pulmonares, alteración del metabolismo de las proteínas, dolor de cabeza o ansiedad), sobre la biodiversidad, los suelos y los ecosistemas acuáticos y forestales (puede ocasionar daños a la vegetación, degradación de la clorofila, reducción de la fotosíntesis y la consiguiente pérdida de especies) e incluso sobre las edificaciones, a través de procesos de acidificación, pues una vez emitido, reacciona con el vapor de agua y con otros elementos presentes en la atmósfera, de modo que su oxidación en el aire da lugar a la formación de ácido sulfúrico. 
-						
-						  
-						
-						Además, también actúa como precursor de la formación de sulfato amónico, lo que incrementa los niveles de PM10 y PM2,5, con graves consecuencias igualmente sobre la salud. </p>
-					
+					<div class="text">
+						<p><img class="inset" src="images/carbon.png" alt="" /> Es un gas tóxico inodoro e incoloro. La
+							inhalación de altas concentraciones de monóxido de carbono puede llevar a síntomas como
+							dolor de cabeza, mareos, náuseas, confusión, debilidad y, en casos extremos, a la muerte. El
+							CO interfiere con la capacidad de la sangre para transportar oxígeno, lo que puede tener
+							efectos graves en los órganos y tejidos del cuerpo.
+						</p>
+						</p>
+					</div>
 				</div>
-				
-				<table class="recomendacionOMSCaptura">
-					<tr>
-					  <th>Tipos de umbrales</th>
-					  <th>Parámetro</th>
-					  <th>Valor del umbral</th>
-					</tr>
-					<tr>
-					  <td>Umbral de alerta</td>
-					  <td>Promedio horario</td>
-					  <td>20 μg/m3</td>
-					</tr>
-				  </table>
+
+				<div id="table">
+					<table class="recomendacionOMSCaptura">
+						<tr>
+							<th>Tipos de umbrales</th>
+							<th>Parámetro</th>
+							<th>Valor del umbral</th>
+						</tr>
+						<tr>
+							<td>Umbral de alerta</td>
+							<td>Promedio horario</td>
+							<td>10 mg/m3</td>
+						</tr>
+					</table>
+				</div>
+
+
 			</div>
 
-			<div id="contaminanteCO" class="contenedorContaminante">
-				<div class="contenedorContaminanteTexto">
-
-					<div class="contenedorContaminanteTitulo">
-						<h3 class="tituloContaminanteUnico">Monóxido de carbono</h3>
+			<div class="contaminanteContainer">
+				<div class="wrap animate pop">
+					<div class="overlay">
+						<div class="overlay-content animate slide-left delay-2">
+							<h2 class="animate slide-left pop delay-4">Benceno</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+								Efectos
+								de la
+								salud</p>
+						</div>
+						<div class="image-content5 animate slide delay-5" id="portadaBenceno"></div>
+						<div class="dots animate">
+							<div class="dot animate slide-up delay-6"></div>
+							<div class="dot animate slide-up delay-7"></div>
+							<div class="dot animate slide-up delay-8"></div>
+						</div>
 					</div>
-					
-					<p class="parrafoInfoContaminante">En general, cualquier combustible que contenga carbono (gas, petróleo, carbón, madera…) y que sea quemado sin suficiente oxígeno como para formar CO2 es una fuente potencial de CO. 
-
-  
-
-						Las principales fuentes de emisión de CO son los procesos de combustión en sectores no industriales, seguidos por las actividades del sector agropecuario y por los procesos industriales sin combustión. 
-						
-						  
-						
-						El transporte por carretera (tráfico) ha contribuido aunque sus potenciales consecuencias probablemente se han visto minoradas por la utilización de conversores catalíticos. De hecho, éste ha sido el sector en el que más se han reducido las emisiones desde el año 2001 (el resto se mantiene en niveles más menos constante, con ligeras variaciones interanuales). </p>
-					
-					<h4 class="tituloEfectosSaludContaminante">-Efectos de salud</h4>
-					<p class="parrafoInfoContaminante">El monóxido de carbono (CO) es un gas sin color ni olor emitido como consecuencia de la combustión incompleta de carburantes fósiles y de biocombustibles. 
-
-  
-
-						El CO penetra en el organismo a través de los pulmones, y puede provocar una disminución de la capacidad de transporte de oxígeno de la sangre, con el consecuente detrimento de oxigenación de órganos y tejidos, así como disfunciones cardiacas, daños en el sistema nervioso, dolor de cabeza, mareos y fatiga; estos efectos pueden producirse tanto sobre el ser humano como sobre la fauna silvestre. 
-						
-						  
-						
-						También posee consecuencias sobre el clima, ya que contribuye a la formación de gases de efecto invernadero: su vida media en la atmósfera es de unos tres meses, lo que permite su lenta oxidación para formar CO2, proceso durante el cual también se genera O3. </p>
-					
-				</div>
-				
-				<table class="recomendacionOMSCaptura">
-					<tr>
-					  <th>Tipos de umbrales</th>
-					  <th>Parámetro</th>
-					  <th>Valor del umbral</th>
-					</tr>
-					<tr>
-					  <td>Umbral de alerta</td>
-					  <td>Promedio horario</td>
-					  <td>10 μg/m3</td>
-					</tr>
-				  </table>
-			</div>
-
-			<div id="contaminanteCO" class="contenedorContaminante">
-				<div class="contenedorContaminanteTexto">
-
-					<div class="contenedorContaminanteTitulo">
-						<h3 class="tituloContaminanteUnico">Benceno</h3>
+					<div class="text">
+						<p><img class="inset" src="images/benceno.png" alt="" />Este compuesto orgánico volátil tiene
+							efectos nocivos sobre la salud humana. La exposición a largo plazo al benceno puede causar
+							leucemia y otros trastornos hematológicos. Además, puede afectar al sistema nervioso,
+							inmunológico y reproductivo, y tiene efectos adversos sobre la biodiversidad y la
+							vegetación.
+						</p>
 					</div>
-					
-					<p class="parrafoInfoContaminante">Este contaminante procede sobre todo de fuentes de tipo natural. Se libera básicamente como consecuencia de procesos de combustión incompleta y por evaporación de determinados combustibles. 
-
-  
-
-						El Inventario Nacional de Emisiones Contaminantes a la Atmósfera no contempla el benceno de forma individualizada, pero sí el conjunto de los compuesto orgánicos volátiles no metánicos (COVNM). Más de la mitad de las emisiones de COVNM tiene su origen en procesos que pueden ser tanto naturales (tormentas, fauna libre, vegetación y zonas húmedas…) como inducidos por el hombre (incendios, reconversión de pastos). La segunda mayor contribución es debida al uso de disolventes y otros productos, seguida por la asociada a actividades agropecuarias. De las tres, tan sólo las emisiones debidas al uso de disolventes han mostrado una ligera disminución en los últimos años. </p>
-					
-					<h4 class="tituloEfectosSaludContaminante">-Efectos de salud</h4>
-					<p class="parrafoInfoContaminante">El benceno es un compuesto orgánico potencialmente carcinogénico que, tras ser inhalado y después de exposiciones prolongadas, puede ocasionar graves efectos sobre la salud humana, ya que afecta al sistema nervioso central y a la normal producción de células sanguíneas, puede deteriorar el sistema inmunitario y dañar el material genético celular, lo que a su vez puede original determinados tipos de cáncer (leucemia) así como malformaciones congénitas. 
-
-  
-
-						Sus efectos nocivos se dejan igualmente sentir sobre el medio ambiente, ya que resulta marcadamente tóxico para los organismos acuáticos y, en especial, sobre los invertebrados, en los que puede producir cambios genéticos (problemas reproductivos, malformaciones) y de comportamiento. Afecta también a la vegetación (puede llegar a provocar la muerte de la planta afectada, lo que adquiere además un matiz económico cuando se trata de cultivos), así como al clima, ya que se trata de un gas de efecto invernadero que contribuye al calentamiento de la atmósfera y a la formación de O3 y de aerosoles orgánicos secundarios. </p>
-					
 				</div>
-				
-				<table class="recomendacionOMSCaptura">
-					<tr>
-					  <th>Tipos de umbrales</th>
-					  <th>Parámetro</th>
-					  <th>Valor del umbral</th>
-					</tr>
-					<tr>
-					  <td>Umbral de alerta</td>
-					  <td>Promedio horario</td>
-					  <td>5 μg/m3</td>
-					</tr>
-				  </table>
+				<div id="table">
+					<table class="recomendacionOMSCaptura">
+						<tr>
+							<th>Tipos de umbrales</th>
+							<th>Parámetro</th>
+							<th>Valor del umbral</th>
+						</tr>
+						<tr>
+							<td>Umbral de alerta</td>
+							<td>Promedio horario</td>
+							<td>5 μg/m3</td>
+						</tr>
+					</table>
+				</div>
+
+
+
 			</div>
 
 		</div>
 
-		<div id="enlaceAMapaDesdeInfo">
-			<!-- icono de mapa que te lleva arriba -------------------------------------------------------- -->
-			<a href="#logoCleanCloud" class="baseEnlaceZonaLanding" id="enlaceMapaLanding">
-				<img src="images/mapa_icono.svg" alt="enlace al mapa" class="iconoMoverse">
-			</a>
-		</div>
-		
+	</div>
 
 	</div>
 	<!-- fin de zona de contaminantes -------------------------------------------------------- -->
@@ -451,7 +364,8 @@
 		</div>
 	</div>
 
-  </body>
+</body>
+
 </html>
 <!-- ---------------------------------------------------------- -->
 <!-- ---------------------------------------------------------- -->

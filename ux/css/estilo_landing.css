@@ -1,10 +1,9 @@
-
 /* ------------------------------------------------------------------
 *   Header
 * ------------------------------------------------------------------
 */
 
-.cabecera{
+.cabecera {
     display: flex;
     flex-direction: row;
     height: 8vh;
@@ -18,14 +17,15 @@
     flex-direction: row-reverse;
     align-items: center;
     height: 100%;
-    width:100%;
+    width: 100%;
 }
 
-#logoCleanCloud, #logoCleanCloud img{
+#logoCleanCloud,
+#logoCleanCloud img {
     height: 100%;
 }
 
-#descargarMapa{
+#descargarMapa {
     background: rgba(233, 233, 233, 0.4);
     height: 60%;
     color: rgb(255, 255, 255);
@@ -36,11 +36,60 @@
     background: rgba(209, 209, 209, 0.4);
 }
 
-@media(max-width: 1000px){
-    .cabecera{
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 190px;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+    outline: none;
+    border-color: rgba(234, 76, 137, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+
+
+
+
+
+
+
+@media(max-width: 1000px) {
+    .cabecera {
         height: 6vh;
     }
-    #logoCleanCloud img{
+
+    #logoCleanCloud img {
         width: 25vh;
     }
 }
@@ -50,7 +99,7 @@
 * ------------------------------------------------------------------
 */
 
-#zonaMapa{
+#zonaMapa {
     background-image: url(../images/mapa_fondo.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -61,7 +110,7 @@
     justify-content: space-between;
 }
 
-#zonaMapaSuperior{
+#zonaMapaSuperior {
     height: 5vh;
     display: flex;
     justify-content: end;
@@ -69,9 +118,11 @@
     padding-right: 5vh;
     padding-top: 2vh;
 }
-#zonaMapaSuperior input{
+
+#zonaMapaSuperior input {
     margin-right: 2vh;
 }
+
 #zonaMapaSuperior input,
 #zonaMapaSuperior select {
     height: 3vh;
@@ -79,11 +130,12 @@
     border-radius: 0.5vh 0.5vh 0px 0px;
     border: 0px;
 }
-#zonaMapaSuperior select{
+
+#zonaMapaSuperior select {
     width: 7vh;
 }
 
-#zonaMapaInferior{
+#zonaMapaInferior {
     display: flex;
     flex-direction: row;
     align-items: end;
@@ -91,7 +143,7 @@
     height: 25vh;
 }
 
-#mediaDiariaMapa{
+#mediaDiariaMapa {
     width: 60vh;
     height: 100%;
     display: flex;
@@ -100,7 +152,7 @@
     align-items: center;
 }
 
-#titulo_mediaDiariaMapa{
+#titulo_mediaDiariaMapa {
     background-color: rgba(233, 233, 233, 0.8);
     display: flex;
     justify-content: center;
@@ -112,7 +164,7 @@
     border-radius: 1vh;
 }
 
-#contenido_mediaDiariaMapa{
+#contenido_mediaDiariaMapa {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -134,44 +186,64 @@
     border-radius: 1vh;
 }
 
-#contenido_mediaDiariaMapa div h3, #contenido_mediaDiariaMapa div h4{
+#contenido_mediaDiariaMapa div h3,
+#contenido_mediaDiariaMapa div h4 {
     margin: 0px;
 }
 
-#valorO3Mapa{
+#valorO3Mapa {
     color: rgb(109, 175, 9);
 }
+
 #valorCOMapa {
     color: red;
 }
 
-@media(max-width: 1000px){
-    #zonaMapa{
+@media(max-width: 1000px) {
+    #zonaMapa {
         height: 94vh;
     }
-    #zonaMapaInferior{
+
+    #zonaMapaInferior {
         justify-content: space-between;
     }
-    #mediaDiariaMapa{
+
+    #mediaDiariaMapa {
         width: 30vh;
         height: 85%;
     }
-    #contenido_mediaDiariaMapa{
+
+    #contenido_mediaDiariaMapa {
         margin: 0px 0px 0px 0px;
     }
 
-    #zonaMapaSuperior{
+    #zonaMapaSuperior {
         padding-right: 2vh;
     }
+
     #zonaMapaSuperior input,
-    #zonaMapaSuperior select{
+    #zonaMapaSuperior select {
         width: 15vh;
     }
+
     #zonaMapaSuperior select {
         width: 7vh;
     }
-    #zonaMapaSuperior select option{
-    }
+}
+
+.contaminanteContainer {
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin-bottom: 2vh;
+}
+
+
+#table {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4vh;
+
 }
 
 /* ------------------------------------------------------------------
@@ -179,235 +251,309 @@
 * ------------------------------------------------------------------
 */
 
-#zonaInformacion{
-    background-image: url(../images/fondo_info_geometrico_horizontal.png);
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-#zonaInformacionTitulo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+h1 {
+    background-color: null;
+    font-size: 5vmin;
+    text-align: center;
+    color: #2F343A;
+    position: absolute;
+    top: 106vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 4px;
+}
+
+h2 {
+    font-size: 4vmin;
+    text-align: center;
     color: white;
-    height: 15vh;
-    width: 100%;
-    font-size: 250%;
 }
 
-#contenidoZonaInformacion{
-    display: flex;
-    height: 75vh;
-    justify-content: center;
-    align-items: center;
+p {
+    font-size: max(10pt, 2.5vmin);
+    line-height: 1.4;
+    color: #0e390e;
+    margin-bottom: 1.5rem;
 }
 
-#informacionIzquierdaSuperior, #informacionDerechaInferior{
-    height: 75vh;
-    width: 60%;
+.wrap {
     display: flex;
-    flex-direction: column;
-    margin-left: 5vh;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 85vmin;
+    height: 25em;
+    margin: 2rem auto;
+    transition: .3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    margin: 2em;
+    border: 8px solid;
+    border-image: linear-gradient(-50deg, #BDB69C, #ADA585, #7D7452, #BD9D61, #C6BD9A, #ADA585, #BDB69C) 1;
 }
-#informacionDerechaInferior {
+
+.overlay {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#contenedorInfoDesc{
-    background-color: rgba(233, 233, 233, 0.8);
-    width: 59vh;
-    height: 25vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1vh 1vh 0vh 0vh;
-}
-#contenedorInfoDescImagen {
-    width: 60vh;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#contenedorInfoDescImagen img{
     width: 100%;
     height: 100%;
-    margin-left: 0.5vh;
-}
-#infoDescripcionTexto{
-    width: 80%;
-    text-align: justify;
-}
-
-#guiaColores{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 50vh;
-}
-#guiaColores div {
-    color: white;
-    display: flex;
-    align-items: center;
-}
-#guiaColores div img {
-    width: 5vh;
-    height: 5vh;
-}
-#guiaColores div p {
-    width: 50vh;
+    padding: 1rem .75rem;
+    background: linear-gradient(45deg, #04717F, #E4F7F6);
+    transition: .4s ease-in-out;
+    z-index: 1;
 }
 
-#guiaMapa {
-    background-color:rgba(233, 233, 233, 0.6);
+.row {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    height: 50vh;
-    border-radius: 1vh;
 }
-#guiaMapa img{
-    width: 30vh;
-    height: 30vh;
-}
-#guiaMapaIndicaciones{
+
+.overlay-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    width: 15vmin;
+    height: 100%;
+    padding: .5rem 0 0 .5rem;
+    border: 3px solid;
+    border-image:
+        linear-gradient(to bottom,
+            #04717F 5%,
+            #F3F3F3 35% 65%,
+            #FDA470 95%) 0 0 0 100%;
+    transition: .3s ease-in-out .2s;
+    z-index: 1;
+}
+
+.image-content1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-image: url("../images/capa-ozono.jpg");
+    background-size: cover;
+    transition: .3s ease-in-out;
+    /* border: 1px solid green; */
+}
+
+.image-content2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-image: url("../images/nitrogeno_portada.jpg");
+    background-size: cover;
+    transition: .3s ease-in-out;
+}
+
+.image-content3 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-image: url("../images/azufre_portada.jpg");
+    background-size: cover;
+    transition: .3s ease-in-out;
+}
+
+.image-content4 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-image: url("../images/carbono_portada.jpg");
+    background-size: cover;
+    transition: .3s ease-in-out;
+}
+
+.image-content5 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-image: url("../images/benceno_portada.webp");
+    background-size: cover;
+    transition: .3s ease-in-out;
+}
+
+.inset {
+    max-width: 50%;
+    margin: 0.25em 1em 1em 0;
+    border-radius: 0.25em;
+    float: left;
+}
+
+.dots {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
-    width: 30vh;
-    height: 30vh;
-}
-#guiaMapaIndicacionesTexto{
-    margin-left: 1vh;
-    text-align: justify;
-    padding: 0px 15px 0px 15px;
-}
-#guiaMapaIndicacionesValores{
-    width: 26vh;
-    height: 60vh;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    margin-left: 1vh;
-}
-#ejemploValoresOzono, #ejemploValoresCO{
-    background-color: whitesmoke;
-    height: 15vh;
-    width: 10vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0px;
-}
-#ejemploValoresOzono{
-    border-radius: 1vh 0vh 0vh 1vh;
-}
-#ejemploValoresCO {
-    border-radius: 0vh 1vh 1vh 0vh;
+    width: 55px;
+    height: 4vmin;
+    transition: .3s ease-in-out .3s;
 }
 
-#ejemploValoresOzono h4,
-#ejemploValoresOzono h3,
-#ejemploValoresCO h4,
-#ejemploValoresCO h3{
-    margin-bottom: 0.75em;
-    margin-top: 0.75em;
+.dot {
+    width: 14px;
+    height: 14px;
+    background: #2F343A;
+    border: 1px solid grey;
+    border-radius: 50%;
+    transition: .3s ease-in-out .3s;
 }
 
-#valorOzonoEjemplo{
-    color: rgb(109, 175, 9);
-}
-#valorCOEjemplo {
-    color: red;
-}
-
-#enlaceAMapaDesdeInfo{
-    align-items: center;
-    justify-content: end;
-    display: flex;
-    height: 10vh;
-    width: 100%;
+.text {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    padding: 3vmin 4vmin;
+    background: #fff;
+    box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / .4);
+    overflow-y: scroll;
 }
 
-@media(max-width: 1270px) {
+.wrap:hover .overlay {
+    transform: translateX(-60vmin);
+}
 
-    #informacionIzquierdaSuperior,
-    #informacionDerechaInferior {
-        width: 50%;
-        margin: 0px;
+.wrap:hover .image-content {
+    width: 30vmin;
+}
+
+.wrap:hover .overlay-content {
+    border: none;
+    transition-delay: .2s;
+    transform: translateX(60vmin);
+}
+
+.wrap:hover .dots {
+    transform: translateX(1rem);
+}
+
+.wrap:hover .dots .dot {
+    background: white;
+}
+
+
+/* Animations and timing delays */
+.animate {
+    animation-duration: 0.7s;
+    animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
+    animation-fill-mode: backwards;
+}
+
+/* Pop In */
+.pop {
+    animation-name: pop;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
     }
 }
 
-@media(max-width: 1000px) {
-    #zonaInformacion{
-        height: auto;
-    }
-    #zonaInformacionTitulo{
-        margin-top: 2vh;
-        height: 10vh;
-        margin-bottom: 0px;
-    }
-
-    #contenidoZonaInformacion {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-        margin-bottom: -15vh;
-    }
-
-    #informacionIzquierdaSuperior,
-    #informacionDerechaInferior{
-        width: 70%;
-        margin: 0px;
-    }
-    #informacionIzquierdaSuperior{
-        margin-bottom: 0vh;
-        margin-top: 10vh;
-    }
-    #contenedorInfoDesc{
-        width: 100%;
-    }
-    #contenedorInfoDescImagen{
-        width: 100%;
-        height: 40%;
-    }
-
-    #guiaColores div p{
-        width: 70%;
-    }
-
-    #guiaMapa img{
-        width: 40%;
-        height: 80%;
-    }
-    #guiaMapaIndicaciones{
-        width: 40%;
-    }
-    #guiaMapaIndicacionesTexto {
-        margin-top: 2vh;
-    }
-    #guiaMapaIndicacionesValores{
-        width: 90%;
-    }
-
+/* Slide In */
+.slide {
+    animation-name: slide;
 }
-@media(max-width: 500px){
-    #informacionIzquierdaSuperior,
-    #informacionDerechaInferior {
-        width: 90%;
-        margin: 0px;
+
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translate(4em, 0);
     }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+/* Slide Left */
+.slide-left {
+    animation-name: slide-left;
+}
+
+@keyframes slide-left {
+    0% {
+        opacity: 0;
+        transform: translate(-40px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.slide-up {
+    animation-name: slide-up;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(3em);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delay-1 {
+    animation-delay: 0.3s;
+}
+
+.delay-2 {
+    animation-delay: 0.6s;
+}
+
+.delay-3 {
+    animation-delay: 0.9s;
+}
+
+.delay-4 {
+    animation-delay: 1.2s;
+}
+
+.delay-5 {
+    animation-delay: 1.5s;
+}
+
+.delay-6 {
+    animation-delay: 1.8s;
+}
+
+.delay-7 {
+    animation-delay: 2.1s;
+}
+
+.delay-8 {
+    animation-delay: 2.4s;
 }
 
 /* ------------------------------------------------------------------
@@ -415,78 +561,71 @@
 * ------------------------------------------------------------------
 */
 
-#zonaContaminantes{
-    background-image: url(../images/fondo_info_cala.png);
+#zonaContaminantes {
+    background-image: url(../images/fondo_patron.jpg);
     background-size: cover;
+    border-top: 5px solid;
+    border-color: #2F343A;
+}
+
+#zonacontaminantesSuperior {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 0.5rem;
+    
+}
+
+#infoContaminantes {
     height: max-content;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
-.contenedorContaminante{
-    background-color: rgba(233, 233, 233, 0.8);
-    width: 80vw;
-    margin-top: 5vh;
-    border-radius: 3vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.contenedorContaminante table{
-    border: 1px solid black;
-    width: 60vw;
-    border-collapse: collapse;
-    margin-bottom: 3vh;
-}
-.contenedorContaminante table th {
-    border-bottom: 1px solid gray;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-}
-.contenedorContaminante table td {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-}
-.contenedorContaminanteTitulo{
-    display: flex;
-    justify-content: center;
-}
-.contenedorContaminanteTexto{
-    padding-left: 5vh;
-    padding-right: 5vh;
-    padding-top: 2vh ;
+
+
+#titulo_contaminantes {
+    margin-top: 0.5rem;
+    border: 2px solid;
+    border-color: #2F343A;
+    padding-right: 20px;
+    padding-left: 20px;
+    
+
 }
 
+
 @media(max-width: 1000px) {
-    #infoContaminantes{
+    .row {
         display: flex;
         flex-direction: column;
-        align-items: center;
-    }
-    .contenedorContaminante{
-        width: 95%;
-        
-    }
-    .contenedorContaminanteTexto {
-        padding-left: 4vw;
-        padding-right: 4vw;
-        padding-top: 1vh;
-    }
-    .contenedorContaminante table {
-        border: 1px solid black;
-        width: 80vw;
-        border-collapse: collapse;
-        margin-bottom: 3vh;
     }
 }
+
+
+
+th {
+    background-color: #BDB69C;
+    color: white;
+    font-weight: normal;
+    padding: 20px 30px;
+    text-align: center;
+}
+
+td {
+    background-color: rgb(238, 238, 238);
+    color: rgb(111, 111, 111);
+    padding: 20px 30px;
+}
+
 
 
 /* ------------------------------------------------------------------
 *   PopUp Descargar mapa
 * ------------------------------------------------------------------
 */
-#contenedorDescargarMapa{
+#contenedorDescargarMapa {
     background-color: rgb(240, 240, 240);
     border-radius: 1vh;
     width: 80%;
@@ -498,40 +637,45 @@
     position: absolute;
     top: 9vh;
     left: 10vh;
-    
-    visibility:hidden;
+
+    visibility: hidden;
 }
 
-#divClose{
+#divClose {
     width: 100%;
     display: flex;
     justify-content: end;
     margin: 2vh;
 }
-#divClose img{
+
+#divClose img {
     width: 3vh;
     margin-right: 2vh;
 }
 
-#zonaMapaPopUp{
+#zonaMapaPopUp {
     width: 100%;
     display: flex;
     justify-content: center;
 }
+
 #MapaPreview {
     width: 80%;
 }
-#MapaPreview img{
+
+#MapaPreview img {
     width: 100%;
 }
 
-#tituloMapaDescarga, #formatoYDescarga{
+#tituloMapaDescarga,
+#formatoYDescarga {
     margin-top: 2vh;
     width: 80%;
     display: flex;
     align-items: center;
 }
-#tituloMapaDescarga input{
+
+#tituloMapaDescarga input {
     height: 50%;
     width: 100%;
     background: rgba(233, 233, 233, 0);
@@ -540,37 +684,39 @@
     margin-left: 1vh;
 }
 
-#formatoYDescarga{
+#formatoYDescarga {
     display: flex;
     justify-content: space-between;
 }
-#formatoContenedor{
+
+#formatoContenedor {
     width: 50%;
     display: flex;
     align-items: center;
 }
-#formatoContenedor select{
+
+#formatoContenedor select {
     height: 50%;
     margin-left: 1vh;
 }
 
-#buttonDownload{
+#buttonDownload {
     color: white;
     background-color: rgb(95, 192, 160);
     width: 15vh;
     height: 5vh;
 }
 
-@media(max-width: 1000px){
-    #contenedorDescargarMapa{
+@media(max-width: 1000px) {
+    #contenedorDescargarMapa {
         left: 5vh;
     }
 
-    #formatoContenedor select{
+    #formatoContenedor select {
         height: 2vh;
     }
 
-    #buttonDownload{
+    #buttonDownload {
         width: 10vh;
     }
 }

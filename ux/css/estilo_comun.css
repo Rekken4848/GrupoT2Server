@@ -22,6 +22,7 @@ body {
 
 
 
+
 button{
     border: 0px;
     border-radius: 0.6vh;
@@ -38,6 +39,7 @@ button{
     background-size:cover;
     background-position: 0.5vh;
     display: flex;
+    justify-self: right;
     justify-content: center;
     align-items: center;
     width: 8vh;
