@@ -1,0 +1,25 @@
+--mediciones de temperatura
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 18.34, 0, '2023-12-03 10:10:40', '10.1234,20.5678');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 19.93, 0, '2023-12-03 10:10:41', '10.1234,20.5678');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 21.03, 0, '2023-12-03 10:10:42', '10.1234,20.5678');
+
+--mediciones de ozono
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '2023-12-03 10:10:43', '10.1234,20.5678');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '2023-12-03 10:10:44', '10.1234,20.5678');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '2023-12-03 10:10:45', '10.1234,20.5678');
+
+--mediciones de co2
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 6, '2023-12-03 10:10:46', '10.1234,20.5678');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 6, '2023-12-03 10:10:47', '10.1234,20.5678');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 6, '2023-12-03 10:10:48', '10.1234,20.5678');
+
+--relacionamos las mediciones con el dispositivo
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 3, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 4, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 5, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 6, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 7, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 8, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 9, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 10, 'GTI-3A');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 11, 'GTI-3A');
