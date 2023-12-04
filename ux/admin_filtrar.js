@@ -32,13 +32,13 @@ function setTipoTags(nuevoTipo) {
 
   switch (nuevoTipo) {
     case "persona":
-      tablaColumnas.innerHTML = "<tr><td>DNI</td><td>Nombre</td><td>Apellidos</td><td>Correo</td><td>Telefono</td></tr>";
+      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Correo</th><th>Telefono</th></thead>";
       break;
     case "dispositivo":
-      tablaColumnas.innerHTML = "<tr><td>DNI</td><td>SN</td><td>Mediciones</td><td id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></td><td>Fecha Ultima Medicion</td></tr>"
+      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>SN</th><td>Mediciones</th><th id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
       break;
     case "lugar":
-      tablaColumnas.innerHTML = "<tr><td>DNI</td><td>CCAA</td><td>Provincia</td><td>CP</td><td>Calle</td>";
+      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>CCAA</th><th>Provincia</th><th>CP</th><th>Calle</th></thead>";
       break;
   }
 
@@ -216,4 +216,64 @@ function refrescarTabla() {
       }
     })
   })
+}
+
+//funcion para ordenar al clickar sobre el nombre de la columna
+function ordenarTabla(n, type) {
+  /*
+  * n es el numero de la columna de [0 - x] de izquierda a derecha
+  *
+  * el type 0 = ordenar string
+  * el type 1 = ordenar int
+  */
+  var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+
+  var table = document.getElementById('table-body');
+
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc";
+
+  // un loop que se ejecutara hasta que se haya ordenado todas las filas
+  while (switching) {
+    //el siguiente valor indica si ya se ha terminado de ordenar toda la tabla
+    switching = false;
+    rows = table.rows;
+
+    //recorremos todas las filas
+    for (i = 0; i < (rows.length-1); i++) {
+      //al principio de cada fila decimos que aun no se ha ordenado
+      shouldSwitch = false;
+      //obtenemos la fila actual y la siguiente para compararla y ver si tenemos que intercambiarlas para ordenar
+      x = rows[i].getElementsByTagName("td")[n];
+      y = rows[i + 1].getElementsByTagName("td")[n];
+      //miramos si deberian intercambiarse las filas para cumplir el orden ascendente o descendente
+      if (dir == "asc") {
+        if ((type == 0 && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) || (type == 1 && parseFloat(x.innerHTML) > parseFloat(y.innerHTML))) {
+          //si deben cambiarse, lo marcamos y rompemos el bucle para ejecutar el if de abajo
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if ((type == 0 && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) || (type == 1 && parseFloat(x.innerHTML) < parseFloat(y.innerHTML))) {
+          //si deben cambiarse, lo marcamos y rompemos el bucle para ejecutar el if de abajo
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      //si se ha marcado que dos filas deben cambiarse
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Cada vez que haces un intercambio aumentamos el contador
+      switchcount++;
+    } else {
+      //si las filas no deben cambiarse (no han marcado shouldSwitch) y el orden es ascendente (en otras palabras, el orden ya era ascendente antes de llamar a la funcion) se buelve a ejecutar el while
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
 }
