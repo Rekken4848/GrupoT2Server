@@ -66,7 +66,7 @@
         </a>
     
         <div id="fondoHeader">
-            <button type="button" class="boton" id="descargarMapa">Map</button>
+            <button type="button" class="boton" id="descargarMapa">Mapa</button>
 
             <div id="headerUserContainer">
                 <img src="images/avatar.png" alt="icono de avatar de usuario">
@@ -89,7 +89,7 @@
 
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
-                <input type="text" name="SearchBar" id="searchBar" placeholder="Search by DNI...">
+                <input type="text" name="SearchBar" id="searchBar" placeholder="Buscar por DNI...">
                 <button id="botonMasFiltrado" onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
             </div>
             <div id="contenedorDerecho">
@@ -139,19 +139,19 @@
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Search By</p>
+                <p class="tituloFiltroEspecificadoTexto">Buscar por:</p>
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
                     <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni" id="dniFiltro" checked>DNI</label><br>
-                    <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro" value="sn" id="snFiltro">SN</label><br>
+                    <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro" value="sn" id="snFiltro">Id Dispositivo</label><br>
                     <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp" id="cpFiltro">CP</label><br>
                 </p>
             </div>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Shown Tags</p>
+                <p class="tituloFiltroEspecificadoTexto">Mostrar por etiqueta:</p>
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
@@ -170,7 +170,7 @@
         </div>
         <div id="tituloPopUpFiltros">
             <!--button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button-->
-            <button onclick="visibilidadFormAnyadir(1);" id="personTitulo"><p>Person</p></button>
+            <button onclick="visibilidadFormAnyadir(1);" id="personTitulo"><p>Persona</p></button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <form id="formAnyadirPersona" onsubmit="submitFormPersona(event); return false;">
@@ -179,11 +179,11 @@
                     <input required type="text" name="dni" id="dnianyadir" maxlength="10">
                 </div>
                 <div class="insertarDato">
-                    <p>Name</p>
+                    <p>Nombre</p>
                     <input required type="text" name="name" id="nameanyadir" maxlength="15">
                 </div>
                 <div class="insertarDato">
-                    <p>Surname</p>
+                    <p>Apellidos</p>
                     <input required type="text" name="surname" id="surnameanyadir" maxlength="50">
                 </div>
                 <div class="insertarDato">
@@ -191,7 +191,7 @@
                     <input required type="text" name="email" id="emailanyadir">
                 </div>
                 <div class="insertarDato">
-                    <p>Tlf_N°</p>
+                    <p>N° Telefónico</p>
                     <input required type="text" name="tel" id="telanyadir" maxlength="20">
                 </div>
                 <div class="insertarDato">
@@ -199,7 +199,7 @@
                     <input required type="text" name="ccaa" id="ccaaanyadir" maxlength="30">
                 </div>
                 <div class="insertarDato">
-                    <p>Province</p>
+                    <p>Provincia</p>
                     <input required type="text" name="province" id="provinceanyadir" maxlength="30">
                 </div>
                 <!--div class="insertarDato">
@@ -207,20 +207,20 @@
                     <input required type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div-->
                 <div class="insertarDato" id="cp_deladmin">
-                    <p>Postal Code</p>
+                    <p>Código Postal</p>
                     <input required readonly type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div>
                 <div class="insertarDato">
-                    <p>Street</p>
+                    <p>Calle</p>
                     <input required type="text" name="street" id="streetanyadir" maxlength="200">
                 </div>
                 <div class="insertarDato">
-                    <p>Numero de Serie</p>
+                    <p>Id Dispositivo</p>
                     <input required type="text" name="name" id="serialnumberanyadir" maxlength="20">
                 </div>
 
                 <div id="botonConfirmarDiv">
-                    <button type="submit" id="botonConfirmar">Add</button>
+                    <button type="submit" id="botonConfirmar">Añadir</button>
                 </div>
             </form>
             <form id="formAnyadirAdmin" onsubmit="anyadirAdminyPersonayDireccion(); return false;" hidden>
@@ -229,11 +229,11 @@
                     <input required type="text" name="dni" id="dnianyadiradmin" maxlength="10">
                 </div>
                 <div class="insertarDato">
-                    <p>Name</p>
+                    <p>Nombre</p>
                     <input required type="text" name="name" id="nameanyadiradmin" maxlength="15">
                 </div>
                 <div class="insertarDato">
-                    <p>Surname</p>
+                    <p>Apellidos</p>
                     <input required type="text" name="surname" id="surnameanyadiradmin" maxlength="50">
                 </div>
                 <div class="insertarDato">
@@ -241,7 +241,7 @@
                     <input required type="text" name="email" id="emailanyadiradmin">
                 </div>
                 <div class="insertarDato">
-                    <p>Tlf_N°</p>
+                    <p>N° Telefónico</p>
                     <input required type="text" name="tel" id="telanyadiradmin" maxlength="20">
                 </div>
                 <div class="insertarDato">
@@ -249,15 +249,15 @@
                     <input required type="text" name="ccaa" id="ccaaanyadiradmin" maxlength="30">
                 </div>
                 <div class="insertarDato">
-                    <p>Province</p>
+                    <p>Provincia</p>
                     <input required type="text" name="province" id="provinceanyadiradmin" maxlength="30">
                 </div>
                 <div class="insertarDato">
-                    <p>Postal Code</p>
+                    <p>Código Postal</p>
                     <input required type="text" name="postalCode" id="postalCodeanyadiradmin" maxlength="5">
                 </div>
                 <div class="insertarDato">
-                    <p>Street</p>
+                    <p>Calle</p>
                     <input required type="text" name="street" id="streetanyadiradmin" maxlength="200">
                 </div>
                 <div class="insertarDato">
@@ -266,7 +266,7 @@
                 </div>
 
                 <div id="botonConfirmarDiv">
-                    <button type="submit" id="botonConfirmar">Add</button>
+                    <button type="submit" id="botonConfirmar">Añadir</button>
                 </div>
 
             </form>
@@ -281,7 +281,7 @@
             <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
-            <p id="personTituloEditar">Person</p>
+            <p id="personTituloEditar">Persona</p>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="editarDato">
@@ -290,12 +290,12 @@
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Name</p>
+                <p>Nombre</p>
                 <input readonly type="text" name="name" id="nameeditar" maxlength="15">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Surname</p>
+                <p>Apellidos</p>
                 <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
@@ -304,7 +304,7 @@
                 <input type="text" name="email" id="emaileditar">
             </div>
             <div class="editarDato">
-                <p>Tlf_N°</p>
+                <p>N° Telefónico</p>
                 <input type="text" name="tel" id="teleditar" maxlength="20">
             </div>
             <div class="editarDato">
@@ -312,27 +312,27 @@
                 <input type="text" name="ccaa" id="ccaaeditar" maxlength="30">
             </div>
             <div class="editarDato">
-                <p>Province</p>
+                <p>Provincia</p>
                 <input type="text" name="province" id="provinceeditar" maxlength="30">
             </div>
             <div class="editarDato">
-                <p>Postal Code</p>
+                <p>Codigo Postal</p>
                 <input type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
             </div>
             <div class="editarDato">
-                <p>Street</p>
+                <p>Calle</p>
                 <input type="text" name="street" id="streeteditar" maxlength="200">
             </div>
 
             <div class="editarDato">
-                <p>Device</p>
+                <p>Dispositivo</p>
                 <input type="text" name="device" id="deviceAssociadoTitulo">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
     
             <div id="botonConfirmarDiv">
                 <button id="botonEliminar" onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';">Eliminar</button>
-                <button onclick="editarAndSetTags();" id="botonConfirmar">Confirm</button>
+                <button onclick="editarAndSetTags();" id="botonConfirmar">Confirmar</button>
             </div>
 
         </div>

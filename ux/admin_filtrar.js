@@ -11,13 +11,13 @@ function setTipoBusqueda(nuevoTipo) {
 
   switch (nuevoTipo) {
     case "persona":
-      barraBusqueda.placeholder = "Search by DNI...";
+      barraBusqueda.placeholder = "Buscar por DNI...";
       break;
     case "dispositivo":
-      barraBusqueda.placeholder = "Search by SN...";
+      barraBusqueda.placeholder = "Buscar por Id...";
       break;
     case "lugar":
-      barraBusqueda.placeholder = "Search by CP...";
+      barraBusqueda.placeholder = "Buscar por CP...";
       break;
   }
 }
@@ -35,7 +35,7 @@ function setTipoTags(nuevoTipo) {
       tablaColumnas.innerHTML = "<thead><th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Correo</th><th>Telefono</th></thead>";
       break;
     case "dispositivo":
-      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>SN</th><td>Mediciones</th><th id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
+      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>Id dispositivo</th><td>Mediciones</th><th id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
       break;
     case "lugar":
       tablaColumnas.innerHTML = "<thead><th>DNI</th><th>CCAA</th><th>Provincia</th><th>CP</th><th>Calle</th></thead>";
