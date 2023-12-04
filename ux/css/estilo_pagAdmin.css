@@ -103,25 +103,26 @@ button img{
     font-size: large;
     font-weight: 700;
 }
-td, tr{
+td, tr, th{
     border-bottom: 1px solid gainsboro;
+    text-align: start;
 }
-td:nth-child(1){
+td:nth-child(1), th:nth-child(1){
     width: 10%;
 }
-td:nth-child(2) {
+td:nth-child(2), th:nth-child(2) {
     width: 5%;
 }
-td:nth-child(3) {
+td:nth-child(3), th:nth-child(3) {
     width: 5%;
 }
-td:nth-child(4) {
+td:nth-child(4), th:nth-child(4) {
     width: 5%;
 }
-td:nth-child(5) {
+td:nth-child(5), th:nth-child(5) {
     width: 5%;
 }
-td:nth-child(6) {
+td:nth-child(6), th:nth-child(6) {
     width: 5%;
     display: flex;
     align-items: center;
@@ -141,7 +142,7 @@ td:nth-child(6) {
     }
 
         td,
-        tr {
+        tr, th {
             font-size: xx-small;
         }
 }
