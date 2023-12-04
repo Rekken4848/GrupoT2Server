@@ -35,7 +35,7 @@ function setTipoTags(nuevoTipo) {
       tablaColumnas.innerHTML = "<tr><td>DNI</td><td>Nombre</td><td>Apellidos</td><td>Correo</td><td>Telefono</td></tr>";
       break;
     case "dispositivo":
-      tablaColumnas.innerHTML = "<tr><td>DNI</td><td>SN</td><td>Mediciones</td><td id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></td></tr>"
+      tablaColumnas.innerHTML = "<tr><td>DNI</td><td>SN</td><td>Mediciones</td><td id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></td><td>Fecha Ultima Medicion</td></tr>"
       break;
     case "lugar":
       tablaColumnas.innerHTML = "<tr><td>DNI</td><td>CCAA</td><td>Provincia</td><td>CP</td><td>Calle</td>";
@@ -139,7 +139,8 @@ function refrescarTabla() {
                       var dateTime = date + ' ' + time;
     
                       var currentTimeMillis = new Date(dateTime).getTime()
-                      var medicionTimeMillis = new Date(datos[datos.length - 1].fecha).getTime()
+                      var medicionTime = datos[datos.length - 1].fecha
+                      var medicionTimeMillis = new Date(medicionTime).getTime()
     
                       var diferencia = currentTimeMillis - medicionTimeMillis
     
@@ -164,8 +165,13 @@ function refrescarTabla() {
                         conexioncelda.appendChild(imgconexionceldaerror)
     
                       }
-    
+                      
+                      var fechaUltimaMedicionCelda = document.createElement("td")
+                      fechaUltimaMedicionCelda.innerHTML = medicionTime
+
+
                       row.appendChild(conexioncelda);
+                      row.appendChild(fechaUltimaMedicionCelda);
                       tableBody.appendChild(row);
                     });
     
