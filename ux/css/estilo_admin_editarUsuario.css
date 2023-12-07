@@ -1,0 +1,75 @@
+/* Basic styling */
+body {
+    background-image: url('../images/paisajerosa.webp');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+  }
+
+#contenedorEditarUsuario {
+    width: 50vw;
+    margin: 20px auto;
+    padding-top: 3em;
+    padding-left: 2.8em;
+    padding-right: 2.8em;
+    padding-bottom: 2.1em;
+    border: 2px dashed #DAA06D;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 4px #EADDCA, 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+    transition: .4s ease-in-out;
+    margin-bottom: 18vh;
+    margin-top: 7vh;
+  }
+  
+  #tituloPopUpFiltros {
+    width: auto;
+    align-self: center;
+    color: #2F343A;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    transition: .4s ease-in-out opacity,.1s ease-in-out active;
+    padding: 1em;
+  }
+  
+  .editarDato {
+    margin-bottom: 15px;
+
+  }
+  
+  .editarDato p {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  #ultimoPersonal {
+    border-bottom: 2px dashed #DAA06D;
+    padding-bottom: 10px;
+  }
+
+  #ultimoContacto {
+    border-bottom: 2px dashed #DAA06D;
+    padding-bottom: 10px;
+  }
+
+
+    #botonConfirmarUsuarioDiv {
+        text-align: right; 
+    }
+  
+    @media(max-width: 1000px) {
+        #contenedorEditarUsuario {
+            width: 80vw;
+        }
+    }

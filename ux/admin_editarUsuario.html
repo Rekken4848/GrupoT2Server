@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+
+    <script>
+        function comprobarSesion() {
+          fetch('http://localhost:8080/paginaProtegida', {
+            method: "GET"
+          }).then(function (respuesta) {
+    
+            if (respuesta.ok) {
+              return respuesta.json()
+            } else {
+              console.log("hubo un fallo")
+            }
+    
+          }).then(function (datos) {
+            console.log(datos)
+            // 'datos' ahora contiene el valor devuelto por el servidor
+            if (datos === true) {
+              // Acción cuando la respuesta es true
+              console.log("Usuario autenticado");
+            } else if (datos === false) {
+              // Acción cuando la respuesta es false
+              console.log("Usuario no autenticado");
+              location.href = "http://localhost:8080/login.html"
+            }
+          }).catch(function (error) {
+            console.log("Error en la solicitud:", error);
+          });
+        }
+    
+        comprobarSesion()
+      </script>
+
+    <script src=
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+
+    <script src="admin_filtrar.js"></script>
+    <script src="admin_anyadir.js"></script>
+    <script src="admin_editar.js"></script>
+
+
+    <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
+    <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+    <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
+    <link href="css/estilo_admin_editarUsuario.css" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+        html {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    
+</head>
+<body onload="setTipoTags('persona');">
+    <!-- cabecera de la pagina -------------------------------------------------------- -->
+    <header class="cabecera" role="banner">
+    
+        <a href="#" id="logoCleanCloud">
+            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+        </a>
+    
+        <div id="fondoHeader">
+            <button type="button" class="boton" id="descargarMapa">Mapa</button>
+
+            <button type="button" class="boton" id="descargarMapa">Registros</button>
+
+            </div>
+        </div>
+    
+    </header>
+    <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
+
+
+    <div id="contenedorEditarUsuario">
+            <div id="tituloPopUpFiltros">
+                <p id="personTituloEditar">Usuario</p>
+            </div>
+            <div class="editarDato">
+                <p>DNI</p>
+                <input readonly type="text" name="dni" id="dnieditar" maxlength="10">
+                <img src="images/padlock.png" alt="candado icono">
+            </div>
+            <div class="editarDato">
+                <p>Nombre</p>
+                <input readonly type="text" name="name" id="nameeditar" maxlength="15">
+                <img src="images/padlock.png" alt="candado icono">
+            </div>
+            <div id="ultimoPersonal" class="editarDato" >
+                <p>Apellidos</p>
+                <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
+                <img src="images/padlock.png" alt="candado icono">
+            </div>
+            <div class="editarDato">
+                <p>Email</p>
+                <input type="text" name="email" id="emaileditar">
+            </div>
+            <div class="editarDato" id="ultimoContacto">
+                <p>N° Telefónico</p>
+                <input type="text" name="tel" id="teleditar" maxlength="20">
+            </div>
+            <div class="editarDato">
+                <p>CCAA</p>
+                <input type="text" name="ccaa" id="ccaaeditar" maxlength="30">
+            </div>
+            <div class="editarDato">
+                <p>Provincia</p>
+                <input type="text" name="province" id="provinceeditar" maxlength="30">
+            </div>
+            <div class="editarDato">
+                <p>Codigo Postal</p>
+                <input type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
+            </div>
+            <div class="editarDato">
+                <p>Calle</p>
+                <input type="text" name="street" id="streeteditar" maxlength="200">
+            </div>
+
+            <div class="editarDato">
+                <p>Dispositivo</p>
+                <input type="text" name="device" id="deviceAssociadoTitulo">
+                <!-- aqui irian los nombres de los dispositivos -->
+            </div>
+    
+            <div id="botonConfirmarUsuarioDiv">
+                <button onclick="editarAndSetTags();" id="botonConfirmar">Actualizar</button>
+            </div>
+
+        </div>
+
+        <!-- footer -------------------------------------------------------- -->
+    <footer>
+        <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+        <div id="textoFooter">
+            <p>© Generalitat</p>
+            <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
+        </div>
+    </footer>

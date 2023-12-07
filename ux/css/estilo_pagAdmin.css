@@ -128,6 +128,24 @@ td:nth-child(6), th:nth-child(6) {
     align-items: center;
 }
 
+.cont_flecha {
+    width: 100%;
+}
+
+#flecha{
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 92.5vw;
+    background: rgb(236, 236, 236);
+    padding-top: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 1px;
+    border: 2px;
+    border-radius: 0.6vh;
+}
+
+
 @media(max-width: 1000px){
     #fondoPagina{
         padding-left: 0px;
@@ -300,7 +318,7 @@ td:nth-child(6), th:nth-child(6) {
     margin-bottom: 2vh;
 }
 #botonConfirmar{
-    width: 10vh;
+    width: 100px;
     color: white;
     background-color: rgb(76, 156, 130);
 }

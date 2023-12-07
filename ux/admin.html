@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,37 +8,36 @@
 
     <script>
         function comprobarSesion() {
-          fetch('http://localhost:8080/paginaProtegida', {
-            method: "GET"
-          }).then(function (respuesta) {
-    
-            if (respuesta.ok) {
-              return respuesta.json()
-            } else {
-              console.log("hubo un fallo")
-            }
-    
-          }).then(function (datos) {
-            console.log(datos)
-            // 'datos' ahora contiene el valor devuelto por el servidor
-            if (datos === true) {
-              // Acción cuando la respuesta es true
-              console.log("Usuario autenticado");
-            } else if (datos === false) {
-              // Acción cuando la respuesta es false
-              console.log("Usuario no autenticado");
-              location.href = "http://localhost:8080/login.html"
-            }
-          }).catch(function (error) {
-            console.log("Error en la solicitud:", error);
-          });
-        }
-    
-        comprobarSesion()
-      </script>
+            fetch('http://localhost:8080/paginaProtegida', {
+                method: "GET"
+            }).then(function (respuesta) {
 
-    <script src=
-        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+                if (respuesta.ok) {
+                    return respuesta.json()
+                } else {
+                    console.log("hubo un fallo")
+                }
+
+            }).then(function (datos) {
+                console.log(datos)
+                // 'datos' ahora contiene el valor devuelto por el servidor
+                if (datos === true) {
+                    // Acción cuando la respuesta es true
+                    console.log("Usuario autenticado");
+                } else if (datos === false) {
+                    // Acción cuando la respuesta es false
+                    console.log("Usuario no autenticado");
+                    location.href = "http://localhost:8080/login.html"
+                }
+            }).catch(function (error) {
+                console.log("Error en la solicitud:", error);
+            });
+        }
+
+        comprobarSesion()
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>
 
     <script src="admin_filtrar.js"></script>
@@ -55,27 +55,31 @@
             font-family: 'Roboto', sans-serif;
         }
     </style>
-    
+
 </head>
+
 <body onload="setTipoTags('persona');">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
-    
+
         <a href="#" id="logoCleanCloud">
             <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
         </a>
-    
+
         <div id="fondoHeader">
             <button type="button" class="boton" id="descargarMapa">Mapa</button>
 
             <div id="headerUserContainer">
+
                 <img src="images/avatar.png" alt="icono de avatar de usuario">
-                <div id="headerUserNombre">
-                    <p id="AdminName">Admin</p>
-                </div>
+                <a href="admin_editarUsuario.html">
+                    <div id="headerUserNombre">
+                        <p id="AdminName">Admin</p>
+                    </div>
+                </a>
             </div>
         </div>
-    
+
     </header>
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
@@ -90,38 +94,48 @@
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
                 <input type="text" name="SearchBar" id="searchBar" placeholder="Buscar por DNI...">
-                <button id="botonMasFiltrado" onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
+                <button id="botonMasFiltrado"
+                    onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img
+                        src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
             </div>
             <div id="contenedorDerecho">
-                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg" alt="icono editar trabajador"></button>
+                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg"
+                        alt="icono editar trabajador"></button>
                 <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button-->
-                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="images/plus.png" alt="icono anyadir trabajador"></button>
+                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="images/plus.png"
+                        alt="icono anyadir trabajador"></button>
             </div>
         </div>
 
-        <div id="contenedorEmpleadosLista">
-            <table id="tablaEmpleados">
-                <thead id="leyendaTabla">
-                    
-                    <th id="shownTag1">DNI</th>
-                    <th id="shownTag2">Nombre</th>
-                    <th id="shownTag3">Apellido</th>
-                    <th id="shownTag4">Correo</th>
-                    <th id="shownTag5">Tlf</th>
-
-                    <!--<td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>-->
-                </thead>
-
-                <tbody id="table-body">
-                    <!-- Table body will be populated with data dynamically -->
-                </tbody>
+        <div id="cont_flecha">
+            <img src='images/ordenar-abajo.png' id='flecha'>
 
 
-            </table>
-            
+            <div id="contenedorEmpleadosLista">
+                <table id="tablaEmpleados">
+
+                    <thead id="leyendaTabla">
+
+                        <th id="shownTag1">DNI</th>
+                        <th id="shownTag2">Nombre</th>
+                        <th id="shownTag3">Apellido</th>
+                        <th id="shownTag4">Correo</th>
+                        <th id="shownTag5">Tlf</th>
+
+                        <!--<td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>-->
+                    </thead>
+
+                    <tbody id="table-body">
+                        <!-- Table body will be populated with data dynamically -->
+                    </tbody>
+
+
+                </table>
+
+            </div>
         </div>
     </div>
-    
+
 
     <!-- footer -------------------------------------------------------- -->
     <footer>
@@ -135,7 +149,8 @@
     <!-- popup filtro -------------------------------------------------------- -->
     <div id="contenedorPopUps">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
+            <button onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
+                    src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
@@ -143,9 +158,12 @@
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
-                    <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni" id="dniFiltro" checked>DNI</label><br>
-                    <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro" value="sn" id="snFiltro">Id Dispositivo</label><br>
-                    <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp" id="cpFiltro">CP</label><br>
+                    <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni"
+                            id="dniFiltro" checked>DNI</label><br>
+                    <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro"
+                            value="sn" id="snFiltro">Id Dispositivo</label><br>
+                    <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp"
+                            id="cpFiltro">CP</label><br>
                 </p>
             </div>
         </div>
@@ -155,9 +173,12 @@
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
-                    <label><input onclick="setTipoTags('persona');" type="radio" name="opcionesTags" value="persona" id="personaFiltro" checked>Persona</label><br>
-                    <label><input onclick="setTipoTags('dispositivo');" type="radio" name="opcionesTags" value="dispositivo" id="dispositivoFiltro">Dispositivo</label><br>
-                    <label><input onclick="setTipoTags('lugar');" type="radio" name="opcionesTags" value="lugar" id="lugarFiltro">Lugar</label><br>
+                    <label><input onclick="setTipoTags('persona');" type="radio" name="opcionesTags" value="persona"
+                            id="personaFiltro" checked>Persona</label><br>
+                    <label><input onclick="setTipoTags('dispositivo');" type="radio" name="opcionesTags"
+                            value="dispositivo" id="dispositivoFiltro">Dispositivo</label><br>
+                    <label><input onclick="setTipoTags('lugar');" type="radio" name="opcionesTags" value="lugar"
+                            id="lugarFiltro">Lugar</label><br>
                 </p>
             </div>
         </div>
@@ -166,11 +187,14 @@
     <!-- popup anyadir -------------------------------------------------------- -->
     <div id="contenedorPopUpsAnyadir">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
+            <button onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
+                    src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <!--button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button-->
-            <button onclick="visibilidadFormAnyadir(1);" id="personTitulo"><p>Persona</p></button>
+            <button onclick="visibilidadFormAnyadir(1);" id="personTitulo">
+                <p>Persona</p>
+            </button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <form id="formAnyadirPersona" onsubmit="submitFormPersona(event); return false;">
@@ -270,15 +294,16 @@
                 </div>
 
             </form>
-            
+
         </div>
     </div>
-    
+
 
     <!-- popup editar -------------------------------------------------------- -->
     <div id="contenedorPopUpsEditar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
+            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img
+                    src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="personTituloEditar">Persona</p>
@@ -329,19 +354,21 @@
                 <input type="text" name="device" id="deviceAssociadoTitulo">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
-    
+
             <div id="botonConfirmarDiv">
-                <button id="botonEliminar" onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';">Eliminar</button>
+                <button id="botonEliminar"
+                    onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';">Eliminar</button>
                 <button onclick="editarAndSetTags();" id="botonConfirmar">Confirmar</button>
             </div>
 
         </div>
     </div>
-    
-     <!-- popup confirmarEliminar -------------------------------------------------------- -->
-     <div id="contenedorConfirmarEliminar">
+
+    <!-- popup confirmarEliminar -------------------------------------------------------- -->
+    <div id="contenedorConfirmarEliminar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';"><img src="images/cross.png" alt="icono cerrar"></button>
+            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';"><img
+                    src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="confirmarEliminar">¿Confirmas el eliminar esta persona?</p>
@@ -359,4 +386,5 @@
 
 
 </body>
+
 </html>
