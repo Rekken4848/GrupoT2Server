@@ -757,8 +757,8 @@ module.exports = class Logica {
     // .................................................................
     insertarAnuncio(datos) {
         var textoSQL =
-            'insert into Anuncio (contenido, titulo ) values( $contenido, $titulo );'
-        var valoresParaSQL = { $contenido: datos.contenido, $titulo: datos.titulo }
+            'insert into Anuncio (contenido, titulo, problemas, estado ) values( $contenido, $titulo, $problemas, $estado );'
+        var valoresParaSQL = { $contenido: datos.contenido, $titulo: datos.titulo, $problemas: datos.problemas, $estado: datos.estado }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
