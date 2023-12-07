@@ -16,7 +16,7 @@ insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '20
 -- insertarMedicionDispositivo.sql
 insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 1, 'FFFFFFFFFF');
 -- insertarAnuncio.sql
-insert into Anuncio (contenido, titulo) values ('Se me ha roto muy fuerte el sensor.', 'Se rompió el sensor');
+insert into Anuncio (contenido, titulo, problemas, estado) values ('Se me ha roto muy fuerte el sensor.', 'Se rompió el sensor', 'Fallo de conexion', 'No leido');
 -- insertarDispositivoAnuncio.sql
 insert into Dispositivo_Anuncio (dispositivo_id, anuncio_id) values ('FFFFFFFFFF', 1);
 -- insertarAdminAnuncio.sql
