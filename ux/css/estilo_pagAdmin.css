@@ -191,18 +191,15 @@ td:nth-child(6), th:nth-child(6) {
     width: 100%;
     display: flex;
     justify-content: end;
-    margin: 2vh;
 }
 
 #divClose img {
     background: rgb(240, 240, 240);
     width: 3vh;
-    margin-right: 2vh;
 }
 #divClose button {
     background: rgb(240, 240, 240);
     width: 3vh;
-    margin-right: 2vh;
 }
 
 .tituloFiltroEspecificado p{
@@ -318,7 +315,7 @@ td:nth-child(6), th:nth-child(6) {
     margin-bottom: 2vh;
 }
 #botonConfirmar{
-    width: 100px;
+    width: 200px;
     color: white;
     background-color: rgb(76, 156, 130);
 }

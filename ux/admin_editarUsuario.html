@@ -43,7 +43,7 @@
     <script src="admin_filtrar.js"></script>
     <script src="admin_anyadir.js"></script>
     <script src="admin_editar.js"></script>
-
+    <script src="admin_cambiarContrasenya.js"></script>
 
     <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
@@ -58,17 +58,18 @@
     </style>
     
 </head>
-<body onload="setTipoTags('persona');">
+<body onload="mostrarUsuario('persona');">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
     
-        <a href="#" id="logoCleanCloud">
+        <a href="admin.html" id="logoCleanCloud">
             <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
         </a>
     
         <div id="fondoHeader">
+            <a href="admin_descargaMapa.html">
             <button type="button" class="boton" id="descargarMapa">Mapa</button>
-
+            </a>
             <button type="button" class="boton" id="descargarMapa">Registros</button>
 
             </div>
@@ -99,40 +100,77 @@
             </div>
             <div class="editarDato">
                 <p>Email</p>
-                <input type="text" name="email" id="emaileditar">
+                <input readonly type="text" type="text" name="email" id="emaileditar">
+                <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato" id="ultimoContacto">
                 <p>N° Telefónico</p>
-                <input type="text" name="tel" id="teleditar" maxlength="20">
+                <input readonly type="text" type="text" name="tel" id="teleditar" maxlength="20">
+                <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>CCAA</p>
-                <input type="text" name="ccaa" id="ccaaeditar" maxlength="30">
+                <input readonly type="text" type="text" name="ccaa" id="ccaaeditar" maxlength="30">
+                <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Provincia</p>
-                <input type="text" name="province" id="provinceeditar" maxlength="30">
+                <input readonly type="text" type="text" name="province" id="provinceeditar" maxlength="30">
+                <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Codigo Postal</p>
-                <input type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
+                <input readonly type="text" type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
+                <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p>Calle</p>
-                <input type="text" name="street" id="streeteditar" maxlength="200">
+                <input readonly type="text" type="text" name="street" id="streeteditar" maxlength="200">
+                <img src="images/padlock.png" alt="candado icono">
             </div>
 
             <div class="editarDato">
                 <p>Dispositivo</p>
-                <input type="text" name="device" id="deviceAssociadoTitulo">
+                <input readonly type="text" type="text" name="device" id="deviceAssociadoTitulo">
+                <img src="images/padlock.png" alt="candado icono">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
     
             <div id="botonConfirmarUsuarioDiv">
-                <button onclick="editarAndSetTags();" id="botonConfirmar">Actualizar</button>
+                <button id="botonContrasenya">Actualizar Contraseña</button>
             </div>
 
         </div>
+
+        <!-- nueva contraseña -------------------------------------------------------- -->
+
+        
+        <div class="password-card" id="password-card" style="display: none;">
+            <div id="divClose">
+                <button onclick="document.getElementById('password-card').style.display = 'none';"><img
+                        src="images/cross.png" alt="icono cerrar"></button>
+            </div>
+            <div class="card-header">
+              <div class="log">Cambiar Contraseña</div>
+            </div>
+            <form form onsubmit="return validatePasswords()">
+              <div class="form-group">
+                <label for="username">Contraseña:</label>
+                <input required="" name="username" id="passwordold" type="password">
+              </div>
+              <div class="form-group">
+                <label for="password">Nueva Contraseña:</label>
+                <input required="" name="password" id="password" type="password">
+              </div>
+              <div class="form-group">
+                <label for="password">Confirmar Nueva Contraseña:</label>
+                <input required="" name="password" id="passwordConfirm" type="password">
+              </div>
+              <div id="botonConfirmarUsuarioDiv">
+                <button type="submit" id="botonConfirmar">Confirmar</button>
+            </div>
+            </form>
+          </div>
 
         <!-- footer -------------------------------------------------------- -->
     <footer>
