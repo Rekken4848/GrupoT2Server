@@ -30,7 +30,6 @@ button img{
     width: 5vh;
     height: 5vh;
 
-    visibility: hidden;
 }
 #marcaNotifAvisos{
     background-image: url(../images/punto_rojo_sinBordes.svg);

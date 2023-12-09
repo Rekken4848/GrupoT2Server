@@ -520,6 +520,22 @@ module.exports = class Logica {
             })
         })
     } // ()
+    // .................................................................
+    // anuncio_id:texto
+    // -->    
+    // getPersonaPorAnuncio() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getPersonaPorAnuncio(anuncio_id) {
+        var textoSQL = "select Persona.* from Persona, Dispositivo, Dispositivo_Anuncio where Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=Dispositivo_Anuncio.dispositivo_id and Dispositivo_Anuncio.anuncio_id=$anuncio_id";
+        var valoresParaSQL = { $anuncio_id: anuncio_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL, function (err, res) {
+                (err ? rechazar(err) : resolver(res))
+            })
+        })
+    } // ()
 
     // .................................................................
     //  << DELETE >>
@@ -757,8 +773,8 @@ module.exports = class Logica {
     // .................................................................
     insertarAnuncio(datos) {
         var textoSQL =
-            'insert into Anuncio (contenido, titulo ) values( $contenido, $titulo );'
-        var valoresParaSQL = { $contenido: datos.contenido, $titulo: datos.titulo }
+            'insert into Anuncio (contenido, titulo, problemas, estado ) values( $contenido, $titulo, $problemas, $estado );'
+        var valoresParaSQL = { $contenido: datos.contenido, $titulo: datos.titulo, $problemas: datos.problemas, $estado: datos.estado }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
@@ -777,8 +793,8 @@ module.exports = class Logica {
     // .................................................................
     actualizarAnuncio(datos) {
         var textoSQL =
-            'update Anuncio set contenido=$contenido, titulo=$titulo where anuncio_id=$anuncio_id;'
-        var valoresParaSQL = { $anuncio_id: datos.anuncio_id, $contenido: datos.contenido, $titulo: datos.titulo }
+            'update Anuncio set contenido=$contenido, titulo=$titulo, problemas=$problemas, estado=$estado where anuncio_id=$anuncio_id;'
+        var valoresParaSQL = { $anuncio_id: datos.anuncio_id, $contenido: datos.contenido, $titulo: datos.titulo, $problemas: datos.problemas, $estado: datos.estado }
         return new Promise((resolver, rechazar) => {
             this.laConexion.run(textoSQL, valoresParaSQL, function (err) {
                 (err ? rechazar(err) : resolver())
@@ -802,6 +818,23 @@ module.exports = class Logica {
                 (err, res) => {
                     (err ? rechazar(err) : resolver(res))
                 })
+        })
+    } // ()
+    // .................................................................
+    // dni_admin:texto
+    // getAnunciosSinLeer() <--
+    // <--
+    // Lista<{anuncio_id:texto, contenido:texto, titulo:texto}>
+    // .................................................................
+    getAnunciosSinLeer(dni_admin) {
+        var textoSQL = "select Anuncio.* from Anuncio, Admin_Anuncio where Anuncio.anuncio_id=Admin_Anuncio.anuncio_id and Admin_Anuncio.dni_admin=$dni_admin and Anuncio.estado=$noLeido";
+        var valoresParaSQL = { $dni_admin: dni_admin, $noLeido: "No leido" }
+        return new Promise((resolver, rechazar) => {
+
+            console.log(" * GET /anuncioNoLeido/:dni_admin justo entes de hacer el sql")
+            this.laConexion.all(textoSQL, valoresParaSQL, function (err, res) {
+                (err ? rechazar(err) : resolver(res))
+            })
         })
     } // ()
     // .................................................................
