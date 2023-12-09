@@ -42,6 +42,11 @@
     margin: 0px;
     width: 100%;
 }
+.botonCompletarAviso {
+    padding: 1vh 1vw 1vh 1vw;
+    background-color: green;
+    color: white;
+}
 
 .anuncio div{
     display: flex;

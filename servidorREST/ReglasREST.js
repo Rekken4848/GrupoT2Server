@@ -576,6 +576,26 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
+    // GET /personaAnuncio/<anuncio_id>
+    // .......................................................
+    servidorExpress.get(
+        '/personaAnuncio/:anuncio_id',
+        async function (peticion, respuesta) {
+            console.log(" * GET /personaAnuncio/:anuncio_id ")
+
+            var anuncio_id = peticion.params.anuncio_id
+
+            var res = await laLogica.getPersonaPorAnuncio(anuncio_id)
+
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no encontré las personas con anuncio: " + anuncio_id)
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        }) //
+    // .......................................................
     // .......................................................
     // .......................POST............................
     // .......................................................

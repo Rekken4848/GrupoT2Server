@@ -520,6 +520,22 @@ module.exports = class Logica {
             })
         })
     } // ()
+    // .................................................................
+    // anuncio_id:texto
+    // -->    
+    // getPersonaPorAnuncio() <--
+    // <--
+    // {dni:texto, nombre:texto, apellidos:texto, correo:texto, telefono:texto}
+    // .................................................................
+    getPersonaPorAnuncio(anuncio_id) {
+        var textoSQL = "select Persona.* from Persona, Dispositivo, Dispositivo_Anuncio where Persona.dni=Dispositivo.dni_empleado and Dispositivo.dispositivo_id=Dispositivo_Anuncio.dispositivo_id and Dispositivo_Anuncio.anuncio_id=$anuncio_id";
+        var valoresParaSQL = { $anuncio_id: anuncio_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL, function (err, res) {
+                (err ? rechazar(err) : resolver(res))
+            })
+        })
+    } // ()
 
     // .................................................................
     //  << DELETE >>
