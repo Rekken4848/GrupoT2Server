@@ -43,6 +43,7 @@
     <script src="admin_filtrar.js"></script>
     <script src="admin_anyadir.js"></script>
     <script src="admin_editar.js"></script>
+    <script src="admin_avisos.js"></script>
 
 
     <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
@@ -80,11 +81,11 @@
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
     <div id="fondoPagina">
-        <div id="marcaNotifAvisosContenedor">
+        <div id="marcaNotifAvisosContenedor" onclick="enviarAPagAnuncios()">
             <div id="marcaNotifAvisos">
                 <p id="numeroAvisos">7</p>
             </div>
-            <img src="images/campana_icono.svg" alt="icono campana notificaciones">
+            <img src="images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
         </div>
 
         <div id="filtrosYHerramientasContenedor">

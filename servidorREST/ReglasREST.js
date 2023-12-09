@@ -910,6 +910,26 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
+    // GET /anuncioNoLeido/<dni_admin>
+    // .......................................................
+    servidorExpress.get(
+        '/anuncioNoLeido/:dni_admin',
+        async function (peticion, respuesta) {
+            console.log(" * GET /anuncioNoLeido/:dni_admin ")
+            // averiguo el dni
+            var dni_admin = peticion.params.dni_admin
+            // llamo a la función adecuada de la lógica
+            var res = await laLogica.getAnunciosSinLeer(dni_admin)
+            // si el array de resultados no tiene una casilla ...
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no encontré los anuncios sin leer con dni_admin: " + dni_admin)
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        }) //
+    // .......................................................
     // GET /anuncioAdmin/<dni_admin>
     // .......................................................
     servidorExpress.get(
