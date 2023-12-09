@@ -1679,7 +1679,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var datos = JSON.parse(peticion.body)
 
-            await laLogica.borrarAdminAnuncioPorAdmin(datos.anuncio_id)
+            await laLogica.borrarAdminAnuncioPorAnuncio(datos.anuncio_id)
 
             // todo ok
             respuesta.send("Filas borradas de la tabla Admin_anuncio con anuncio_id: " + datos.anuncio_id)

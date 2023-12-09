@@ -1,7 +1,7 @@
 #fondoPagAnuncios{
     background-image: url(../images/fondo_ciudad.jpg);
     background-size: cover;
-    min-height: 78vh;
+    min-height: 92vh;
     width: 100%;
     display: flex;
     flex-direction:column ;
@@ -76,5 +76,89 @@
 @media(max-width: 1000px){
     #contenedorGeneral{
         width: 90%;
+    }
+}
+
+/* ------------------------------------------------------------------
+*   Pop up eliminar
+* ------------------------------------------------------------------
+*/
+
+#contenedorConfirmarEliminar {
+    background-color: rgba(199, 199, 199, 1);
+    border: 2px solid red;
+    border-radius: 1vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: larger;
+    padding-bottom: 4vh;
+    padding-top: 3vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+
+    position: absolute;
+    top: 13vh;
+    left: 15vw;
+
+    visibility: hidden;
+}
+
+#contenedorConfirmarEliminar p {
+    width: 80%;
+    margin-bottom: 3vh;
+    font-weight: 700;
+}
+
+#iconoCerrar img,
+#iconoCerrar {
+    background-color: rgba(199, 199, 199, 1);
+}
+
+#botonConfirmarEliminar button {
+    background-color: red;
+    width: fit-content;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+#botonConfirmarEliminar {
+    width: fit-content;
+}
+
+#tituloPopUpFiltros{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+#iconoCerrar img,
+#iconoCerrar{
+    width: 3.5vh;
+    height: 3.5vh;
+    margin: 0px;
+    padding: 0px;
+}
+
+#contenedorConfirmarEliminar div button img{
+    width: 75%;
+    height: 75%;
+}
+
+#botonConfirmarEliminar{
+    width: fit-content;
+}
+
+#divClose{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+@media(max-width: 1000px) {
+    #contenedorConfirmarEliminar {
+        font-size: 115%;
     }
 }

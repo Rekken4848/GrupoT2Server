@@ -89,8 +89,13 @@ function refrescarTablaAvisos(){
                 DNIEmpleado.setAttribute("id", "DNIEmpleadoAnuncio")
 
                 var iconoborrar = document.createElement('button');
-                iconoborrar.setAttribute("class", "iconoBorrar")
-                iconoborrar.src = "images/papelera_icono.svg"
+                iconoborrar.setAttribute("id", "iconoBorrar")
+                iconoborrar.onclick = function() {
+                    mostrarPopupEliminarAnuncio(item.anuncio_id)
+                }
+
+                var imagenBorrar = document.createElement('img');
+                imagenBorrar.src = "images/papelera_icono.svg"
 
                 var tituloanuncio = document.createElement('div');
                 tituloanuncio.setAttribute("class", "tituloAnuncio")
@@ -127,7 +132,32 @@ function refrescarTablaAvisos(){
 
                 var botonCompletar = document.createElement('button');
                 botonCompletar.setAttribute("class", "botonCompletarAviso")
-                botonCompletar.innerText="Completar"
+                if(item.estado=="Completado"){
+                    botonCompletar.innerText = "Ya completado"
+                } else{
+                    botonCompletar.innerText = "Completar"
+                    botonCompletar.onclick = function () {
+                        var anuncioLeido = {
+                            anuncio_id: item.anuncio_id,
+                            titulo: item.titulo,
+                            problemas: item.problemas,
+                            contenido: item.contenido,
+                            estado: "Completado"
+                        }
+                        console.log(anuncioLeido)
+                        fetch('http://localhost:8080/actualizarAnuncio', {
+                            method: "POST",
+                            body: JSON.stringify(anuncioLeido),
+                            credentials: 'same-origin',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(function (respuesta) {
+                            refrescarTablaAvisos()
+                        })
+                    };
+
+                }
 
                 //obtenemos la persona para poder mostrar su dni y su telefono
                 fetch('http://localhost:8080/personaAnuncio/' + item.anuncio_id)
@@ -136,7 +166,9 @@ function refrescarTablaAvisos(){
                         datos2.forEach(item2=>{
 
                             DNIEmpleado.innerText = "DNI Empleado: " + item2.dni
-                            TelefonoAnuncioTexto.innerText = item2.telefono
+                            TelefonoAnuncioTexto.innerText = "Telefono: " + item2.telefono
+
+                            iconoborrar.appendChild(imagenBorrar)
 
                             empleado.appendChild(DNIEmpleado)
                             empleado.appendChild(iconoborrar)
@@ -194,5 +226,31 @@ function refrescarTablaAvisos(){
         .catch(error => console.error('Error fetching data:', error));
 
     })
+
+}
+
+function mostrarPopupEliminarAnuncio(anuncioID){
+
+    console.log(anuncioID)
+    const contenedorConfirmarEliminar = document.getElementById('contenedorConfirmarEliminar')
+    contenedorConfirmarEliminar.style.visibility="visible"
+
+    const botoneliminarDefinitivo = document.getElementById('botonConfirmarEliminar')
+    botoneliminarDefinitivo.onclick = function () {
+        var anuncioABorrar = {
+            anuncio_id: anuncioID
+        }
+        fetch('http://localhost:8080/borrarAdminAnuncioPorAnuncio', {
+            method: "POST",
+            body: JSON.stringify(anuncioABorrar),
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (respuesta) {
+            contenedorConfirmarEliminar.style.visibility = "hidden"
+            refrescarTablaAvisos()
+        })
+    };
 
 }
