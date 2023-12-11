@@ -70,18 +70,52 @@
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
     
-        <a href="#" id="logoCleanCloud">
+        <a href="admin.html" id="logoCleanCloud">
             <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
         </a>
     
         <div id="fondoHeader">
-            <button type="button" class="boton" id="descargarMapa">Map</button>
+            
+        <div class="menu">
+            <ul>
+              <li class="dropdown">
+                <a id="fondoDescargar" href="#">Descargar</a>
+                <div class="dropdown-content">
+                    <div class="radio-inputs">
+                        <label class="radio">
+                          <input type="radio" name="radio" checked="">
+                          <span class="name">CSV</span>
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="radio">
+                          <span class="name">PNG</span>
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="radio">
+                          <span class="name">EXEL</span>
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="radio">
+                          <span class="name">JSON</span>
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="radio">
+                          <span class="name">QGIS</span>
+                        </label>
+                        
+                      </div>
+                </div>
+              </li>
+            </ul>
+          </div>
     
             <div id="headerUserContainer">
                 <img src="images/avatar.png" alt="icono de avatar de usuario">
-                <div id="headerUserNombre">
-                    <p id="AdminName">Admin</p>
-                </div>
+                <a href="admin_editarUsuario.html">
+                  <div id="headerUserNombre">
+                      <p id="AdminName">Admin</p>
+                  </div>
+              </a>
             </div>
         </div>
     
@@ -89,53 +123,7 @@
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
     <!-- zona del mapa -------------------------------------------------------- -->
-    <div id="zonaMapa">
-
-        <!-- filtros superiores -------------------------------------------------------- -->
-        <div id="zonaMapaSuperior">
-            <input type="text" placeholder="Search Location">
-            <select name="tipos" id="seleccionadorTipo">
-                <option value="default">All</option>
-                <option value="o3">O3</option>
-                <option value="co">CO</option>
-                <option value="temperatura">°C</option>
-            </select>
-        </div>
-
-        <!-- aqui iria el mapa -->
-        <div></div>
-
-        <!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
-        <div id="zonaMapaInferior">
-
-            <div id="mediaDiariaMapa">
-
-                <div id="titulo_mediaDiariaMapa">Daily's Averege</div>
-
-                <div id="contenido_mediaDiariaMapa">
-
-                    <div id="mediaO3">
-                        <h4 class="tituloMediaMapa">O3</h4>
-                        <h3 class="valorMediaMapa" id="valorO3Mapa">120</h3>
-                    </div>
-
-                    <div id="mediaCO">
-                        <h4 class="tituloMediaMapa">CO</h4>
-                        <h3 class="valorMediaMapa" id="valorCOMapa">900</h3>
-                    </div>
-
-                    <div id="mediaTemperatura">
-                        <h4 class="tituloMediaMapa">°C</h4>
-                        <h3 class="valorMediaMapa" id="valorTemperaturaMapa">23</h3>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+    
     <!-- fin de la zona del mapa -------------------------------------------------------- -->
 
 

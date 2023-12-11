@@ -32,13 +32,13 @@ function setTipoTags(nuevoTipo) {
 
   switch (nuevoTipo) {
     case "persona":
-      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Correo</th><th>Telefono</th></thead>";
+      tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Nombre</th><th onclick='ordenarTabla(2, 0)'>Apellidos</th><th onclick='ordenarTabla(3, 0)'>Correo</th><th onclick='ordenarTabla(4, 0)'>Telefono</th></thead>";
       break;
     case "dispositivo":
-      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>Id dispositivo</th><td>Mediciones</th><th id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
+      tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Id dispositivo</th><td onclick='ordenarTabla(2, 0)'>Mediciones</th><th onclick='ordenarTabla(3, 0)' id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
       break;
     case "lugar":
-      tablaColumnas.innerHTML = "<thead><th>DNI</th><th>CCAA</th><th>Provincia</th><th>CP</th><th>Calle</th></thead>";
+      tablaColumnas.innerHTML = "<thead><th th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>CCAA</th><th onclick='ordenarTabla(2, 0)'>Provincia</th><th onclick='ordenarTabla(3, 0)'>CP</th><th onclick='ordenarTabla(4, 0)' >Calle</th></thead>";
       break;
   }
 
@@ -226,6 +226,8 @@ function ordenarTabla(n, type) {
   * el type 0 = ordenar string
   * el type 1 = ordenar int
   */
+  var image = document.getElementById('flecha');
+
   var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 
   var table = document.getElementById('table-body');
@@ -252,12 +254,14 @@ function ordenarTabla(n, type) {
         if ((type == 0 && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) || (type == 1 && parseFloat(x.innerHTML) > parseFloat(y.innerHTML))) {
           //si deben cambiarse, lo marcamos y rompemos el bucle para ejecutar el if de abajo
           shouldSwitch = true;
+          image.src = 'images/ordenar-arriba.png';
           break;
         }
       } else if (dir == "desc") {
         if ((type == 0 && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) || (type == 1 && parseFloat(x.innerHTML) < parseFloat(y.innerHTML))) {
           //si deben cambiarse, lo marcamos y rompemos el bucle para ejecutar el if de abajo
           shouldSwitch = true;
+          image.src = 'images/ordenar-abajo.png';
           break;
         }
       }
