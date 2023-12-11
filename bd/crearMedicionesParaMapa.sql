@@ -3,7 +3,7 @@
 insert into Persona (dni, nombre, apellidos, correo, telefono) values ( 'PruebaMapa', 'Mario', 'Casas', 'mariocasas@gmail.com', '999999999');
 insert into Dispositivo (dispositivo_id, dni_empleado) values ( 'PrueMapaDis', 'PruebaMapa');
 
---insert into TipoValor (tipo_valor) values ('CO2');
+insert into TipoValor (tipo_valor) values ('CO2');
 insert into TipoValor (tipo_valor) values ('CO3');
 insert into TipoValor (tipo_valor) values ('N');
 insert into TipoValor (tipo_valor) values ('C8');
@@ -32,5 +32,5 @@ insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 7, 'Prue
 insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 8, 'PrueMapaDis');
 insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 9, 'PrueMapaDis');
 insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 10, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 11, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 12, 'PrueMapaDis');
+--insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 11, 'PrueMapaDis');
+--insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 12, 'PrueMapaDis');
