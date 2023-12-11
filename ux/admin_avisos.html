@@ -35,7 +35,9 @@
         }
     
         comprobarSesion()
-      </script>
+    </script>
+    <script src="admin_avisos.js"></script>
+
 
     <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
@@ -50,7 +52,7 @@
 
 </head>
 
-<body>
+<body onload="refrescarTablaAvisos()">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
 
@@ -101,6 +103,7 @@
                             <p id="descripcionAnuncio">Descripcion del anuncio</p>
                         </div>
                     </div>
+                    <button class="botonCompletarAviso">Completar</button>
                 </div>
             </div>
 
@@ -130,6 +133,7 @@
                             <p id="descripcionAnuncio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti saepe provident cumque quod nulla id omnis doloribus minus maiores assumenda fuga vel fugit, suscipit soluta, repellat necessitatibus illum expedita.</p>
                         </div>
                     </div>
+                    <button class="botonCompletarAviso">Completar</button>
                 </div>
             </div>
 
@@ -146,6 +150,25 @@
             <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
         </div>
     </footer>
+
+    <!-- popup confirmar eliminar ---------------------------------------- -->
+    <div id="contenedorConfirmarEliminar">
+        <div id="divClose">
+            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';" id="iconoCerrar"><img
+                    src="images/cross.png" alt="iconocerrar"></button>
+        </div>
+        <div id="tituloPopUpFiltros">
+            <p id="confirmarEliminar">¿Confirmas el eliminar este aviso?</p>
+        </div>
+        <div class="contenedorFiltroEspecificado">
+            <div class="editarDato">
+                <p>Este aviso seguira siendo visible para el portador del dispositivo, pero no para ti</p>
+            </div>
+            <div id="botonConfirmarEliminar">
+                <button id="botonConfirmarEliminar">Eliminar</button>
+            </div>
+    
+        </div>
 
 </body>
 

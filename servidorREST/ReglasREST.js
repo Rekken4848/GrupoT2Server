@@ -641,6 +641,26 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
+    // GET /personaAnuncio/<anuncio_id>
+    // .......................................................
+    servidorExpress.get(
+        '/personaAnuncio/:anuncio_id',
+        async function (peticion, respuesta) {
+            console.log(" * GET /personaAnuncio/:anuncio_id ")
+
+            var anuncio_id = peticion.params.anuncio_id
+
+            var res = await laLogica.getPersonaPorAnuncio(anuncio_id)
+
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no encontré las personas con anuncio: " + anuncio_id)
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        }) //
+    // .......................................................
     // .......................................................
     // .......................POST............................
     // .......................................................
@@ -975,6 +995,26 @@ module.exports.cargar = function (servidorExpress, laLogica) {
     // .......................................................
     // .......................................................
     // .......................................................
+    // GET /anuncioNoLeido/<dni_admin>
+    // .......................................................
+    servidorExpress.get(
+        '/anuncioNoLeido/:dni_admin',
+        async function (peticion, respuesta) {
+            console.log(" * GET /anuncioNoLeido/:dni_admin ")
+            // averiguo el dni
+            var dni_admin = peticion.params.dni_admin
+            // llamo a la función adecuada de la lógica
+            var res = await laLogica.getAnunciosSinLeer(dni_admin)
+            // si el array de resultados no tiene una casilla ...
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no encontré los anuncios sin leer con dni_admin: " + dni_admin)
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        }) //
+    // .......................................................
     // GET /anuncioAdmin/<dni_admin>
     // .......................................................
     servidorExpress.get(
@@ -992,7 +1032,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
                 return
             }
             // todo ok
-            respuesta.send(JSON.stringify(res[0]))
+            respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
     // GET /anuncioDispositivo/<dispositivo_id>
@@ -1011,7 +1051,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
                 return
             }
             // todo ok
-            respuesta.send(JSON.stringify(res[0]))
+            respuesta.send(JSON.stringify(res))
         }) //
     // .......................................................
     // GET /todosAnuncios/
@@ -1704,7 +1744,7 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
             var datos = JSON.parse(peticion.body)
 
-            await laLogica.borrarAdminAnuncioPorAdmin(datos.anuncio_id)
+            await laLogica.borrarAdminAnuncioPorAnuncio(datos.anuncio_id)
 
             // todo ok
             respuesta.send("Filas borradas de la tabla Admin_anuncio con anuncio_id: " + datos.anuncio_id)

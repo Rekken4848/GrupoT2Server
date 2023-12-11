@@ -67,6 +67,8 @@ create table Anuncio (
 anuncio_id integer,
 contenido varchar(1000) not null,
 titulo varchar(50) not null,
+problemas varchar(500) not null,
+estado varchar(50) not null,
 primary key (anuncio_id)
 );
 -- crearDispositivoAnuncio.sql
@@ -75,7 +77,7 @@ dispositivo_id varchar(10) not null,
 anuncio_id integer not null,
 foreign key (dispositivo_id) references Dispositivo(dispositivo_id),
 foreign key (anuncio_id) references Anuncio(anuncio_id),
-primary key (dispositivo_id)
+primary key (anuncio_id)
 );
 -- crearAdminAnuncio.sql
 create table Admin_Anuncio (
