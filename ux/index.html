@@ -23,7 +23,6 @@
 
 	<script src="cambiarIdioma.js"></script>
 
-
 	<link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel='stylesheet' type='text/css'>
 	<style>
 		html {
@@ -39,7 +38,8 @@
 <!-- -------------------------------------------------------- -->
 <!-- -------------------------------------------------------- -->
 
-<body>
+<body onload="getTextos()">
+
 
 	<!-- cabecera de la pagina -------------------------------------------------------- -->
 	<header class="cabecera" role="banner">
@@ -50,6 +50,9 @@
 
 		<div id="fondoHeader">
 			<!--button type="button" class="boton" id="descargarMapa">Descargar Mapa</button-->
+
+			<button type="button" class="boton" id="descargarMapa" onclick="cambiaIdioma('es')">Español</button>
+			<button type="button" class="boton" id="descargarMapa" onclick="cambiaIdioma('vlca')">Valenciano </button>
 		</div>
 
 	</header>
