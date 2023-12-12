@@ -259,6 +259,68 @@ function downloadToCSV() {
 
     // Simula el clic en el enlace para iniciar la descarga
     link.click();
+}
+
+function downloadToExcel() {
+
+    var excelHeaders = ["Latitud", "Longitud", "Contaminante", "Valor", "Fecha"];
+
+    var contador = 0;
+    
+    var excelData = []
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante = "";
+        switch (tipoValor) {
+            case 0:
+                contaminante = "Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+        excelData.push([lat, lng, contaminante, valor, fecha])
+        contador++
+    });
 
 
+    // Crear un nuevo libro de Excel
+    var workbook = XLSX.utils.book_new();
+    var worksheet = XLSX.utils.aoa_to_sheet([excelHeaders].concat(excelData));
+
+    // Agregar la hoja al libro
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos del Mapa');
+
+    // Crear un blob con el contenido Excel
+    var excelBinaryData = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+    var blob = new Blob([s2ab(excelBinaryData)], { type: 'application/octet-stream' });
+
+    // Crear un enlace temporal y establecer el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establecer el nombre del archivo Excel
+    link.download = 'datos_mapa.xlsx';
+    // Simular el clic en el enlace para iniciar la descarga
+    link.click();
+}
+function s2ab(s) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
 }
