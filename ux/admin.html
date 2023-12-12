@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title data-section="paginaAdmin" data-value="tituloPagina">Admin Page</title>
 
     <script>
         function comprobarSesion() {
@@ -119,11 +119,11 @@
 
                     <thead id="leyendaTabla">
 
-                        <th id="shownTag1">DNI</th>
-                        <th id="shownTag2">Nombre</th>
-                        <th id="shownTag3">Apellido</th>
-                        <th id="shownTag4">Correo</th>
-                        <th id="shownTag5">Tlf</th>
+                        <th id="shownTag1" data-section="paginaAdmin" data-value="filtroTablaDNI">DNI</th>
+                        <th id="shownTag2" data-section="paginaAdmin" data-value="filtroTablaNombre">Nombre</th>
+                        <th id="shownTag3" data-section="paginaAdmin" data-value="filtroTablaApellidos">Apellido</th>
+                        <th id="shownTag4" data-section="paginaAdmin" data-value="filtroTablaCorreo">Correo</th>
+                        <th id="shownTag5" data-section="paginaAdmin" data-value="filtroTablaTelefono">Tlf</th>
 
                         <!--<td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>-->
                     </thead>
@@ -145,7 +145,7 @@
         <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
         <div id="textoFooter">
             <p>© Generalitat</p>
-            <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
+            <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
         </div>
     </footer>
 
@@ -157,31 +157,31 @@
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Buscar por:</p>
+                <p class="tituloFiltroEspecificadoTexto" data-section="paginaAdmin" data-value="popupFiltroBuscarTitulo">Buscar por:</p>
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
                     <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni"
-                            id="dniFiltro" checked>DNI</label><br>
+                            id="dniFiltro" checked data-section="paginaAdmin" data-value="popupFiltroBuscarDNI">DNI</label><br>
                     <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro"
-                            value="sn" id="snFiltro">Id Dispositivo</label><br>
+                            value="sn" id="snFiltro" data-section="paginaAdmin" data-value="popupFiltroBuscarDispositivo">Id Dispositivo</label><br>
                     <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp"
-                            id="cpFiltro">CP</label><br>
+                            id="cpFiltro" data-section="paginaAdmin" data-value="popupFiltroBuscarCP">CP</label><br>
                 </p>
             </div>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto">Mostrar por etiqueta:</p>
+                <p class="tituloFiltroEspecificadoTexto" data-section="paginaAdmin" data-value="popupFiltroEtiquetaTitulo">Mostrar por etiqueta:</p>
             </div>
             <div class="OpcionesFiltro">
                 <p class="opcionesIzquierda">
                     <label><input onclick="setTipoTags('persona');" type="radio" name="opcionesTags" value="persona"
-                            id="personaFiltro" checked>Persona</label><br>
+                            id="personaFiltro" checked data-section="paginaAdmin" data-value="popupFiltroEtiquetaPersona">Persona</label><br>
                     <label><input onclick="setTipoTags('dispositivo');" type="radio" name="opcionesTags"
-                            value="dispositivo" id="dispositivoFiltro">Dispositivo</label><br>
+                            value="dispositivo" id="dispositivoFiltro" data-section="paginaAdmin" data-value="popupFiltroEtiquetaDispositivo">Dispositivo</label><br>
                     <label><input onclick="setTipoTags('lugar');" type="radio" name="opcionesTags" value="lugar"
-                            id="lugarFiltro">Lugar</label><br>
+                            id="lugarFiltro" data-section="paginaAdmin" data-value="popupFiltroEtiquetaLugar">Lugar</label><br>
                 </p>
             </div>
         </div>
@@ -196,37 +196,37 @@
         <div id="tituloPopUpFiltros">
             <!--button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button-->
             <button onclick="visibilidadFormAnyadir(1);" id="personTitulo">
-                <p>Persona</p>
+                <p data-section="paginaAdmin" data-value="popupAnyadirTitulo">Persona</p>
             </button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <form id="formAnyadirPersona" onsubmit="submitFormPersona(event); return false;">
                 <div class="insertarDato">
-                    <p>DNI</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirDNI">DNI</p>
                     <input required type="text" name="dni" id="dnianyadir" maxlength="10">
                 </div>
                 <div class="insertarDato">
-                    <p>Nombre</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirNombre">Nombre</p>
                     <input required type="text" name="name" id="nameanyadir" maxlength="15">
                 </div>
                 <div class="insertarDato">
-                    <p>Apellidos</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirApellidos">Apellidos</p>
                     <input required type="text" name="surname" id="surnameanyadir" maxlength="50">
                 </div>
                 <div class="insertarDato">
-                    <p>Email</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirEmail">Email</p>
                     <input required type="text" name="email" id="emailanyadir">
                 </div>
                 <div class="insertarDato">
-                    <p>N° Telefónico</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirTelefono">N° Telefónico</p>
                     <input required type="text" name="tel" id="telanyadir" maxlength="20">
                 </div>
                 <div class="insertarDato">
-                    <p>CCAA</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirCCAA">CCAA</p>
                     <input required type="text" name="ccaa" id="ccaaanyadir" maxlength="30">
                 </div>
                 <div class="insertarDato">
-                    <p>Provincia</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirProvincia">Provincia</p>
                     <input required type="text" name="province" id="provinceanyadir" maxlength="30">
                 </div>
                 <!--div class="insertarDato">
@@ -234,20 +234,20 @@
                     <input required type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div-->
                 <div class="insertarDato" id="cp_deladmin">
-                    <p>Código Postal</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirCP">Código Postal</p>
                     <input required readonly type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div>
                 <div class="insertarDato">
-                    <p>Calle</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirCalle">Calle</p>
                     <input required type="text" name="street" id="streetanyadir" maxlength="200">
                 </div>
                 <div class="insertarDato">
-                    <p>Id Dispositivo</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirDispositivo">Id Dispositivo</p>
                     <input required type="text" name="name" id="serialnumberanyadir" maxlength="20">
                 </div>
 
                 <div id="botonConfirmarDiv">
-                    <button type="submit" id="botonConfirmar">Añadir</button>
+                    <button type="submit" id="botonConfirmar" data-section="paginaAdmin" data-value="popupAnyadirBoton">Añadir</button>
                 </div>
             </form>
             <form id="formAnyadirAdmin" onsubmit="anyadirAdminyPersonayDireccion(); return false;" hidden>
@@ -309,59 +309,59 @@
                     src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
-            <p id="personTituloEditar">Persona</p>
+            <p id="personTituloEditar" data-section="paginaAdmin" data-value="popupEditarTitulo">Persona</p>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="editarDato">
-                <p>DNI</p>
+                <p data-section="paginaAdmin" data-value="popupEditarDNI">DNI</p>
                 <input readonly type="text" name="dni" id="dnieditar" maxlength="10">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Nombre</p>
+                <p data-section="paginaAdmin" data-value="popupEditarNombre">Nombre</p>
                 <input readonly type="text" name="name" id="nameeditar" maxlength="15">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Apellidos</p>
+                <p data-section="paginaAdmin" data-value="popupEditarApellidos">Apellidos</p>
                 <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Email</p>
+                <p data-section="paginaAdmin" data-value="popupEditarEmail">Email</p>
                 <input type="text" name="email" id="emaileditar">
             </div>
             <div class="editarDato">
-                <p>N° Telefónico</p>
+                <p data-section="paginaAdmin" data-value="popupEditarTelefono">N° Telefónico</p>
                 <input type="text" name="tel" id="teleditar" maxlength="20">
             </div>
             <div class="editarDato">
-                <p>CCAA</p>
+                <p data-section="paginaAdmin" data-value="popupEditarCCAA">CCAA</p>
                 <input type="text" name="ccaa" id="ccaaeditar" maxlength="30">
             </div>
             <div class="editarDato">
-                <p>Provincia</p>
+                <p data-section="paginaAdmin" data-value="popupEditarProvincia">Provincia</p>
                 <input type="text" name="province" id="provinceeditar" maxlength="30">
             </div>
             <div class="editarDato">
-                <p>Codigo Postal</p>
+                <p data-section="paginaAdmin" data-value="popupEditarCP">Codigo Postal</p>
                 <input type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
             </div>
             <div class="editarDato">
-                <p>Calle</p>
+                <p data-section="paginaAdmin" data-value="popupEditarCalle">Calle</p>
                 <input type="text" name="street" id="streeteditar" maxlength="200">
             </div>
 
             <div class="editarDato">
-                <p>Dispositivo</p>
+                <p data-section="paginaAdmin" data-value="popupEditarDispositivo">Dispositivo</p>
                 <input type="text" name="device" id="deviceAssociadoTitulo">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
 
             <div id="botonConfirmarDiv">
                 <button id="botonEliminar"
-                    onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';">Eliminar</button>
-                <button onclick="editarAndSetTags();" id="botonConfirmar">Confirmar</button>
+                    onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';" data-section="paginaAdmin" data-value="popupEditarBotonEliminar">Eliminar</button>
+                <button onclick="editarAndSetTags();" id="botonConfirmar" data-section="paginaAdmin" data-value="popupEditarBotonConfirmar">Confirmar</button>
             </div>
 
         </div>
@@ -374,14 +374,14 @@
                     src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
-            <p id="confirmarEliminar">¿Confirmas el eliminar esta persona?</p>
+            <p id="confirmarEliminar" data-section="paginaAdmin" data-value="popupEliminarTitulo">¿Confirmas el eliminar esta persona?</p>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="editarDato">
-                <p>Una vez eliminada la persona no podras recuperarla</p>
+                <p data-section="paginaAdmin" data-value="popupEliminarDesc">Una vez eliminada la persona no podras recuperarla</p>
             </div>
             <div id="botonConfirmarEliminar">
-                <button onclick="eliminarAndSetTags();" id="botonConfirmarEliminar">Eliminar</button>
+                <button onclick="eliminarAndSetTags();" id="botonConfirmarEliminar" data-section="paginaAdmin" data-value="popupEditarBotonEliminar">Eliminar</button>
             </div>
 
         </div>

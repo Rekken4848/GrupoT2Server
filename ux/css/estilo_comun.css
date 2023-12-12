@@ -46,6 +46,10 @@ button{
     height: 8vh;
     margin: 2vh;
 }
+
+#listaIdiomas{
+    margin-right: 2vw;
+}
 @media(max-width: 1000px) {
     .baseEnlaceZonaLanding {
         width: 6vh;
