@@ -1,5 +1,7 @@
 {
-    "footer": "Mapa web | Aviso legal | Accesibilidad Política de cookies | Corro del funcionario",
+    "footer": {
+        "footer": "Mapa web | Aviso legal | Accesibilidad Política de cookies | Correo del funcionario"
+    },
     "index": {
         "contaminanteTitulo": "Contaminantes",
         "efectosDeSalud": "Efectos de salud",
@@ -11,7 +13,7 @@
         "tituloContaminanteOzono": "Ozono",
         "infoContaminanteOzono": "En niveles elevados, el ozono puede causar irritación en los ojos, la nariz y la garganta. Puede agravar enfermedades respiratorias como el asma, causar tos, dificultad para respirar e inflamación pulmonar. La exposición crónica al ozono puede reducir la función pulmonar, aumentar la sensibilidad a las infecciones pulmonares y contribuir a problemas cardiovasculares.",
         "umbralValorOzono": "240 μg/m3",
-        "tituloContaminanteNitrogeno": "Nitrógeno",
+        "tituloContaminanteNitrogeno": "Óxidos de nitrógeno",
         "infoContaminanteNitrogeno": "Es un gas irritante que afecta las vías respiratorias superiores e inferiores. Puede causar tos, sibilancias, dificultad para respirar y agravar el asma. La exposición a largo plazo puede disminuir la función pulmonar y aumentar el riesgo de infecciones respiratorias.",
         "umbralValorNitrogeno": "200 μg/m3",
         "tituloContaminanteAzufre": "Dióxido de azufre",
@@ -27,7 +29,7 @@
     "adminAvisos": {
         "tituloPagina": "Avisos de Admin",
         "tituloPeticiones": "Peticiones",
-        "DNIEmpleado": "DNI empleado",
+        "DNIEmpleado": "DNI empleado:",
         "botonCompletar": "Completar",
         "borrarAvisoTitulo": "¿Confirmas el eliminar este aviso?",
         "borrarAvisoDesc": "Este aviso seguirá siendo visible para el portador del dispositivo, pero no para ti",

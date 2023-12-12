@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title data-section="adminEditarPerfil" data-value="tituloPagina">Admin Page</title>
 
     <script>
         function comprobarSesion() {
@@ -70,7 +70,7 @@
             <a href="admin_descargaMapa.html">
             <button type="button" class="boton" id="descargarMapa">Mapa</button>
             </a>
-            <button type="button" class="boton" id="descargarMapa">Registros</button>
+            <button type="button" class="boton" id="descargarMapa" data-section="adminEditarPerfil" data-value="registrosBoton">Registros</button>
 
             </div>
         </div>
@@ -81,63 +81,63 @@
 
     <div id="contenedorEditarUsuario">
             <div id="tituloPopUpFiltros">
-                <p id="personTituloEditar">Usuario</p>
+                <p id="personTituloEditar" data-section="adminEditarPerfil" data-value="usuarioTitulo">Usuario</p>
             </div>
             <div class="editarDato">
-                <p>DNI</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioDNI">DNI</p>
                 <input readonly type="text" name="dni" id="dnieditar" maxlength="10">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Nombre</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioNombre">Nombre</p>
                 <input readonly type="text" name="name" id="nameeditar" maxlength="15">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div id="ultimoPersonal" class="editarDato" >
-                <p>Apellidos</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioApellidos">Apellidos</p>
                 <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Email</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioEmail">Email</p>
                 <input readonly type="text" type="text" name="email" id="emaileditar">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato" id="ultimoContacto">
-                <p>N° Telefónico</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioTelefono">N° Telefónico</p>
                 <input readonly type="text" type="text" name="tel" id="teleditar" maxlength="20">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>CCAA</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioCCAA">CCAA</p>
                 <input readonly type="text" type="text" name="ccaa" id="ccaaeditar" maxlength="30">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Provincia</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioProvincia">Provincia</p>
                 <input readonly type="text" type="text" name="province" id="provinceeditar" maxlength="30">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Codigo Postal</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioCP">Codigo Postal</p>
                 <input readonly type="text" type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
-                <p>Calle</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioCalle">Calle</p>
                 <input readonly type="text" type="text" name="street" id="streeteditar" maxlength="200">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
 
             <div class="editarDato">
-                <p>Dispositivo</p>
+                <p data-section="adminEditarPerfil" data-value="usuarioDispositivo">Dispositivo</p>
                 <input readonly type="text" type="text" name="device" id="deviceAssociadoTitulo">
                 <img src="images/padlock.png" alt="candado icono">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
     
             <div id="botonConfirmarUsuarioDiv">
-                <button id="botonContrasenya">Actualizar Contraseña</button>
+                <button id="botonContrasenya" data-section="adminEditarPerfil" data-value="usuarioPasswordCambia">Actualizar Contraseña</button>
             </div>
 
         </div>
@@ -151,23 +151,23 @@
                         src="images/cross.png" alt="icono cerrar"></button>
             </div>
             <div class="card-header">
-              <div class="log">Cambiar Contraseña</div>
+              <div class="log" data-section="adminEditarPerfil" data-value="cambioPasswTitulo">Cambiar Contraseña</div>
             </div>
             <form form onsubmit="return validatePasswords()">
               <div class="form-group">
-                <label for="username">Contraseña:</label>
+                <label for="username" data-section="adminEditarPerfil" data-value="cambioPasswActual">Contraseña:</label>
                 <input required="" name="username" id="passwordold" type="password">
               </div>
               <div class="form-group">
-                <label for="password">Nueva Contraseña:</label>
+                <label for="password" data-section="adminEditarPerfil" data-value="cambioPasswNueva">Nueva Contraseña:</label>
                 <input required="" name="password" id="password" type="password">
               </div>
               <div class="form-group">
-                <label for="password">Confirmar Nueva Contraseña:</label>
+                <label for="password" data-section="adminEditarPerfil" data-value="cambioPasswNueva2">Confirmar Nueva Contraseña:</label>
                 <input required="" name="password" id="passwordConfirm" type="password">
               </div>
               <div id="botonConfirmarUsuarioDiv">
-                <button type="submit" id="botonConfirmar">Confirmar</button>
+                <button type="submit" id="botonConfirmar" data-section="adminEditarPerfil" data-value="cambioPasswBoton">Confirmar</button>
             </div>
             </form>
           </div>
@@ -177,6 +177,6 @@
         <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
         <div id="textoFooter">
             <p>© Generalitat</p>
-            <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
+            <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
         </div>
     </footer>

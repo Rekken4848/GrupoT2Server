@@ -1,5 +1,7 @@
 {
-    "footer": "Mapa web | Aviso legal | Accesibilidad Política de cookies | Corro del funcionario",
+    "footer": {
+        "footer": "Mapa web | Avís legal | Accesibilitat Política de cookies | Correu del funcionari"
+    },
     "index": {
         "contaminanteTitulo": "Contaminants",
         "efectosDeSalud": "Efectes de salut",
@@ -11,7 +13,7 @@
         "tituloContaminanteOzono": "Ozó",
         "infoContaminanteOzono": "En nivells elevats, l'ozó pot causar irritació en els ulls, el nas i la gola. Pot agreujar malalties respiratòries com l'asma, causar tos, dificultat per a respirar i inflamació pulmonar. L'exposició crònica a l'ozó pot reduir la funció pulmonar, augmentar la sensibilitat a les infeccions pulmonars i contribuir a problemes cardiovasculars.",
         "umbralValorOzono": "240 μg/m3",
-        "tituloContaminanteNitrogeno": "Nitrogen",
+        "tituloContaminanteNitrogeno": "Òxids de nitrogen",
         "infoContaminanteNitrogeno": "És un gas irritant que afecta les vies respiratòries superiors i inferiors. Pot causar tos, sibilàncies, dificultat per a respirar i agreujar l'asma. L'exposició a llarg termini pot disminuir la funció pulmonar i augmentar el risc d'infeccions respiratòries.",
         "umbralValorNitrogeno": "200 μg/m3",
         "tituloContaminanteAzufre": "Diòxid de sofre",
@@ -27,7 +29,7 @@
     "adminAvisos": {
         "tituloPagina": "Avisos de l'administrador",
         "tituloPeticiones": "Peticions",
-        "DNIEmpleado": "DNI emprat",
+        "DNIEmpleado": "DNI emprat:",
         "botonCompletar": "Completar",
         "borrarAvisoTitulo": "Confirmes l'eliminar aquest avís?",
         "borrarAvisoDesc": "Aquest avís continuarà sent visible per al portador del dispositiu, però no per a tu",
