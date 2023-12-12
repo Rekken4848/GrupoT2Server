@@ -324,3 +324,53 @@ function s2ab(s) {
     for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
     return buf;
 }
+
+function downloadToJSON() {
+
+    var contador = 0;
+
+    var JSONData = []
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante = "";
+        switch (tipoValor) {
+            case 0:
+                contaminante = "Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+        JSONData.push({"latitud":lat, "longitud":lng, "contaminante":contaminante, "valor":valor, "fecha":fecha})
+        contador++
+    });
+
+    var jsonString = JSON.stringify(JSONData, null, 2);
+
+    // Crear un blob con el contenido JSON
+    var blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Crear un enlace temporal y establecer el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establecer el nombre del archivo JSON
+    link.download = 'datos_mapa.json';
+
+    // Simular el clic en el enlace para iniciar la descarga
+    link.click();
+}
