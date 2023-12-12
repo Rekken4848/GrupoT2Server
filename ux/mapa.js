@@ -23,7 +23,7 @@ function getColorMarcador(nivel) {
 
 function getColor(type) {
     // Asigna colores diferentes según el tipo de medición
-    return type === 'CO2' ? 'red' : type === 'CO3' ? 'blue' : type === 'N' ? 'yellow' : type === 'C8' ? 'pink' : 'green';
+    return type === 'CO' ? 'red' : type === 'O3' ? 'blue' : type === 'NO' ? 'yellow' : type === 'SO2' ? 'pink' : 'green';
 }
 
 let mymap;
@@ -89,7 +89,7 @@ function mostrarLeyendaYMarcadores(mymap) {
     }).then(function (datos) {
         console.log("Los datos del mapa bien" + JSON.stringify(datos));
         const datosJSON = JSON.stringify(datos)
-        datosMediciones = datosJSON
+        datosMediciones = datos
         // Crea un objeto para almacenar las capas
         const capas = {};
 
@@ -209,4 +209,56 @@ function downloadToPNG() {
         // Simula el clic en el enlace para iniciar la descarga
         link.click();
     });
+}
+
+function downloadToCSV() {
+
+    var csv = "Latitud;Longitud;Contaminante;Valor;Fecha\n";
+
+    var contador = 0;
+    // Agregar datos de marcadores al CSV
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante="";
+        switch(tipoValor){
+            case 0:
+                contaminante="Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+        csv += lat + ';' + lng + ';' + contaminante + ';' + valor + ';' + fecha + '\n';
+        contador++
+    });
+
+
+    // Crea un blob con el contenido CSV
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+
+    // Crea un enlace temporal y establece el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establece el nombre del archivo CSV
+    link.download = 'datos_mapa.csv';
+
+    // Simula el clic en el enlace para iniciar la descarga
+    link.click();
+
+
 }
