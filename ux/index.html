@@ -51,8 +51,10 @@
 		<div id="fondoHeader">
 			<!--button type="button" class="boton" id="descargarMapa">Descargar Mapa</button-->
 
-			<button type="button" class="boton" id="descargarMapa" onclick="cambiaIdioma('es')">Español</button>
-			<button type="button" class="boton" id="descargarMapa" onclick="cambiaIdioma('vlca')">Valenciano </button>
+			<select name="listaIdiomas" id="listaIdiomas" onchange="cambiaIdioma(this.options[this.selectedIndex].value);">
+				<option value="es" onclick="cambiaIdioma('es')">Español</option>
+				<option value="vlca" onclick="cambiaIdioma('vlca')">Valencià</option>
+			</select>
 		</div>
 
 	</header>

@@ -7,6 +7,8 @@ function getTextos(){
 }
 
 async function cambiaIdioma(languaje){
+
+    console.log(languaje)
     const requestJson = await fetch('languajes/' + languaje + '.json')
 
     const texts = await requestJson.json()
