@@ -72,6 +72,9 @@ function getClasificacion(valor) {
     }
 }
 
+var datosMediciones=[];
+var marcadores=[];
+
 function mostrarLeyendaYMarcadores(mymap) {
     fetch('http://localhost:8080/medicionConTipoValorEntreFechas/2023-10-14 16:32:40/2023-10-16 16:32:40', {
         method: "GET"
@@ -86,6 +89,7 @@ function mostrarLeyendaYMarcadores(mymap) {
     }).then(function (datos) {
         console.log("Los datos del mapa bien" + JSON.stringify(datos));
         const datosJSON = JSON.stringify(datos)
+        datosMediciones = datosJSON
         // Crea un objeto para almacenar las capas
         const capas = {};
 
@@ -139,6 +143,8 @@ function mostrarLeyendaYMarcadores(mymap) {
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
 
+            marcadores.push(marker)
+
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
         });
@@ -154,6 +160,8 @@ function mostrarLeyendaYMarcadores(mymap) {
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'yellow'));
+
+            marcadores.push(marker)
 
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
@@ -171,6 +179,8 @@ function mostrarLeyendaYMarcadores(mymap) {
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'green'));
 
+            marcadores.push(marker)
+
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
         });
@@ -180,3 +190,23 @@ function mostrarLeyendaYMarcadores(mymap) {
 generarYGenerarMapa();
 setInterval(generarYGenerarMapa, 50000);
 //generarYGenerarMapa();
+
+
+function downloadToPNG() {
+    
+    html2canvas(document.getElementById('zonaMapa'), {
+        useCORS: true, // Necesario para capturar mapas de azulejos externos
+    }).then(function (canvas) {
+        // Crea un enlace temporal y establece la imagen como su contenido
+        var link = document.createElement('a');
+
+        // Convierte el canvas a una URL de datos PNG
+        link.href = canvas.toDataURL('image/png');
+
+        // Establece el nombre del archivo
+        link.download = 'mapa.png';
+
+        // Simula el clic en el enlace para iniciar la descarga
+        link.click();
+    });
+}

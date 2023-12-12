@@ -39,16 +39,16 @@
         comprobarSesion()
       </script>
 
-    <!-- --------------- estilo y script de leaflet para el mapa ---------------------- -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-    <!-- --------------- fin estilo y script de leaflet para el mapa ----------------------- -->
+      <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+      <!-- para descargar en png -->
+      <script src="https://unpkg.com/leaflet-image-capture@1.0.0/dist/Leaflet.ImageCapture.js"></script>
+      <script src="https://unpkg.com/leaflet-image@0.5.0/dist/leaflet-image.min.js"></script>
+      <script src="https://unpkg.com/html2canvas@1.3.4/dist/html2canvas.min.js"></script>
+      <!-- para descargar en csv -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <style>
@@ -84,11 +84,11 @@
                     <div class="radio-inputs">
                         <label class="radio">
                           <input type="radio" name="radio" checked="">
-                          <span class="name">CSV</span>
+                          <span class="name" onclick="downloadToCSV()">CSV</span>
                         </label>
                         <label class="radio">
                           <input type="radio" name="radio">
-                          <span class="name">PNG</span>
+                          <span class="name" onclick="downloadToPNG()">PNG</span>
                         </label>
                         <label class="radio">
                           <input type="radio" name="radio">
@@ -123,7 +123,7 @@
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
     <!-- zona del mapa -------------------------------------------------------- -->
-    
+    <div id="zonaMapa"></div>
     <!-- fin de la zona del mapa -------------------------------------------------------- -->
 
 
@@ -175,6 +175,10 @@
             <button id="buttonDownload">Download</button>
         </div>
     </div>
+
+    <script src="/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="mapa.js"></script>
+    <script src="descargaMapa.js"></script>
 
 </body>
 
