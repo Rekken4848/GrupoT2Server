@@ -99,6 +99,71 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res))
         }) // get /matricula
     // .......................................................
+    // GET /medicionEntreFechasYTipoValor/<fechaInicio, fechaFin, tipo_valor>
+    // .......................................................
+    servidorExpress.get(
+        '/medicionEntreFechasYTipoValor/:fechaInicio/:fechaFin/:tipo_valor',
+        async function (peticion, respuesta) {
+            console.log(" * GET /medicionEntreFechasYTipoValor ")
+
+            var fechaInicio = peticion.params.fechaInicio
+            var fechaFin = peticion.params.fechaFin
+            var tipo_valor = peticion.params.tipo_valor
+
+            var res = await laLogica.getMedicionesEntreFechasYTipoValor(fechaInicio, fechaFin, tipo_valor)
+
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no existen mediciones de ese tipo entre esas fechas")
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        })
+    // .......................................................
+    // GET /medicionConTipoValorEntreFechas/<fechaInicio, fechaFin>
+    // .......................................................
+    servidorExpress.get(
+        '/medicionConTipoValorEntreFechas/:fechaInicio/:fechaFin',
+        async function (peticion, respuesta) {
+            console.log(" * GET /medicionEntreFechas ")
+
+            var fechaInicio = peticion.params.fechaInicio
+            var fechaFin = peticion.params.fechaFin
+
+            var res = await laLogica.getMedicionesConTipoValorEntreFechas(fechaInicio, fechaFin)
+
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no existen mediciones entre esas fechas")
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        }) // get /matricula
+    // .......................................................
+    // GET /medicionConTipoValorEntreFechasYDispositivo/<fechaInicio, fechaFin>
+    // .......................................................
+    servidorExpress.get(
+        '/medicionConTipoValorEntreFechasYDispositivo/:fechaInicio/:fechaFin/:dispositivo_id',
+        async function (peticion, respuesta) {
+            console.log(" * GET /medicionEntreFechas ")
+
+            var fechaInicio = peticion.params.fechaInicio
+            var fechaFin = peticion.params.fechaFin
+            var dispositivo_id = peticion.params.dispositivo_id
+
+            var res = await laLogica.getMedicionesConTipoValorEntreFechasYDispositivo(fechaInicio, fechaFin, dispositivo_id)
+
+            if (res.length < 1) {
+                // 404: not found
+                respuesta.status(404).send("no existen mediciones entre esas fechas")
+                return
+            }
+            // todo ok
+            respuesta.send(JSON.stringify(res))
+        }) // get /matricula
+    // .......................................................
     // GET /medicionEntreFechasYDispositivo/<fechaInicio, fechaFin, dispositivo_id>
     // .......................................................
     servidorExpress.get(
@@ -1257,9 +1322,9 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             console.log(" * POST /dispositivo ")
 
             var datos = JSON.parse(peticion.body)
-            
+
             await laLogica.insertarDispositivo(datos)
-            
+
             var res = await laLogica.getDispositivoPorPersona(datos.dni_empleado)
 
             if (res.length != 1) {

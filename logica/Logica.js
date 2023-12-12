@@ -133,6 +133,57 @@ module.exports = class Logica {
         })
     } // ()
     // .................................................................
+    // fechaInicio:fecha, fechaFin:fecha, tipo_valor:N
+    // -->
+    // getMedicionesEntreFechasYTipoValor() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar}>
+    // .................................................................
+    getMedicionesEntreFechasYTipoValor(fechaInicio, fechaFin, tipo_valor) {
+        var textoSQL = "select Medicion.* from Medicion, TipoValor where Medicion.tipo_valor_id=TipoValor.tipo_valor_id and TipoValor.tipo_valor=$tipo_valor and Medicion.fecha between $fechaInicio and $fechaFin";
+        var valoresParaSQL = { $fechaInicio: fechaInicio, $fechaFin: fechaFin, $tipo_valor: tipo_valor }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // fechaInicio:fecha, fechaFin:fecha
+    // -->
+    // getMedicionesConTipoValorEntreFechas() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar, $tipo_valor_id:N, $tipo_valor:tipo_valor}>
+    // .................................................................
+    getMedicionesConTipoValorEntreFechas(fechaInicio, fechaFin) {
+        var textoSQL = "select * from Medicion INNER JOIN TipoValor ON Medicion.tipo_valor_id = TipoValor.tipo_valor_id where fecha between $fechaInicio and $fechaFin";
+        var valoresParaSQL = { $fechaInicio: fechaInicio, $fechaFin: fechaFin }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
+    // fechaInicio:fecha, fechaFin:fecha, dispositivo_id:N
+    // -->
+    // getMedicionesConTipoValorEntreFechas() <--
+    // <--
+    // Lista<{$id:N, $valor:R, $tipo_valor_id:N, $fecha:fecha, $lugar:lugar, $tipo_valor_id:N, $tipo_valor:tipo_valor}>
+    // .................................................................
+    getMedicionesConTipoValorEntreFechasYDispositivo(fechaInicio, fechaFin, dispositivo_id) {
+        var textoSQL = "select  Medicion.*, TipoValor.* from Medicion INNER JOIN TipoValor ON Medicion.tipo_valor_id = TipoValor.tipo_valor_id INNER JOIN Medicion_Dispositivo ON Medicion.id = Medicion_Dispositivo.medicion_id where fecha between $fechaInicio and $fechaFin AND  Medicion_Dispositivo.dispositivo_id = $dispositivo_id";
+        var valoresParaSQL = { $fechaInicio: fechaInicio, $fechaFin: fechaFin, $dispositivo_id: dispositivo_id }
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                })
+        })
+    } // ()
+    // .................................................................
     // fechaInicio:fecha, fechaFin:fecha, dispositivo_id:N
     // -->
     // getMedicionesEntreFechasYDispositivo() <--
