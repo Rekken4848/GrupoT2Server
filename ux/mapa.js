@@ -374,3 +374,69 @@ function downloadToJSON() {
     // Simular el clic en el enlace para iniciar la descarga
     link.click();
 }
+
+function downloadToGeoJSON() {
+
+    var contador = 0;
+
+    var GeoJSONFeatures = []
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante = "";
+        switch (tipoValor) {
+            case 0:
+                contaminante = "Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+
+        GeoJSONFeatures.push({ 
+            type: "Feature", 
+            geometry: {
+                type: "Point",
+                coordinates: [lat,lng]
+            }, 
+            properties: {
+                tipoContaminante: contaminante,
+                valorContaminante: valor,
+                fecha: fecha
+            }})
+        contador++
+    });
+
+    var geoJSONData={
+        type: "FeatureCollection",
+        features: GeoJSONFeatures
+    }
+
+    var geojsonString = JSON.stringify(geoJSONData, null, 2);
+
+    // Crear un blob con el contenido GeoJSON
+    var blob = new Blob([geojsonString], { type: 'application/json' });
+
+    // Crear un enlace temporal y establecer el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establecer el nombre del archivo GeoJSON
+    link.download = 'datos_mapa.geojson';
+
+    // Simular el clic en el enlace para iniciar la descarga
+    link.click();
+}
