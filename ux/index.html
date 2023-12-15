@@ -24,6 +24,8 @@
 
 	<link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 </head>
 
 <!-- -------------------------------------------------------- -->
@@ -105,13 +107,10 @@
 						</div>
 					</div>
 					<div class="text">
-						<p data-section="index" data-value="infoContaminanteOzono" data-imgcont="ozono"><img class="inset" src="images/ozono.png" alt="" />En niveles elevados, el ozono puede causar
-							irritación en los ojos, la nariz y la garganta. Puede agravar enfermedades respiratorias
-							como el asma, causar tos, dificultad para respirar e inflamación pulmonar. La exposición
-							crónica al ozono puede reducir la función pulmonar, aumentar la sensibilidad a las
-							infecciones pulmonares y contribuir a problemas cardiovasculares.
-
-
+						<p data-section="index" data-value="infoContaminanteOzono" data-imgcont="ozono"><img class="inset" src="images/ozono.png" alt="" />
+							El O3 se encuentra en menor cantidad en el interior las grandes urbes porque se consume rápidamente en la oxidación de
+							NO. La exposición a grandes niveles de este origina problemas respiratorios y hasta muerte prematura, así como un gran
+							daño a la vegetación.
 						</p>
 					</div>
 				</div>
@@ -148,11 +147,11 @@
 						</div>
 					</div>
 					<div class="text">
-						<p data-section="index" data-value="infoContaminanteNitrogeno" data-imgcont="nitrogeno"><img class="inset" src="images/nitrogeno.png" alt="" />Es un gas irritante que afecta las
-							vías respiratorias superiores e inferiores. Puede causar tos, sibilancias, dificultad para
-							respirar y agravar el asma. La exposición a largo plazo puede disminuir la función pulmonar
-							y aumentar el riesgo de infecciones respiratorias.
-
+						<p data-section="index" data-value="infoContaminanteNitrogeno" data-imgcont="nitrogeno"><img class="inset" src="images/nitrogeno.png" alt="" />
+							Los óxidos de nitrógeno aparecen en gran cantidad en las grandes ciudades debido a que la mayoría de estos se emiten de
+							los vehículos. También se produce en instalaciones industriales de alta temperatura y de generación eléctrica. Estos
+							óxidos pueden conllevar diversos problemas de salud y sobre el medio ambiente. Además, puede generar otros
+							contaminantes.
 						</p>
 					</div>
 				</div>
@@ -196,11 +195,10 @@
 						</div>
 					</div>
 					<div class="text">
-						<p data-section="index" data-value="infoContaminanteAzufre" data-imgcont="azufre"><img class="inset" src="images/azufre.png" alt="" />La exposición al dióxido de azufre puede
-							irritar las vías respiratorias, provocando tos, dificultad para respirar, sibilancias y
-							exacerbación del asma. Además, puede causar enfermedades respiratorias crónicas y dañar el
-							tejido pulmonar. El SO2 contribuye a la formación de partículas finas que pueden penetrar
-							profundamente en los pulmones.
+						<p data-section="index" data-value="infoContaminanteAzufre" data-imgcont="azufre"><img class="inset" src="images/azufre.png" alt="" />
+							El dióxido de azufre se origina de la combustión de carburantes fósiles, la cual se lleva a cabo principalmente en
+							procesos industriales. Este puede causar, aun estando lejos del foco, una gran variedad de graves problemas de salud,
+							así como pésimos efectos sobre la flora y fauna. También destruye ecosistemas en su totalidad.
 						</p>
 					</div>
 
@@ -241,11 +239,11 @@
 						</div>
 					</div>
 					<div class="text">
-						<p data-section="index" data-value="infoContaminanteCarbono" data-imgcont="carbono"><img class="inset" src="images/carbon.png" alt="" /> Es un gas tóxico inodoro e incoloro. La
-							inhalación de altas concentraciones de monóxido de carbono puede llevar a síntomas como
-							dolor de cabeza, mareos, náuseas, confusión, debilidad y, en casos extremos, a la muerte. El
-							CO interfiere con la capacidad de la sangre para transportar oxígeno, lo que puede tener
-							efectos graves en los órganos y tejidos del cuerpo.
+						<p data-section="index" data-value="infoContaminanteCarbono" data-imgcont="carbono"><img class="inset" src="images/carbon.png" alt="" />
+							El monóxido de carbono viene de las combustibles que contienen carbono. En su gran mayoría se origina automóviles y
+							otros procesos no industriales, aunque también proviene del sector agropecuario y procesos industriales. Este agrava uno
+							de los problemas más grandes de nuestra generación, el cambio climático, aunque también contribuye a problemas de salud
+							(principalmente respiratorios) y destruye la fauna.
 						</p>
 						</p>
 					</div>
@@ -287,11 +285,11 @@
 						</div>
 					</div>
 					<div class="text">
-						<p data-section="index" data-value="infoContaminanteBenceno" data-imgcont="benceno"><img class="inset" src="images/benceno.png" alt="" />Este compuesto orgánico volátil tiene
-							efectos nocivos sobre la salud humana. La exposición a largo plazo al benceno puede causar
-							leucemia y otros trastornos hematológicos. Además, puede afectar al sistema nervioso,
-							inmunológico y reproductivo, y tiene efectos adversos sobre la biodiversidad y la
-							vegetación.
+						<p data-section="index" data-value="infoContaminanteBenceno" data-imgcont="benceno"><img class="inset" src="images/benceno.png" alt="" />
+							El benceno proviene principalmente de procesos naturales o inducidos por el hombre. Aunque también recae la culpa en el
+							uso de disolventes y otros productos. Este puede ocasionar graves problemas de salud, afectando principalmente al
+							sistema nervioso y al material genético celular. También resulta marcadamente tóxico para los organismos acuáticos y,
+							además, afecta a la vegetación.
 						</p>
 					</div>
 				</div>
@@ -358,8 +356,11 @@
 		</div>
 	</div>
 
+	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 	<script src="/node_modules/leaflet/dist/leaflet.js"></script>
 	<script src="mapa.js"></script>
+	<script  src="https://maps.googleapis.com/maps/api/js"></script>  
+  
 
 </body>
 

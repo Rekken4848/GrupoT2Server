@@ -9,6 +9,30 @@ function getCustomIcon(type) {
     });
 }
 
+//----------------------------------------------------------------------------------------------
+/*
+function filtrarPorFechas(fechaInicio, fechaFin) {
+    fetch(`http://localhost:8080/medicionConTipoValorEntreFechas/${fechaInicio}/${fechaFin}`, {
+        method: "GET"
+    }).then(function(respuesta) {
+        if (respuesta.ok) {
+            return respuesta.json();
+        } else {
+            console.log("Hubo un fallo");
+        }
+    }).then(function(datos) {
+        // ... (Your existing logic to handle data and markers)
+    });
+}
+
+// Function to update markers based on selected date range
+function actualizarMapaConFiltroDeFecha() {
+    const fechaInicio = document.getElementById('fecha-inicio').value;
+    const fechaFin = document.getElementById('fecha-fin').value;
+    filtrarPorFechas(fechaInicio, fechaFin);
+}*/
+//----------------------------------------------------------------------------------------------
+
 function addToLegend(type) {
     const legendContent = document.getElementById('zonaMapa');
     const entry = document.createElement('div');
@@ -99,7 +123,6 @@ let mymap;
 let currentPosition;
 
 function generarYGenerarMapa() {
-    // Eliminar el mapa si ya está inicializado
     if (mymap) {
         currentPosition = {
             lat: mymap.getCenter().lat,
@@ -122,6 +145,13 @@ function generarYGenerarMapa() {
     // Añade un mosaico de OpenStreetMap al mapa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
+    }).addTo(mymap);
+    
+    // Add the air quality stations WMS layer-----------------------------
+    L.tileLayer.wms('https://wms.mapama.gob.es/sig/EvaluacionAmbiental/CalidadAire/RedEstacionesCa/wms.aspx?', {
+        layers: 'ESTACIONES_CA',
+        format: 'image/png',
+        transparent: true
     }).addTo(mymap);
 
     // Tipos de datos para tu ejemplo
@@ -281,6 +311,9 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         });
     })
 }
+
+//-------------------------------------------
+//-------------------------------------------
 
 generarYGenerarMapa();
 setInterval(generarYGenerarMapa, 50000);
