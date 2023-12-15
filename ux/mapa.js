@@ -47,7 +47,7 @@ function getColorMarcador(nivel) {
 
 function getColor(type) {
     // Asigna colores diferentes según el tipo de medición
-    return type === 'CO2' ? 'red' : type === 'CO3' ? 'blue' : type === 'N' ? 'yellow' : type === 'C8' ? 'pink' : 'green';
+    return type === 'CO' ? 'red' : type === 'O3' ? 'blue' : type === 'NO' ? 'yellow' : type === 'SO2' ? 'pink' : 'green';
 }
 
 let mymap;
@@ -115,6 +115,9 @@ function getClasificacion(valor) {
     }
 }
 
+var datosMediciones=[];
+var marcadores=[];
+
 function mostrarLeyendaYMarcadores(mymap) {
     fetch('http://localhost:8080/medicionConTipoValorEntreFechas/2023-10-14 16:32:40/2023-10-16 16:32:40', {
         method: "GET"
@@ -129,6 +132,7 @@ function mostrarLeyendaYMarcadores(mymap) {
     }).then(function (datos) {
         console.log("Los datos del mapa bien" + JSON.stringify(datos));
         const datosJSON = JSON.stringify(datos)
+        datosMediciones = datos
         // Crea un objeto para almacenar las capas
         const capas = {};
 
@@ -182,6 +186,8 @@ function mostrarLeyendaYMarcadores(mymap) {
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
 
+            marcadores.push(marker)
+
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
         });
@@ -197,6 +203,8 @@ function mostrarLeyendaYMarcadores(mymap) {
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'yellow'));
+
+            marcadores.push(marker)
 
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
@@ -214,6 +222,8 @@ function mostrarLeyendaYMarcadores(mymap) {
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'green'));
 
+            marcadores.push(marker)
+
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
         });
@@ -226,3 +236,253 @@ function mostrarLeyendaYMarcadores(mymap) {
 generarYGenerarMapa();
 setInterval(generarYGenerarMapa, 50000);
 //generarYGenerarMapa();
+
+
+function downloadToPNG() {
+    
+    html2canvas(document.getElementById('zonaMapa'), {
+        useCORS: true, // Necesario para capturar mapas de azulejos externos
+    }).then(function (canvas) {
+        // Crea un enlace temporal y establece la imagen como su contenido
+        var link = document.createElement('a');
+
+        // Convierte el canvas a una URL de datos PNG
+        link.href = canvas.toDataURL('image/png');
+
+        // Establece el nombre del archivo
+        link.download = 'mapa.png';
+
+        // Simula el clic en el enlace para iniciar la descarga
+        link.click();
+    });
+}
+
+function downloadToCSV() {
+
+    var csv = "Latitud;Longitud;Contaminante;Valor;Fecha\n";
+
+    var contador = 0;
+    // Agregar datos de marcadores al CSV
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante="";
+        switch(tipoValor){
+            case 0:
+                contaminante="Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+        csv += lat + ';' + lng + ';' + contaminante + ';' + valor + ';' + fecha + '\n';
+        contador++
+    });
+
+
+    // Crea un blob con el contenido CSV
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+
+    // Crea un enlace temporal y establece el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establece el nombre del archivo CSV
+    link.download = 'datos_mapa.csv';
+
+    // Simula el clic en el enlace para iniciar la descarga
+    link.click();
+}
+
+function downloadToExcel() {
+
+    var excelHeaders = ["Latitud", "Longitud", "Contaminante", "Valor", "Fecha"];
+
+    var contador = 0;
+    
+    var excelData = []
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante = "";
+        switch (tipoValor) {
+            case 0:
+                contaminante = "Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+        excelData.push([lat, lng, contaminante, valor, fecha])
+        contador++
+    });
+
+
+    // Crear un nuevo libro de Excel
+    var workbook = XLSX.utils.book_new();
+    var worksheet = XLSX.utils.aoa_to_sheet([excelHeaders].concat(excelData));
+
+    // Agregar la hoja al libro
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos del Mapa');
+
+    // Crear un blob con el contenido Excel
+    var excelBinaryData = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+    var blob = new Blob([s2ab(excelBinaryData)], { type: 'application/octet-stream' });
+
+    // Crear un enlace temporal y establecer el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establecer el nombre del archivo Excel
+    link.download = 'datos_mapa.xlsx';
+    // Simular el clic en el enlace para iniciar la descarga
+    link.click();
+}
+function s2ab(s) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+}
+
+function downloadToJSON() {
+
+    var contador = 0;
+
+    var JSONData = []
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante = "";
+        switch (tipoValor) {
+            case 0:
+                contaminante = "Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+        JSONData.push({"latitud":lat, "longitud":lng, "contaminante":contaminante, "valor":valor, "fecha":fecha})
+        contador++
+    });
+
+    var jsonString = JSON.stringify(JSONData, null, 2);
+
+    // Crear un blob con el contenido JSON
+    var blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Crear un enlace temporal y establecer el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establecer el nombre del archivo JSON
+    link.download = 'datos_mapa.json';
+
+    // Simular el clic en el enlace para iniciar la descarga
+    link.click();
+}
+
+function downloadToGeoJSON() {
+
+    var contador = 0;
+
+    var GeoJSONFeatures = []
+    marcadores.forEach(function (medicion) {
+        var lat = medicion._latlng.lat;
+        var lng = medicion._latlng.lng;
+        var valor = datosMediciones[contador].valor;
+        var fecha = datosMediciones[contador].fecha
+        var tipoValor = datosMediciones[contador].tipo_valor_id
+        var contaminante = "";
+        switch (tipoValor) {
+            case 0:
+                contaminante = "Temperatura"
+                break;
+            case 1:
+                contaminante = "Ozono-O3"
+                break;
+            case 2:
+                contaminante = "Monoxido de nitrogeno-NO"
+                break;
+            case 3:
+                contaminante = "Dioxido de Azufre-SO2"
+                break;
+            case 4:
+                contaminante = "Monoxido de carbono-CO"
+                break;
+
+        }
+
+        GeoJSONFeatures.push({ 
+            type: "Feature", 
+            geometry: {
+                type: "Point",
+                coordinates: [lat,lng]
+            }, 
+            properties: {
+                tipoContaminante: contaminante,
+                valorContaminante: valor,
+                fecha: fecha
+            }})
+        contador++
+    });
+
+    var geoJSONData={
+        type: "FeatureCollection",
+        features: GeoJSONFeatures
+    }
+
+    var geojsonString = JSON.stringify(geoJSONData, null, 2);
+
+    // Crear un blob con el contenido GeoJSON
+    var blob = new Blob([geojsonString], { type: 'application/json' });
+
+    // Crear un enlace temporal y establecer el blob como su contenido
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+
+    // Establecer el nombre del archivo GeoJSON
+    link.download = 'datos_mapa.geojson';
+
+    // Simular el clic en el enlace para iniciar la descarga
+    link.click();
+}

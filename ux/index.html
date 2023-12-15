@@ -10,16 +10,7 @@
 <head>
 	<title>Clean Cloud</title>
 
-	<!-- --------------- estilo y script de leaflet para el mapa ---------------------- -->
-	<!--link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-		crossorigin="" /-->
-	<!-- Make sure you put this AFTER Leaflet's CSS -->
-
-	<!--script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-		crossorigin=""></script-->
-	<!-- --------------- fin estilo y script de leaflet para el mapa ----------------------- -->
+	<script src="cambiarIdioma.js"></script>
 
 	<link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel='stylesheet' type='text/css'>
 	<style>
@@ -40,7 +31,8 @@
 <!-- -------------------------------------------------------- -->
 <!-- -------------------------------------------------------- -->
 
-<body>
+<body onload="getTextos()">
+
 
 	<!-- cabecera de la pagina -------------------------------------------------------- -->
 	<header class="cabecera" role="banner">
@@ -51,6 +43,11 @@
 
 		<div id="fondoHeader">
 			<!--button type="button" class="boton" id="descargarMapa">Descargar Mapa</button-->
+
+			<select name="listaIdiomas" id="listaIdiomas" onchange="cambiaIdioma(this.options[this.selectedIndex].value);">
+				<option value="es">Castellano</option>
+				<option value="vlca">Valencià</option>
+			</select>
 		</div>
 
 	</header>
@@ -58,12 +55,6 @@
 
 	<!-- zona del mapa -------------------------------------------------------- -->
 	<div id="zonaMapa">
-
-		<!-- filtros superiores -------------------------------------------------------- -->
-
-		<!-- aqui iria el mapa -->
-		<div></div>
-
 		<!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
 		<div id="zonaMapaInferior">
 
@@ -77,17 +68,13 @@
 	</div>
 	<!-- fin de la zona del mapa -------------------------------------------------------- -->
 
-	<!-- zona de informacion -------------------------------------------------------- -->
-
-	<!-- fin de la zona de informacion -------------------------------------------------------- -->
-
 	<!-- zona de contaminantes -------------------------------------------------------- -->
 
 
 	<div id="zonaContaminantes">
 
 		<div id="zonaContaminantesSuperior">
-			<h1 id="titulo_contaminantes">Contaminantes</h2>
+			<h1 id="titulo_contaminantes" data-section="index" data-value="contaminanteTitulo">Contaminantes</h2>
 				<div id="enlaceAMapaDesdeInfo">
 					<!-- icono de mapa que te lleva arriba -------------------------------------------------------- -->
 					<a href="#logoCleanCloud" class="baseEnlaceZonaLanding" id="enlaceMapaLanding">
@@ -103,8 +90,8 @@
 				<div class="wrap animate pop">
 					<div class="overlay">
 						<div class="overlay-content animate slide-left delay-2">
-							<h2 class="animate slide-left pop delay-4">Ozono</h2>
-							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+							<h2 class="animate slide-left pop delay-4" data-section="index" data-value="tituloContaminanteOzono">Ozono</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;" data-section="index" data-value="efectosDeSalud">
 								Efectos de la salud</p>
 						</div>
 						<div class="image-content1 animate slide delay-5" id="portadaOzono"></div>
@@ -115,27 +102,24 @@
 						</div>
 					</div>
 					<div class="text">
-						<p><img class="inset" src="images/ozono.png" alt="" />En niveles elevados, el ozono puede causar
-							irritación en los ojos, la nariz y la garganta. Puede agravar enfermedades respiratorias
-							como el asma, causar tos, dificultad para respirar e inflamación pulmonar. La exposición
-							crónica al ozono puede reducir la función pulmonar, aumentar la sensibilidad a las
-							infecciones pulmonares y contribuir a problemas cardiovasculares.
-
-
+						<p data-section="index" data-value="infoContaminanteOzono" data-imgcont="ozono"><img class="inset" src="images/ozono.png" alt="" />
+							El O3 se encuentra en menor cantidad en el interior las grandes urbes porque se consume rápidamente en la oxidación de
+							NO. La exposición a grandes niveles de este origina problemas respiratorios y hasta muerte prematura, así como un gran
+							daño a la vegetación.
 						</p>
 					</div>
 				</div>
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th>Tipos de umbrales</th>
-							<th>Parámetro</th>
-							<th>Valor del umbral</th>
+							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th data-section="index" data-value="parametro">Parámetro</th>
+							<th data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
-							<td>Umbral de alerta</td>
-							<td>Promedio horario</td>
-							<td>240 μg/m3</td>
+							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
+							<td data-section="index" data-value="promediohorario">Promedio horario</td>
+							<td data-section="index" data-value="umbralValorOzono">240 μg/m3</td>
 						</tr>
 					</table>
 				</div>
@@ -146,8 +130,8 @@
 				<div class="wrap animate pop">
 					<div class="overlay">
 						<div class="overlay-content animate slide-left delay-2">
-							<h2 class="animate slide-left pop delay-4">Óxidos de nitrógeno</h2>
-							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+							<h2 class="animate slide-left pop delay-4" data-section="index" data-value="tituloContaminanteNitrogeno">Óxidos de nitrógeno</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;" data-section="index" data-value="efectosDeSalud">
 								Efectos de la salud</p>
 						</div>
 						<div class="image-content2 animate slide delay-5" id="portadaNitrogeno"></div>
@@ -158,11 +142,11 @@
 						</div>
 					</div>
 					<div class="text">
-						<p><img class="inset" src="images/nitrogeno.png" alt="" />Es un gas irritante que afecta las
-							vías respiratorias superiores e inferiores. Puede causar tos, sibilancias, dificultad para
-							respirar y agravar el asma. La exposición a largo plazo puede disminuir la función pulmonar
-							y aumentar el riesgo de infecciones respiratorias.
-
+						<p data-section="index" data-value="infoContaminanteNitrogeno" data-imgcont="nitrogeno"><img class="inset" src="images/nitrogeno.png" alt="" />
+							Los óxidos de nitrógeno aparecen en gran cantidad en las grandes ciudades debido a que la mayoría de estos se emiten de
+							los vehículos. También se produce en instalaciones industriales de alta temperatura y de generación eléctrica. Estos
+							óxidos pueden conllevar diversos problemas de salud y sobre el medio ambiente. Además, puede generar otros
+							contaminantes.
 						</p>
 					</div>
 				</div>
@@ -170,14 +154,14 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th>Tipos de umbrales</th>
-							<th>Parámetro</th>
-							<th>Valor del umbral</th>
+							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th data-section="index" data-value="parametro">Parámetro</th>
+							<th data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
-							<td>Umbral de alerta</td>
-							<td>Promedio horario</td>
-							<td>200 μg/m3</td>
+							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
+							<td data-section="index" data-value="promediohorario">Promedio horario</td>
+							<td data-section="index" data-value="umbralValorNitrogeno">200 μg/m3</td>
 						</tr>
 					</table>
 				</div>
@@ -193,8 +177,8 @@
 				<div class="wrap animate pop">
 					<div class="overlay">
 						<div class="overlay-content animate slide-left delay-2">
-							<h2 class="animate slide-left pop delay-4">Dióxido de azufre</h2>
-							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+							<h2 class="animate slide-left pop delay-4" data-section="index" data-value="tituloContaminanteAzufre">Dióxido de azufre</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;" data-section="index" data-value="efectosDeSalud">
 								Efectos
 								de la salud</p>
 						</div>
@@ -206,11 +190,10 @@
 						</div>
 					</div>
 					<div class="text">
-						<p><img class="inset" src="images/azufre.png" alt="" />La exposición al dióxido de azufre puede
-							irritar las vías respiratorias, provocando tos, dificultad para respirar, sibilancias y
-							exacerbación del asma. Además, puede causar enfermedades respiratorias crónicas y dañar el
-							tejido pulmonar. El SO2 contribuye a la formación de partículas finas que pueden penetrar
-							profundamente en los pulmones.
+						<p data-section="index" data-value="infoContaminanteAzufre" data-imgcont="azufre"><img class="inset" src="images/azufre.png" alt="" />
+							El dióxido de azufre se origina de la combustión de carburantes fósiles, la cual se lleva a cabo principalmente en
+							procesos industriales. Este puede causar, aun estando lejos del foco, una gran variedad de graves problemas de salud,
+							así como pésimos efectos sobre la flora y fauna. También destruye ecosistemas en su totalidad.
 						</p>
 					</div>
 
@@ -219,14 +202,14 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th>Tipos de umbrales</th>
-							<th>Parámetro</th>
-							<th>Valor del umbral</th>
+							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th data-section="index" data-value="parametro">Parámetro</th>
+							<th data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
-							<td>Umbral de alerta</td>
-							<td>Promedio horario</td>
-							<td>350 μg/m3</td>
+							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
+							<td data-section="index" data-value="promediohorario">Promedio horario</td>
+							<td data-section="index" data-value="umbralValorAzufre">350 μg/m3</td>
 						</tr>
 					</table>
 				</div>
@@ -238,8 +221,8 @@
 				<div class="wrap animate pop">
 					<div class="overlay">
 						<div class="overlay-content animate slide-left delay-2">
-							<h2 class="animate slide-left pop delay-4">Monóxido de Carbono</h2>
-							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+							<h2 class="animate slide-left pop delay-4" data-section="index" data-value="tituloContaminanteCarbono">Monóxido de Carbono</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;" data-section="index" data-value="efectosDeSalud">
 								Efectos
 								de la salud</p>
 						</div>
@@ -251,11 +234,11 @@
 						</div>
 					</div>
 					<div class="text">
-						<p><img class="inset" src="images/carbon.png" alt="" /> Es un gas tóxico inodoro e incoloro. La
-							inhalación de altas concentraciones de monóxido de carbono puede llevar a síntomas como
-							dolor de cabeza, mareos, náuseas, confusión, debilidad y, en casos extremos, a la muerte. El
-							CO interfiere con la capacidad de la sangre para transportar oxígeno, lo que puede tener
-							efectos graves en los órganos y tejidos del cuerpo.
+						<p data-section="index" data-value="infoContaminanteCarbono" data-imgcont="carbono"><img class="inset" src="images/carbon.png" alt="" />
+							El monóxido de carbono viene de las combustibles que contienen carbono. En su gran mayoría se origina automóviles y
+							otros procesos no industriales, aunque también proviene del sector agropecuario y procesos industriales. Este agrava uno
+							de los problemas más grandes de nuestra generación, el cambio climático, aunque también contribuye a problemas de salud
+							(principalmente respiratorios) y destruye la fauna.
 						</p>
 						</p>
 					</div>
@@ -264,14 +247,14 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th>Tipos de umbrales</th>
-							<th>Parámetro</th>
-							<th>Valor del umbral</th>
+							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th data-section="index" data-value="parametro">Parámetro</th>
+							<th data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
-							<td>Umbral de alerta</td>
-							<td>Promedio horario</td>
-							<td>10 mg/m3</td>
+							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
+							<td data-section="index" data-value="promediohorario">Promedio horario</td>
+							<td data-section="index" data-value="umbralValorCarbono">10 mg/m3</td>
 						</tr>
 					</table>
 				</div>
@@ -283,8 +266,8 @@
 				<div class="wrap animate pop">
 					<div class="overlay">
 						<div class="overlay-content animate slide-left delay-2">
-							<h2 class="animate slide-left pop delay-4">Benceno</h2>
-							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">
+							<h2 class="animate slide-left pop delay-4" data-section="index" data-value="tituloContaminanteBenceno">Benceno</h2>
+							<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;" data-section="index" data-value="efectosDeSalud">
 								Efectos
 								de la
 								salud</p>
@@ -297,25 +280,25 @@
 						</div>
 					</div>
 					<div class="text">
-						<p><img class="inset" src="images/benceno.png" alt="" />Este compuesto orgánico volátil tiene
-							efectos nocivos sobre la salud humana. La exposición a largo plazo al benceno puede causar
-							leucemia y otros trastornos hematológicos. Además, puede afectar al sistema nervioso,
-							inmunológico y reproductivo, y tiene efectos adversos sobre la biodiversidad y la
-							vegetación.
+						<p data-section="index" data-value="infoContaminanteBenceno" data-imgcont="benceno"><img class="inset" src="images/benceno.png" alt="" />
+							El benceno proviene principalmente de procesos naturales o inducidos por el hombre. Aunque también recae la culpa en el
+							uso de disolventes y otros productos. Este puede ocasionar graves problemas de salud, afectando principalmente al
+							sistema nervioso y al material genético celular. También resulta marcadamente tóxico para los organismos acuáticos y,
+							además, afecta a la vegetación.
 						</p>
 					</div>
 				</div>
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th>Tipos de umbrales</th>
-							<th>Parámetro</th>
-							<th>Valor del umbral</th>
+							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th data-section="index" data-value="parametro">Parámetro</th>
+							<th data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
-							<td>Umbral de alerta</td>
-							<td>Promedio horario</td>
-							<td>5 μg/m3</td>
+							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
+							<td data-section="index" data-value="promediohorario">Promedio horario</td>
+							<td data-section="index" data-value="umbralValorBenceno">5 μg/m3</td>
 						</tr>
 					</table>
 				</div>
@@ -336,7 +319,7 @@
 		<img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
 		<div id="textoFooter">
 			<p>© Generalitat</p>
-			<p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
+			<p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
 		</div>
 	</footer>
 
