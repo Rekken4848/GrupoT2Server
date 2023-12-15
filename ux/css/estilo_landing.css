@@ -120,6 +120,10 @@ input:hover {
     z-index: 1;
 }
 
+.legend{
+    margin-bottom: 10vh !important;
+}
+
 #zonaMapaSuperior {
     height: 5vh;
     display: flex;
