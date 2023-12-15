@@ -76,11 +76,27 @@ function filtrarPorFecha() {
     //Falta ejecutar para crear el mapa, pero habria que modificar las cosas para que pase las fechas desde el principio
 }
 
+let fechaInicio;
+let fechaFin;
+
 function convertirFecha(fecha) {
+    let fechaObj = new Date(fecha);
     let fechaNueva = fecha + ' 23:55:55'
-    let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
+
+    const año = fechaObj.getFullYear();
+    const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
+    const dia = fechaObj.getDate().toString().padStart(2, '0');
+    const horas = fechaObj.getHours().toString().padStart(2, '0');
+    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+    const segundos = fechaObj.getSeconds().toString().padStart(2, '0');
+
+    let fechaNuevaDiaAntes = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+    //let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
     console.log("Fecha convertida: " + fechaNueva)
     console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
+    fechaInicio = fechaNuevaDiaAntes;
+    fechaFin = fechaNueva;
+    generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva);
 }
 
 function getFechaHoy() {
@@ -122,7 +138,7 @@ function getFechaHoy() {
 let mymap;
 let currentPosition;
 
-function generarYGenerarMapa() {
+function generarYGenerarMapa(fechaInicio, fechaFin) {
     if (mymap) {
         currentPosition = {
             lat: mymap.getCenter().lat,
@@ -146,7 +162,7 @@ function generarYGenerarMapa() {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(mymap);
-    
+
     // Add the air quality stations WMS layer-----------------------------
     L.tileLayer.wms('https://wms.mapama.gob.es/sig/EvaluacionAmbiental/CalidadAire/RedEstacionesCa/wms.aspx?', {
         layers: 'ESTACIONES_CA',
@@ -162,10 +178,10 @@ function generarYGenerarMapa() {
     legend.addTo(mymap);
 
     //filtrarPorFecha();
-    const fechaInicio = '2023-10-14 16:32:40'
+    /*const fechaInicio = '2023-10-14 16:32:40'
     const fechaFin = '2023-10-16 16:32:40'
     const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
-    console.log("Fecha hoy fuera: " + fechaHoyFuera + " Fecha ayer fuera: " + fechaAyerFuera)
+    console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)*/
 
     mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin);
 
@@ -315,8 +331,19 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
 //-------------------------------------------
 //-------------------------------------------
 
-generarYGenerarMapa();
-setInterval(generarYGenerarMapa, 50000);
+//const fechaInicio = '2023-10-14 16:32:40'
+//const fechaFin = '2023-10-16 16:32:40'
+const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
+console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
+
+fechaInicio = fechaAyerFuera;
+fechaFin = fechaHoyFuera;
+
+generarYGenerarMapa(fechaInicio, fechaFin);
+setInterval(function() {
+    // Aquí llamas a tu función con los argumentos necesarios
+    generarYGenerarMapa(fechaInicio, fechaFin);
+}, 50000);
 //generarYGenerarMapa();
 
 
