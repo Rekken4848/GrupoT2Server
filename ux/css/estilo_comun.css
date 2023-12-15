@@ -74,6 +74,7 @@ button{
     width: 8vh;
     height: 8vh;
     margin: 2vh;
+    z-index: 2;
 }
 
 #listaIdiomas{

@@ -34,7 +34,7 @@ function actualizarMapaConFiltroDeFecha() {
 //----------------------------------------------------------------------------------------------
 
 function addToLegend(type) {
-    const legendContent = document.getElementById('zonaMapa');
+    const legendContent = document.getElementById('zonaMapa2');
     const entry = document.createElement('div');
     entry.innerHTML = `<span class="legend-marker" style="background-color: ${getColor(type)};"></span>${type}`;
     legendContent.appendChild(entry);
@@ -134,9 +134,9 @@ function generarYGenerarMapa() {
 
     if (currentPosition && currentPosition.lat !== undefined && currentPosition.lng !== undefined) {
         console.log("Latitud: " + currentPosition.lat + " Longitud: " + currentPosition.lng + " Zoom: " + currentPosition.zoom);
-        mymap = L.map('zonaMapa').setView([currentPosition.lat, currentPosition.lng], currentPosition.zoom);
+        mymap = L.map('zonaMapa2').setView([currentPosition.lat, currentPosition.lng], currentPosition.zoom);
     } else {
-        mymap = L.map('zonaMapa').setView([38.972375, -0.177042], 13);
+        mymap = L.map('zonaMapa2').setView([38.972375, -0.177042], 13);
     }
 
     //mymap = L.map('zonaMapa').setView([51.505, -0.09], 13);
@@ -322,7 +322,7 @@ setInterval(generarYGenerarMapa, 50000);
 
 function downloadToPNG() {
 
-    html2canvas(document.getElementById('zonaMapa'), {
+    html2canvas(document.getElementById('zonaMapa2'), {
         useCORS: true, // Necesario para capturar mapas de azulejos externos
     }).then(function (canvas) {
         // Crea un enlace temporal y establece la imagen como su contenido
