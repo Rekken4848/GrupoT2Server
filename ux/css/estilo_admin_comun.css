@@ -25,16 +25,13 @@
 }
 
 #descargarMapa {
-    background: rgba(201, 201, 201, 0.4);
+    background-color: transparent;
     height: 50%;
     color: rgb(255, 255, 255);
     margin-right: 3vh;
     width: 5vh;
 }
 
-#descargarMapa:hover {
-    background: rgba(209, 209, 209, 0.4);
-}
 
 #headerUserContainer{
     display: flex;
@@ -64,3 +61,4 @@
 button{
     background: rgba(255, 255, 255, 0);
 }
+

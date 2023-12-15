@@ -75,11 +75,9 @@
             <div id="headerUserContainer">
 
                 <img src="images/avatar.png" alt="icono de avatar de usuario">
-                <a href="admin_editarUsuario.html">
-                    <div id="headerUserNombre">
+                    <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
                         <p id="AdminName">Admin</p>
                     </div>
-                </a>
             </div>
         </div>
 
@@ -87,11 +85,11 @@
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
     <div id="fondoPagina">
-        <div id="marcaNotifAvisosContenedor" onclick="enviarAPagAnuncios()">
+        <div id="marcaNotifAvisosContenedor">
             <div id="marcaNotifAvisos">
                 <p id="numeroAvisos">7</p>
             </div>
-            <img src="images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
+            <img onclick="enviarAPagAnuncios()" src="images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
         </div>
 
         <div id="filtrosYHerramientasContenedor">
@@ -164,7 +162,7 @@
                     <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni"
                             id="dniFiltro" checked>DNI</label><br>
                     <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro"
-                            value="sn" id="snFiltro">Id Dispositivo</label><br>
+                            value="sn" id="snFiltro">Dispositivo</label><br>
                     <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp"
                             id="cpFiltro">CP</label><br>
                 </p>
@@ -195,9 +193,12 @@
         </div>
         <div id="tituloPopUpFiltros">
             <!--button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button-->
-            <button onclick="visibilidadFormAnyadir(1);" id="personTitulo">
+            <!--<button onclick="visibilidadFormAnyadir(1);" id="personTitulo">
                 <p>Persona</p>
-            </button>
+            </button>-->
+            <div id="tituloPopUpFiltros">
+                <p id="personTituloEditar">Persona</p>
+            </div>
         </div>
         <div class="contenedorFiltroEspecificado">
             <form id="formAnyadirPersona" onsubmit="submitFormPersona(event); return false;">
@@ -209,7 +210,7 @@
                     <p>Nombre</p>
                     <input required type="text" name="name" id="nameanyadir" maxlength="15">
                 </div>
-                <div class="insertarDato">
+                <div class="insertarDato separador" >
                     <p>Apellidos</p>
                     <input required type="text" name="surname" id="surnameanyadir" maxlength="50">
                 </div>
@@ -217,8 +218,8 @@
                     <p>Email</p>
                     <input required type="text" name="email" id="emailanyadir">
                 </div>
-                <div class="insertarDato">
-                    <p>N° Telefónico</p>
+                <div class="insertarDato separador">
+                    <p>Teléfono</p>
                     <input required type="text" name="tel" id="telanyadir" maxlength="20">
                 </div>
                 <div class="insertarDato">
@@ -242,12 +243,12 @@
                     <input required type="text" name="street" id="streetanyadir" maxlength="200">
                 </div>
                 <div class="insertarDato">
-                    <p>Id Dispositivo</p>
+                    <p>Dispositivo</p>
                     <input required type="text" name="name" id="serialnumberanyadir" maxlength="20">
                 </div>
 
-                <div id="botonConfirmarDiv">
-                    <button type="submit" id="botonConfirmar">Añadir</button>
+                <div id="botonConfirmarDivE">
+                    <button type="submit" id="botonConfirmarE">Añadir</button>
                 </div>
             </form>
             <form id="formAnyadirAdmin" onsubmit="anyadirAdminyPersonayDireccion(); return false;" hidden>
@@ -259,7 +260,7 @@
                     <p>Nombre</p>
                     <input required type="text" name="name" id="nameanyadiradmin" maxlength="15">
                 </div>
-                <div class="insertarDato">
+                <div class="insertarDato separador">
                     <p>Apellidos</p>
                     <input required type="text" name="surname" id="surnameanyadiradmin" maxlength="50">
                 </div>
@@ -267,8 +268,8 @@
                     <p>Email</p>
                     <input required type="text" name="email" id="emailanyadiradmin">
                 </div>
-                <div class="insertarDato">
-                    <p>N° Telefónico</p>
+                <div class="insertarDato separador">
+                    <p>Teléfono</p>
                     <input required type="text" name="tel" id="telanyadiradmin" maxlength="20">
                 </div>
                 <div class="insertarDato">
@@ -283,7 +284,7 @@
                     <p>Código Postal</p>
                     <input required type="text" name="postalCode" id="postalCodeanyadiradmin" maxlength="5">
                 </div>
-                <div class="insertarDato">
+                <div class="insertarDato separador">
                     <p>Calle</p>
                     <input required type="text" name="street" id="streetanyadiradmin" maxlength="200">
                 </div>
@@ -292,8 +293,8 @@
                     <input required type="text" name="street" id="passwordanyadiradmin" maxlength="50">
                 </div>
 
-                <div id="botonConfirmarDiv">
-                    <button type="submit" id="botonConfirmar">Añadir</button>
+                <div id="botonConfirmarDivE">
+                    <button type="submit" id="botonConfirmarE">Añadir</button>
                 </div>
 
             </form>
@@ -322,7 +323,7 @@
                 <input readonly type="text" name="name" id="nameeditar" maxlength="15">
                 <img src="images/padlock.png" alt="candado icono">
             </div>
-            <div class="editarDato">
+            <div class="editarDato separador">
                 <p>Apellidos</p>
                 <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
                 <img src="images/padlock.png" alt="candado icono">
@@ -331,8 +332,8 @@
                 <p>Email</p>
                 <input type="text" name="email" id="emaileditar">
             </div>
-            <div class="editarDato">
-                <p>N° Telefónico</p>
+            <div class="editarDato separador">
+                <p>Teléfono</p>
                 <input type="text" name="tel" id="teleditar" maxlength="20">
             </div>
             <div class="editarDato">
@@ -358,10 +359,10 @@
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
 
-            <div id="botonConfirmarDiv">
+            <div id="botonConfirmarDivE">
                 <button id="botonEliminar"
                     onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'visible';">Eliminar</button>
-                <button onclick="editarAndSetTags();" id="botonConfirmar">Confirmar</button>
+                <button onclick="editarAndSetTags();" id="botonConfirmarE">Confirmar</button>
             </div>
 
         </div>

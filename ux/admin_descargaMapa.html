@@ -7,59 +7,70 @@
 <!-- -------------------------------------------------------- -->
 
 <head>
-    <title>Clean Cloud</title>
-    <script>
-        function comprobarSesion() {
-          fetch('http://localhost:8080/paginaProtegida', {
-            method: "GET"
-          }).then(function (respuesta) {
-    
-            if (respuesta.ok) {
-              return respuesta.json()
-            } else {
-              console.log("hubo un fallo")
-            }
-    
-          }).then(function (datos) {
-            console.log(datos)
-            // 'datos' ahora contiene el valor devuelto por el servidor
-            if (datos === true) {
-              // Acción cuando la respuesta es true
-              console.log("Usuario autenticado");
-            } else if (datos === false) {
-              // Acción cuando la respuesta es false
-              console.log("Usuario no autenticado");
-              location.href = "http://localhost:8080/login.html"
-            }
-          }).catch(function (error) {
-            console.log("Error en la solicitud:", error);
-          });
+  <title>Clean Cloud</title>
+  <script>
+    function comprobarSesion() {
+      fetch('http://localhost:8080/paginaProtegida', {
+        method: "GET"
+      }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+          return respuesta.json()
+        } else {
+          console.log("hubo un fallo")
         }
-    
-        comprobarSesion()
-      </script>
 
-    <!-- --------------- estilo y script de leaflet para el mapa ---------------------- -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-    <!-- --------------- fin estilo y script de leaflet para el mapa ----------------------- -->
-
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <style>
-        html {
-            font-family: 'Roboto', sans-serif;
+      }).then(function (datos) {
+        console.log(datos)
+        // 'datos' ahora contiene el valor devuelto por el servidor
+        if (datos === true) {
+          // Acción cuando la respuesta es true
+          console.log("Usuario autenticado");
+        } else if (datos === false) {
+          // Acción cuando la respuesta es false
+          console.log("Usuario no autenticado");
+          location.href = "http://localhost:8080/login.html"
         }
-    </style>
+      }).catch(function (error) {
+        console.log("Error en la solicitud:", error);
+      });
+    }
 
-    <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_adminMapa.css" rel="stylesheet" type="text/css">
+    comprobarSesion()
+  </script>
+
+  <!-- --------------- estilo y script de leaflet para el mapa ---------------------- -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <!-- --------------- fin estilo y script de leaflet para el mapa ----------------------- -->
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <style>
+    html {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+
+  <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
+  <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+  <link href="css/estilo_adminMapa.css" rel="stylesheet" type="text/css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Bootstrap Datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+<!-- Bootstrap Datepicker JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+
 </head>
 
 <!-- -------------------------------------------------------- -->
@@ -67,114 +78,137 @@
 
 <body>
 
-    <!-- cabecera de la pagina -------------------------------------------------------- -->
-    <header class="cabecera" role="banner">
-    
-        <a href="admin.html" id="logoCleanCloud">
-            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
-        </a>
-    
-        <div id="fondoHeader">
-            
-        <div class="menu">
-            <ul>
-              <li class="dropdown">
-                <a id="fondoDescargar" href="#">Descargar</a>
-                <div class="dropdown-content">
-                    <div class="radio-inputs">
-                        <label class="radio">
-                          <input type="radio" name="radio" checked="">
-                          <span class="name">CSV</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="radio">
-                          <span class="name">PNG</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="radio">
-                          <span class="name">EXEL</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="radio">
-                          <span class="name">JSON</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="radio">
-                          <span class="name">QGIS</span>
-                        </label>
-                        
-                      </div>
-                </div>
-              </li>
-            </ul>
+  <!-- cabecera de la pagina -------------------------------------------------------- -->
+  <header class="cabecera" role="banner">
+
+    <a href="admin.html" id="logoCleanCloud">
+      <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+    </a>
+
+    <div id="fondoHeader">
+
+      <div class="menu">
+        <ul>
+          <li class="dropdown">
+            <a id="fondoDescargar" href="#">Descargar</a>
+            <div class="dropdown-content">
+              <div class="radio-inputs">
+                <label class="radio">
+                  <input type="radio" name="radio" checked="">
+                  <span class="name">CSV</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="radio">
+                  <span class="name">PNG</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="radio">
+                  <span class="name">EXEL</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="radio">
+                  <span class="name">JSON</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="radio">
+                  <span class="name">QGIS</span>
+                </label>
+
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="headerUserContainer">
+        <img src="images/avatar.png" alt="icono de avatar de usuario">
+        <a href="admin_editarUsuario.html">
+          <div id="headerUserNombre">
+            <p id="AdminName">Admin</p>
           </div>
-    
-            <div id="headerUserContainer">
-                <img src="images/avatar.png" alt="icono de avatar de usuario">
-                <a href="admin_editarUsuario.html">
-                  <div id="headerUserNombre">
-                      <p id="AdminName">Admin</p>
-                  </div>
-              </a>
-            </div>
-        </div>
-    
-    </header>
-    <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
-
-    <!-- zona del mapa -------------------------------------------------------- -->
-    
-    <!-- fin de la zona del mapa -------------------------------------------------------- -->
-
-
-    <!-- footer -------------------------------------------------------- -->
-    <footer>
-        <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
-        <div id="textoFooter">
-            <p>© Generalitat</p>
-            <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
-        </div>
-    </footer>
-
-
-    <!-- popup descargar mapa -------------------------------------------------------- -->
-    <div id="contenedorDescargarMapa">
-        <div id="divClose">
-            <img src="images/cross.png" alt="icono cerrar">
-        </div>
-        <div id="zonaMapaPopUp">
-            <div id="MapaPreview">
-                <img src="images/mapa_fondo.jpg" alt="previsualizacion del mapa">
-            </div>
-        </div>
-        <div id="tituloMapaDescarga">
-            <p id="TituloP">Title:</p>
-            <input type="text" name="titulo" id="tituloInput">
-        </div>
-        <div id="locationMapaDescarga">
-            <input type="text" name="location" id="locationInput" placeholder="Search Location">
-        </div>
-        <div id="dateYFilterMapaDescarga">
-            <input type="date" name="dateMapaDescarga" id="dateInput" placeholder="Pick a date">
-            <select name="filtroContaminante" id="ContaminanteDescargaOpciones">
-                <option value="ALL">All</option>
-                <option value="CO2">CO2</option>
-                <option value="O3">O3</option>
-                <option value="TEMP">°C</option>
-            </select>
-        </div>
-        <div id="formatoYDescarga">
-            <div id="formatoContenedor">
-                <p id="tituloFormato">Format type</p>
-                <select name="formatoDescarga" id="formatoDescargaOpciones">
-                    <option value="PNG">PNG</option>
-                    <option value="JPG">JPG</option>
-                    <option value="WEBP">WEBP</option>
-                </select>
-            </div>
-            <button id="buttonDownload">Download</button>
-        </div>
+        </a>
+      </div>
     </div>
+
+  </header>
+  <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
+
+  <!-- zona del mapa -------------------------------------------------------- -->
+  <div id="zonaMapa">
+
+    <!-- filtros superiores -------------------------------------------------------- -->
+
+    <!-- aqui iria el mapa -->
+    
+
+
+    <!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
+    <div id="zonaMapaInferior">
+
+      <!-- icono de informacion que te lleva abajo -------------------------------------------------------- -->
+      <a href="#zonaInformacion" class="baseEnlaceZonaLanding" id="enlaceInformacionLanding">
+        <img src="images/informacion_icono.png" alt="enlace a informacion" class="iconoMoverse">
+      </a>
+
+    </div>
+
+  </div>
+  <!-- fin de la zona del mapa -------------------------------------------------------- -->
+
+  <!-- fin de la zona del mapa -------------------------------------------------------- -->
+
+
+  <!-- footer -------------------------------------------------------- -->
+  <footer>
+    <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+    <div id="textoFooter">
+      <p>© Generalitat</p>
+      <p>Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
+    </div>
+  </footer>
+
+
+  <!-- popup descargar mapa -------------------------------------------------------- -->
+  <div id="contenedorDescargarMapa">
+    <div id="divClose">
+      <img src="images/cross.png" alt="icono cerrar">
+    </div>
+    <div id="zonaMapaPopUp">
+      <div id="MapaPreview">
+        <img src="images/mapa_fondo.jpg" alt="previsualizacion del mapa">
+      </div>
+    </div>
+    <div id="tituloMapaDescarga">
+      <p id="TituloP">Title:</p>
+      <input type="text" name="titulo" id="tituloInput">
+    </div>
+    <div id="locationMapaDescarga">
+      <input type="text" name="location" id="locationInput" placeholder="Search Location">
+    </div>
+    <div id="dateYFilterMapaDescarga">
+      <input type="date" name="dateMapaDescarga" id="dateInput" placeholder="Pick a date">
+      <select name="filtroContaminante" id="ContaminanteDescargaOpciones">
+        <option value="ALL">All</option>
+        <option value="CO2">CO2</option>
+        <option value="O3">O3</option>
+        <option value="TEMP">°C</option>
+      </select>
+    </div>
+    <div id="formatoYDescarga">
+      <div id="formatoContenedor">
+        <p id="tituloFormato">Format type</p>
+        <select name="formatoDescarga" id="formatoDescargaOpciones">
+          <option value="PNG">PNG</option>
+          <option value="JPG">JPG</option>
+          <option value="WEBP">WEBP</option>
+        </select>
+      </div>
+      <button id="buttonDownload">Download</button>
+    </div>
+  </div>
+
+  <script src="/node_modules/leaflet/dist/leaflet.js"></script>
+  <script src="mapa.js"></script>
 
 </body>
 

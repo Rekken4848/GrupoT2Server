@@ -9,6 +9,30 @@ function getCustomIcon(type) {
     });
 }
 
+//----------------------------------------------------------------------------------------------
+/*
+function filtrarPorFechas(fechaInicio, fechaFin) {
+    fetch(`http://localhost:8080/medicionConTipoValorEntreFechas/${fechaInicio}/${fechaFin}`, {
+        method: "GET"
+    }).then(function(respuesta) {
+        if (respuesta.ok) {
+            return respuesta.json();
+        } else {
+            console.log("Hubo un fallo");
+        }
+    }).then(function(datos) {
+        // ... (Your existing logic to handle data and markers)
+    });
+}
+
+// Function to update markers based on selected date range
+function actualizarMapaConFiltroDeFecha() {
+    const fechaInicio = document.getElementById('fecha-inicio').value;
+    const fechaFin = document.getElementById('fecha-fin').value;
+    filtrarPorFechas(fechaInicio, fechaFin);
+}*/
+//----------------------------------------------------------------------------------------------
+
 function addToLegend(type) {
     const legendContent = document.getElementById('zonaMapa');
     const entry = document.createElement('div');
@@ -29,23 +53,42 @@ function getColor(type) {
 let mymap;
 
 function generarYGenerarMapa() {
-    // Eliminar el mapa si ya está inicializado
     if (mymap) {
         mymap.remove();
     }
 
-    mymap = L.map('zonaMapa').setView([51.505, -0.09], 13);
+     mymap = L.map('zonaMapa').setView([39.5, -0.5], 8); // Set initial view for Valencia
 
-    // Añade un mosaico de OpenStreetMap al mapa
+    // Add OpenStreetMap tiles to the map
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(mymap);
+    
+    // Add the air quality stations WMS layer-----------------------------
+    L.tileLayer.wms('https://wms.mapama.gob.es/sig/EvaluacionAmbiental/CalidadAire/RedEstacionesCa/wms.aspx?', {
+        layers: 'ESTACIONES_CA',
+        format: 'image/png',
+        transparent: true
+    }).addTo(mymap);
 
-    mostrarLeyendaYMarcadores(mymap);
+     var stations = [
+    { name: 'Prat de Cabanes', coordinates: [40.137222, 0.165556] },
+    { name: 'Aras de los Olmos', coordinates: [39.950278, -1.108889] },
+    { name: 'Valencia', coordinates: [39.472222, -0.413333] },
+    { name: 'Denia', coordinates: [38.821944, 0.035833] },
+    { name: 'Torrevieja', coordinates: [38.008333, -0.658611] }
+  ];
 
-    // Añade un marcador al mapa
+  // Agrega marcadores para cada estación
+  stations.forEach(function(station) {
+    L.marker(station.coordinates).addTo(mymap).bindPopup(station.name);
+  });
+    //----------------------------------------------------------------------
+
     L.marker([51.505, -0.09]).addTo(mymap)
         .bindPopup('¡Hola, mundo!').openPopup();
+    
+        mostrarLeyendaYMarcadores(mymap);
 }
 
 // Función para obtener el color según la clasificación
@@ -176,6 +219,9 @@ function mostrarLeyendaYMarcadores(mymap) {
         });
     })
 }
+
+//-------------------------------------------
+//-------------------------------------------
 
 generarYGenerarMapa();
 setInterval(generarYGenerarMapa, 50000);

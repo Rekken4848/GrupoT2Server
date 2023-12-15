@@ -1,5 +1,5 @@
 #fondoPagina{
-    background-image: url(../images/fondo_ciudad.jpg);
+    background-image: url(../images/mapamundipapel.jpg);
     background-size: cover;
     padding-top: 2vh;
     padding-bottom: 3vh ;
@@ -62,6 +62,7 @@ button img{
 #contenedorIzquierdo, #contenedorDerecho{
     display: flex;
     align-items: center;
+    
 }
 #contenedorIzquierdo button,
 #contenedorDerecho button{
@@ -71,12 +72,10 @@ button img{
     height: 3.5vh;
     width: 20vh;
     border-radius: 1vh;
-    border: 1px solid gray;
 }
 
 #contenedorEmpleadosLista{
-    background-color: whitesmoke;
-    border-radius: 1vh;
+    background-color:  whitesmoke;
     margin-left: 2vh;
     margin-right: 2vh;
 }
@@ -94,6 +93,13 @@ button img{
 
 #tablaEmpleados{
     width: 100%;
+    border-radius: 3px;
+    padding: 2px;
+    padding-top: 2px;
+    border-collapse: separate; /* This makes borders between cells visible */
+    border-spacing: 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    
 }
 #tablaEmpleados:hover {
     background-color: whitesmoke;
@@ -101,10 +107,29 @@ button img{
 #leyendaTabla{
     font-size: large;
     font-weight: 700;
+    
+    
 }
-td, tr, th{
-    border-bottom: 1px solid gainsboro;
+
+th {
+    background-color: #9CDEDE;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+th:hover {
+    background-color: #78CDD7;
+}
+
+td, tr{
+    
     text-align: start;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    
+    
 }
 td:nth-child(1), th:nth-child(1){
     width: 10%;
@@ -169,9 +194,12 @@ td:nth-child(6), th:nth-child(6) {
 * ------------------------------------------------------------------
 */
 #contenedorPopUps {
-    background-color: rgb(240, 240, 240);
+    background-color:rgb(240, 240, 240);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
     border-radius: 1vh;
-    width: 50vw;
+    width: 25vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -187,6 +215,8 @@ td:nth-child(6), th:nth-child(6) {
 }
 
 #divClose {
+    padding-top: 10px;
+    padding-right: 15px;
     width: 100%;
     display: flex;
     justify-content: end;
@@ -234,7 +264,7 @@ td:nth-child(6), th:nth-child(6) {
 }
 
 .OpcionesFiltro, .contenedorFiltroEspecificado, #tituloPopUpFiltros{
-    width: 80%;
+    width: 100%;
 }
 .OpcionesFiltro{
     display: flex;
@@ -252,10 +282,12 @@ td:nth-child(6), th:nth-child(6) {
         width: 80%;
     }
     #contenedorPopUps{
-        width: 90vw;
+        width: 85vw;
         left: 5vw;
     }
 }
+
+
 
 /* ------------------------------------------------------------------
 *   Pop up anyadir
@@ -264,20 +296,25 @@ td:nth-child(6), th:nth-child(6) {
 
 #contenedorPopUpsAnyadir {
     background-color: rgb(240, 240, 240);
-    border-radius: 1vh;
-    width: 70vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 750px;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 100%;
     padding-bottom: 2vh;
-    font-style: italic;
-
+    justify-content: center;
     position: absolute;
     top: 9vh;
-    left: 15vw;
+    left: 50%; 
+    transform: translate(-50%, 0);
 
     visibility: hidden;
+    background: linear-gradient(rgb(240, 240, 240), rgb(240, 240, 240)) padding-box,
+              linear-gradient(145deg, transparent 35%,#84DCCF, #40c9ff) border-box;
+    border: 2px solid transparent;
 }
 
 #adminTitulo{
@@ -295,12 +332,16 @@ td:nth-child(6), th:nth-child(6) {
     align-items: center;
 }
 .insertarDato input{
-    height: 70%;
-    margin-left: 1vh;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 0px;
-    border: 1px solid black;
+    height: 3vh;
+    margin-left: 1vh;
+    border: none;
+    outline: none;
+    caret-color: rgb(255, 81, 0);
+    background-color: rgb(255, 255, 255);
+    letter-spacing: 0.8px;
+    color: rgb(19, 19, 19);
+    font-size: 13.4px;
 }
 .insertarDato p {
     width: 20%;
@@ -318,6 +359,19 @@ td:nth-child(6), th:nth-child(6) {
     color: white;
     background-color: rgb(76, 156, 130);
 }
+
+#botonConfirmarDivE{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+#botonConfirmarE{
+    width: 100px;
+    color: white;
+    background-color: rgb(76, 156, 130);
+}
+
 @media(max-width: 1000px) {
     #contenedorPopUpsAnyadir {
         font-size: 115%;
@@ -333,19 +387,25 @@ td:nth-child(6), th:nth-child(6) {
 
 #contenedorPopUpsEditar {
     background-color: rgb(240, 240, 240);
-    border-radius: 1vh;
-    width: 70vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 750px;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 100%;
     padding-bottom: 2vh;
-
+    justify-content: center;
     position: absolute;
     top: 9vh;
-    left: 15vw;
+    left: 50%; 
+    transform: translate(-50%, 0);
 
     visibility: hidden;
+    background: linear-gradient(rgb(240, 240, 240), rgb(240, 240, 240)) padding-box,
+              linear-gradient(145deg, transparent 35%,#84DCCF, #40c9ff) border-box;
+    border: 2px solid transparent;
 }
 
 .contenedorFiltroEspecificado{
@@ -365,9 +425,13 @@ td:nth-child(6), th:nth-child(6) {
     width: 100%;
     height: 3vh;
     margin-left: 1vh;
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 0px;
-    border: 1px solid black;
+    border: none;
+    outline: none;
+    caret-color: rgb(255, 81, 0);
+    background-color: rgb(255, 255, 255);
+    letter-spacing: 0.8px;
+    color: rgb(19, 19, 19);
+    font-size: 13.4px;
 }
 .editarDato img {
     width: 3vh;
@@ -377,6 +441,7 @@ td:nth-child(6), th:nth-child(6) {
 #personTituloEditar{
     font-weight: 700;
     font-size: larger;
+    padding-bottom: 20px;
 }
 
 #botonEliminar{
@@ -433,8 +498,33 @@ td:nth-child(6), th:nth-child(6) {
     padding-right: 2vw;
 }
 
+.insertarDato.separador {
+    border-bottom: 2px solid; /* Define the border style */
+    border-image: linear-gradient(135deg, transparent 5%, #84DCCF) 1; /* Set the linear gradient as the background */
+    box-sizing: border-box; /* Include border width in the element's dimensions */
+  }
+  .editarDato.separador {
+    border-bottom: 2px solid; /* Define the border style */
+    border-image: linear-gradient(135deg, transparent 5%, #84DCCF) 1; /* Set the linear gradient as the background */
+    box-sizing: border-box; /* Include border width in the element's dimensions */
+  }
+
 @media(max-width: 1000px) {
     #contenedorConfirmarEliminar {
         font-size: 115%;
     }
 }
+
+#searchBar{
+    width: 200px;
+    height: 40px;
+    border: none;
+    outline: none;
+    caret-color: rgb(255, 81, 0);
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    padding-left: 15px;
+    letter-spacing: 0.8px;
+    color: rgb(19, 19, 19);
+    font-size: 13.4px;
+  }

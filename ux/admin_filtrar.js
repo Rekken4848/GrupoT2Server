@@ -1,3 +1,7 @@
+function redirectToURLEditAdmin() {
+  window.location.href = 'admin_editarUsuario.html';
+}
+
 var tipoBusqueda = "persona"; // posibles: persona, dispositivo, lugar
 var tipoTags = "persona";
 
@@ -35,7 +39,7 @@ function setTipoTags(nuevoTipo) {
       tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Nombre</th><th onclick='ordenarTabla(2, 0)'>Apellidos</th><th onclick='ordenarTabla(3, 0)'>Correo</th><th onclick='ordenarTabla(4, 0)'>Telefono</th></thead>";
       break;
     case "dispositivo":
-      tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Id dispositivo</th><td onclick='ordenarTabla(2, 0)'>Mediciones</th><th onclick='ordenarTabla(3, 0)' id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
+      tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Id dispositivo</th><th onclick='ordenarTabla(2, 0)'>Mediciones</th><th onclick='ordenarTabla(3, 0)' id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
       break;
     case "lugar":
       tablaColumnas.innerHTML = "<thead><th th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>CCAA</th><th onclick='ordenarTabla(2, 0)'>Provincia</th><th onclick='ordenarTabla(3, 0)'>CP</th><th onclick='ordenarTabla(4, 0)' >Calle</th></thead>";
