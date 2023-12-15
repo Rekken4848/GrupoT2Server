@@ -26,26 +26,122 @@ function getColor(type) {
     return type === 'CO' ? 'red' : type === 'O3' ? 'blue' : type === 'NO' ? 'yellow' : type === 'SO2' ? 'pink' : 'green';
 }
 
+function createLegend(types) {
+    const legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'legend');
+        // Genera las entradas de la leyenda según los tipos proporcionados
+        div.innerHTML = '<h4>Leyenda</h4>' +
+            types.map(type => `<div class="legend-item">${type}<span class="circle" style="background-color: ${getColorMarcador(type)};"></span></div>`).join('');
+        return div;
+    };
+
+    return legend;
+}
+
+// Filtra el mapa por la fecha seleccionada
+function filtrarPorFecha() {
+    const fechaInput = document.getElementById('fechaInput').value;
+
+    console.log("Fecha: " + fechaInput)
+
+    convertirFecha(fechaInput)
+    //getFechaHoy()
+    //mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin);
+    //Falta ejecutar para crear el mapa, pero habria que modificar las cosas para que pase las fechas desde el principio
+}
+
+function convertirFecha(fecha) {
+    let fechaNueva = fecha + ' 23:55:55'
+    let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
+    console.log("Fecha convertida: " + fechaNueva)
+    console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
+}
+
+function getFechaHoy() {
+    // Obtener la fecha de hoy
+    const fechaDeHoy = new Date();
+
+    // Obtener componentes de fecha y hora
+    const año = fechaDeHoy.getFullYear();
+    const mes = (fechaDeHoy.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
+    const dia = fechaDeHoy.getDate().toString().padStart(2, '0');
+    const horas = fechaDeHoy.getHours().toString().padStart(2, '0');
+    const minutos = fechaDeHoy.getMinutes().toString().padStart(2, '0');
+    const segundos = fechaDeHoy.getSeconds().toString().padStart(2, '0');
+
+    // Formatear la fecha en el formato deseado
+    const fechaFormateadaHoy = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+
+    // Obtener la fecha de ayer
+    const fechaDeAyer = new Date();
+    fechaDeAyer.setDate(fechaDeAyer.getDate() - 1);
+
+    // Obtener componentes de fecha y hora
+    const año2 = fechaDeAyer.getFullYear();
+    const mes2 = (fechaDeAyer.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
+    const dia2 = fechaDeAyer.getDate().toString().padStart(2, '0');
+    const horas2 = fechaDeAyer.getHours().toString().padStart(2, '0');
+    const minutos2 = fechaDeAyer.getMinutes().toString().padStart(2, '0');
+    const segundos2 = fechaDeAyer.getSeconds().toString().padStart(2, '0');
+
+    // Formatear la fecha en el formato deseado
+    const fechaFormateadaAyer = `${año2}-${mes2}-${dia2} ${horas2}:${minutos2}:${segundos2}`;
+
+    console.log("Fecha hoy: " + fechaFormateadaHoy)
+    console.log("Fecha ayer: " + fechaFormateadaAyer)
+
+    return [fechaFormateadaHoy, fechaFormateadaAyer]
+}
+
 let mymap;
+let currentPosition;
 
 function generarYGenerarMapa() {
     // Eliminar el mapa si ya está inicializado
     if (mymap) {
+        currentPosition = {
+            lat: mymap.getCenter().lat,
+            lng: mymap.getCenter().lng,
+            zoom: mymap.getZoom()
+        };
         mymap.remove();
     }
 
-    mymap = L.map('zonaMapa').setView([51.505, -0.09], 13);
+    if (currentPosition && currentPosition.lat !== undefined && currentPosition.lng !== undefined) {
+        console.log("Latitud: " + currentPosition.lat + " Longitud: " + currentPosition.lng + " Zoom: " + currentPosition.zoom);
+        mymap = L.map('zonaMapa').setView([currentPosition.lat, currentPosition.lng], currentPosition.zoom);
+    } else {
+        mymap = L.map('zonaMapa').setView([38.972375, -0.177042], 13);
+    }
+
+    //mymap = L.map('zonaMapa').setView([51.505, -0.09], 13);
+    //mymap = L.map('zonaMapa').setView([38.972375, -0.177042], 13);
 
     // Añade un mosaico de OpenStreetMap al mapa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(mymap);
 
-    mostrarLeyendaYMarcadores(mymap);
+    // Tipos de datos para tu ejemplo
+    const tiposDeDatos = ['alto', 'medio', 'bajo'];
+
+    // Crea y agrega la leyenda al mapa
+    const legend = createLegend(tiposDeDatos);
+    legend.addTo(mymap);
+
+    //filtrarPorFecha();
+    const fechaInicio = '2023-10-14 16:32:40'
+    const fechaFin = '2023-10-16 16:32:40'
+    const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
+    console.log("Fecha hoy fuera: " + fechaHoyFuera + " Fecha ayer fuera: " + fechaAyerFuera)
+
+    mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin);
 
     // Añade un marcador al mapa
-    L.marker([51.505, -0.09]).addTo(mymap)
-        .bindPopup('¡Hola, mundo!').openPopup();
+    /*L.marker([51.505, -0.09]).addTo(mymap)
+        .bindPopup('¡Hola, mundo!').openPopup();*/
 }
 
 // Función para obtener el color según la clasificación
@@ -72,11 +168,11 @@ function getClasificacion(valor) {
     }
 }
 
-var datosMediciones=[];
-var marcadores=[];
+var datosMediciones = [];
+var marcadores = [];
 
-function mostrarLeyendaYMarcadores(mymap) {
-    fetch('http://localhost:8080/medicionConTipoValorEntreFechas/2023-10-14 16:32:40/2023-10-16 16:32:40', {
+function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
+    fetch('http://localhost:8080/medicionConTipoValorEntreFechas/' + fechaInicio + '/' + fechaFin, {
         method: "GET"
     }).then(function (respuesta) {
 
@@ -105,7 +201,6 @@ function mostrarLeyendaYMarcadores(mymap) {
 
         datos.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
-            // ... (resto del código)
 
             // Clasifica la medición en la lista correspondiente
             if (markerData.valor > umbralAlto) {
@@ -133,7 +228,7 @@ function mostrarLeyendaYMarcadores(mymap) {
 
         alto.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
-            
+
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
@@ -151,7 +246,7 @@ function mostrarLeyendaYMarcadores(mymap) {
 
         medio.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
-            
+
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
@@ -169,7 +264,7 @@ function mostrarLeyendaYMarcadores(mymap) {
 
         bajo.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
-            
+
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
@@ -193,7 +288,7 @@ setInterval(generarYGenerarMapa, 50000);
 
 
 function downloadToPNG() {
-    
+
     html2canvas(document.getElementById('zonaMapa'), {
         useCORS: true, // Necesario para capturar mapas de azulejos externos
     }).then(function (canvas) {
@@ -223,10 +318,10 @@ function downloadToCSV() {
         var valor = datosMediciones[contador].valor;
         var fecha = datosMediciones[contador].fecha
         var tipoValor = datosMediciones[contador].tipo_valor_id
-        var contaminante="";
-        switch(tipoValor){
+        var contaminante = "";
+        switch (tipoValor) {
             case 0:
-                contaminante="Temperatura"
+                contaminante = "Temperatura"
                 break;
             case 1:
                 contaminante = "Ozono-O3"
@@ -266,7 +361,7 @@ function downloadToExcel() {
     var excelHeaders = ["Latitud", "Longitud", "Contaminante", "Valor", "Fecha"];
 
     var contador = 0;
-    
+
     var excelData = []
     marcadores.forEach(function (medicion) {
         var lat = medicion._latlng.lat;
@@ -355,7 +450,7 @@ function downloadToJSON() {
                 break;
 
         }
-        JSONData.push({"latitud":lat, "longitud":lng, "contaminante":contaminante, "valor":valor, "fecha":fecha})
+        JSONData.push({ "latitud": lat, "longitud": lng, "contaminante": contaminante, "valor": valor, "fecha": fecha })
         contador++
     });
 
@@ -406,21 +501,22 @@ function downloadToGeoJSON() {
 
         }
 
-        GeoJSONFeatures.push({ 
-            type: "Feature", 
+        GeoJSONFeatures.push({
+            type: "Feature",
             geometry: {
                 type: "Point",
-                coordinates: [lat,lng]
-            }, 
+                coordinates: [lat, lng]
+            },
             properties: {
                 tipoContaminante: contaminante,
                 valorContaminante: valor,
                 fecha: fecha
-            }})
+            }
+        })
         contador++
     });
 
-    var geoJSONData={
+    var geoJSONData = {
         type: "FeatureCollection",
         features: GeoJSONFeatures
     }

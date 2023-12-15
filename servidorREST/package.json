@@ -16,6 +16,7 @@
         "express": "*",
         "express-session": "^1.17.3",
         "http-errors": "^2.0.0",
+        "https": "^1.0.0",
         "jade": "^1.11.0",
         "leaflet": "^1.9.4",
         "morgan": "^1.10.0",
