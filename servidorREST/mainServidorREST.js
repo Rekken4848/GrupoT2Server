@@ -55,6 +55,7 @@ async function main() {
     servidorExpress.use(express.static(path.join(__dirname, '../ux')));
     //servidorExpress.use('/node_modules/leaflet', express.static(path.join(__dirname, 'node_modules/leaflet')));
     servidorExpress.use('/node_modules/leaflet', express.static(path.join(__dirname, '../servidorREST/node_modules/leaflet')));
+    servidorExpress.use('/node_modules/@turf/turf', express.static(path.join(__dirname, '../servidorREST/node_modules/@turf/turf')));
     servidorExpress.use(bodyParser.text({ type: 'application/json' }))
     reglasREST.cargar(servidorExpress, laLogica);
     login.cargar(servidorExpress, laLogica);

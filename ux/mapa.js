@@ -68,7 +68,7 @@ function createLegend(types) {
 function filtrarPorFecha() {
     const fechaInput = document.getElementById('fechaInput').value;
 
-    console.log("Fecha: " + fechaInput)
+    //console.log("Fecha: " + fechaInput)
 
     convertirFecha(fechaInput)
     //getFechaHoy()
@@ -92,8 +92,8 @@ function convertirFecha(fecha) {
 
     let fechaNuevaDiaAntes = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
     //let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
-    console.log("Fecha convertida: " + fechaNueva)
-    console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
+    //console.log("Fecha convertida: " + fechaNueva)
+    //console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
     fechaInicio = fechaNuevaDiaAntes;
     fechaFin = fechaNueva;
     generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva);
@@ -129,8 +129,8 @@ function getFechaHoy() {
     // Formatear la fecha en el formato deseado
     const fechaFormateadaAyer = `${año2}-${mes2}-${dia2} ${horas2}:${minutos2}:${segundos2}`;
 
-    console.log("Fecha hoy: " + fechaFormateadaHoy)
-    console.log("Fecha ayer: " + fechaFormateadaAyer)
+    //console.log("Fecha hoy: " + fechaFormateadaHoy)
+    //console.log("Fecha ayer: " + fechaFormateadaAyer)
 
     return [fechaFormateadaHoy, fechaFormateadaAyer]
 }
@@ -149,7 +149,7 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
     }
 
     if (currentPosition && currentPosition.lat !== undefined && currentPosition.lng !== undefined) {
-        console.log("Latitud: " + currentPosition.lat + " Longitud: " + currentPosition.lng + " Zoom: " + currentPosition.zoom);
+        //console.log("Latitud: " + currentPosition.lat + " Longitud: " + currentPosition.lng + " Zoom: " + currentPosition.zoom);
         mymap = L.map('zonaMapa2').setView([currentPosition.lat, currentPosition.lng], currentPosition.zoom);
     } else {
         mymap = L.map('zonaMapa2').setView([38.972375, -0.177042], 13);
@@ -229,7 +229,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         }
 
     }).then(function (datos) {
-        console.log("Los datos del mapa bien" + JSON.stringify(datos));
+        //console.log("Los datos del mapa bien" + JSON.stringify(datos));
         const datosJSON = JSON.stringify(datos)
         datosMediciones = datos
         // Crea un objeto para almacenar las capas
@@ -262,7 +262,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             const tipo = `${markerData.tipo_valor}`;
             if (!capas[tipo]) {
                 capas[tipo] = L.layerGroup(); // Crea una capa de grupo para cada tipo de dato
-                console.log("Número de tipo_valor:", Number(tipo.split(' ')[1]));
+                //console.log("Número de tipo_valor:", Number(tipo.split(' ')[1]));
                 const cuadroColor = `<span style="display:inline-block; width: 12px; height: 12px; background-color: ${getColor(markerData.tipo_valor)}; margin-right: 5px;"></span>`;
                 controlCapas.addOverlay(capas[tipo], `${cuadroColor} ${tipo}`);
             }
@@ -278,7 +278,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
-            console.log("Lat: " + latitud + ", Lon: " + longitud);
+            //console.log("Lat: " + latitud + ", Lon: " + longitud);
             const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
@@ -296,7 +296,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
-            console.log("Lat: " + latitud + ", Lon: " + longitud);
+            //console.log("Lat: " + latitud + ", Lon: " + longitud);
             const marker = L.marker([latitud, longitud], { icon: getCustomIcon('medio') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
@@ -314,7 +314,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
-            console.log("Lat: " + latitud + ", Lon: " + longitud);
+            //console.log("Lat: " + latitud + ", Lon: " + longitud);
             const marker = L.marker([latitud, longitud], { icon: getCustomIcon('bajo') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
@@ -325,6 +325,84 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
         });
+
+        /*
+        // Convierte los puntos de datos a formato GeoJSON
+        var points = turf.points(alto, { valueProperty: 'valor' });
+
+        // Realiza la interpolación utilizando el algoritmo de kriging
+        var interpolated = turf.interpolate(points, 100, { gridType: 'points', property: 'value' });
+
+        // Añade la capa de interpolación al mapa
+        L.geoJSON(interpolated).addTo(map);*/
+        //console.log("Alto: " + JSON.stringify(alto))
+        try {
+            // Convierte los puntos de datos a formato GeoJSON
+            var points = alto.map(markerData => {
+                const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+                return {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [longitud, latitud] // Reordena las coordenadas
+                    },
+                    properties: {
+                        value: markerData.valor
+                    }
+                };
+            });
+            // Crea una FeatureCollection a partir de la colección de puntos
+            var featureCollection = turf.featureCollection(points);
+            // Realiza la interpolación utilizando el algoritmo de kriging
+            var interpolated = turf.interpolate(featureCollection, 2, { gridType: 'points', property: 'value', maxEdge: 0.1 });
+            // Añade la capa de interpolación al mapa
+            var geojsonMarkerOptions = {
+                color: "red"
+              };
+            L.geoJson(interpolated, {
+                pointToLayer: function (feature, latlng) {
+                  return L.circleMarker(latlng, geojsonMarkerOptions);
+                }
+              }).addTo(mymap);
+            //L.geoJSON(interpolated).addTo(mymap);
+        } catch (error) {
+            console.error('Error en la interpolación:', error);
+        }
+
+        try {
+            // Convierte los puntos de datos a formato GeoJSON
+            var points = medio.map(markerData => {
+                const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+                return {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [longitud, latitud] // Reordena las coordenadas
+                    },
+                    properties: {
+                        value: markerData.valor
+                    }
+                };
+            });
+            // Crea una FeatureCollection a partir de la colección de puntos
+            var featureCollection = turf.featureCollection(points);
+            // Realiza la interpolación utilizando el algoritmo de kriging
+            var interpolated = turf.interpolate(featureCollection, 2, { gridType: 'points', property: 'value', maxEdge: 0.1 });
+            // Añade la capa de interpolación al mapa
+            var geojsonMarkerOptions = {
+                color: "yellow"
+              };
+            L.geoJson(interpolated, {
+                pointToLayer: function (feature, latlng) {
+                  return L.circleMarker(latlng, geojsonMarkerOptions);
+                }
+              }).addTo(mymap);
+            //L.geoJSON(interpolated).addTo(mymap);
+        } catch (error) {
+            console.error('Error en la interpolación:', error);
+        }
     })
 }
 
@@ -334,13 +412,13 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
 //const fechaInicio = '2023-10-14 16:32:40'
 //const fechaFin = '2023-10-16 16:32:40'
 const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
-console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
+//console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
 
 fechaInicio = fechaAyerFuera;
 fechaFin = fechaHoyFuera;
 
 generarYGenerarMapa(fechaInicio, fechaFin);
-setInterval(function() {
+setInterval(function () {
     // Aquí llamas a tu función con los argumentos necesarios
     generarYGenerarMapa(fechaInicio, fechaFin);
 }, 50000);
