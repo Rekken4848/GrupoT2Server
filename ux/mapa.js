@@ -268,6 +268,14 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             }
         });
 
+        var puntosInterpolacion = []
+
+        datos.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacion.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
         console.log("Alto: " + JSON.stringify(alto));
         console.log("Medio: " + JSON.stringify(medio));
         console.log("Bajo: " + JSON.stringify(bajo));
@@ -326,6 +334,45 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             capas[tipo].addLayer(marker);
         });
 
+        console.log("Puntos interpolacion bueno: " + puntosInterpolacion)
+
+        puntosInterpolacion.forEach(a => {
+            console.log("Puntos interpolacion individual: " + a)
+        })
+
+        console.log("Puntos interpolacion muestra bueno: " + addressPoints)
+
+        addressPoints.forEach(a => {
+            console.log("Puntos interpolacion muestra individual: " + a)
+        })
+
+        var meteoPoints = [
+            [47.11285, 7.222309, 8], //Ipsach
+            [47.085272, 7.20377, 12], //Mörigen
+            [47.092285, 7.156734, 11], //Twann
+            [47.13294, 7.220936, 0], //Vingelz
+            [47.088311, 7.128925, 15], //Twannberg
+            [47.124765, 7.234669, 5], //Nidau
+            [47.055107, 7.07159, 1]  //lelanderon
+        ];
+
+        // Crear un mapa de calor
+        //var heatLayer = L.heatLayer(puntosInterpolacion, { radius: 20 }).addTo(mymap);
+        /*var idw = L.idwLayer(meteoPoints,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 1200
+        }).addTo(mymap);*/
+        var idw = L.idwLayer(puntosInterpolacion,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 25
+        }).addTo(mymap);
+
         /*
         // Convierte los puntos de datos a formato GeoJSON
         var points = turf.points(alto, { valueProperty: 'valor' });
@@ -336,7 +383,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         // Añade la capa de interpolación al mapa
         L.geoJSON(interpolated).addTo(map);*/
         //console.log("Alto: " + JSON.stringify(alto))
-        try {
+        /*try {
             // Convierte los puntos de datos a formato GeoJSON
             var points = alto.map(markerData => {
                 const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
@@ -402,7 +449,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             //L.geoJSON(interpolated).addTo(mymap);
         } catch (error) {
             console.error('Error en la interpolación:', error);
-        }
+        }*/
     })
 }
 
