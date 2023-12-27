@@ -10,27 +10,27 @@
 --insert into TipoValor (tipo_valor) values ('CO3');
 --insert into TipoValor (tipo_valor) values ('CO3');
 
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '2023-12-26 16:32:40', '38.990372, -0.157928');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 16.34, 2, '2023-12-26 16:32:40', '38.994947, -0.164142');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 24.34, 3, '2023-12-26 16:32:40', '38.995539, -0.166339');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 22.34, 2, '2023-12-26 16:32:40', '38.995105, -0.166596');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 17.34, 3, '2023-12-26 16:32:40', '38.993677, -0.165361');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 08.34, 4, '2023-12-26 16:32:40', '38.994561, -0.163838');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 32.34, 1, '2023-12-26 16:32:40', '38.994216, -0.162864');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 42.34, 1, '2023-12-26 16:32:40', '38.994357, -0.160923');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 06.34, 2, '2023-12-26 16:32:40', '38.971025, -0.169295');
-insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 15.34, 3, '2023-12-26 16:32:40', '38.969066, -0.170063');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 12.34, 1, '2023-12-27 16:32:40', '38.990372, -0.157928');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 16.34, 2, '2023-12-27 16:32:40', '38.994947, -0.164142');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 24.34, 3, '2023-12-27 16:32:40', '38.995539, -0.166339');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 22.34, 2, '2023-12-27 16:32:40', '38.995105, -0.166596');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 17.34, 3, '2023-12-27 16:32:40', '38.993677, -0.165361');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 08.34, 4, '2023-12-27 16:32:40', '38.994561, -0.163838');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 32.34, 1, '2023-12-27 16:32:40', '38.994216, -0.162864');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 42.34, 1, '2023-12-27 16:32:40', '38.994357, -0.160923');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 06.34, 2, '2023-12-27 16:32:40', '38.971025, -0.169295');
+insert into Medicion (valor, tipo_valor_id, fecha, lugar) values ( 15.34, 3, '2023-12-27 16:32:40', '38.969066, -0.170063');
 
 
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 69, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 70, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 71, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 72, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 73, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 74, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 75, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 76, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 77, 'PrueMapaDis');
-insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 78, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 79, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 80, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 81, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 82, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 83, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 84, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 85, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 86, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 87, 'PrueMapaDis');
+insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 88, 'PrueMapaDis');
 --insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 11, 'PrueMapaDis');
 --insert into Medicion_Dispositivo (medicion_id, dispositivo_id) values ( 12, 'PrueMapaDis');

@@ -365,13 +365,13 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             exp: 3,
             max: 1200
         }).addTo(mymap);*/
-        var idw = L.idwLayer(puntosInterpolacion,{
+        /*var idw = L.idwLayer(puntosInterpolacion,{
             opacity: 0.3,
             maxZoom: 18,
             cellSize: 10,
             exp: 3,
             max: 25
-        }).addTo(mymap);
+        }).addTo(mymap);*/
 
         /*
         // Convierte los puntos de datos a formato GeoJSON
@@ -450,6 +450,82 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         } catch (error) {
             console.error('Error en la interpolación:', error);
         }*/
+        const O3 = [];
+        const NO = [];
+        const SO2 = [];
+
+        datos.forEach(markerData => {
+            const tipo = `${markerData.tipo_valor}`;
+
+            // Clasifica la medición en la lista correspondiente
+            if (markerData.tipo_valor === "O3") {
+                O3.push(markerData);
+            } else if (markerData.tipo_valor === "NO") {
+                NO.push(markerData);
+            } else if (markerData.tipo_valor === "SO2") {
+                SO2.push(markerData);
+            }
+        });
+
+        var puntosInterpolacionO3 = []
+
+        O3.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionO3.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var puntosInterpolacionNO = []
+
+        NO.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionNO.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var puntosInterpolacionSO2 = []
+
+        SO2.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionSO2.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var idwO3 = L.idwLayer(puntosInterpolacionO3,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 25
+        }).addTo(mymap);
+        const textoO3 = "O3"
+        const tipoO3 = `${textoO3}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoO3].addLayer(idwO3);
+
+        var idwNO = L.idwLayer(puntosInterpolacionNO,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 25
+        }).addTo(mymap);
+        const textoNO = "NO"
+        const tipoNO = `${textoNO}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoNO].addLayer(idwNO);
+
+        var idwSO2 = L.idwLayer(puntosInterpolacionSO2,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 25
+        }).addTo(mymap);
+        const textoSO2 = "SO2"
+        const tipoSO2 = `${textoSO2}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoSO2].addLayer(idwSO2);
     })
 }
 
