@@ -56,13 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const botonContrasenya = document.getElementById('botonContrasenya');
   const passwordCard = document.getElementById('password-card');
 
-  // Function to show the password card
   function showPasswordCard() {
     passwordCard.style.display = 'block';
   }
-  // Event listener to show the password card when the button is clicked
+  
   botonContrasenya.addEventListener('click', showPasswordCard);
 });
+
+
 
 function validatePasswords() {
   var usuario = document.getElementById("dnieditar").value;
@@ -70,8 +71,12 @@ function validatePasswords() {
   var confirmPassword = document.getElementById("passwordConfirm").value;
   var passwordold = document.getElementById("passwordold").value;
 
-  var datos = { username: usuario, password: passwordold }
-  console.log(datos)
+  if (password !== confirmPassword) {
+    alert("Las contraseñas no coinciden");
+    return false;
+  }
+
+  var datos = { username: usuario, password: passwordold };
   fetch('http://localhost:8080/login', {
     method: "POST",
     body: JSON.stringify(datos),
@@ -79,56 +84,48 @@ function validatePasswords() {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(function (respuesta) {
-
+  })
+  .then(function (respuesta) {
     if (respuesta.ok) {
-      return respuesta.text()
+      return respuesta.text();
     } else {
-      console.log("hubo un fallo")
-    }
-
-  }).then(function (datos) {
-    console.log("Los datos bien" + datos)
-    if (datos === "Usuario Correcto") {
-      console.log("Todo introducido con éxito");
-      if (password !== confirmPassword) {
-        alert("Las contraseñas no coinciden");
-        return false;
-      }
-      var datosNuevos = { username: usuario, password: password }
-        console.log(datos)
-        fetch('http://localhost:8080/actualizarContrasenya', {
-            method: "POST",
-            body: JSON.stringify(datosNuevos),
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (respuesta) {
-
-            if (respuesta.ok) {
-                console.log("Todo introducido con éxito");
-            } else {
-                console.log("hubo un fallo")
-            }
-        })
-    } else if (datos === "Usuario Incorrecto") {
       alert("Contraseña equivocada");
-      return false;
+      console.log("Hubo un fallo en la respuesta:", respuesta);
+      return respuesta.text().then(text => { throw new Error(text || 'Network response was not ok') });
     }
   })
+  .then(function (datos) {
+    console.log("Los datos bien" + datos)
+    if (datos === "Usuario Correcto") {
+      var datosNuevos = { username: usuario, password: password };
+      return fetch('http://localhost:8080/actualizarContrasenya', {
+        method: "POST",
+        body: JSON.stringify(datosNuevos),
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      });
+    } else if (datos === "Usuario Incorrecto") {
+      alert("Contraseña equivocada");
+      throw new Error('Incorrect User');
+    }
+  })
+  .then(function (respuesta) {
+    if (respuesta.ok) {
+      console.log("Todo introducido con éxito");
+      alert("Contraseña actualizada correctamente."); // Notify the user
+      window.location.reload(); // Refresh the page
+    } else {
+      console.log("Hubo un fallo en la actualización:", respuesta);
+      return respuesta.text().then(text => { throw new Error(text || 'Network response was not ok') });
+    }
+  })
+  .catch(function (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
 
-  /*if (passwordold !== "2015") {
-    alert("Contraseña equivocada");
-    return false;
-  } else if (password !== confirmPassword) {
-    alert("Las contraseñas no coinciden");
-    return false;
-  }*/
-
-  return true;
+  return false;
 }
-
-
 
 

@@ -50,10 +50,12 @@
     <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
         html {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 
@@ -63,8 +65,8 @@
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
 
-        <a href="#" id="logoCleanCloud">
-            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+        <a href="admin.html" id="logoCleanCloud">
+            <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
         </a>
 
         <div id="fondoHeader">
@@ -74,9 +76,8 @@
 
             <div id="headerUserContainer">
 
-                <img src="images/avatar.png" alt="icono de avatar de usuario">
                     <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
-                        <p id="AdminName">Admin</p>
+                        <p id="AdminName">Perfil</p>
                     </div>
             </div>
         </div>
@@ -85,34 +86,41 @@
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
     <div id="fondoPagina">
-        <div id="marcaNotifAvisosContenedor">
-            <div id="marcaNotifAvisos">
-                <p id="numeroAvisos">7</p>
-            </div>
-            <img onclick="enviarAPagAnuncios()" src="images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
-        </div>
-
+        
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
                 <input type="text" name="SearchBar" id="searchBar" placeholder="Buscar por DNI...">
-                <button id="botonMasFiltrado"
+                <button class="caja" id="botonMasFiltrado"
                     onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img
                         src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
             </div>
+            
             <div id="contenedorDerecho">
-                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg"
+                <button class="caja" id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg"
                         alt="icono editar trabajador"></button>
+                
                 <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button-->
-                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="images/plus.png"
+                <button class="caja" id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="images/plus.png"
                         alt="icono anyadir trabajador"></button>
+
+                        <button id="marcaNotifAvisosContenedor">
+                            <!--
+                            <div>
+                                <p id="numeroAvisos">7</p>
+                            </div>-->
+                    <img onclick="enviarAPagAnuncios()" src="images/campana.png" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
+                </button>
             </div>
+            
         </div>
+        
 
         <div id="cont_flecha">
-            <img src='images/ordenar-abajo.png' id='flecha'>
+            
 
 
             <div id="contenedorEmpleadosLista">
+                <img src='images/ordenar-abajo.png' id='flecha'>
                 <table id="tablaEmpleados">
 
                     <thead id="leyendaTabla">
@@ -150,7 +158,7 @@
     <!-- popup filtro -------------------------------------------------------- -->
     <div id="contenedorPopUps">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
+            <button class="x" onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
                     src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div class="contenedorFiltroEspecificado">
@@ -188,7 +196,7 @@
     <!-- popup anyadir -------------------------------------------------------- -->
     <div id="contenedorPopUpsAnyadir">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
+            <button class="x" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
                     src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
@@ -235,7 +243,7 @@
                     <input required type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div-->
                 <div class="insertarDato" id="cp_deladmin">
-                    <p data-section="paginaAdmin" data-value="popupAnyadirCP">Código Postal</p>
+                    <p data-section="paginaAdmin" data-value="popupAnyadirCP">CP</p>
                     <input required readonly type="text" name="postalCode" id="postalCodeanyadir" maxlength="5">
                 </div>
                 <div class="insertarDato">
@@ -243,7 +251,7 @@
                     <input required type="text" name="street" id="streetanyadir" maxlength="200">
                 </div>
                 <div class="insertarDato">
-                    <p>Dispositivo</p>
+                    <p>SN</p>
                     <input required type="text" name="name" id="serialnumberanyadir" maxlength="20">
                 </div>
 
@@ -281,7 +289,7 @@
                     <input required type="text" name="province" id="provinceanyadiradmin" maxlength="30">
                 </div>
                 <div class="insertarDato">
-                    <p>Código Postal</p>
+                    <p>CP</p>
                     <input required type="text" name="postalCode" id="postalCodeanyadiradmin" maxlength="5">
                 </div>
                 <div class="insertarDato separador">
@@ -306,7 +314,7 @@
     <!-- popup editar -------------------------------------------------------- -->
     <div id="contenedorPopUpsEditar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img
+            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';" class="x"><img
                     src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
@@ -345,7 +353,7 @@
                 <input type="text" name="province" id="provinceeditar" maxlength="30">
             </div>
             <div class="editarDato">
-                <p data-section="paginaAdmin" data-value="popupEditarCP">Codigo Postal</p>
+                <p data-section="paginaAdmin" data-value="popupEditarCP">CP</p>
                 <input type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
             </div>
             <div class="editarDato">
@@ -354,7 +362,7 @@
             </div>
 
             <div class="editarDato">
-                <p data-section="paginaAdmin" data-value="popupEditarDispositivo">Dispositivo</p>
+                <p data-section="paginaAdmin" data-value="popupEditarDispositivo">SN</p>
                 <input type="text" name="device" id="deviceAssociadoTitulo">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
@@ -371,7 +379,7 @@
     <!-- popup confirmarEliminar -------------------------------------------------------- -->
     <div id="contenedorConfirmarEliminar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';"><img
+            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';" class="x"><img
                     src="images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">

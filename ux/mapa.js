@@ -42,12 +42,12 @@ function addToLegend(type) {
 
 function getColorMarcador(nivel) {
     // Asigna colores diferentes según el tipo de medición
-    return nivel === 'alto' ? 'red' : nivel === 'medio' ? 'yellow' : nivel === 'bajo' ? 'green' : 'blue';
+    return nivel === 'Alta' ? 'red' : nivel === 'Media' ? 'yellow' : nivel === 'Baja' ? 'green' : 'blue';
 }
 
 function getColor(type) {
     // Asigna colores diferentes según el tipo de medición
-    return type === 'CO' ? 'red' : type === 'O3' ? 'blue' : type === 'NO' ? 'yellow' : type === 'SO2' ? 'pink' : 'green';
+    return type === 'CO' ? 'white' : type === 'O3' ? 'white' : type === 'NO' ? 'white' : type === 'SO2' ? 'white' : 'green';
 }
 
 function createLegend(types) {
@@ -57,7 +57,7 @@ function createLegend(types) {
         const div = L.DomUtil.create('div', 'legend');
         // Genera las entradas de la leyenda según los tipos proporcionados
         div.innerHTML = '<h4>Leyenda</h4>' +
-            types.map(type => `<div class="legend-item">${type}<span class="circle" style="background-color: ${getColorMarcador(type)};"></span></div>`).join('');
+            types.map(type => `<div class="legend-item"><span class="circle" style="background-color: ${getColorMarcador(type)};"></span>${type}</div>`).join('');
         return div;
     };
 
@@ -171,7 +171,7 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
     }).addTo(mymap);
 
     // Tipos de datos para tu ejemplo
-    const tiposDeDatos = ['alto', 'medio', 'bajo'];
+    const tiposDeDatos = ['Alta', 'Media', 'Baja'];
 
     // Crea y agrega la leyenda al mapa
     const legend = createLegend(tiposDeDatos);
@@ -194,9 +194,9 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
 function getColorByClasificacion(clasificacion) {
     // Define colores según la clasificación
     const colores = {
-        alto: 'red',
-        medio: 'yellow',
-        bajo: 'green'
+        Alta: 'red',
+        Media: 'yellow',
+        Baja: 'green'
     };
     return colores[clasificacion] || 'gray'; // Color por defecto
 }
@@ -206,11 +206,11 @@ function getClasificacion(valor) {
     const umbralAlto = 30;
     const umbralMedio = 15;
     if (valor > umbralAlto) {
-        return 'alto';
+        return 'Alta';
     } else if (valor > umbralMedio) {
-        return 'medio';
+        return 'Media';
     } else {
-        return 'bajo';
+        return 'Baja';
     }
 }
 
@@ -263,8 +263,8 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             if (!capas[tipo]) {
                 capas[tipo] = L.layerGroup(); // Crea una capa de grupo para cada tipo de dato
                 console.log("Número de tipo_valor:", Number(tipo.split(' ')[1]));
-                const cuadroColor = `<span style="display:inline-block; width: 12px; height: 12px; background-color: ${getColor(markerData.tipo_valor)}; margin-right: 5px;"></span>`;
-                controlCapas.addOverlay(capas[tipo], `${cuadroColor} ${tipo}`);
+                //(COMENTADO POR THOMAS)const cuadroColor = `<span style="display:inline-block; width: 12px; height: 12px; background-color: ${getColor(markerData.tipo_valor)}; margin-right: 5px;"></span>`;
+                controlCapas.addOverlay(capas[tipo], ` ${tipo}`);
             }
         });
 
@@ -279,7 +279,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
             console.log("Lat: " + latitud + ", Lon: " + longitud);
-            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
+            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Alta') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
@@ -297,7 +297,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
             console.log("Lat: " + latitud + ", Lon: " + longitud);
-            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('medio') }).addTo(mymap);
+            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Media') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'yellow'));
@@ -315,7 +315,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
             console.log("Lat: " + latitud + ", Lon: " + longitud);
-            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('bajo') }).addTo(mymap);
+            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Baja') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
             //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'green'));

@@ -52,11 +52,13 @@
   <!-- para descargar en excel -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
-    html {
-      font-family: 'Roboto', sans-serif;
-    }
+      html {
+          font-family: 'Poppins', sans-serif;
+      }
   </style>
 
   <script src="admin_filtrar.js"></script>
@@ -64,6 +66,7 @@
   <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
   <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
   <link href="css/estilo_adminMapa.css" rel="stylesheet" type="text/css">
+  <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
 </head>
 
 <!-- -------------------------------------------------------- -->
@@ -75,8 +78,8 @@
   <header class="cabecera" role="banner">
 
     <a href="admin.html" id="logoCleanCloud">
-      <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
-    </a>
+      <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
+  </a>
 
     <div id="fondoHeader">
 
@@ -114,11 +117,9 @@
       </div>
 
       <div id="headerUserContainer">
-        <img src="images/avatar.png" alt="icono de avatar de usuario">
         <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
-          <p id="AdminName">Admin</p>
+            <p id="AdminName">Perfil</p>
         </div>
-        </a>
       </div>
     </div>
 
@@ -127,14 +128,18 @@
 
   <!-- zona del mapa -------------------------------------------------------- -->
   <!-- fin de cabecera de la pagina ---------------------------------------------------------->
-  <div>
-		<label for="fechaInput">Selecciona una fecha:</label>
-		<input type="date" id="fechaInput">
-		<button onclick="filtrarPorFecha()">Filtrar</button>
-	</div>>
+
   <!-- zona del mapa -------------------------------------------------------- -->
   <div id="zonaMapa">
-    <div id="zonaMapa2"></div>
+    <div id="zonaMapa2">  
+      <div id="contenedorFecha">
+      <div id="fecha">
+        <label for="fechaInput">Selecciona una fecha:</label>
+        <input type="date" id="fechaInput">
+        <button onclick="filtrarPorFecha()">Filtrar</button>
+      </div>
+    </div>
+  </div>
 
   </div>
   <!-- fin de la zona del mapa -------------------------------------------------------- -->

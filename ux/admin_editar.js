@@ -4,7 +4,7 @@ var dni_persona_editando = "";
 function cursorLapiz() {
     editando = !editando;
     if (editando) {
-        document.getElementById('botonEditarTrabajador').style.background = 'rgb(189, 182, 156)';
+        document.getElementById('botonEditarTrabajador').style.background = 'rgb(156, 222, 222)';
         document.getElementById('fondoPagina').style.cursor = "url(images/lapiz_icono_para_cursor.svg), help";
 
     } else {

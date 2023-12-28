@@ -3,16 +3,69 @@
 * ------------------------------------------------------------------
 */
 body{
-  margin: 0px;
+    margin: 0px;
     padding: 0px;
     display: flex;
     flex-direction: column;
 }
+
+#contenedorFecha{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  margin-right: 93px;
+  position: relative;
+  background: none;
+  z-index: 800;
+  position: relative; /* position must be set for z-index to work */
+}
+
+#fecha {
+  background: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 10px 10px 10px;
+  border-radius: 0px 0px  5px 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the label */
+#fecha label {
+  margin-right: 10px;
+}
+
+/* Styling for the date input */
+#fechaInput {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-right: 15px;
+}
+
+/* Styling for the button */
+#fecha button {
+  width: 80px;
+  height: 30px;
+  border: none;
+  background-color: rgb(76, 156, 130);;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Hover effect for the button */
+#fecha button:hover {
+  background-color: rgb(76, 156, 130);
+}
+
 #zonaMapa {
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 92vh;
+  height: 94.5vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,6 +80,7 @@ body{
   flex-direction: column;
   justify-content: space-between;
   z-index: 1;
+  font-family: 'Poppins', sans-serif; 
 }
 
 @media(max-width: 1000px) {
@@ -163,10 +217,7 @@ body{
   .menu li a {
     display: block;
     text-decoration: none;
-    color: white;
-    padding: 10px 10px;
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
+    padding: 20px 5px;
     transition: color 0.3s ease;
   }
   
@@ -244,8 +295,7 @@ body{
 
 
   #fondoDescargar {
-    background-color: transparent;
-    color: rgb(255, 255, 255);
-    border-radius: 10px;
+    background-color: white;
+    color: rgba(51, 65, 85, 1);
   }
   
