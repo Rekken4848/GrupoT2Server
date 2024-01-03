@@ -242,19 +242,56 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         const medio = [];
         const bajo = [];
 
-        const umbralAlto = 30;
-        const umbralMedio = 15;
-
         datos.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
 
             // Clasifica la medición en la lista correspondiente
-            if (markerData.valor > umbralAlto) {
-                alto.push(markerData);
-            } else if (markerData.valor > umbralMedio) {
-                medio.push(markerData);
-            } else {
-                bajo.push(markerData);
+            switch (tipo) {
+                case "O3":
+                    if (markerData.valor > 240) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 180) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "NO2":
+                    if (markerData.valor > 200) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 100) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "SO2":
+                    if (markerData.valor > 350) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 125) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "CO":
+                    if (markerData.valor > 10) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 5) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "C6H6":
+                    if (markerData.valor > 5) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 2) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
             }
         });
 
@@ -264,7 +301,8 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
                 capas[tipo] = L.layerGroup(); // Crea una capa de grupo para cada tipo de dato
                 //console.log("Número de tipo_valor:", Number(tipo.split(' ')[1]));
                 const cuadroColor = `<span style="display:inline-block; width: 12px; height: 12px; background-color: ${getColor(markerData.tipo_valor)}; margin-right: 5px;"></span>`;
-                controlCapas.addOverlay(capas[tipo], `${cuadroColor} ${tipo}`);
+                controlCapas.addOverlay(capas[tipo], `${tipo}`);
+                controlCapas.click = true;
             }
         });
 
@@ -453,6 +491,8 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         const O3 = [];
         const NO = [];
         const SO2 = [];
+        const CO = [];
+        const C6H6 = [];
 
         datos.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
@@ -464,6 +504,10 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
                 NO.push(markerData);
             } else if (markerData.tipo_valor === "SO2") {
                 SO2.push(markerData);
+            } else if (markerData.tipo_valor === "CO") {
+                CO.push(markerData);
+            } else if (markerData.tipo_valor === "C6H6") {
+                C6H6.push(markerData);
             }
         });
 
@@ -491,41 +535,107 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             puntosInterpolacionSO2.push([latitud, longitud, parseInt(markerData.valor, 10)])
         });
 
-        var idwO3 = L.idwLayer(puntosInterpolacionO3,{
-            opacity: 0.3,
-            maxZoom: 18,
-            cellSize: 10,
-            exp: 3,
-            max: 25
-        }).addTo(mymap);
-        const textoO3 = "O3"
-        const tipoO3 = `${textoO3}`;
-        // Añade el marcador a la capa correspondiente
-        capas[tipoO3].addLayer(idwO3);
+        var puntosInterpolacionCO = []
 
-        var idwNO = L.idwLayer(puntosInterpolacionNO,{
-            opacity: 0.3,
-            maxZoom: 18,
-            cellSize: 10,
-            exp: 3,
-            max: 25
-        }).addTo(mymap);
-        const textoNO = "NO"
-        const tipoNO = `${textoNO}`;
-        // Añade el marcador a la capa correspondiente
-        capas[tipoNO].addLayer(idwNO);
+        CO.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionCO.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
 
-        var idwSO2 = L.idwLayer(puntosInterpolacionSO2,{
-            opacity: 0.3,
-            maxZoom: 18,
-            cellSize: 10,
-            exp: 3,
-            max: 25
-        }).addTo(mymap);
-        const textoSO2 = "SO2"
-        const tipoSO2 = `${textoSO2}`;
-        // Añade el marcador a la capa correspondiente
-        capas[tipoSO2].addLayer(idwSO2);
+        var puntosInterpolacionC6H6 = []
+
+        C6H6.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionC6H6.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        if (puntosInterpolacionO3 != 0) {
+            var idwO3 = L.idwLayer(puntosInterpolacionO3, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 270,
+                gradient: { 0: 'green', 0.77: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoO3 = "O3"
+            const tipoO3 = `${textoO3}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoO3].addLayer(idwO3);
+        } else {
+            console.log("No hay mediciones de Ozono")
+        }
+
+        if (puntosInterpolacionNO != 0) {
+            var idwNO = L.idwLayer(puntosInterpolacionNO, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 250,
+                gradient: { 0: 'green', 0.6: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoNO = "NO"
+            const tipoNO = `${textoNO}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoNO].addLayer(idwNO);
+        } else {
+            console.log("No hay mediciones de Oxidos de nitrogeno")
+        }
+
+        if (puntosInterpolacionSO2 != 0) {
+            var idwSO2 = L.idwLayer(puntosInterpolacionSO2, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 463,
+                gradient: { 0: 'green', 0.24: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoSO2 = "SO2"
+            const tipoSO2 = `${textoSO2}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoSO2].addLayer(idwSO2);
+        } else {
+            console.log("No hay mediciones de Dioxido de Azufre")
+        }
+
+        if (puntosInterpolacionCO != 0) {
+            var idwCO = L.idwLayer(puntosInterpolacionCO, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 13,
+                gradient: { 0: 'green', 0.54: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoCO = "CO"
+            const tipoCO = `${textoCO}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoCO].addLayer(idwCO);
+        } else {
+            console.log("No hay mediciones de Monoxido de carbono")
+        }
+
+        if (puntosInterpolacionC6H6.length != 0) {
+            var idwC6H6 = L.idwLayer(puntosInterpolacionC6H6, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 7,
+                gradient: { 0: 'green', 0.43: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoC6H6 = "C6H6"
+            const tipoC6H6 = `${textoC6H6}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoC6H6].addLayer(idwC6H6);
+        } else {
+            console.log("No hay mediciones de Benceno")
+        }
+
     })
 }
 
