@@ -64,6 +64,68 @@ function createLegend(types) {
     return legend;
 }
 
+function obtenerEstacionMedidaOficial(mymap) {
+    fetch('http://localhost:8080/obtenerDatosAEMET2/', {
+        method: "GET"
+    }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+            return respuesta.json()
+        } else {
+            console.log("hubo un fallo")
+        }
+
+    }).then(function (datos) {
+        const datosJSON = JSON.stringify(datos);
+        console.log(datosJSON);
+
+        var datosSO2 = 0;
+        var datosNO = 0;
+        var datosNO2 = 0;
+        var datosO3 = 0;
+        var datosTemperatura = 0;
+        var datosPM10 = 0;
+        var contador = 0;
+
+        datos.forEach(medicionEstacion => {
+            if (medicionEstacion["SO2 en microgramos/m3"] != undefined) {
+                datosSO2 = datosSO2 + parseFloat(medicionEstacion["SO2 en microgramos/m3"]);
+                datosNO = datosNO + parseFloat(medicionEstacion["NO en microgramos/m3"]);
+                datosNO2 = datosNO2 + parseFloat(medicionEstacion["NO2 en microgramos/m3"]);
+                datosO3 = datosO3 + parseFloat(medicionEstacion["O3 en microgramos/m3"]);
+                datosTemperatura = datosTemperatura + parseFloat(medicionEstacion["Temperatura en grados celsius"]);
+                datosPM10 = datosPM10 + parseFloat(medicionEstacion["PM10 en microgramos/m3"]);
+                contador++;
+            }
+        });
+
+        var finalDatosSO2 = datosSO2 / contador;
+        var finalDatosNO = datosNO / contador;
+        var finalDatosNO2 = datosNO2 / contador;
+        var finalDatosO3 = datosO3 / contador;
+        var finalDatosTemperatura = datosTemperatura / contador;
+        var finalDatosPM10 = datosPM10 / contador;
+        console.log("EstacionesFinal. SO2: " + finalDatosSO2 + ". NO: " + finalDatosNO);
+
+        //const tipo = `${markerData.tipo_valor}`;
+
+        // Dividir la cadena 'lugar' en latitud y longitud
+        //const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        const latitud = "39.091231";
+        const longitud = "-1.074932";
+
+        console.log("Lat: " + latitud + ", Lon: " + longitud);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
+        marker.bindPopup(`SO2: ${finalDatosSO2}<br>NO: ${finalDatosNO}<br>NO2: ${finalDatosNO2}<br>O3: ${finalDatosO3}<br>Temp: ${finalDatosTemperatura}<br>PM10: ${finalDatosPM10}`);
+        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
+
+        marcadores.push(marker)
+
+        // Añade el marcador a la capa correspondiente
+        //capas[tipo].addLayer(marker);
+    });
+}
+
 // Filtra el mapa por la fecha seleccionada
 function filtrarPorFecha() {
     const fechaInput = document.getElementById('fechaInput').value;
@@ -636,6 +698,10 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             console.log("No hay mediciones de Benceno")
         }
 
+
+        //Espacio estacion medida oficial -- INICIO
+        obtenerEstacionMedidaOficial(mymap);
+        //Espacio estacion medida oficial -- FIN
     })
 }
 

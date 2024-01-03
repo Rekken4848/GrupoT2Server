@@ -537,8 +537,8 @@ module.exports.cargar = function (servidorExpress) {
             aemetResponse.on("end", () => {
                 const body = Buffer.concat(chunks);
                 const responseData = JSON.parse(body.toString());
-                console.log("Sin pasarlo a JSON: " + body.toString());
-                console.log("EN JSON: " + responseData)
+                //console.log("Sin pasarlo a JSON: " + body.toString());
+                //console.log("EN JSON: " + responseData)
                 //console.log("Datos Sin pasarlo a JSON: " + body.datos.toString());
                 console.log("Datos EN JSON: " + responseData.datos)
                 //res.send(responseData);
@@ -562,7 +562,7 @@ module.exports.cargar = function (servidorExpress) {
                 //const datosJSON = JSON.parse(datosBody.toString());
 
                 // Aquí puedes acceder a los datos reales
-                console.log("Datos reales:", datosBody.toString());
+                //console.log("Datos reales:", datosBody.toString());
 
                 // Envía la respuesta al cliente
                 //res.send(datosBody.toString());
@@ -650,7 +650,7 @@ module.exports.cargar = function (servidorExpress) {
         return resultados;
     }*/
     function procesarDatos(datos, metadatos) {
-        console.log("Datos individual:" + datos);
+        //console.log("Datos individual:" + datos);
         const camposMetadatos = metadatos.campos;
 
         // Dividir la cadena de datos en partes usando espacios en blanco
@@ -666,7 +666,7 @@ module.exports.cargar = function (servidorExpress) {
             camposMetadatos.forEach((campo, indice) => {
                 // Obtener la descripción y posición del campo en los metadatos
                 //const { descripcion, posicion_txt } = campo;
-                console.log("PosTxt:" + JSON.stringify(campo));
+                //console.log("PosTxt:" + JSON.stringify(campo));
                 var descripcion;
                 var posicion_txt;
                 if (campo.posicion_txt != undefined) {
@@ -676,8 +676,8 @@ module.exports.cargar = function (servidorExpress) {
                     descripcion = campo.descripcion;
                     posicion_txt = "1-10";
                 }
-                console.log("Descripcion: " + descripcion);
-                console.log("Posicion: " + posicion_txt);
+                //console.log("Descripcion: " + descripcion);
+                //console.log("Posicion: " + posicion_txt);
 
                 // Dividir la cadena de datos según la posición del campo
                 /*const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
@@ -722,7 +722,7 @@ module.exports.cargar = function (servidorExpress) {
                     const datosProcesadosNormal = procesarDatos2(datos.toString());
                     const datosReales = procesarDatos(datosProcesadosNormal, metadata);
                     console.log("Datos reales:", datosReales);
-                    console.log("Datos procesados normal: ", datosProcesadosNormal);
+                    //console.log("Datos procesados normal: ", datosProcesadosNormal);
                     console.log("Un dato de la lista: " + datosProcesadosNormal[0]);
                     console.log("Longitud un dato de la lista: " + datosProcesadosNormal[0].toString().length);
                     res.send(datosReales);
