@@ -198,7 +198,7 @@ module.exports.cargar = function (servidorExpress) {
         });
 
     servidorExpress.get("/obtenerDatosAEMET", (req, res) => {
-        const apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodWdvbWFyZXNjcmlodWVsYUBnbWFpbC5jb20iLCJqdGkiOiI2Mjg0MGYzMC0xZjQ0LTRkNDUtOWM5NC1jMTI5ZTE2MDVhODciLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcwMjU4MzY4NCwidXNlcklkIjoiNjI4NDBmMzAtMWY0NC00ZDQ1LTljOTQtYzEyOWUxNjA1YTg3Iiwicm9sZSI6IiJ9.allKURdnpgt9buh2KVTzaoWyO32C2FeuEmeirK3Xk3I";
+        const apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodWdvbWFyZXNjcmlodWVsYUBnbWFpbC5jb20iLCJqdGkiOiIwMjhiMTgyZC0yZmQyLTQ0MjYtODQ2YS0yMTRhOTkzODZjNDYiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcwNDE0NDQyMywidXNlcklkIjoiMDI4YjE4MmQtMmZkMi00NDI2LTg0NmEtMjE0YTk5Mzg2YzQ2Iiwicm9sZSI6IiJ9.DIlmrRw2Xm1v0vHvw6YAMGKTyi_ayhQo-w6V6TLGsDw";
 
         if (!apiKey) {
             return res.status(400).send("Se requiere la clave API");
@@ -492,5 +492,243 @@ module.exports.cargar = function (servidorExpress) {
     function extraerValor(codigo) {
         // Extraer el valor numérico desde el código
         return codigo.match(/[+\-]?\d+(\.\d+)?/)[0];
+    }
+
+    servidorExpress.get("/obtenerDatosAEMET2", (req, res) => {
+        const apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodWdvbWFyZXNjcmlodWVsYUBnbWFpbC5jb20iLCJqdGkiOiIwMjhiMTgyZC0yZmQyLTQ0MjYtODQ2YS0yMTRhOTkzODZjNDYiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcwNDE0NDQyMywidXNlcklkIjoiMDI4YjE4MmQtMmZkMi00NDI2LTg0NmEtMjE0YTk5Mzg2YzQ2Iiwicm9sZSI6IiJ9.DIlmrRw2Xm1v0vHvw6YAMGKTyi_ayhQo-w6V6TLGsDw";
+
+        if (!apiKey) {
+            return res.status(400).send("Se requiere la clave API");
+        }
+
+        const metadatos = {
+            campos: [
+                { id: "Fecha", descripcion: "Fecha dd-mm-aaaa", tipo_datos: "string", requerido: true, posicion_txt: "1-10" },
+                { id: "Hora", descripcion: "Hora (UTC) hh:mm", tipo_datos: "string", requerido: true, posicion_txt: "12-16" },
+                // ... otros campos ...
+                { id: "PM10", descripcion: "PM10 en microgramos/m3", tipo_datos: "string", requerido: true, posicion_txt: "441-449" },
+                { id: "Codigo_validacion_O3", descripcion: "Código de validación de la medida de PM10.", tipo_datos: "string", requerido: true, posicion_txt: "461" }
+            ]
+        };
+
+        const options = {
+            method: "GET",
+            hostname: "opendata.aemet.es",
+            path:
+                `/opendata/api/red/especial/contaminacionfondo/estacion/12/?api_key=${apiKey}`,
+            headers: {
+                "cache-control": "no-cache",
+            },
+        };
+
+        const aemetRequest = https.request(options, (aemetResponse) => {
+            let chunks = [];
+
+            aemetResponse.on("data", (chunk) => {
+                chunks.push(chunk);
+                console.log("Un chunk: " + chunk)
+            });
+
+            aemetRequest.on("error", (error) => {
+                console.error(error);
+                res.status(500).send("Error al obtener datos de AEMET");
+            });
+
+            aemetResponse.on("end", () => {
+                const body = Buffer.concat(chunks);
+                const responseData = JSON.parse(body.toString());
+                console.log("Sin pasarlo a JSON: " + body.toString());
+                console.log("EN JSON: " + responseData)
+                //console.log("Datos Sin pasarlo a JSON: " + body.datos.toString());
+                console.log("Datos EN JSON: " + responseData.datos)
+                //res.send(responseData);
+                obtenerDatosInternosAemet(res, responseData.datos, responseData.metadatos);
+            });
+        });
+
+        aemetRequest.end();
+    });
+
+    function obtenerDatosInternosAemet(res, enlaceDatos, enlaceMetadatos) {
+        https.get(enlaceDatos, (datosResponse) => {
+            let datosChunks = [];
+
+            datosResponse.on("data", (datosChunk) => {
+                datosChunks.push(datosChunk);
+            });
+
+            datosResponse.on("end", () => {
+                const datosBody = Buffer.concat(datosChunks);
+                //const datosJSON = JSON.parse(datosBody.toString());
+
+                // Aquí puedes acceder a los datos reales
+                console.log("Datos reales:", datosBody.toString());
+
+                // Envía la respuesta al cliente
+                //res.send(datosBody.toString());
+                //const datosReales = procesarDatos(datosBody.toString());
+                //const datosReales = procesarDatos(datosBody.toString().join('\n'));
+                //const datosReales = procesarDatos(procesarDatos2(datosBody.toString()).join('\n'));
+                //console.log("Datos reales:", datosReales);
+                //res.send(datosReales);
+                obtenerMetadatosInternosAemet(res, enlaceMetadatos, datosBody);
+            });
+        }).on("error", (error) => {
+            console.error("Error al obtener datos reales:", error);
+            res.status(500).send("Error al obtener datos reales de AEMET");
+        });
+    }
+
+    // Función para procesar los datos según el formato específico
+    function procesarDatos2(datosTexto) {
+        // Implementa lógica para procesar los datos según el formato
+        // Por ejemplo, puedes dividir la cadena en líneas y extraer la información necesaria
+        const lineas = datosTexto.split('\n');
+        const datos = lineas.map(linea => {
+            // Implementa la lógica específica para extraer información de cada línea
+            // Este es solo un ejemplo, ajusta según el formato real
+            return linea.trim();  // Devuelve la línea después de quitar espacios en blanco
+        });
+
+        return datos;
+    }
+    /*function procesarDatos(datosTexto) {
+        // Divide la cadena en líneas y filtra las líneas no vacías
+        const lineas = datosTexto.split('\n').filter(linea => linea.trim() !== '');
+    
+        // Procesa cada línea para obtener un objeto con la información deseada
+        const datos = lineas.map(linea => {
+            const partes = linea.split(' ');
+            const fechaHora = partes[0] + ' ' + partes[1];
+            const pm10 = partes[parts.indexOf('PM10(010):') + 1];
+            // Agrega más campos según sea necesario
+    
+            return {
+                fechaHora,
+                pm10,
+                // Agrega más campos según sea necesario
+            };
+        });
+    
+        return datos;
+    }*/
+    /*function procesarDatos(datos, metadatos) {
+        console.log("Metadatos dentro: " + JSON.stringify(metadatos));
+        // Divide los datos en líneas
+        const lineas = datos.split('\n');
+
+        // Elimina la última línea vacía si existe
+        if (lineas[lineas.length - 1] === '') {
+            lineas.pop();
+        }
+
+        // Define un array para almacenar los resultados procesados
+        const resultados = [];
+
+        // Recorre cada línea de datos
+        for (const linea of lineas) {
+            // Crea un objeto para almacenar los datos procesados de una línea
+            const resultado = {};
+
+            // Itera sobre los campos definidos en los metadatos
+            for (const campo of metadatos.campos) {
+                console.log("Campo individual: " + JSON.stringify(campo))
+                // Extrae los datos según la posición definida en los metadatos
+                const inicio = campo.posicion_txt - 1;
+                const fin = inicio + (campo.posicion_txt_fin - campo.posicion_txt);
+                const valor = linea.substring(inicio, fin).trim();
+
+                // Asigna el valor al campo correspondiente del objeto resultado
+                resultado[campo.id] = valor;
+            }
+
+            // Agrega el objeto resultado al array de resultadoSe imprims
+            resultados.push(resultado);
+        }
+
+        // Devuelve el array de resultados
+        return resultados;
+    }*/
+    function procesarDatos(datos, metadatos) {
+        console.log("Datos individual:" + datos);
+        const camposMetadatos = metadatos.campos;
+
+        // Dividir la cadena de datos en partes usando espacios en blanco
+        const partesDatos = datos.split(/\s+/);
+
+        // Crear un objeto para almacenar los resultados
+        const resultado = {};
+
+        // Iterar sobre los campos en los metadatos
+        camposMetadatos.forEach((campo, indice) => {
+            // Obtener la descripción y posición del campo en los metadatos
+            //const { descripcion, posicion_txt } = campo;
+            console.log("PosTxt:" + JSON.stringify(campo));
+            var descripcion;
+            var posicion_txt;
+            if (campo.posicion_txt != undefined) {
+                descripcion = campo.descripcion;
+                posicion_txt = campo.posicion_txt;
+            } else {
+                descripcion = campo.descripcion;
+                posicion_txt = "1-10";
+            }
+            console.log("Descripcion: " + descripcion);
+            console.log("Posicion: " + posicion_txt);
+
+            // Dividir la cadena de datos según la posición del campo
+            /*const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
+            const fin = parseInt(posicion_txt.split('-')[1]);
+            const valorCampo = partesDatos.slice(inicio, fin + 1).join(' ');
+        
+            // Asignar el valor al campo correspondiente en el resultado
+            resultado[descripcion] = valorCampo.trim();*/
+            // Dividir la cadena de datos según la posición del campo
+            const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
+            const fin = parseInt(posicion_txt.split('-')[1]);
+
+            // Verificar que 'inicio' y 'fin' son valores válidos
+            if (!isNaN(inicio) && !isNaN(fin) && inicio >= 0 && fin < datos.length) {
+                const valorCampo = datos.substring(inicio, fin + 1).trim();
+
+                // Asignar el valor al campo correspondiente en el resultado
+                resultado[descripcion] = valorCampo;
+            }
+        });
+
+        return resultado;
+    }
+
+    function obtenerMetadatosInternosAemet(res, enlaceMetadatos, datos) {
+        https.get(enlaceMetadatos, (metadatosRespuesta) => {
+            let data = '';
+
+            // Se recibe el cuerpo de la respuesta
+            metadatosRespuesta.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            // La respuesta está completa
+            metadatosRespuesta.on('end', () => {
+                try {
+                    const metadata = JSON.parse(data);
+                    console.log("Metadata: " + metadata);
+                    //procesarDatos(datos, data);
+                    const datosProcesadosNormal = procesarDatos2(datos.toString());
+                    const datosReales = procesarDatos(datosProcesadosNormal.join('\n'), metadata);
+                    console.log("Datos reales:", datosReales);
+                    console.log("Datos procesados normal: ", datosProcesadosNormal);
+                    console.log("Un dato de la lista: " + datosProcesadosNormal[0]);
+                    console.log("Longitud un dato de la lista: " + datosProcesadosNormal[0].toString().length);
+                    res.send(datosReales);
+                    //res.send(metadata);
+                } catch (error) {
+                    res.status(500).send("Error: " + error);
+                }
+            });
+        }).on('error', (error) => {
+            console.error("Error al obtener metadatos reales:", error);
+            res.status(500).send("Error al obtener metadatos reales de AEMET");
+        });
     }
 }
