@@ -654,49 +654,54 @@ module.exports.cargar = function (servidorExpress) {
         const camposMetadatos = metadatos.campos;
 
         // Dividir la cadena de datos en partes usando espacios en blanco
-        const partesDatos = datos.split(/\s+/);
+        //const partesDatos = datos.split(/\s+/);
 
-        // Crear un objeto para almacenar los resultados
-        const resultado = {};
+        const resultados = [];
 
-        // Iterar sobre los campos en los metadatos
-        camposMetadatos.forEach((campo, indice) => {
-            // Obtener la descripción y posición del campo en los metadatos
-            //const { descripcion, posicion_txt } = campo;
-            console.log("PosTxt:" + JSON.stringify(campo));
-            var descripcion;
-            var posicion_txt;
-            if (campo.posicion_txt != undefined) {
-                descripcion = campo.descripcion;
-                posicion_txt = campo.posicion_txt;
-            } else {
-                descripcion = campo.descripcion;
-                posicion_txt = "1-10";
-            }
-            console.log("Descripcion: " + descripcion);
-            console.log("Posicion: " + posicion_txt);
+        datos.forEach((dato, indice) => {
+            // Crear un objeto para almacenar los resultados
+            const resultado = {};
 
-            // Dividir la cadena de datos según la posición del campo
-            /*const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
-            const fin = parseInt(posicion_txt.split('-')[1]);
-            const valorCampo = partesDatos.slice(inicio, fin + 1).join(' ');
-        
-            // Asignar el valor al campo correspondiente en el resultado
-            resultado[descripcion] = valorCampo.trim();*/
-            // Dividir la cadena de datos según la posición del campo
-            const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
-            const fin = parseInt(posicion_txt.split('-')[1]);
+            // Iterar sobre los campos en los metadatos
+            camposMetadatos.forEach((campo, indice) => {
+                // Obtener la descripción y posición del campo en los metadatos
+                //const { descripcion, posicion_txt } = campo;
+                console.log("PosTxt:" + JSON.stringify(campo));
+                var descripcion;
+                var posicion_txt;
+                if (campo.posicion_txt != undefined) {
+                    descripcion = campo.descripcion;
+                    posicion_txt = campo.posicion_txt;
+                } else {
+                    descripcion = campo.descripcion;
+                    posicion_txt = "1-10";
+                }
+                console.log("Descripcion: " + descripcion);
+                console.log("Posicion: " + posicion_txt);
 
-            // Verificar que 'inicio' y 'fin' son valores válidos
-            if (!isNaN(inicio) && !isNaN(fin) && inicio >= 0 && fin < datos.length) {
-                const valorCampo = datos.substring(inicio, fin + 1).trim();
-
+                // Dividir la cadena de datos según la posición del campo
+                /*const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
+                const fin = parseInt(posicion_txt.split('-')[1]);
+                const valorCampo = partesDatos.slice(inicio, fin + 1).join(' ');
+            
                 // Asignar el valor al campo correspondiente en el resultado
-                resultado[descripcion] = valorCampo;
-            }
+                resultado[descripcion] = valorCampo.trim();*/
+                // Dividir la cadena de datos según la posición del campo
+                const inicio = parseInt(posicion_txt.split('-')[0]) - 1;
+                const fin = parseInt(posicion_txt.split('-')[1]);
+
+                // Verificar que 'inicio' y 'fin' son valores válidos
+                if (!isNaN(inicio) && !isNaN(fin) && inicio >= 0 && fin < dato.length) {
+                    const valorCampo = dato.substring(inicio, fin + 1).trim();
+
+                    // Asignar el valor al campo correspondiente en el resultado
+                    resultado[descripcion] = valorCampo;
+                }
+            });
+            resultados.push(resultado);
         });
 
-        return resultado;
+        return resultados;
     }
 
     function obtenerMetadatosInternosAemet(res, enlaceMetadatos, datos) {
@@ -715,12 +720,13 @@ module.exports.cargar = function (servidorExpress) {
                     console.log("Metadata: " + metadata);
                     //procesarDatos(datos, data);
                     const datosProcesadosNormal = procesarDatos2(datos.toString());
-                    const datosReales = procesarDatos(datosProcesadosNormal.join('\n'), metadata);
+                    const datosReales = procesarDatos(datosProcesadosNormal, metadata);
                     console.log("Datos reales:", datosReales);
                     console.log("Datos procesados normal: ", datosProcesadosNormal);
                     console.log("Un dato de la lista: " + datosProcesadosNormal[0]);
                     console.log("Longitud un dato de la lista: " + datosProcesadosNormal[0].toString().length);
                     res.send(datosReales);
+                    //res.send(datosProcesadosNormal.join('\n'));
                     //res.send(metadata);
                 } catch (error) {
                     res.status(500).send("Error: " + error);
