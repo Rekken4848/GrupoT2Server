@@ -10,6 +10,7 @@
         "test": "node ./node_modules/mocha/bin/mocha"
     },
     "dependencies": {
+        "@turf/turf": "^6.3.0",
         "bcrypt": "^5.1.1",
         "cookie-parser": "^1.4.6",
         "debug": "^4.3.4",

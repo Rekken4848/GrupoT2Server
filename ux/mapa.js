@@ -64,11 +64,73 @@ function createLegend(types) {
     return legend;
 }
 
+function obtenerEstacionMedidaOficial(mymap) {
+    fetch('http://localhost:8080/obtenerDatosAEMET2/', {
+        method: "GET"
+    }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+            return respuesta.json()
+        } else {
+            console.log("hubo un fallo")
+        }
+
+    }).then(function (datos) {
+        const datosJSON = JSON.stringify(datos);
+        console.log(datosJSON);
+
+        var datosSO2 = 0;
+        var datosNO = 0;
+        var datosNO2 = 0;
+        var datosO3 = 0;
+        var datosTemperatura = 0;
+        var datosPM10 = 0;
+        var contador = 0;
+
+        datos.forEach(medicionEstacion => {
+            if (medicionEstacion["SO2 en microgramos/m3"] != undefined) {
+                datosSO2 = datosSO2 + parseFloat(medicionEstacion["SO2 en microgramos/m3"]);
+                datosNO = datosNO + parseFloat(medicionEstacion["NO en microgramos/m3"]);
+                datosNO2 = datosNO2 + parseFloat(medicionEstacion["NO2 en microgramos/m3"]);
+                datosO3 = datosO3 + parseFloat(medicionEstacion["O3 en microgramos/m3"]);
+                datosTemperatura = datosTemperatura + parseFloat(medicionEstacion["Temperatura en grados celsius"]);
+                datosPM10 = datosPM10 + parseFloat(medicionEstacion["PM10 en microgramos/m3"]);
+                contador++;
+            }
+        });
+
+        var finalDatosSO2 = datosSO2 / contador;
+        var finalDatosNO = datosNO / contador;
+        var finalDatosNO2 = datosNO2 / contador;
+        var finalDatosO3 = datosO3 / contador;
+        var finalDatosTemperatura = datosTemperatura / contador;
+        var finalDatosPM10 = datosPM10 / contador;
+        console.log("EstacionesFinal. SO2: " + finalDatosSO2 + ". NO: " + finalDatosNO);
+
+        //const tipo = `${markerData.tipo_valor}`;
+
+        // Dividir la cadena 'lugar' en latitud y longitud
+        //const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        const latitud = "39.091231";
+        const longitud = "-1.074932";
+
+        console.log("Lat: " + latitud + ", Lon: " + longitud);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
+        marker.bindPopup(`SO2: ${finalDatosSO2}<br>NO: ${finalDatosNO}<br>NO2: ${finalDatosNO2}<br>O3: ${finalDatosO3}<br>Temp: ${finalDatosTemperatura}<br>PM10: ${finalDatosPM10}`);
+        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
+
+        marcadores.push(marker)
+
+        // Añade el marcador a la capa correspondiente
+        //capas[tipo].addLayer(marker);
+    });
+}
+
 // Filtra el mapa por la fecha seleccionada
 function filtrarPorFecha() {
     const fechaInput = document.getElementById('fechaInput').value;
 
-    console.log("Fecha: " + fechaInput)
+    //console.log("Fecha: " + fechaInput)
 
     convertirFecha(fechaInput)
     //getFechaHoy()
@@ -92,8 +154,8 @@ function convertirFecha(fecha) {
 
     let fechaNuevaDiaAntes = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
     //let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
-    console.log("Fecha convertida: " + fechaNueva)
-    console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
+    //console.log("Fecha convertida: " + fechaNueva)
+    //console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
     fechaInicio = fechaNuevaDiaAntes;
     fechaFin = fechaNueva;
     generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva);
@@ -129,8 +191,8 @@ function getFechaHoy() {
     // Formatear la fecha en el formato deseado
     const fechaFormateadaAyer = `${año2}-${mes2}-${dia2} ${horas2}:${minutos2}:${segundos2}`;
 
-    console.log("Fecha hoy: " + fechaFormateadaHoy)
-    console.log("Fecha ayer: " + fechaFormateadaAyer)
+    //console.log("Fecha hoy: " + fechaFormateadaHoy)
+    //console.log("Fecha ayer: " + fechaFormateadaAyer)
 
     return [fechaFormateadaHoy, fechaFormateadaAyer]
 }
@@ -149,7 +211,7 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
     }
 
     if (currentPosition && currentPosition.lat !== undefined && currentPosition.lng !== undefined) {
-        console.log("Latitud: " + currentPosition.lat + " Longitud: " + currentPosition.lng + " Zoom: " + currentPosition.zoom);
+        //console.log("Latitud: " + currentPosition.lat + " Longitud: " + currentPosition.lng + " Zoom: " + currentPosition.zoom);
         mymap = L.map('zonaMapa2').setView([currentPosition.lat, currentPosition.lng], currentPosition.zoom);
     } else {
         mymap = L.map('zonaMapa2').setView([38.972375, -0.177042], 13);
@@ -229,7 +291,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         }
 
     }).then(function (datos) {
-        console.log("Los datos del mapa bien" + JSON.stringify(datos));
+        //console.log("Los datos del mapa bien" + JSON.stringify(datos));
         const datosJSON = JSON.stringify(datos)
         datosMediciones = datos
         // Crea un objeto para almacenar las capas
@@ -242,19 +304,56 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         const medio = [];
         const bajo = [];
 
-        const umbralAlto = 30;
-        const umbralMedio = 15;
-
         datos.forEach(markerData => {
             const tipo = `${markerData.tipo_valor}`;
 
             // Clasifica la medición en la lista correspondiente
-            if (markerData.valor > umbralAlto) {
-                alto.push(markerData);
-            } else if (markerData.valor > umbralMedio) {
-                medio.push(markerData);
-            } else {
-                bajo.push(markerData);
+            switch (tipo) {
+                case "O3":
+                    if (markerData.valor > 240) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 180) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "NO2":
+                    if (markerData.valor > 200) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 100) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "SO2":
+                    if (markerData.valor > 350) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 125) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "CO":
+                    if (markerData.valor > 10) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 5) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
+                case "C6H6":
+                    if (markerData.valor > 5) {
+                        alto.push(markerData);
+                    } else if (markerData.valor > 2) {
+                        medio.push(markerData);
+                    } else {
+                        bajo.push(markerData);
+                    }
+                    break;
             }
         });
 
@@ -262,10 +361,19 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             const tipo = `${markerData.tipo_valor}`;
             if (!capas[tipo]) {
                 capas[tipo] = L.layerGroup(); // Crea una capa de grupo para cada tipo de dato
-                console.log("Número de tipo_valor:", Number(tipo.split(' ')[1]));
+                //console.log("Número de tipo_valor:", Number(tipo.split(' ')[1]));
                 const cuadroColor = `<span style="display:inline-block; width: 12px; height: 12px; background-color: ${getColor(markerData.tipo_valor)}; margin-right: 5px;"></span>`;
-                controlCapas.addOverlay(capas[tipo], `${cuadroColor} ${tipo}`);
+                controlCapas.addOverlay(capas[tipo], `${tipo}`);
+                controlCapas.click = true;
             }
+        });
+
+        var puntosInterpolacion = []
+
+        datos.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacion.push([latitud, longitud, parseInt(markerData.valor, 10)])
         });
 
         console.log("Alto: " + JSON.stringify(alto));
@@ -278,7 +386,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
-            console.log("Lat: " + latitud + ", Lon: " + longitud);
+            //console.log("Lat: " + latitud + ", Lon: " + longitud);
             const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
@@ -296,7 +404,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
-            console.log("Lat: " + latitud + ", Lon: " + longitud);
+            //console.log("Lat: " + latitud + ", Lon: " + longitud);
             const marker = L.marker([latitud, longitud], { icon: getCustomIcon('medio') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
@@ -314,7 +422,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Dividir la cadena 'lugar' en latitud y longitud
             const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
 
-            console.log("Lat: " + latitud + ", Lon: " + longitud);
+            //console.log("Lat: " + latitud + ", Lon: " + longitud);
             const marker = L.marker([latitud, longitud], { icon: getCustomIcon('bajo') }).addTo(mymap);
             marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
             addToLegend(markerData.tipo_valor);
@@ -325,6 +433,275 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             // Añade el marcador a la capa correspondiente
             capas[tipo].addLayer(marker);
         });
+
+        console.log("Puntos interpolacion bueno: " + puntosInterpolacion)
+
+        puntosInterpolacion.forEach(a => {
+            console.log("Puntos interpolacion individual: " + a)
+        })
+
+        console.log("Puntos interpolacion muestra bueno: " + addressPoints)
+
+        addressPoints.forEach(a => {
+            console.log("Puntos interpolacion muestra individual: " + a)
+        })
+
+        var meteoPoints = [
+            [47.11285, 7.222309, 8], //Ipsach
+            [47.085272, 7.20377, 12], //Mörigen
+            [47.092285, 7.156734, 11], //Twann
+            [47.13294, 7.220936, 0], //Vingelz
+            [47.088311, 7.128925, 15], //Twannberg
+            [47.124765, 7.234669, 5], //Nidau
+            [47.055107, 7.07159, 1]  //lelanderon
+        ];
+
+        // Crear un mapa de calor
+        //var heatLayer = L.heatLayer(puntosInterpolacion, { radius: 20 }).addTo(mymap);
+        /*var idw = L.idwLayer(meteoPoints,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 1200
+        }).addTo(mymap);*/
+        /*var idw = L.idwLayer(puntosInterpolacion,{
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 25
+        }).addTo(mymap);*/
+
+        /*
+        // Convierte los puntos de datos a formato GeoJSON
+        var points = turf.points(alto, { valueProperty: 'valor' });
+
+        // Realiza la interpolación utilizando el algoritmo de kriging
+        var interpolated = turf.interpolate(points, 100, { gridType: 'points', property: 'value' });
+
+        // Añade la capa de interpolación al mapa
+        L.geoJSON(interpolated).addTo(map);*/
+        //console.log("Alto: " + JSON.stringify(alto))
+        /*try {
+            // Convierte los puntos de datos a formato GeoJSON
+            var points = alto.map(markerData => {
+                const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+                return {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [longitud, latitud] // Reordena las coordenadas
+                    },
+                    properties: {
+                        value: markerData.valor
+                    }
+                };
+            });
+            // Crea una FeatureCollection a partir de la colección de puntos
+            var featureCollection = turf.featureCollection(points);
+            // Realiza la interpolación utilizando el algoritmo de kriging
+            var interpolated = turf.interpolate(featureCollection, 2, { gridType: 'points', property: 'value', maxEdge: 0.1 });
+            // Añade la capa de interpolación al mapa
+            var geojsonMarkerOptions = {
+                color: "red"
+              };
+            L.geoJson(interpolated, {
+                pointToLayer: function (feature, latlng) {
+                  return L.circleMarker(latlng, geojsonMarkerOptions);
+                }
+              }).addTo(mymap);
+            //L.geoJSON(interpolated).addTo(mymap);
+        } catch (error) {
+            console.error('Error en la interpolación:', error);
+        }
+
+        try {
+            // Convierte los puntos de datos a formato GeoJSON
+            var points = medio.map(markerData => {
+                const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+                return {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [longitud, latitud] // Reordena las coordenadas
+                    },
+                    properties: {
+                        value: markerData.valor
+                    }
+                };
+            });
+            // Crea una FeatureCollection a partir de la colección de puntos
+            var featureCollection = turf.featureCollection(points);
+            // Realiza la interpolación utilizando el algoritmo de kriging
+            var interpolated = turf.interpolate(featureCollection, 2, { gridType: 'points', property: 'value', maxEdge: 0.1 });
+            // Añade la capa de interpolación al mapa
+            var geojsonMarkerOptions = {
+                color: "yellow"
+              };
+            L.geoJson(interpolated, {
+                pointToLayer: function (feature, latlng) {
+                  return L.circleMarker(latlng, geojsonMarkerOptions);
+                }
+              }).addTo(mymap);
+            //L.geoJSON(interpolated).addTo(mymap);
+        } catch (error) {
+            console.error('Error en la interpolación:', error);
+        }*/
+        const O3 = [];
+        const NO = [];
+        const SO2 = [];
+        const CO = [];
+        const C6H6 = [];
+
+        datos.forEach(markerData => {
+            const tipo = `${markerData.tipo_valor}`;
+
+            // Clasifica la medición en la lista correspondiente
+            if (markerData.tipo_valor === "O3") {
+                O3.push(markerData);
+            } else if (markerData.tipo_valor === "NO") {
+                NO.push(markerData);
+            } else if (markerData.tipo_valor === "SO2") {
+                SO2.push(markerData);
+            } else if (markerData.tipo_valor === "CO") {
+                CO.push(markerData);
+            } else if (markerData.tipo_valor === "C6H6") {
+                C6H6.push(markerData);
+            }
+        });
+
+        var puntosInterpolacionO3 = []
+
+        O3.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionO3.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var puntosInterpolacionNO = []
+
+        NO.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionNO.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var puntosInterpolacionSO2 = []
+
+        SO2.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionSO2.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var puntosInterpolacionCO = []
+
+        CO.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionCO.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        var puntosInterpolacionC6H6 = []
+
+        C6H6.forEach(markerData => {
+            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+            puntosInterpolacionC6H6.push([latitud, longitud, parseInt(markerData.valor, 10)])
+        });
+
+        if (puntosInterpolacionO3 != 0) {
+            var idwO3 = L.idwLayer(puntosInterpolacionO3, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 270,
+                gradient: { 0: 'green', 0.77: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoO3 = "O3"
+            const tipoO3 = `${textoO3}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoO3].addLayer(idwO3);
+        } else {
+            console.log("No hay mediciones de Ozono")
+        }
+
+        if (puntosInterpolacionNO != 0) {
+            var idwNO = L.idwLayer(puntosInterpolacionNO, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 250,
+                gradient: { 0: 'green', 0.6: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoNO = "NO"
+            const tipoNO = `${textoNO}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoNO].addLayer(idwNO);
+        } else {
+            console.log("No hay mediciones de Oxidos de nitrogeno")
+        }
+
+        if (puntosInterpolacionSO2 != 0) {
+            var idwSO2 = L.idwLayer(puntosInterpolacionSO2, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 463,
+                gradient: { 0: 'green', 0.24: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoSO2 = "SO2"
+            const tipoSO2 = `${textoSO2}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoSO2].addLayer(idwSO2);
+        } else {
+            console.log("No hay mediciones de Dioxido de Azufre")
+        }
+
+        if (puntosInterpolacionCO != 0) {
+            var idwCO = L.idwLayer(puntosInterpolacionCO, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 13,
+                gradient: { 0: 'green', 0.54: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoCO = "CO"
+            const tipoCO = `${textoCO}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoCO].addLayer(idwCO);
+        } else {
+            console.log("No hay mediciones de Monoxido de carbono")
+        }
+
+        if (puntosInterpolacionC6H6.length != 0) {
+            var idwC6H6 = L.idwLayer(puntosInterpolacionC6H6, {
+                opacity: 0.3,
+                maxZoom: 18,
+                cellSize: 10,
+                exp: 3,
+                max: 7,
+                gradient: { 0: 'green', 0.43: 'yellow', 1: 'red' }
+            }).addTo(mymap);
+            const textoC6H6 = "C6H6"
+            const tipoC6H6 = `${textoC6H6}`;
+            // Añade el marcador a la capa correspondiente
+            capas[tipoC6H6].addLayer(idwC6H6);
+        } else {
+            console.log("No hay mediciones de Benceno")
+        }
+
+
+        //Espacio estacion medida oficial -- INICIO
+        obtenerEstacionMedidaOficial(mymap);
+        //Espacio estacion medida oficial -- FIN
     })
 }
 
@@ -334,13 +711,13 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
 //const fechaInicio = '2023-10-14 16:32:40'
 //const fechaFin = '2023-10-16 16:32:40'
 const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
-console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
+//console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
 
 fechaInicio = fechaAyerFuera;
 fechaFin = fechaHoyFuera;
 
 generarYGenerarMapa(fechaInicio, fechaFin);
-setInterval(function() {
+setInterval(function () {
     // Aquí llamas a tu función con los argumentos necesarios
     generarYGenerarMapa(fechaInicio, fechaFin);
 }, 50000);
