@@ -99,7 +99,7 @@ function refrescarTabla() {
                   tableBody.appendChild(row);
                 });
               }
-    
+
               // Call the function to populate the table
               populateTable(data);
             })
@@ -124,30 +124,55 @@ function refrescarTabla() {
                         <td>v</td>
                         
                       `;
-    
-    
+
+
                   fetch('http://localhost:8080/medicion/' + item.dispositivo_id)
                     .then(function (respuesta) {
                       if (respuesta.ok) {
                         return respuesta.json()
                       } else {
                         console.log("ha habido un error al obtener las mediciones")
+
+                        //al no tener mediciones, no tenemos conexion ni ultima medicion
+                        //dejamos los campos vacios
+
+                        //ultima conexion como error de conexion
+                        var conexioncelda = document.createElement("td")
+                        conexioncelda.setAttribute("id", "conectionTable")
+
+                        var imgconexioncelda = document.createElement("img")
+                        imgconexioncelda.src = "images/wifi_icono.png"
+                        imgconexioncelda.setAttribute("class", "wifiIcono")
+                        conexioncelda.appendChild(imgconexioncelda)
+
+                        var imgconexionceldaerror = document.createElement("img")
+                        imgconexionceldaerror.src = "images/trianguloPeligro_icono.svg"
+                        imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
+                        imgconexionceldaerror.setAttribute("title", "Conexion error with device")
+                        imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
+                        conexioncelda.appendChild(imgconexionceldaerror)
+
+                        //la celda de ultima medicion vacia
+                        var fechaUltimaMedicionCelda = document.createElement("td")
+
+                        row.appendChild(conexioncelda);
+                        row.appendChild(fechaUltimaMedicionCelda);
                         tableBody.appendChild(row);
                       }
                     })
                     .then(datos => {
-    
+
                       var today = new Date();
                       var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
                       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                       var dateTime = date + ' ' + time;
-    
+
                       var currentTimeMillis = new Date(dateTime).getTime()
                       var medicionTime = datos[datos.length - 1].fecha
                       var medicionTimeMillis = new Date(medicionTime).getTime()
-    
+
                       var diferencia = currentTimeMillis - medicionTimeMillis
-    
+
                       var conexioncelda = document.createElement("td")
                       var imgconexioncelda = document.createElement("img")
                       imgconexioncelda.src = "images/wifi_icono.png"
@@ -167,9 +192,9 @@ function refrescarTabla() {
                         imgconexionceldaerror.setAttribute("title", "Conexion error with device")
                         imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
                         conexioncelda.appendChild(imgconexionceldaerror)
-    
+
                       }
-                      
+
                       var fechaUltimaMedicionCelda = document.createElement("td")
                       fechaUltimaMedicionCelda.innerHTML = medicionTime
 
@@ -178,11 +203,11 @@ function refrescarTabla() {
                       row.appendChild(fechaUltimaMedicionCelda);
                       tableBody.appendChild(row);
                     });
-    
+
                   //tableBody.appendChild(row);
                 });
               }
-    
+
               // Call the function to populate the table
               populateTable(data);
             })
@@ -211,7 +236,7 @@ function refrescarTabla() {
                   tableBody.appendChild(row);
                 });
               }
-    
+
               // Call the function to populate the table
               populateTable(data);
             })
@@ -247,7 +272,7 @@ function ordenarTabla(n, type) {
     rows = table.rows;
 
     //recorremos todas las filas
-    for (i = 0; i < (rows.length-1); i++) {
+    for (i = 0; i < (rows.length - 1); i++) {
       //al principio de cada fila decimos que aun no se ha ordenado
       shouldSwitch = false;
       //obtenemos la fila actual y la siguiente para compararla y ver si tenemos que intercambiarlas para ordenar
