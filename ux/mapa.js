@@ -226,7 +226,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             capas[tipo].addLayer(marker);
         });
 
-        console.log("Puntos interpolacion bueno: " + puntosInterpolacion)
+        /*console.log("Puntos interpolacion bueno: " + puntosInterpolacion)
 
         puntosInterpolacion.forEach(a => {
             console.log("Puntos interpolacion individual: " + a)
@@ -236,17 +236,7 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
 
         addressPoints.forEach(a => {
             console.log("Puntos interpolacion muestra individual: " + a)
-        })
-
-        var meteoPoints = [
-            [47.11285, 7.222309, 8], //Ipsach
-            [47.085272, 7.20377, 12], //Mörigen
-            [47.092285, 7.156734, 11], //Twann
-            [47.13294, 7.220936, 0], //Vingelz
-            [47.088311, 7.128925, 15], //Twannberg
-            [47.124765, 7.234669, 5], //Nidau
-            [47.055107, 7.07159, 1]  //lelanderon
-        ];
+        })*/
 
         const O3 = [];
         const NO = [];
@@ -492,7 +482,7 @@ function getClasificacion(valor) {
     } else {
         return 'bajo';
     }
-}s
+}
 
 // .......................................................
 // .......................................................

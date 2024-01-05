@@ -43,12 +43,12 @@
     <script src="admin_filtrar.js"></script>
     <script src="admin_anyadir.js"></script>
     <script src="admin_editar.js"></script>
-    <script src="admin_avisos.js"></script>
+    <script src="avisos/admin_avisos.js"></script>
 
 
-    <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
+    <link href="../css/estilo_comun.css" rel="stylesheet" type="text/css">
+    <link href="../css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+    <link href="../css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
 
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <style>
@@ -64,17 +64,17 @@
     <header class="cabecera" role="banner">
 
         <a href="#" id="logoCleanCloud">
-            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+            <img src="../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
         </a>
 
         <div id="fondoHeader">
-            <a href="admin_descargaMapa.html">
+            <a href="mapaAdmin/admin_descargaMapa.html">
                 <button type="button" class="boton" id="descargarMapa">Mapa</button>
                 </a>
 
             <div id="headerUserContainer">
 
-                <img src="images/avatar.png" alt="icono de avatar de usuario">
+                <img src="../images/avatar.png" alt="icono de avatar de usuario">
                     <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
                         <p id="AdminName">Admin</p>
                     </div>
@@ -89,7 +89,7 @@
             <div id="marcaNotifAvisos">
                 <p id="numeroAvisos">7</p>
             </div>
-            <img onclick="enviarAPagAnuncios()" src="images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
+            <img onclick="enviarAPagAnuncios()" src="../images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
         </div>
 
         <div id="filtrosYHerramientasContenedor">
@@ -97,19 +97,19 @@
                 <input type="text" name="SearchBar" id="searchBar" placeholder="Buscar por DNI...">
                 <button id="botonMasFiltrado"
                     onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img
-                        src="images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
+                        src="../images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
             </div>
             <div id="contenedorDerecho">
-                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="images/lapiz_icono.svg"
+                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="../images/lapiz_icono.svg"
                         alt="icono editar trabajador"></button>
                 <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button-->
-                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="images/plus.png"
+                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="../images/plus.png"
                         alt="icono anyadir trabajador"></button>
             </div>
         </div>
 
         <div id="cont_flecha">
-            <img src='images/ordenar-abajo.png' id='flecha'>
+            <img src='../images/ordenar-abajo.png' id='flecha'>
 
 
             <div id="contenedorEmpleadosLista">
@@ -123,7 +123,7 @@
                         <th id="shownTag4" data-section="paginaAdmin" data-value="filtroTablaCorreo">Correo</th>
                         <th id="shownTag5" data-section="paginaAdmin" data-value="filtroTablaTelefono">Tlf</th>
 
-                        <!--<td id="conectionTable"><img src="images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>-->
+                        <!--<td id="conectionTable"><img src="../images/coverturaSenyal_icono.svg" alt="conexion icono" class="wifiIcono"></td>-->
                     </thead>
 
                     <tbody id="table-body">
@@ -140,7 +140,7 @@
 
     <!-- footer -------------------------------------------------------- -->
     <footer>
-        <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+        <img src="../images/generalitat_logo.png" alt="logo de la generalitat valenciana">
         <div id="textoFooter">
             <p>© Generalitat</p>
             <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
@@ -151,7 +151,7 @@
     <div id="contenedorPopUps">
         <div id="divClose">
             <button onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
-                    src="images/cross.png" alt="icono cerrar"></button>
+                    src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
@@ -189,7 +189,7 @@
     <div id="contenedorPopUpsAnyadir">
         <div id="divClose">
             <button onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
-                    src="images/cross.png" alt="icono cerrar"></button>
+                    src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <!--button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button-->
@@ -307,7 +307,7 @@
     <div id="contenedorPopUpsEditar">
         <div id="divClose">
             <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img
-                    src="images/cross.png" alt="icono cerrar"></button>
+                    src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="personTituloEditar" data-section="paginaAdmin" data-value="popupEditarTitulo">Persona</p>
@@ -316,17 +316,17 @@
             <div class="editarDato">
                 <p data-section="paginaAdmin" data-value="popupEditarDNI">DNI</p>
                 <input readonly type="text" name="dni" id="dnieditar" maxlength="10">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="paginaAdmin" data-value="popupEditarNombre">Nombre</p>
                 <input readonly type="text" name="name" id="nameeditar" maxlength="15">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato separador">
                 <p>Apellidos</p>
                 <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="paginaAdmin" data-value="popupEditarEmail">Email</p>
@@ -372,7 +372,7 @@
     <div id="contenedorConfirmarEliminar">
         <div id="divClose">
             <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';"><img
-                    src="images/cross.png" alt="icono cerrar"></button>
+                    src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="confirmarEliminar" data-section="paginaAdmin" data-value="popupEliminarTitulo">¿Confirmas el eliminar esta persona?</p>

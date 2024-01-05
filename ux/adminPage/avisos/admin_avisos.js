@@ -50,7 +50,7 @@ function checkNumeroAvisos() {
 // enviarAPagAnuncios()
 // .......................................................
 function enviarAPagAnuncios(){
-    location.href="admin_avisos.html";
+    location.href="avisos/admin_avisos.html";
 }
 
 // .......................................................
@@ -91,7 +91,7 @@ function refrescarTablaAvisos(){
                 contenedorAnuncio.setAttribute("class", "contenedorAnuncios")
 
                 var imagenSeparadora = document.createElement('img');
-                imagenSeparadora.src = "images/linea_horizontal.svg"
+                imagenSeparadora.src = "../../images/linea_horizontal.svg"
 
                 var anuncio = document.createElement('div');
                 anuncio.setAttribute("class", "anuncio")
@@ -109,7 +109,7 @@ function refrescarTablaAvisos(){
                 }
 
                 var imagenBorrar = document.createElement('img');
-                imagenBorrar.src = "images/papelera_icono.svg"
+                imagenBorrar.src = "../../images/papelera_icono.svg"
 
                 var tituloanuncio = document.createElement('div');
                 tituloanuncio.setAttribute("class", "tituloAnuncio")

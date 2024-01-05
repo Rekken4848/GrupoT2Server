@@ -27,7 +27,7 @@
             } else if (datos === false) {
               // Acción cuando la respuesta es false
               console.log("Usuario no autenticado");
-              location.href = "http://localhost:8080/login.html"
+              location.href = "http://localhost:8080/adminPage/login.html"
             }
           }).catch(function (error) {
             console.log("Error en la solicitud:", error);
@@ -39,9 +39,9 @@
     <script src="admin_avisos.js"></script>
 
 
-    <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_adminAvisos.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_comun.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_adminAvisos.css" rel="stylesheet" type="text/css">
 
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <style>
@@ -57,14 +57,14 @@
     <header class="cabecera" role="banner">
 
         <a href="admin.html" id="logoCleanCloud">
-            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+            <img src="../../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
         </a>
 
         <div id="fondoHeader">
             <button type="button" class="boton" id="descargarMapa">Mapa</button>
 
             <div id="headerUserContainer">
-                <img src="images/avatar.png" alt="icono de avatar de usuario">
+                <img src="../../images/avatar.png" alt="icono de avatar de usuario">
                 <div id="headerUserNombre">
                     <p id="AdminName">Admin</p>
                 </div>
@@ -79,11 +79,11 @@
 
             
             <div class="contenedorAnuncios">
-                <img src="images/linea_horizontal.svg" alt="separador horizontal de los anuncios">
+                <img src="../../images/linea_horizontal.svg" alt="separador horizontal de los anuncios">
                 <div class="anuncio">
                     <div class="empleado">
                         <p id="DNIEmpleadoAnuncio" data-section="adminAvisos" data-value="DNIEmpleado">DNI empleado:</p>
-                        <button class="iconoBorrar"><img src="images/papelera_icono.svg" alt="icono borrar"></button>
+                        <button class="iconoBorrar"><img src="../../images/papelera_icono.svg" alt="icono borrar"></button>
                     </div>
 
                     <div class="tituloAnuncio">
@@ -109,11 +109,11 @@
 
             
             <div class="contenedorAnuncios">
-                <img src="images/linea_horizontal.svg" alt="separador horizontal de los anuncios">
+                <img src="../../images/linea_horizontal.svg" alt="separador horizontal de los anuncios">
                 <div class="anuncio">
                     <div class="empleado">
                         <p id="DNIEmpleadoAnuncio" data-section="adminAvisos" data-value="DNIEmpleado">DNI empleado:</p>
-                        <button class="iconoBorrar"><img src="images/papelera_icono.svg" alt="icono borrar"></button>
+                        <button class="iconoBorrar"><img src="../../images/papelera_icono.svg" alt="icono borrar"></button>
                     </div>
             
                     <div class="tituloAnuncio">
@@ -144,7 +144,7 @@
 
     <!-- footer -------------------------------------------------------- -->
     <footer>
-        <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+        <img src="../../images/generalitat_logo.png" alt="logo de la generalitat valenciana">
         <div id="textoFooter">
             <p>© Generalitat</p>
             <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
@@ -155,7 +155,7 @@
     <div id="contenedorConfirmarEliminar">
         <div id="divClose">
             <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';" id="iconoCerrar"><img
-                    src="images/cross.png" alt="iconocerrar"></button>
+                    src="../../images/cross.png" alt="iconocerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="confirmarEliminar" data-section="adminAvisos" data-value="borrarAvisoTitulo">¿Confirmas el eliminar este aviso?</p>

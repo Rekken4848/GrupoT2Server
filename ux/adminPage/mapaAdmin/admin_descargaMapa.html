@@ -1,6 +1,3 @@
-<!-- ---------------------------------------------------------- -->
-<!-- ejemplo de      https://leafletjs.com/examples/quick-start/ -->
-<!-- ---------------------------------------------------------- -->
 <html>
 
 <!-- -------------------------------------------------------- -->
@@ -29,7 +26,7 @@
         } else if (datos === false) {
           // Acción cuando la respuesta es false
           console.log("Usuario no autenticado");
-          location.href = "http://localhost:8080/login.html"
+          location.href = "http://localhost:8080/adminPage/login.html"
         }
       }).catch(function (error) {
         console.log("Error en la solicitud:", error);
@@ -59,11 +56,11 @@
     }
   </style>
 
-  <script src="admin_filtrar.js"></script>
+  <script src="../admin_filtrar.js"></script>
 
-  <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
-  <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
-  <link href="css/estilo_adminMapa.css" rel="stylesheet" type="text/css">
+  <link href="../../css/estilo_comun.css" rel="stylesheet" type="text/css">
+  <link href="../../css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+  <link href="../../css/estilo_adminMapa.css" rel="stylesheet" type="text/css">
 </head>
 
 <!-- -------------------------------------------------------- -->
@@ -74,8 +71,8 @@
   <!-- cabecera de la pagina -------------------------------------------------------- -->
   <header class="cabecera" role="banner">
 
-    <a href="admin.html" id="logoCleanCloud">
-      <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+    <a href="../admin.html" id="logoCleanCloud">
+      <img src="../../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
     </a>
 
     <div id="fondoHeader">
@@ -114,7 +111,7 @@
       </div>
 
       <div id="headerUserContainer">
-        <img src="images/avatar.png" alt="icono de avatar de usuario">
+        <img src="../../images/avatar.png" alt="icono de avatar de usuario">
         <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
           <p id="AdminName">Admin</p>
         </div>
@@ -142,7 +139,7 @@
 
   <!-- footer -------------------------------------------------------- -->
   <footer>
-    <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+    <img src="../../images/generalitat_logo.png" alt="logo de la generalitat valenciana">
     <div id="textoFooter">
       <p>© Generalitat</p>
       <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu
@@ -154,11 +151,11 @@
   <!-- popup descargar mapa -------------------------------------------------------- -->
   <div id="contenedorDescargarMapa">
     <div id="divClose">
-      <img src="images/cross.png" alt="icono cerrar">
+      <img src="../../images/cross.png" alt="icono cerrar">
     </div>
     <div id="zonaMapaPopUp">
       <div id="MapaPreview">
-        <img src="images/mapa_fondo.jpg" alt="previsualizacion del mapa">
+        <img src="../../images/mapa_fondo.jpg" alt="previsualizacion del mapa">
       </div>
     </div>
     <div id="tituloMapaDescarga">
@@ -190,9 +187,9 @@
     </div>
   </div>
 
-  <script src="/node_modules/leaflet/dist/leaflet.js"></script>
-  <script src="mapa.js"></script>
-  <script src="descargaMapa.js"></script>
+  <script src="../../node_modules/leaflet/dist/leaflet.js"></script>
+  <script src="../../mapa.js"></script>
+  <!--script src="../../descargaMapa.js"></script-->
 
 </body>
 
