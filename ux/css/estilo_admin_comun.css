@@ -5,9 +5,18 @@
 
 .cabecera {
     display: flex;
-    height: 8vh;
+    height: 5.5vh;
     width: 100%;
     justify-content: space-between;
+}
+
+#logoCleanCloud img {
+    position: absolute;
+    top: 10px; 
+    left: 10px; 
+    z-index: 1;
+    width: 15%; 
+    height: auto; 
 }
 
 #fondoHeader {
@@ -19,9 +28,8 @@
     width: 100%;
 }
 
-#logoCleanCloud,
-#logoCleanCloud img {
-    height: 100%;
+.caja{
+    font-family: none;
 }
 
 #descargarMapa {
@@ -30,6 +38,7 @@
     color: rgb(255, 255, 255);
     margin-right: 3vh;
     width: 5vh;
+    box-shadow: none;
 }
 
 

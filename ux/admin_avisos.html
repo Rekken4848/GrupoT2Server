@@ -43,10 +43,12 @@
     <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
     <link href="css/estilo_adminAvisos.css" rel="stylesheet" type="text/css">
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
         html {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 
@@ -57,17 +59,19 @@
     <header class="cabecera" role="banner">
 
         <a href="admin.html" id="logoCleanCloud">
-            <img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+            <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
         </a>
 
         <div id="fondoHeader">
-            <button type="button" class="boton" id="descargarMapa">Mapa</button>
+            <a href="admin_descargaMapa.html">
+                <button type="button" class="boton" id="descargarMapa">Mapa</button>
+                </a>
 
             <div id="headerUserContainer">
-                <img src="images/avatar.png" alt="icono de avatar de usuario">
-                <div id="headerUserNombre">
-                    <p id="AdminName">Admin</p>
-                </div>
+
+                    <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
+                        <p id="AdminName">Perfil</p>
+                    </div>
             </div>
         </div>
 
@@ -158,11 +162,11 @@
                     src="images/cross.png" alt="iconocerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
-            <p id="confirmarEliminar" data-section="adminAvisos" data-value="borrarAvisoTitulo">¿Confirmas el eliminar este aviso?</p>
+            <h3 id="confirmarEliminar" data-section="adminAvisos" data-value="borrarAvisoTitulo">¿Confirmas el eliminar este aviso?</h3>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="editarDato">
-                <p data-section="adminAvisos" data-value="borrarAvisoDesc">Este aviso seguira siendo visible para el portador del dispositivo, pero no para ti</p>
+                <p data-section="adminAvisos" data-value="borrarAvisoDesc">Este aviso seguira siendo visible para el portador del dispositivo, pero no para ti.</p>
             </div>
             <div id="botonConfirmarEliminar">
                 <button id="botonConfirmarEliminar" data-section="adminAvisos" data-value="borrarAvisoBoton">Eliminar</button>

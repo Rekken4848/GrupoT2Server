@@ -1,6 +1,6 @@
 /* Basic styling */
 body {
-    background-image: url('../images/paisajerosa.webp');
+    background: linear-gradient(to bottom, #476079, #629BAD); /* Replace these colors with your desired gradient */
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
@@ -8,23 +8,22 @@ body {
   }
 
 #contenedorEditarUsuario {
-    width: 50vw;
-    margin: 20px auto;
+    width: 40vw;
     padding-top: 3em;
     padding-left: 2.8em;
     padding-right: 2.8em;
     padding-bottom: 2.1em;
-    border: 2px dashed #DAA06D;
-    border-radius: 15px;
-    padding: 20px;
+    padding-top: 20px;
+      padding-left: 40px;
+      padding-bottom: 20px;
+      padding-right: 40px;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 0 4px #EADDCA, 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
     transition: .4s ease-in-out;
-    margin-bottom: 18vh;
-    margin-top: 7vh;
+    height: 90vh;
+    margin: auto;
   }
-  
+
   #tituloPopUpFiltros {
     width: auto;
     align-self: center;
@@ -36,7 +35,7 @@ body {
   }
   
   .editarDato {
-    margin-bottom: 15px;
+    margin-bottom: 32px;
 
   }
 
@@ -58,17 +57,19 @@ body {
   }
 
   #ultimoPersonal {
-    border-bottom: 2px dashed #DAA06D;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(135deg, #9CDEDE, #84DCCF) 1;
     padding-bottom: 10px;
   }
 
   #ultimoContacto {
-    border-bottom: 2px dashed #DAA06D;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(135deg, #9CDEDE, #84DCCF) 1;
     padding-bottom: 10px;
   }
 
   #botonContrasenya {
-    width: 200px;
+    width: 240px;
     color: white;
     background-color: rgb(76, 156, 130);
   }
@@ -93,9 +94,10 @@ body {
       padding-left: 20px;
       padding-bottom: 20px;
       padding-right: 20px;
-      border: 1px solid #ccc;
+      background: linear-gradient(rgb(240, 240, 240), rgb(240, 240, 240)) padding-box, linear-gradient(145deg, transparent 35%,#84DCCF, #40c9ff) border-box;
+      border: 2px solid transparent;
       border-radius: 10px;
-      background-color: #e8e8e8;
+      background-color: #f0f0f0;
       box-shadow: 2px 2px 10px #ccc;
       position: absolute;
       margin-top: 20vh;
@@ -126,26 +128,22 @@ body {
     input[type="text"], input[type="password"] {
       width: 100%;
       padding: 12px 20px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
       box-sizing: border-box;
       transition: 0.5s;
+      outline: none;
+      caret-color: rgb(255, 81, 0);
+      letter-spacing: 0.8px;
+      color: rgb(19, 19, 19);
+      font-size: 13.4px;
     }
     
     input[type="submit"] {
       width: 100%;
-      background-color: #333;
       color: white;
       padding: 14px 20px;
       margin: 8px 0;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-    }
-    
-    input[type="submit"]:hover {
-      background-color: #ccc;
-      color: black;
     }
     

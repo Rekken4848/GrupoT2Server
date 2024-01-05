@@ -12,15 +12,18 @@
 
 	<script src="cambiarIdioma.js"></script>
 
-	<link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel='stylesheet' type='text/css'>
-	<style>
-		html {
-			font-family: 'Heebo', sans-serif;
-		}
-	</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 
 	<link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
 	<link href="css/estilo_landing.css" rel="stylesheet" type="text/css">
+	<link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
 
 	<link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
 
@@ -37,9 +40,10 @@
 	<!-- cabecera de la pagina -------------------------------------------------------- -->
 	<header class="cabecera" role="banner">
 
-		<a href="" id="logoCleanCloud">
-			<img src="images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
-		</a>
+        <a href="index.html" id="logoCleanCloud">
+            <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
+        </a>
+
 
 		<div id="fondoHeader">
 			<!--button type="button" class="boton" id="descargarMapa">Descargar Mapa</button-->
@@ -59,7 +63,43 @@
 	</div>-->
 	<!-- zona del mapa -------------------------------------------------------- -->
 	<div id="zonaMapa">
+
+		<div class="divshow"><button class="x" onclick="document.getElementById('mapinfo_popup').style.visibility = 'visible';"><img src="images/derecha.png"></button></div>
+		<div id="mapinfo_popup">
+		
+			<div class="divshow2">
+			<button class="x" onclick="document.getElementById('mapinfo_popup').style.visibility = 'hidden';"><img src="images/izquierda.png"></button>
+			</div>
+
+			<h3 id="tituloInfoLanding">Sobre el Mapa</h3>
+			<br>	
+			<h4 class="subTituloInfoLanding">Patrocinador</h4> 
+			<p class="infoLanding">Los datos mostrados en pantalla provienen del personal de la Generalitat Valénciana junto con el patrocionio que permitio la creación de la web.</p>
+			<img id="patrocinador" src="images/logovalenciana.png" alt="logo de la generalitat valenciana">
+			<p class="infoLanding">Diferentes empleados en movimiento recorren la comunidad con el fin de recopilar los <b>datos de contaminación atmosférica</b> que son mostrados.</p>
+			<h4 class="subTituloInfoLanding">Leyenda</h4>
+			<p class="infoLanding">La leyenda muestra diferentes colores según la comparación con las medidas oficiales:</p>
+			<div id="explicacionLeyenda">
+				<div class="explicacionColor">
+					<div id="verde"></div>
+					<p class="infoLandingL">Muestran niveles bajos que no tienen riesgos de salud.</p>
+				</div>
+				<div class="explicacionColor">
+					<div id="amarillo"></div>
+					<p class="infoLandingL">Niveles aceptables pero que pueden ser perjudiciales a largo plazo.</p>
+				</div>
+				<div class="explicacionColor">
+					<div id="rojo"></div>
+					<p class="infoLandingL">Niveles peligrosos de contaminación con riesgos de salud.</p>
+				</div>
+			</div>
+			<p class="infoLanding">A continuación debajo del mapa se observan los valores alcanzables para que esten en el umbral de peligro.</p>
+		</div>
+
+		
 		<div id="zonaMapa2"></div>
+	</div>
+		
 		<!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
 		<div id="zonaMapaInferior">
 
@@ -117,9 +157,9 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
-							<th data-section="index" data-value="parametro">Parámetro</th>
-							<th data-section="index" data-value="umbral">Valor del umbral</th>
+							<th class="thlanding" data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th class="thlanding" data-section="index" data-value="parametro">Parámetro</th>
+							<th class="thlanding" data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
 							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
@@ -159,9 +199,9 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
-							<th data-section="index" data-value="parametro">Parámetro</th>
-							<th data-section="index" data-value="umbral">Valor del umbral</th>
+							<th class="thlanding" data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th class="thlanding" data-section="index" data-value="parametro">Parámetro</th>
+							<th class="thlanding" data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
 							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
@@ -207,9 +247,9 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
-							<th data-section="index" data-value="parametro">Parámetro</th>
-							<th data-section="index" data-value="umbral">Valor del umbral</th>
+							<th class="thlanding" data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th class="thlanding" data-section="index" data-value="parametro">Parámetro</th>
+							<th class="thlanding" data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
 							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
@@ -252,9 +292,9 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
-							<th data-section="index" data-value="parametro">Parámetro</th>
-							<th data-section="index" data-value="umbral">Valor del umbral</th>
+							<th class="thlanding" data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th class="thlanding" data-section="index" data-value="parametro">Parámetro</th>
+							<th class="thlanding" data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
 							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
@@ -296,9 +336,9 @@
 				<div id="table">
 					<table class="recomendacionOMSCaptura">
 						<tr>
-							<th data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
-							<th data-section="index" data-value="parametro">Parámetro</th>
-							<th data-section="index" data-value="umbral">Valor del umbral</th>
+							<th class="thlanding" data-section="index" data-value="tipoUmbral">Tipos de umbrales</th>
+							<th class="thlanding" data-section="index" data-value="parametro">Parámetro</th>
+							<th class="thlanding" data-section="index" data-value="umbral">Valor del umbral</th>
 						</tr>
 						<tr>
 							<td data-section="index" data-value="tipoUmbralValorAlerta">Umbral de alerta</td>
@@ -369,3 +409,4 @@
 <!-- ---------------------------------------------------------- -->
 <!-- ---------------------------------------------------------- -->
 <!-- ---------------------------------------------------------- -->
+

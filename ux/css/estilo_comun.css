@@ -5,10 +5,10 @@
     background-color: white;
     padding: 15px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    width: 150px;
+    font-family: 'Poppins', sans-serif;
+    width: 120px;
 }
 
 .legend h4 {
@@ -45,16 +45,24 @@ body {
     flex-direction: column;
 }
 
+
 ::-webkit-scrollbar {
     display: none;
 }
 
 
-
+input{
+    font-family: 'Poppins', sans-serif;
+}
 
 button{
     border: 0px;
     border-radius: 0.6vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+label{
+    font-family: 'Poppins', sans-serif; 
 }
 
 .iconoMoverse{
@@ -71,8 +79,8 @@ button{
     justify-self: right;
     justify-content: center;
     align-items: center;
-    width: 8vh;
-    height: 8vh;
+    width: 6vh;
+    height: 6vh;
     margin: 2vh;
     z-index: 2;
 }
@@ -130,3 +138,6 @@ footer #textoFooter {
 footer #textoFooter p {
     margin: 0px;
 }
+
+
+

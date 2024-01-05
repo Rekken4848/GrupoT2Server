@@ -5,25 +5,29 @@
 
 .cabecera {
     display: flex;
-    flex-direction: row;
-    height: 8vh;
+    height: 5.5vh;
     width: 100%;
     justify-content: space-between;
+}
+
+#logoCleanCloud img {
+    position: absolute;
+    top: 10px; 
+    left: 10px; 
+    z-index: 1;
+    width: 15%; 
+    height: auto; 
 }
 
 #fondoHeader {
     background-image: url(../images/fondo_info_geometrico_horizontal.png);
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
+    justify-content: end;
     height: 100%;
     width: 100%;
 }
 
-#logoCleanCloud,
-#logoCleanCloud img {
-    height: 100%;
-}
 
 #descargarMapa {
     background: rgba(233, 233, 233, 0.4);
@@ -92,6 +96,8 @@ input:hover {
     #logoCleanCloud img {
         width: 25vh;
     }
+
+    
 }
 
 /* ------------------------------------------------------------------
@@ -103,12 +109,29 @@ input:hover {
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
-    height: 92vh;
+    height: 94.5vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     z-index: 1;
 }
+#mapinfo_popup{
+    width: 50%;
+    height: 94.5%;
+    position: absolute;
+    left: 0;
+    z-index: 800;
+    background: rgb(240, 240, 240);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#patrocinador {
+    height: auto;
+    width: 150px;
+    margin-bottom: 1.5rem;
+    margin-left: 40%;
+}
+
 #zonaMapa2 {
     background-size: cover;
     background-repeat: no-repeat;
@@ -120,8 +143,70 @@ input:hover {
     z-index: 1;
 }
 
+.divshow {
+    top: 51%;
+    position: absolute;
+    transform: translate(0, -50%);
+    z-index: 800;
+    border: 1px solid #ccc;
+    background-color: whitesmoke;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.divshow2 {
+    top: 49%;
+    left: 100%;
+    position: absolute;
+    transform: translate(-100%, -50%);
+    z-index: 800;
+    border: 1px solid #ccc;
+    background-color: whitesmoke;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .legend{
     margin-bottom: 10vh !important;
+}
+
+#explicacionLeyenda{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.explicacionColor{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#verde {
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 10px;
+    margin-left: 14%;
+    margin-right: 50px;
+}
+
+#amarillo {
+    height: 15px;
+    width: 15px;
+    background-color: yellow;
+    border-radius: 10px;
+    margin-left: 14%;
+    margin-right: 50px;
+}
+
+#rojo {
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 10px;
+    margin-left: 14%;
+    margin-right: 50px;
 }
 
 #zonaMapaSuperior {
@@ -213,9 +298,58 @@ input:hover {
     color: red;
 }
 
-@media(max-width: 1000px) {
+
+.infoLanding{
+    padding: 0px 15% 0px 15%;
+    font-size: 2vmin;
+}
+
+#tituloInfoLanding {
+    margin-top: 30px;
+}
+
+.infoLandingL{
+    font-size: 2vmin;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-right: 10%;
+}
+
+@media(max-width: 1540px) {
+    #zonaMapa2 {
+        height: 100%;
+    }
+
+    #mapinfo_popup{
+        width: 100%;
+        height: 100%
+    }
+
+    #tituloInfoLanding {
+        font-size: 25px;
+        padding: 0px 5% 0px 5%; 
+    }
+
+    .subTituloInfoLanding {
+        font-size: 20px;
+        padding: 0px 5% 0px 5%; 
+    }
+
+    .infoLanding{
+        font-size: 20px;
+        padding: 0px 5% 0px 5%;
+    }
+
+    .infoLandingL{
+        font-size: 20px;
+    }
+    
+    #patrocinador {
+        margin-left: 25vw;
+    }
+
     #zonaMapa {
-        height: 94vh;
+        height: 100%;
     }
 
     #zonaMapaInferior {
@@ -244,6 +378,33 @@ input:hover {
         width: 7vh;
     }
 }
+
+@media(max-width: 450px) {
+    .infoLanding{
+        font-size: 14px;
+    }
+    
+    .infoLandingL{
+        font-size: 14px;
+    }
+
+}
+
+@media(max-width: 400px) {
+    .infoLanding{
+        font-size: 12px;
+        
+        padding: 0px 2% 0px 2%;
+    }
+    
+    .infoLandingL{
+        font-size: 12px;
+        
+        padding: 0px 2% 0px 2%;
+    }
+
+}
+
 
 .contaminanteContainer {
     background: rgb(236, 236, 236);
@@ -277,7 +438,6 @@ h1 {
     text-align: center;
     color: #2F343A;
     position: absolute;
-    top: 106vh;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 4px;
@@ -289,10 +449,27 @@ h2 {
     color: white;
 }
 
+h3 {
+    background-color: null;
+    font-size: 3vmin;
+    text-align: left;
+    color: #2F343A;
+    padding: 0px 15% 0px 15%;
+}
+
+h4 {
+    background-color: null;
+    font-size: max(10pt, 2.5vmin);
+    text-align: left;
+    color: #2F343A;
+    padding: 0px 15% 0px 15%;
+}
+
+
 p {
     font-size: max(10pt, 2.5vmin);
     line-height: 1.4;
-    color: #0e390e;
+    color: #2F343A;
     margin-bottom: 1.5rem;
 }
 
@@ -600,7 +777,7 @@ p {
 
 
 #titulo_contaminantes {
-    margin-top: 0.5rem;
+    margin-top: 6rem;
     border: 2px solid;
     border-color: #2F343A;
     padding-right: 20px;
@@ -615,11 +792,15 @@ p {
         display: flex;
         flex-direction: column;
     }
+    #titulo_contaminantes {
+        margin-top: 4vh;
+    
+    }
 }
 
 
 
-th {
+.thlanding {
     background-color: #BDB69C;
     color: white;
     font-weight: normal;
@@ -655,12 +836,8 @@ td {
     visibility: hidden;
 }
 
-#divClose {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    margin: 2vh;
-}
+
+
 
 #divClose img {
     width: 3vh;
@@ -738,3 +915,4 @@ td {
 footer p{
     color: white;
 }
+
