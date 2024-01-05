@@ -1,6 +1,15 @@
+// .......................................................
+// .......................................................
+// ..................ADMIN_EDITAR.........................
+// .......................................................
+// .......................................................
+
 var editando = false;
 var dni_persona_editando = "";
 
+// .......................................................
+// cursorLapiz()
+// .......................................................
 function cursorLapiz() {
     editando = !editando;
     if (editando) {
@@ -12,6 +21,10 @@ function cursorLapiz() {
         document.getElementById('fondoPagina').style.cursor = 'default';
     }
 }
+
+// .......................................................
+// Texto --> editarFila()
+// .......................................................
 function editarFila(dni_persona) {
     if (!editando) return;
 
@@ -55,6 +68,9 @@ function editarFila(dni_persona) {
         .catch(error => console.error('Error fetching data:', error));
 }
 
+// .......................................................
+// confirmarEditarPersona()
+// .......................................................
 function confirmarEditarPersona() {
     var datos = {
         dni: document.getElementById("dnieditar").value,
@@ -111,6 +127,9 @@ function confirmarEditarPersona() {
     dni_persona_editando = "";
 }
 
+// .......................................................
+// eliminarPersona()
+// .......................................................
 function eliminarPersona() {
     document.getElementById("contenedorPopUpsEditar").style.visibility = "hidden";
     dni_persona_editando = "";
@@ -165,20 +184,32 @@ function eliminarPersona() {
     dni_persona_editando = "";
 }
 
+// .......................................................
+// showAlertEliminar()
+// .......................................................
 function showAlertEliminar() {
     alert('Se ha eliminado correctamente');
 }
 
+// .......................................................
+// eliminarAndSetTags()
+// .......................................................
 function eliminarAndSetTags() {
     eliminarPersona();
     setTipoTags('persona');
     showAlertEliminar();
 }
 
+// .......................................................
+// showAlertEditar()
+// .......................................................
 function showAlertEditar() {
     alert('Se ha editado correctamente');
 }
 
+// .......................................................
+// editarAndSetTags()
+// .......................................................
 function editarAndSetTags() {
     confirmarEditarPersona();
     setTipoTags('persona');

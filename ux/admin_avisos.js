@@ -1,4 +1,12 @@
-//funciones para pagina de admin.html ---------------------------------------------
+// .......................................................
+// .......................................................
+// ...................ADMIN_AVISOS........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// checkNumeroAvisos()
+// .......................................................
 function checkNumeroAvisos() {
 
     fetch('http://localhost:8080/usuarioSesion', {
@@ -37,11 +45,17 @@ function checkNumeroAvisos() {
             .catch(error => console.error('Error fetching data:', error));
     })
 }
+
+// .......................................................
+// enviarAPagAnuncios()
+// .......................................................
 function enviarAPagAnuncios(){
     location.href="admin_avisos.html";
 }
 
-// funciones para admin_avisos.html -------------------------------------------
+// .......................................................
+// refrescarTablaAvisos()
+// .......................................................
 function refrescarTablaAvisos(){
     fetch('http://localhost:8080/usuarioSesion', {
         method: "GET"
@@ -226,9 +240,11 @@ function refrescarTablaAvisos(){
         .catch(error => console.error('Error fetching data:', error));
 
     })
-
 }
 
+// .......................................................
+// Texto --> mostrarPopupEliminarAnuncio()
+// .......................................................
 function mostrarPopupEliminarAnuncio(anuncioID){
 
     console.log(anuncioID)
@@ -252,5 +268,4 @@ function mostrarPopupEliminarAnuncio(anuncioID){
             refrescarTablaAvisos()
         })
     };
-
 }

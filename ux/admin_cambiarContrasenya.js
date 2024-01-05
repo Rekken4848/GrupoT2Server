@@ -1,5 +1,14 @@
+// .......................................................
+// .......................................................
+// ............ADMIN_CAMBIAR_CONTRASENYA..................
+// .......................................................
+// .......................................................
+
 let dni;
 
+// .......................................................
+// mostrarUsuario()
+// .......................................................
 function mostrarUsuario() {
   fetch('http://localhost:8080/usuarioSesion', {
     method: "GET"
@@ -50,8 +59,6 @@ function mostrarUsuario() {
     .catch(error => console.error('Error fetching usuarioSesion data:', error));
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const botonContrasenya = document.getElementById('botonContrasenya');
   const passwordCard = document.getElementById('password-card');
@@ -64,6 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
   botonContrasenya.addEventListener('click', showPasswordCard);
 });
 
+// .......................................................
+// validatePasswords()
+// .......................................................
 function validatePasswords() {
   var usuario = document.getElementById("dnieditar").value;
   var password = document.getElementById("password").value;
@@ -96,39 +106,27 @@ function validatePasswords() {
         return false;
       }
       var datosNuevos = { username: usuario, password: password }
-        console.log(datos)
-        fetch('http://localhost:8080/actualizarContrasenya', {
-            method: "POST",
-            body: JSON.stringify(datosNuevos),
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (respuesta) {
+      console.log(datos)
+      fetch('http://localhost:8080/actualizarContrasenya', {
+        method: "POST",
+        body: JSON.stringify(datosNuevos),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (respuesta) {
 
-            if (respuesta.ok) {
-                console.log("Todo introducido con éxito");
-            } else {
-                console.log("hubo un fallo")
-            }
-        })
+        if (respuesta.ok) {
+          console.log("Todo introducido con éxito");
+        } else {
+          console.log("hubo un fallo")
+        }
+      })
     } else if (datos === "Usuario Incorrecto") {
       alert("Contraseña equivocada");
       return false;
     }
   })
 
-  /*if (passwordold !== "2015") {
-    alert("Contraseña equivocada");
-    return false;
-  } else if (password !== confirmPassword) {
-    alert("Las contraseñas no coinciden");
-    return false;
-  }*/
-
   return true;
 }
-
-
-
-

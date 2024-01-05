@@ -1,205 +1,21 @@
-function getCustomIcon(type) {
-    const color = getColorMarcador(type);
-    return L.divIcon({
-        className: 'custom-icon',
-        iconSize: [20, 20],
-        iconAnchor: [10, 10],
-        popupAnchor: [0, -10],
-        html: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%;"></div>`
-    });
-}
+// .......................................................
+// .......................................................
+// .......................MAPA............................
+// .......................................................
+// .......................................................
 
-//----------------------------------------------------------------------------------------------
-/*
-function filtrarPorFechas(fechaInicio, fechaFin) {
-    fetch(`http://localhost:8080/medicionConTipoValorEntreFechas/${fechaInicio}/${fechaFin}`, {
-        method: "GET"
-    }).then(function(respuesta) {
-        if (respuesta.ok) {
-            return respuesta.json();
-        } else {
-            console.log("Hubo un fallo");
-        }
-    }).then(function(datos) {
-        // ... (Your existing logic to handle data and markers)
-    });
-}
-
-// Function to update markers based on selected date range
-function actualizarMapaConFiltroDeFecha() {
-    const fechaInicio = document.getElementById('fecha-inicio').value;
-    const fechaFin = document.getElementById('fecha-fin').value;
-    filtrarPorFechas(fechaInicio, fechaFin);
-}*/
-//----------------------------------------------------------------------------------------------
-
-function addToLegend(type) {
-    const legendContent = document.getElementById('zonaMapa2');
-    const entry = document.createElement('div');
-    entry.innerHTML = `<span class="legend-marker" style="background-color: ${getColor(type)};"></span>${type}`;
-    legendContent.appendChild(entry);
-}
-
-function getColorMarcador(nivel) {
-    // Asigna colores diferentes según el tipo de medición
-    return nivel === 'alto' ? 'red' : nivel === 'medio' ? 'yellow' : nivel === 'bajo' ? 'green' : 'blue';
-}
-
-function getColor(type) {
-    // Asigna colores diferentes según el tipo de medición
-    return type === 'CO' ? 'red' : type === 'O3' ? 'blue' : type === 'NO' ? 'yellow' : type === 'SO2' ? 'pink' : 'green';
-}
-
-function createLegend(types) {
-    const legend = L.control({ position: 'bottomright' });
-
-    legend.onAdd = function (map) {
-        const div = L.DomUtil.create('div', 'legend');
-        // Genera las entradas de la leyenda según los tipos proporcionados
-        div.innerHTML = '<h4>Leyenda</h4>' +
-            types.map(type => `<div class="legend-item">${type}<span class="circle" style="background-color: ${getColorMarcador(type)};"></span></div>`).join('');
-        return div;
-    };
-
-    return legend;
-}
-
-function obtenerEstacionMedidaOficial(mymap) {
-    fetch('http://localhost:8080/obtenerDatosAEMET2/', {
-        method: "GET"
-    }).then(function (respuesta) {
-
-        if (respuesta.ok) {
-            return respuesta.json()
-        } else {
-            console.log("hubo un fallo")
-        }
-
-    }).then(function (datos) {
-        const datosJSON = JSON.stringify(datos);
-        console.log(datosJSON);
-
-        var datosSO2 = 0;
-        var datosNO = 0;
-        var datosNO2 = 0;
-        var datosO3 = 0;
-        var datosTemperatura = 0;
-        var datosPM10 = 0;
-        var contador = 0;
-
-        datos.forEach(medicionEstacion => {
-            if (medicionEstacion["SO2 en microgramos/m3"] != undefined) {
-                datosSO2 = datosSO2 + parseFloat(medicionEstacion["SO2 en microgramos/m3"]);
-                datosNO = datosNO + parseFloat(medicionEstacion["NO en microgramos/m3"]);
-                datosNO2 = datosNO2 + parseFloat(medicionEstacion["NO2 en microgramos/m3"]);
-                datosO3 = datosO3 + parseFloat(medicionEstacion["O3 en microgramos/m3"]);
-                datosTemperatura = datosTemperatura + parseFloat(medicionEstacion["Temperatura en grados celsius"]);
-                datosPM10 = datosPM10 + parseFloat(medicionEstacion["PM10 en microgramos/m3"]);
-                contador++;
-            }
-        });
-
-        var finalDatosSO2 = datosSO2 / contador;
-        var finalDatosNO = datosNO / contador;
-        var finalDatosNO2 = datosNO2 / contador;
-        var finalDatosO3 = datosO3 / contador;
-        var finalDatosTemperatura = datosTemperatura / contador;
-        var finalDatosPM10 = datosPM10 / contador;
-        console.log("EstacionesFinal. SO2: " + finalDatosSO2 + ". NO: " + finalDatosNO);
-
-        //const tipo = `${markerData.tipo_valor}`;
-
-        // Dividir la cadena 'lugar' en latitud y longitud
-        //const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-        const latitud = "39.091231";
-        const longitud = "-1.074932";
-
-        console.log("Lat: " + latitud + ", Lon: " + longitud);
-        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
-        marker.bindPopup(`SO2: ${finalDatosSO2}<br>NO: ${finalDatosNO}<br>NO2: ${finalDatosNO2}<br>O3: ${finalDatosO3}<br>Temp: ${finalDatosTemperatura}<br>PM10: ${finalDatosPM10}`);
-        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
-
-        marcadores.push(marker)
-
-        // Añade el marcador a la capa correspondiente
-        //capas[tipo].addLayer(marker);
-    });
-}
-
-// Filtra el mapa por la fecha seleccionada
-function filtrarPorFecha() {
-    const fechaInput = document.getElementById('fechaInput').value;
-
-    //console.log("Fecha: " + fechaInput)
-
-    convertirFecha(fechaInput)
-    //getFechaHoy()
-    //mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin);
-    //Falta ejecutar para crear el mapa, pero habria que modificar las cosas para que pase las fechas desde el principio
-}
-
-let fechaInicio;
-let fechaFin;
-
-function convertirFecha(fecha) {
-    let fechaObj = new Date(fecha);
-    let fechaNueva = fecha + ' 23:55:55'
-
-    const año = fechaObj.getFullYear();
-    const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
-    const dia = fechaObj.getDate().toString().padStart(2, '0');
-    const horas = fechaObj.getHours().toString().padStart(2, '0');
-    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
-    const segundos = fechaObj.getSeconds().toString().padStart(2, '0');
-
-    let fechaNuevaDiaAntes = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
-    //let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
-    //console.log("Fecha convertida: " + fechaNueva)
-    //console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
-    fechaInicio = fechaNuevaDiaAntes;
-    fechaFin = fechaNueva;
-    generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva);
-}
-
-function getFechaHoy() {
-    // Obtener la fecha de hoy
-    const fechaDeHoy = new Date();
-
-    // Obtener componentes de fecha y hora
-    const año = fechaDeHoy.getFullYear();
-    const mes = (fechaDeHoy.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
-    const dia = fechaDeHoy.getDate().toString().padStart(2, '0');
-    const horas = fechaDeHoy.getHours().toString().padStart(2, '0');
-    const minutos = fechaDeHoy.getMinutes().toString().padStart(2, '0');
-    const segundos = fechaDeHoy.getSeconds().toString().padStart(2, '0');
-
-    // Formatear la fecha en el formato deseado
-    const fechaFormateadaHoy = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
-
-    // Obtener la fecha de ayer
-    const fechaDeAyer = new Date();
-    fechaDeAyer.setDate(fechaDeAyer.getDate() - 1);
-
-    // Obtener componentes de fecha y hora
-    const año2 = fechaDeAyer.getFullYear();
-    const mes2 = (fechaDeAyer.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
-    const dia2 = fechaDeAyer.getDate().toString().padStart(2, '0');
-    const horas2 = fechaDeAyer.getHours().toString().padStart(2, '0');
-    const minutos2 = fechaDeAyer.getMinutes().toString().padStart(2, '0');
-    const segundos2 = fechaDeAyer.getSeconds().toString().padStart(2, '0');
-
-    // Formatear la fecha en el formato deseado
-    const fechaFormateadaAyer = `${año2}-${mes2}-${dia2} ${horas2}:${minutos2}:${segundos2}`;
-
-    //console.log("Fecha hoy: " + fechaFormateadaHoy)
-    //console.log("Fecha ayer: " + fechaFormateadaAyer)
-
-    return [fechaFormateadaHoy, fechaFormateadaAyer]
-}
+// .......................................................
+// .......................................................
+// ......................GENERAL..........................
+// .......................................................
+// .......................................................
 
 let mymap;
 let currentPosition;
 
+// .......................................................
+// fechaInicio, fechaFin --> generarYGenerarMapa()
+// .......................................................
 function generarYGenerarMapa(fechaInicio, fechaFin) {
     if (mymap) {
         currentPosition = {
@@ -252,33 +68,9 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
         .bindPopup('¡Hola, mundo!').openPopup();*/
 }
 
-// Función para obtener el color según la clasificación
-function getColorByClasificacion(clasificacion) {
-    // Define colores según la clasificación
-    const colores = {
-        alto: 'red',
-        medio: 'yellow',
-        bajo: 'green'
-    };
-    return colores[clasificacion] || 'gray'; // Color por defecto
-}
-
-// Función para obtener la clasificación según el valor
-function getClasificacion(valor) {
-    const umbralAlto = 30;
-    const umbralMedio = 15;
-    if (valor > umbralAlto) {
-        return 'alto';
-    } else if (valor > umbralMedio) {
-        return 'medio';
-    } else {
-        return 'bajo';
-    }
-}
-
-var datosMediciones = [];
-var marcadores = [];
-
+// .......................................................
+// Mapa, fechaInicio, fechaFin --> mostrarLeyendaYMarcadores()
+// .......................................................
 function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
     fetch('http://localhost:8080/medicionConTipoValorEntreFechas/' + fechaInicio + '/' + fechaFin, {
         method: "GET"
@@ -456,100 +248,6 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
             [47.055107, 7.07159, 1]  //lelanderon
         ];
 
-        // Crear un mapa de calor
-        //var heatLayer = L.heatLayer(puntosInterpolacion, { radius: 20 }).addTo(mymap);
-        /*var idw = L.idwLayer(meteoPoints,{
-            opacity: 0.3,
-            maxZoom: 18,
-            cellSize: 10,
-            exp: 3,
-            max: 1200
-        }).addTo(mymap);*/
-        /*var idw = L.idwLayer(puntosInterpolacion,{
-            opacity: 0.3,
-            maxZoom: 18,
-            cellSize: 10,
-            exp: 3,
-            max: 25
-        }).addTo(mymap);*/
-
-        /*
-        // Convierte los puntos de datos a formato GeoJSON
-        var points = turf.points(alto, { valueProperty: 'valor' });
-
-        // Realiza la interpolación utilizando el algoritmo de kriging
-        var interpolated = turf.interpolate(points, 100, { gridType: 'points', property: 'value' });
-
-        // Añade la capa de interpolación al mapa
-        L.geoJSON(interpolated).addTo(map);*/
-        //console.log("Alto: " + JSON.stringify(alto))
-        /*try {
-            // Convierte los puntos de datos a formato GeoJSON
-            var points = alto.map(markerData => {
-                const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-
-                return {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [longitud, latitud] // Reordena las coordenadas
-                    },
-                    properties: {
-                        value: markerData.valor
-                    }
-                };
-            });
-            // Crea una FeatureCollection a partir de la colección de puntos
-            var featureCollection = turf.featureCollection(points);
-            // Realiza la interpolación utilizando el algoritmo de kriging
-            var interpolated = turf.interpolate(featureCollection, 2, { gridType: 'points', property: 'value', maxEdge: 0.1 });
-            // Añade la capa de interpolación al mapa
-            var geojsonMarkerOptions = {
-                color: "red"
-              };
-            L.geoJson(interpolated, {
-                pointToLayer: function (feature, latlng) {
-                  return L.circleMarker(latlng, geojsonMarkerOptions);
-                }
-              }).addTo(mymap);
-            //L.geoJSON(interpolated).addTo(mymap);
-        } catch (error) {
-            console.error('Error en la interpolación:', error);
-        }
-
-        try {
-            // Convierte los puntos de datos a formato GeoJSON
-            var points = medio.map(markerData => {
-                const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-
-                return {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [longitud, latitud] // Reordena las coordenadas
-                    },
-                    properties: {
-                        value: markerData.valor
-                    }
-                };
-            });
-            // Crea una FeatureCollection a partir de la colección de puntos
-            var featureCollection = turf.featureCollection(points);
-            // Realiza la interpolación utilizando el algoritmo de kriging
-            var interpolated = turf.interpolate(featureCollection, 2, { gridType: 'points', property: 'value', maxEdge: 0.1 });
-            // Añade la capa de interpolación al mapa
-            var geojsonMarkerOptions = {
-                color: "yellow"
-              };
-            L.geoJson(interpolated, {
-                pointToLayer: function (feature, latlng) {
-                  return L.circleMarker(latlng, geojsonMarkerOptions);
-                }
-              }).addTo(mymap);
-            //L.geoJSON(interpolated).addTo(mymap);
-        } catch (error) {
-            console.error('Error en la interpolación:', error);
-        }*/
         const O3 = [];
         const NO = [];
         const SO2 = [];
@@ -705,25 +403,259 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
     })
 }
 
-//-------------------------------------------
-//-------------------------------------------
+// .......................................................
+// .......................................................
+// ..................PERSONALIZACION......................
+// .......................................................
+// .......................................................
 
-//const fechaInicio = '2023-10-14 16:32:40'
-//const fechaFin = '2023-10-16 16:32:40'
-const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
-//console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
+// .......................................................
+// Texto --> getCustomIcon() --> Icono_customizado
+// .......................................................
+function getCustomIcon(type) {
+    const color = getColorMarcador(type);
+    return L.divIcon({
+        className: 'custom-icon',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, -10],
+        html: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%;"></div>`
+    });
+}
 
-fechaInicio = fechaAyerFuera;
-fechaFin = fechaHoyFuera;
+// .......................................................
+// Texto --> addToLegend()
+// .......................................................
+function addToLegend(type) {
+    const legendContent = document.getElementById('zonaMapa2');
+    const entry = document.createElement('div');
+    entry.innerHTML = `<span class="legend-marker" style="background-color: ${getColor(type)};"></span>${type}`;
+    legendContent.appendChild(entry);
+}
 
-generarYGenerarMapa(fechaInicio, fechaFin);
-setInterval(function () {
-    // Aquí llamas a tu función con los argumentos necesarios
-    generarYGenerarMapa(fechaInicio, fechaFin);
-}, 50000);
-//generarYGenerarMapa();
+// .......................................................
+// Texto --> getColorMarcador() --> Texto
+// .......................................................
+function getColorMarcador(nivel) {
+    // Asigna colores diferentes según el tipo de medición
+    return nivel === 'alto' ? 'red' : nivel === 'medio' ? 'yellow' : nivel === 'bajo' ? 'green' : 'blue';
+}
 
+// .......................................................
+// Texto --> getColor() --> Texto
+// .......................................................
+function getColor(type) {
+    // Asigna colores diferentes según el tipo de medición
+    return type === 'CO' ? 'red' : type === 'O3' ? 'blue' : type === 'NO' ? 'yellow' : type === 'SO2' ? 'pink' : 'green';
+}
 
+// .......................................................
+// Texto --> createLegend() --> Leyenda
+// .......................................................
+function createLegend(types) {
+    const legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'legend');
+        // Genera las entradas de la leyenda según los tipos proporcionados
+        div.innerHTML = '<h4>Leyenda</h4>' +
+            types.map(type => `<div class="legend-item">${type}<span class="circle" style="background-color: ${getColorMarcador(type)};"></span></div>`).join('');
+        return div;
+    };
+
+    return legend;
+}
+
+// .......................................................
+// Texto --> getColorByClasificacion() --> Texto
+// .......................................................
+function getColorByClasificacion(clasificacion) {
+    // Define colores según la clasificación
+    const colores = {
+        alto: 'red',
+        medio: 'yellow',
+        bajo: 'green'
+    };
+    return colores[clasificacion] || 'gray'; // Color por defecto
+}
+
+// .......................................................
+// Texto --> getClasificacion() --> Texto
+// .......................................................
+function getClasificacion(valor) {
+    const umbralAlto = 30;
+    const umbralMedio = 15;
+    if (valor > umbralAlto) {
+        return 'alto';
+    } else if (valor > umbralMedio) {
+        return 'medio';
+    } else {
+        return 'bajo';
+    }
+}s
+
+// .......................................................
+// .......................................................
+// .....................FILTROS...........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// filtrarPorFecha()
+// .......................................................
+function filtrarPorFecha() {
+    const fechaInput = document.getElementById('fechaInput').value;
+
+    //console.log("Fecha: " + fechaInput)
+
+    convertirFecha(fechaInput)
+    //getFechaHoy()
+    //mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin);
+    //Falta ejecutar para crear el mapa, pero habria que modificar las cosas para que pase las fechas desde el principio
+}
+
+let fechaInicio;
+let fechaFin;
+
+// .......................................................
+// Texto --> convertirFecha()
+// .......................................................
+function convertirFecha(fecha) {
+    let fechaObj = new Date(fecha);
+    let fechaNueva = fecha + ' 23:55:55'
+
+    const año = fechaObj.getFullYear();
+    const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
+    const dia = fechaObj.getDate().toString().padStart(2, '0');
+    const horas = fechaObj.getHours().toString().padStart(2, '0');
+    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+    const segundos = fechaObj.getSeconds().toString().padStart(2, '0');
+
+    let fechaNuevaDiaAntes = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+    //let fechaNuevaDiaAntes = (fecha - 1) + ' 23:55:55'
+    //console.log("Fecha convertida: " + fechaNueva)
+    //console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
+    fechaInicio = fechaNuevaDiaAntes;
+    fechaFin = fechaNueva;
+    generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva);
+}
+
+// .......................................................
+// getFechaHoy() --> fechaHoy, fechaAyer
+// .......................................................
+function getFechaHoy() {
+    // Obtener la fecha de hoy
+    const fechaDeHoy = new Date();
+
+    // Obtener componentes de fecha y hora
+    const año = fechaDeHoy.getFullYear();
+    const mes = (fechaDeHoy.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
+    const dia = fechaDeHoy.getDate().toString().padStart(2, '0');
+    const horas = fechaDeHoy.getHours().toString().padStart(2, '0');
+    const minutos = fechaDeHoy.getMinutes().toString().padStart(2, '0');
+    const segundos = fechaDeHoy.getSeconds().toString().padStart(2, '0');
+
+    // Formatear la fecha en el formato deseado
+    const fechaFormateadaHoy = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+
+    // Obtener la fecha de ayer
+    const fechaDeAyer = new Date();
+    fechaDeAyer.setDate(fechaDeAyer.getDate() - 1);
+
+    // Obtener componentes de fecha y hora
+    const año2 = fechaDeAyer.getFullYear();
+    const mes2 = (fechaDeAyer.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses comienzan desde 0
+    const dia2 = fechaDeAyer.getDate().toString().padStart(2, '0');
+    const horas2 = fechaDeAyer.getHours().toString().padStart(2, '0');
+    const minutos2 = fechaDeAyer.getMinutes().toString().padStart(2, '0');
+    const segundos2 = fechaDeAyer.getSeconds().toString().padStart(2, '0');
+
+    // Formatear la fecha en el formato deseado
+    const fechaFormateadaAyer = `${año2}-${mes2}-${dia2} ${horas2}:${minutos2}:${segundos2}`;
+
+    return [fechaFormateadaHoy, fechaFormateadaAyer]
+}
+
+// .......................................................
+// .......................................................
+// ....................ESTACIONES.........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// Mapa --> obtenerEstacionMedidaOficial()
+// .......................................................
+function obtenerEstacionMedidaOficial(mymap) {
+    fetch('http://localhost:8080/obtenerDatosAEMET2/', {
+        method: "GET"
+    }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+            return respuesta.json()
+        } else {
+            console.log("hubo un fallo")
+        }
+
+    }).then(function (datos) {
+        const datosJSON = JSON.stringify(datos);
+        console.log(datosJSON);
+
+        var datosSO2 = 0;
+        var datosNO = 0;
+        var datosNO2 = 0;
+        var datosO3 = 0;
+        var datosTemperatura = 0;
+        var datosPM10 = 0;
+        var contador = 0;
+
+        datos.forEach(medicionEstacion => {
+            if (medicionEstacion["SO2 en microgramos/m3"] != undefined) {
+                datosSO2 = datosSO2 + parseFloat(medicionEstacion["SO2 en microgramos/m3"]);
+                datosNO = datosNO + parseFloat(medicionEstacion["NO en microgramos/m3"]);
+                datosNO2 = datosNO2 + parseFloat(medicionEstacion["NO2 en microgramos/m3"]);
+                datosO3 = datosO3 + parseFloat(medicionEstacion["O3 en microgramos/m3"]);
+                datosTemperatura = datosTemperatura + parseFloat(medicionEstacion["Temperatura en grados celsius"]);
+                datosPM10 = datosPM10 + parseFloat(medicionEstacion["PM10 en microgramos/m3"]);
+                contador++;
+            }
+        });
+
+        var finalDatosSO2 = datosSO2 / contador;
+        var finalDatosNO = datosNO / contador;
+        var finalDatosNO2 = datosNO2 / contador;
+        var finalDatosO3 = datosO3 / contador;
+        var finalDatosTemperatura = datosTemperatura / contador;
+        var finalDatosPM10 = datosPM10 / contador;
+        console.log("EstacionesFinal. SO2: " + finalDatosSO2 + ". NO: " + finalDatosNO);
+
+        //const tipo = `${markerData.tipo_valor}`;
+
+        // Dividir la cadena 'lugar' en latitud y longitud
+        //const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        const latitud = "39.091231";
+        const longitud = "-1.074932";
+
+        console.log("Lat: " + latitud + ", Lon: " + longitud);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('alto') }).addTo(mymap);
+        marker.bindPopup(`SO2: ${finalDatosSO2}<br>NO: ${finalDatosNO}<br>NO2: ${finalDatosNO2}<br>O3: ${finalDatosO3}<br>Temp: ${finalDatosTemperatura}<br>PM10: ${finalDatosPM10}`);
+        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
+
+        marcadores.push(marker)
+
+        // Añade el marcador a la capa correspondiente
+        //capas[tipo].addLayer(marker);
+    });
+}
+
+// .......................................................
+// .......................................................
+// .....................DESCARGAS.........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// downloadToPNG()
+// .......................................................
 function downloadToPNG() {
 
     html2canvas(document.getElementById('zonaMapa2'), {
@@ -743,6 +675,9 @@ function downloadToPNG() {
     });
 }
 
+// .......................................................
+// downloadToCSV()
+// .......................................................
 function downloadToCSV() {
 
     var csv = "Latitud;Longitud;Contaminante;Valor;Fecha\n";
@@ -793,6 +728,9 @@ function downloadToCSV() {
     link.click();
 }
 
+// .......................................................
+// downloadToExcel()
+// .......................................................
 function downloadToExcel() {
 
     var excelHeaders = ["Latitud", "Longitud", "Contaminante", "Valor", "Fecha"];
@@ -850,6 +788,10 @@ function downloadToExcel() {
     // Simular el clic en el enlace para iniciar la descarga
     link.click();
 }
+
+// .......................................................
+// s --> s2ab() --> buf
+// .......................................................
 function s2ab(s) {
     var buf = new ArrayBuffer(s.length);
     var view = new Uint8Array(buf);
@@ -857,6 +799,9 @@ function s2ab(s) {
     return buf;
 }
 
+// .......................................................
+// downloadToJSON()
+// .......................................................
 function downloadToJSON() {
 
     var contador = 0;
@@ -907,6 +852,9 @@ function downloadToJSON() {
     link.click();
 }
 
+// .......................................................
+// downloadToGeoJSON()
+// .......................................................
 function downloadToGeoJSON() {
 
     var contador = 0;
@@ -973,3 +921,27 @@ function downloadToGeoJSON() {
     // Simular el clic en el enlace para iniciar la descarga
     link.click();
 }
+
+// .......................................................
+// .......................................................
+// ....................EJECUCION..........................
+// .......................................................
+// .......................................................
+
+var datosMediciones = [];
+var marcadores = [];
+
+//const fechaInicio = '2023-10-14 16:32:40'
+//const fechaFin = '2023-10-16 16:32:40'
+const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
+//console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
+
+fechaInicio = fechaAyerFuera;
+fechaFin = fechaHoyFuera;
+
+generarYGenerarMapa(fechaInicio, fechaFin);
+setInterval(function () {
+    // Aquí llamas a tu función con los argumentos necesarios
+    generarYGenerarMapa(fechaInicio, fechaFin);
+}, 50000);
+//generarYGenerarMapa();

@@ -1,3 +1,12 @@
+// .......................................................
+// .......................................................
+// ..................ADMIN_FILTRAR........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// N --> visibilidadFormAnyadir()
+// .......................................................
 function visibilidadFormAnyadir(modo) {
     switch (modo) {
         case 0:
@@ -23,6 +32,9 @@ function visibilidadFormAnyadir(modo) {
     }
 }
 
+// .......................................................
+// Texto --> yaExisteDNI()
+// .......................................................
 async function yaExisteDNI(dni) {
     console.log("comprobando " + dni);
     await fetch('http://localhost:8080/persona/' + dni) // Replace with your API endpoint
@@ -38,6 +50,9 @@ async function yaExisteDNI(dni) {
         .catch(error => console.error('Error fetching data:', error));
 }
 
+// .......................................................
+// anyadirAdminyPersonayDireccion()
+// .......................................................
 function anyadirAdminyPersonayDireccion() {
     // if ya existe dni (document.getElementById("dnianyadiradmin").value) return
 
@@ -95,7 +110,9 @@ function anyadirAdminyPersonayDireccion() {
 
 }
 
-
+// .......................................................
+// anyadirPersonayDireccion()
+// .......................................................
 function anyadirPersonayDireccion() {
     var datos = {
         dni: document.getElementById("dnianyadir").value,
@@ -152,10 +169,17 @@ function anyadirPersonayDireccion() {
     })
     document.getElementById("contenedorPopUpsAnyadir").style.visibility = "hidden";
 }
+
+// .......................................................
+// showAlert()
+// .......................................................
 function showAlert() {
     alert('Se ha añadido correctamente');
-  }
+}
 
+// .......................................................
+// Evento --> submitFormPersona()
+// .......................................................
 function submitFormPersona(event) {
     event.preventDefault();
     anyadirPersonayDireccion() 
@@ -163,6 +187,9 @@ function submitFormPersona(event) {
     showAlert();
 }
 
+// .......................................................
+// Evento --> submitFormAdmin()
+// .......................................................
 function submitFormAdmin(event) {
     event.preventDefault();
     anyadirAdminyPersonayDireccion() 
@@ -170,6 +197,9 @@ function submitFormAdmin(event) {
     showAlert(); 
 }
 
+// .......................................................
+// anyadirCodigoPostal()
+// .......................................................
 function anyadirCodigoPostal() {
     fetch('http://localhost:8080/usuarioSesion', {
       method: "GET"
@@ -203,4 +233,4 @@ function anyadirCodigoPostal() {
       console.error("Error en la primera llamada:", error);
     });
     document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';
-  }
+}

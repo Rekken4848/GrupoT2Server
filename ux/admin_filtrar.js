@@ -1,3 +1,12 @@
+// .......................................................
+// .......................................................
+// ..................ADMIN_FILTRAR........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// redirectToURLEditAdmin()
+// .......................................................
 function redirectToURLEditAdmin() {
   window.location.href = 'admin_editarUsuario.html';
 }
@@ -5,6 +14,9 @@ function redirectToURLEditAdmin() {
 var tipoBusqueda = "persona"; // posibles: persona, dispositivo, lugar
 var tipoTags = "persona";
 
+// .......................................................
+// Texto --> setTipoBusqueda()
+// .......................................................
 function setTipoBusqueda(nuevoTipo) {
   if (typeof nuevoTipo !== "string" && nuevoTipo !== "persona" && nuevoTipo !== "dispositivo" && nuevoTipo !== "lugar") {
     console.log("Error: tipo de busqueda no valido");
@@ -26,6 +38,9 @@ function setTipoBusqueda(nuevoTipo) {
   }
 }
 
+// .......................................................
+// Texto --> setTipoTags()
+// .......................................................
 function setTipoTags(nuevoTipo) {
   if (typeof nuevoTipo !== "string" && nuevoTipo !== "persona" && nuevoTipo !== "dispositivo" && nuevoTipo !== "lugar") {
     console.log("Error: tipo de tags no valido");
@@ -49,6 +64,9 @@ function setTipoTags(nuevoTipo) {
   refrescarTabla();
 }
 
+// .......................................................
+// refrescarTabla()
+// .......................................................
 function refrescarTabla() {
   fetch('http://localhost:8080/usuarioSesion', {
     method: "GET"
@@ -247,6 +265,9 @@ function refrescarTabla() {
   })
 }
 
+// .......................................................
+// N, Texto --> ordenarTabla()
+// .......................................................
 //funcion para ordenar al clickar sobre el nombre de la columna
 function ordenarTabla(n, type) {
   /*
