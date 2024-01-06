@@ -1,4 +1,12 @@
-//funciones para pagina de admin.html ---------------------------------------------
+// .......................................................
+// .......................................................
+// ...................ADMIN_AVISOS........................
+// .......................................................
+// .......................................................
+
+// .......................................................
+// checkNumeroAvisos()
+// .......................................................
 function checkNumeroAvisos() {
 
     fetch('http://localhost:8080/usuarioSesion', {
@@ -37,11 +45,17 @@ function checkNumeroAvisos() {
             .catch(error => console.error('Error fetching data:', error));
     })
 }
+
+// .......................................................
+// enviarAPagAnuncios()
+// .......................................................
 function enviarAPagAnuncios(){
-    location.href="admin_avisos.html";
+    location.href="avisos/admin_avisos.html";
 }
 
-// funciones para admin_avisos.html -------------------------------------------
+// .......................................................
+// refrescarTablaAvisos()
+// .......................................................
 function refrescarTablaAvisos(){
     fetch('http://localhost:8080/usuarioSesion', {
         method: "GET"
@@ -77,7 +91,7 @@ function refrescarTablaAvisos(){
                 contenedorAnuncio.setAttribute("class", "contenedorAnuncios")
 
                 var imagenSeparadora = document.createElement('img');
-                imagenSeparadora.src = "images/linea_horizontal.svg"
+                imagenSeparadora.src = "../../images/linea_horizontal.svg"
 
                 var anuncio = document.createElement('div');
                 anuncio.setAttribute("class", "anuncio")
@@ -95,7 +109,7 @@ function refrescarTablaAvisos(){
                 }
 
                 var imagenBorrar = document.createElement('img');
-                imagenBorrar.src = "images/papelera_icono.svg"
+                imagenBorrar.src = "../../images/papelera_icono.svg"
 
                 var tituloanuncio = document.createElement('div');
                 tituloanuncio.setAttribute("class", "tituloAnuncio")
@@ -226,9 +240,11 @@ function refrescarTablaAvisos(){
         .catch(error => console.error('Error fetching data:', error));
 
     })
-
 }
 
+// .......................................................
+// Texto --> mostrarPopupEliminarAnuncio()
+// .......................................................
 function mostrarPopupEliminarAnuncio(anuncioID){
 
     console.log(anuncioID)
@@ -252,5 +268,4 @@ function mostrarPopupEliminarAnuncio(anuncioID){
             refrescarTablaAvisos()
         })
     };
-
 }

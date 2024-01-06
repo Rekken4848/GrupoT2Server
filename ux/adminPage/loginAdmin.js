@@ -1,34 +1,12 @@
-//alert("Gas")
+// .......................................................
+// .......................................................
+// ......................LOGIN............................
+// .......................................................
+// .......................................................
 
-/*function getAlert() {
-
-    // get all scripts
-    //var elem = document.scripts;
-    var elem = alert("Gas")
-  
-    // loop and check
-    for (var i = 0, len = elem.length; i < len; i++) {
-  
-      var txt = elem[i].textContent.match(/alert\(['"]([^'"]+)['"]\)/);
-      if (txt) { return txt[1]; } // if matched, return the alert text and stop
-    }
-} 
-console.log(getAlert())*/
-
-
-// Wrap the original window.alert function...
-const windowAlert = window.alert;
-
-window.alert = function(message) {
-  console.log(`window.alert called with message: ${message}`);
-  return windowAlert(message);
-};
-//alert('FOO');
-// Console Output:
-// window.alert called with message: FOO
-// ========================================================
-var user
-
+// .......................................................
+// Texto, Texto --> logearse()
+// .......................................................
 function logearse(username, password) {
     var datos = {username: username, password: password}
     console.log(datos)
@@ -53,13 +31,24 @@ function logearse(username, password) {
             console.log("Todo introducido con éxito");
             //var URLactual = window.location;
             //location.href='http://localhost:8080/pruebaAdmin.html'
-            location.href='http://localhost:8080/admin.html'
+            location.href='http://localhost:8080/adminPage/admin.html'
         } else if(datos === "Usuario Incorrecto") {
             console.log("hubo un fallo")
-            location.href='http://localhost:8080/login.html'
+            location.href='http://localhost:8080/adminPage/login.html'
         }
     })
 }
+
+// Wrap the original window.alert function...
+const windowAlert = window.alert;
+
+window.alert = function(message) {
+  console.log(`window.alert called with message: ${message}`);
+  return windowAlert(message);
+};
+
+var user
+
 // Wrap the original window.prompt function...
 const windowPrompt = window.prompt;
 
@@ -79,14 +68,6 @@ window.prompt = function(message) {
 
   return input;
 };
-//prompt('BAR');
-prompt('User')
-prompt('Password')
-// Console Output:
-// window.prompt called with message: BAR
-// user entered: xxx
-// ========================================================
-
 
 // Wrap the original window.confirm function...
 const windowConfirm = window.confirm;
@@ -99,7 +80,6 @@ window.confirm = function(message) {
   
   return choice;
 };
-//confirm('BAZ');
-// Console Output:
-// window.confirm called with message: BAZ
-// user clicked: ok (or 'cancel' if you click 'cancel')
+
+prompt('User')
+prompt('Password')

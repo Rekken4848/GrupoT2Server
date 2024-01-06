@@ -40,15 +40,15 @@
         "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>
 
-    <script src="admin_filtrar.js"></script>
-    <script src="admin_anyadir.js"></script>
-    <script src="admin_editar.js"></script>
+    <script src="../admin_filtrar.js"></script>
+    <script src="../admin_anyadir.js"></script>
+    <script src="../admin_editar.js"></script>
     <script src="admin_cambiarContrasenya.js"></script>
 
-    <link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
-    <link href="css/estilo_admin_editarUsuario.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_comun.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
+    <link href="../../css/estilo_admin_editarUsuario.css" rel="stylesheet" type="text/css">
 
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,6 +64,16 @@
 <body onload="mostrarUsuario('persona');">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
+    
+        <a href="admin.html" id="logoCleanCloud">
+            <img src="../../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+        </a>
+    
+        <div id="fondoHeader">
+            <a href="admin_descargaMapa.html">
+            <button type="button" class="boton" id="descargarMapa">Mapa</button>
+            </a>
+            <!--<button type="button" class="boton" id="descargarMapa" data-section="adminEditarPerfil" data-value="registrosBoton">Registros</button>-->
 
       <a href="admin.html" id="logoCleanCloud">
           <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
@@ -93,53 +103,53 @@
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioDNI">DNI</p>
                 <input readonly type="text" name="dni" id="dnieditar" maxlength="10">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioNombre">Nombre</p>
                 <input readonly type="text" name="name" id="nameeditar" maxlength="15">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div id="ultimoPersonal" class="editarDato" >
                 <p data-section="adminEditarPerfil" data-value="usuarioApellidos">Apellidos</p>
                 <input readonly type="text" name="surname" id="surnameeditar" maxlength="50">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioEmail">Email</p>
                 <input readonly type="text" type="text" name="email" id="emaileditar">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato" id="ultimoContacto">
                 <p data-section="adminEditarPerfil" data-value="usuarioTelefono">Teléfono</p>
                 <input readonly type="text" type="text" name="tel" id="teleditar" maxlength="20">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioCCAA">CCAA</p>
                 <input readonly type="text" type="text" name="ccaa" id="ccaaeditar" maxlength="30">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioProvincia">Provincia</p>
                 <input readonly type="text" type="text" name="province" id="provinceeditar" maxlength="30">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioCP">CP</p>
                 <input readonly type="text" type="text" name="postalCode" id="postalCodeeditar" maxlength="5">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioCalle">Calle</p>
                 <input readonly type="text" type="text" name="street" id="streeteditar" maxlength="200">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
             </div>
 
             <div class="editarDato">
                 <p data-section="adminEditarPerfil" data-value="usuarioDispositivo">Dispositivo</p>
                 <input readonly type="text" type="text" name="device" id="deviceAssociadoTitulo">
-                <img src="images/padlock.png" alt="candado icono">
+                <img src="../../images/padlock.png" alt="candado icono">
                 <!-- aqui irian los nombres de los dispositivos -->
             </div>
     
@@ -154,8 +164,8 @@
         
         <div class="password-card" id="password-card" style="display: none;">
             <div id="divClose">
-                <button  class="x" onclick="document.getElementById('password-card').style.display = 'none';"><img
-                        src="images/cross.png" alt="icono cerrar"></button>
+                <button onclick="document.getElementById('password-card').style.display = 'none';"><img
+                        src="../../images/cross.png" alt="icono cerrar"></button>
             </div>
             <div class="card-header">
               <div class="log" data-section="adminEditarPerfil" data-value="cambioPasswTitulo">Cambiar Contraseña</div>
@@ -181,7 +191,7 @@
 
         <!-- footer -------------------------------------------------------- -->
     <footer>
-        <img src="images/generalitat_logo.png" alt="logo de la generalitat valenciana">
+        <img src="../../images/generalitat_logo.png" alt="logo de la generalitat valenciana">
         <div id="textoFooter">
             <p>© Generalitat</p>
             <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>

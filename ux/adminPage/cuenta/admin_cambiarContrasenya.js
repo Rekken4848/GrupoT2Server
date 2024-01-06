@@ -1,5 +1,14 @@
+// .......................................................
+// .......................................................
+// ............ADMIN_CAMBIAR_CONTRASENYA..................
+// .......................................................
+// .......................................................
+
 let dni;
 
+// .......................................................
+// mostrarUsuario()
+// .......................................................
 function mostrarUsuario() {
   fetch('http://localhost:8080/usuarioSesion', {
     method: "GET"
@@ -50,8 +59,6 @@ function mostrarUsuario() {
     .catch(error => console.error('Error fetching usuarioSesion data:', error));
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const botonContrasenya = document.getElementById('botonContrasenya');
   const passwordCard = document.getElementById('password-card');
@@ -63,8 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
   botonContrasenya.addEventListener('click', showPasswordCard);
 });
 
-
-
+// .......................................................
+// validatePasswords()
+// .......................................................
 function validatePasswords() {
   var usuario = document.getElementById("dnieditar").value;
   var password = document.getElementById("password").value;
@@ -97,15 +105,28 @@ function validatePasswords() {
   .then(function (datos) {
     console.log("Los datos bien" + datos)
     if (datos === "Usuario Correcto") {
-      var datosNuevos = { username: usuario, password: password };
-      return fetch('http://localhost:8080/actualizarContrasenya', {
+      console.log("Todo introducido con éxito");
+      if (password !== confirmPassword) {
+        alert("Las contraseñas no coinciden");
+        return false;
+      }
+      var datosNuevos = { username: usuario, password: password }
+      console.log(datos)
+      fetch('http://localhost:8080/actualizarContrasenya', {
         method: "POST",
         body: JSON.stringify(datosNuevos),
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         }
-      });
+      }).then(function (respuesta) {
+
+        if (respuesta.ok) {
+          console.log("Todo introducido con éxito");
+        } else {
+          console.log("hubo un fallo")
+        }
+      })
     } else if (datos === "Usuario Incorrecto") {
       alert("Contraseña equivocada");
       throw new Error('Incorrect User');
@@ -125,7 +146,5 @@ function validatePasswords() {
     console.error('There has been a problem with your fetch operation:', error);
   });
 
-  return false;
+  return true;
 }
-
-
