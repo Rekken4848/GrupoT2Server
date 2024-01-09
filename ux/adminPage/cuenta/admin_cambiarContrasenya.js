@@ -105,28 +105,15 @@ function validatePasswords() {
   .then(function (datos) {
     console.log("Los datos bien" + datos)
     if (datos === "Usuario Correcto") {
-      console.log("Todo introducido con éxito");
-      if (password !== confirmPassword) {
-        alert("Las contraseñas no coinciden");
-        return false;
-      }
-      var datosNuevos = { username: usuario, password: password }
-      console.log(datos)
-      fetch('http://localhost:8080/actualizarContrasenya', {
+      var datosNuevos = { username: usuario, password: password };
+      return fetch('http://localhost:8080/actualizarContrasenya', {
         method: "POST",
         body: JSON.stringify(datosNuevos),
         credentials: 'same-origin',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         }
-      }).then(function (respuesta) {
-
-        if (respuesta.ok) {
-          console.log("Todo introducido con éxito");
-        } else {
-          console.log("hubo un fallo")
-        }
-      })
+      });
     } else if (datos === "Usuario Incorrecto") {
       alert("Contraseña equivocada");
       throw new Error('Incorrect User');
@@ -146,5 +133,5 @@ function validatePasswords() {
     console.error('There has been a problem with your fetch operation:', error);
   });
 
-  return true;
+  return false;
 }

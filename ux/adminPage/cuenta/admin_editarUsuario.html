@@ -26,7 +26,7 @@
             } else if (datos === false) {
               // Acción cuando la respuesta es false
               console.log("Usuario no autenticado");
-              location.href = "http://localhost:8080/login.html"
+              location.href = "../login.html"
             }
           }).catch(function (error) {
             console.log("Error en la solicitud:", error);
@@ -64,23 +64,13 @@
 <body onload="mostrarUsuario('persona');">
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
-    
-        <a href="admin.html" id="logoCleanCloud">
-            <img src="../../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
-        </a>
-    
-        <div id="fondoHeader">
-            <a href="admin_descargaMapa.html">
-            <button type="button" class="boton" id="descargarMapa">Mapa</button>
-            </a>
-            <!--<button type="button" class="boton" id="descargarMapa" data-section="adminEditarPerfil" data-value="registrosBoton">Registros</button>-->
 
-      <a href="admin.html" id="logoCleanCloud">
-          <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
+      <a href="../admin.html" id="logoCleanCloud">
+          <img src="../../images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
       </a>
 
       <div id="fondoHeader">
-          <a href="admin_descargaMapa.html">
+          <a href="../mapaAdmin/admin_descargaMapa.html">
               <button type="button" class="boton" id="descargarMapa">Mapa</button>
               </a>
 
@@ -164,7 +154,7 @@
         
         <div class="password-card" id="password-card" style="display: none;">
             <div id="divClose">
-                <button onclick="document.getElementById('password-card').style.display = 'none';"><img
+                <button  class="x" onclick="document.getElementById('password-card').style.display = 'none';"><img
                         src="../../images/cross.png" alt="icono cerrar"></button>
             </div>
             <div class="card-header">
@@ -197,3 +187,6 @@
             <p data-section="footer" data-value="footer">Mapa web | Avís legal | Accessibilitat Política de cookies | Correu del funcionari</p>
         </div>
     </footer>
+</body>
+
+</html>

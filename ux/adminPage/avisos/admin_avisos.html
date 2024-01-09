@@ -27,7 +27,7 @@
             } else if (datos === false) {
               // Acción cuando la respuesta es false
               console.log("Usuario no autenticado");
-              location.href = "http://localhost:8080/adminPage/login.html"
+              location.href = "../login.html"
             }
           }).catch(function (error) {
             console.log("Error en la solicitud:", error);
@@ -58,20 +58,20 @@
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
 
-        <a href="admin.html" id="logoCleanCloud">
-            <img src="../../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+        <a href="../admin.html" id="logoCleanCloud">
+            <img src="../../images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
         </a>
 
         <div id="fondoHeader">
-            <a href="admin_descargaMapa.html">
+            <a href="../mapaAdmin/admin_descargaMapa.html">
                 <button type="button" class="boton" id="descargarMapa">Mapa</button>
                 </a>
 
             <div id="headerUserContainer">
-                <img src="../../images/avatar.png" alt="icono de avatar de usuario">
-                <div id="headerUserNombre">
-                    <p id="AdminName">Admin</p>
-                </div>
+
+                    <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
+                        <p id="AdminName">Perfil</p>
+                    </div>
             </div>
         </div>
 

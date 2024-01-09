@@ -65,8 +65,8 @@
     <!-- cabecera de la pagina -------------------------------------------------------- -->
     <header class="cabecera" role="banner">
 
-        <a href="#" id="logoCleanCloud">
-            <img src="../images/logo_CleanCloud.png" alt="logo de la empresa Clean Cloud">
+        <a href="admin.html" id="logoCleanCloud">
+            <img src="../images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
         </a>
 
         <div id="fondoHeader">
@@ -76,7 +76,6 @@
 
             <div id="headerUserContainer">
 
-                <img src="../images/avatar.png" alt="icono de avatar de usuario">
                     <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
                         <p id="AdminName">Perfil</p>
                     </div>
@@ -87,13 +86,7 @@
     <!-- fin de cabecera de la pagina -------------------------------------------------------- -->
 
     <div id="fondoPagina">
-        <div id="marcaNotifAvisosContenedor">
-            <div id="marcaNotifAvisos">
-                <p id="numeroAvisos">7</p>
-            </div>
-            <img onclick="enviarAPagAnuncios()" src="../images/campana_icono.svg" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
-        </div>
-
+        
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
                 <input type="text" name="SearchBar" id="searchBar" placeholder="Buscar por DNI...">
@@ -103,11 +96,11 @@
             </div>
             
             <div id="contenedorDerecho">
-                <button id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="../images/lapiz_icono.svg"
+                <button class="caja" id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="../images/lapiz_icono.svg"
                         alt="icono editar trabajador"></button>
                 
-                <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="images/plus.png" alt="icono anyadir trabajador"></button-->
-                <button id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="../images/plus.png"
+                <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="../images/plus.png" alt="icono anyadir trabajador"></button-->
+                <button class="caja" id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="../images/plus.png"
                         alt="icono anyadir trabajador"></button>
 
                         <button id="marcaNotifAvisosContenedor">
@@ -115,7 +108,7 @@
                             <div>
                                 <p id="numeroAvisos">7</p>
                             </div>-->
-                    <img onclick="enviarAPagAnuncios()" src="images/campana.png" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
+                    <img onclick="enviarAPagAnuncios()" src="../images/campana.png" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
                 </button>
             </div>
             
@@ -123,11 +116,11 @@
         
 
         <div id="cont_flecha">
-            <img src='../images/ordenar-abajo.png' id='flecha'>
+            
 
 
             <div id="contenedorEmpleadosLista">
-                <img src='images/ordenar-abajo.png' id='flecha'>
+                <img src='../images/ordenar-abajo.png' id='flecha'>
                 <table id="tablaEmpleados">
 
                     <thead id="leyendaTabla">
@@ -165,7 +158,7 @@
     <!-- popup filtro -------------------------------------------------------- -->
     <div id="contenedorPopUps">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
+            <button class="x" onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
                     src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div class="contenedorFiltroEspecificado">
@@ -203,7 +196,7 @@
     <!-- popup anyadir -------------------------------------------------------- -->
     <div id="contenedorPopUpsAnyadir">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
+            <button class="x" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
                     src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
@@ -321,7 +314,7 @@
     <!-- popup editar -------------------------------------------------------- -->
     <div id="contenedorPopUpsEditar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';"><img
+            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';" class="x"><img
                     src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
@@ -386,7 +379,7 @@
     <!-- popup confirmarEliminar -------------------------------------------------------- -->
     <div id="contenedorConfirmarEliminar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';"><img
+            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';" class="x"><img
                     src="../images/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">

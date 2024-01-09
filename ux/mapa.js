@@ -49,7 +49,7 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
     }).addTo(mymap);
 
     // Tipos de datos para tu ejemplo
-    const tiposDeDatos = ['Alta', 'Media', 'Baja'];
+    const tiposDeDatos = ['alto', 'medio', 'bajo'];
 
     // Crea y agrega la leyenda al mapa
     const legend = createLegend(tiposDeDatos);
