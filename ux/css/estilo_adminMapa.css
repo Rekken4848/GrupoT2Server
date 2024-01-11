@@ -14,7 +14,7 @@ body{
   flex-direction: row;
   align-items: center;
   justify-content: end;
-  margin-right: 93px;
+  margin-right: 90px;
   position: relative;
   background: none;
   z-index: 800;
@@ -217,7 +217,7 @@ body{
   .menu li a {
     display: block;
     text-decoration: none;
-    padding: 20px 5px;
+    padding: 10px 5px;
     transition: color 0.3s ease;
   }
   

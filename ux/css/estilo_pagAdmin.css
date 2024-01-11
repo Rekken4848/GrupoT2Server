@@ -3,8 +3,8 @@
     background-size: cover;
     padding-top: 2vh;
     padding-bottom: 3vh ;
-    padding-left: 5vh;
-    padding-right: 5vh;
+    padding-left: 100px;
+    padding-right: 100px;
     min-height: 89vh ;
 }
 button, button img{
@@ -50,7 +50,7 @@ button img{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 2vh;
+    padding: 20px 20px 20px 10px;
 }
 #contenedorIzquierdo, #contenedorDerecho{
     display: flex;

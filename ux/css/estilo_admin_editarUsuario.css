@@ -9,14 +9,10 @@ body {
 
 #contenedorEditarUsuario {
     width: 40vw;
-    padding-top: 3em;
-    padding-left: 2.8em;
-    padding-right: 2.8em;
-    padding-bottom: 2.1em;
     padding-top: 20px;
       padding-left: 40px;
-      padding-bottom: 20px;
       padding-right: 40px;
+      padding-bottom: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: .4s ease-in-out;
@@ -31,11 +27,11 @@ body {
     font-weight: bold;
     letter-spacing: 0.1em;
     transition: .4s ease-in-out opacity,.1s ease-in-out active;
-    padding: 1em;
+    padding: 10px 0px 0px 0px;
   }
   
   .editarDato {
-    margin-bottom: 32px;
+    margin-bottom: 26px;
 
   }
 

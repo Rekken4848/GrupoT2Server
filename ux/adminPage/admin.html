@@ -89,7 +89,6 @@
         
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
-                <input type="text" name="SearchBar" id="searchBar" placeholder="Buscar por DNI...">
                 <button class="caja" id="botonMasFiltrado"
                     onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img
                         src="../images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
@@ -160,21 +159,6 @@
         <div id="divClose">
             <button class="x" onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
                     src="../images/cross.png" alt="icono cerrar"></button>
-        </div>
-        <div class="contenedorFiltroEspecificado">
-            <div class="tituloFiltroEspecificado">
-                <p class="tituloFiltroEspecificadoTexto" data-section="paginaAdmin" data-value="popupFiltroBuscarTitulo">Buscar por:</p>
-            </div>
-            <div class="OpcionesFiltro">
-                <p class="opcionesIzquierda">
-                    <label><input onclick="setTipoBusqueda('persona');" type="radio" name="opcionesFiltro" value="dni"
-                            id="dniFiltro" checked data-section="paginaAdmin" data-value="popupFiltroBuscarDNI">DNI</label><br>
-                    <label><input onclick="setTipoBusqueda('dispositivo');" type="radio" name="opcionesFiltro"
-                            value="sn" id="snFiltro">Dispositivo</label><br>
-                    <label><input onclick="setTipoBusqueda('lugar');" type="radio" name="opcionesFiltro" value="cp"
-                            id="cpFiltro" data-section="paginaAdmin" data-value="popupFiltroBuscarCP">CP</label><br>
-                </p>
-            </div>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
