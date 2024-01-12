@@ -74,7 +74,7 @@
   <!-- cabecera de la pagina -------------------------------------------------------- -->
   <header class="cabecera" role="banner">
 
-    <a href="admin.html" id="logoCleanCloud">
+    <a href="../admin.html" id="logoCleanCloud">
       <img src="../../images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
   </a>
 
@@ -114,7 +114,7 @@
       </div>
 
       <div id="headerUserContainer">
-        <div id="headerUserNombre" onclick="redirectToURLEditAdmin()">
+        <div id="headerUserNombre" onclick="redirectToURLEditAdmin2()">
             <p id="AdminName">Perfil</p>
         </div>
       </div>
@@ -194,6 +194,18 @@
 
   <script src="/../../node_modules/leaflet/dist/leaflet.js"></script>
   <script src="../../mapa.js"></script>
+  <script>
+		const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
+
+		fechaInicio = fechaAyerFuera;
+		fechaFin = fechaHoyFuera;
+
+		generarYGenerarMapa(fechaInicio, fechaFin, "Admin");
+		setInterval(function () {
+			// Aquí llamas a tu función con los argumentos necesarios
+			generarYGenerarMapa(fechaInicio, fechaFin, "Admin");
+		}, 50000);
+	</script>
 
 </body>
 

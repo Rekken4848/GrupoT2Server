@@ -43,12 +43,18 @@
 
 
 #headerUserContainer{
+    color: inherit;
     display: flex;
     height: 100%;
     color: white;
     align-items: center;
     margin-right: 2vh;
 }
+
+a {
+    text-decoration: none;
+}
+
 #headerUserContainer img {
     height: 60%;
 }

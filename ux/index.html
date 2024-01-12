@@ -12,14 +12,14 @@
 
 	<script src="cambiarIdioma.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <style>
-        html {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<style>
+		html {
+			font-family: 'Poppins', sans-serif;
+		}
+	</style>
 
 	<link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
 	<link href="css/estilo_landing.css" rel="stylesheet" type="text/css">
@@ -40,9 +40,9 @@
 	<!-- cabecera de la pagina -------------------------------------------------------- -->
 	<header class="cabecera" role="banner">
 
-        <a href="index.html" id="logoCleanCloud">
-            <img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud" >
-        </a>
+		<a href="index.html" id="logoCleanCloud">
+			<img src="images/cleancloud-logo.png" alt="logo de la empresa Clean Cloud">
+		</a>
 
 
 		<div id="fondoHeader">
@@ -65,23 +65,30 @@
 	<!-- zona del mapa -------------------------------------------------------- -->
 	<div id="zonaMapa">
 
-		<div class="divshow"><button class="x" onclick="document.getElementById('mapinfo_popup').style.visibility = 'visible';"><img src="images/derecha.png"></button></div>
+		<div class="divshow"><button class="x"
+				onclick="document.getElementById('mapinfo_popup').style.visibility = 'visible';"><img
+					src="images/derecha.png"></button></div>
 		<div id="mapinfo_popup">
-		
+
 			<div class="divshow2">
-			<button class="x" onclick="document.getElementById('mapinfo_popup').style.visibility = 'hidden';"><img src="images/izquierda.png"></button>
+				<button class="x" onclick="document.getElementById('mapinfo_popup').style.visibility = 'hidden';"><img
+						src="images/izquierda.png"></button>
 			</div>
 
 			<h3 id="tituloInfoLanding">Sobre el Mapa</h3>
-			<br>	
-			<h4 class="subTituloInfoLanding">Patrocinador</h4> 
-			<p class="infoLanding">Los datos mostrados en pantalla provienen del personal de la Generalitat Valénciana junto con el patrocionio que permitio la creación de la web.</p>
+			<br>
+			<h4 class="subTituloInfoLanding">Patrocinador</h4>
+			<p class="infoLanding">Los datos mostrados en pantalla provienen del personal de la Generalitat Valénciana
+				junto con el patrocionio que permitio la creación de la web.</p>
 			<img id="patrocinador" src="images/logovalenciana.png" alt="logo de la generalitat valenciana">
-			<p class="infoLanding">Diferentes empleados en movimiento recorren la comunidad con el fin de recopilar los <b>datos de contaminación atmosférica</b> que son mostrados.</p>
+			<p class="infoLanding">Diferentes empleados en movimiento recorren la comunidad con el fin de recopilar los
+				<b>datos de contaminación atmosférica</b> que son mostrados.</p>
 			<h4 class="subTituloInfoLanding">Estaciones de medida</h4>
-			<p class="infoLanding">Al pulsar sobre la estación de medida oficial en Zarra podra ver los datos que se recabaron en la comunidad valenciana.</p>
+			<p class="infoLanding">Al pulsar sobre la estación de medida oficial en Zarra podra ver los datos que se
+				recabaron en la comunidad valenciana.</p>
 			<h4 class="subTituloInfoLanding">Leyenda</h4>
-			<p class="infoLanding">La leyenda muestra diferentes colores según la comparación con las medidas oficiales:</p>
+			<p class="infoLanding">La leyenda muestra diferentes colores según la comparación con las medidas oficiales:
+			</p>
 			<div id="explicacionLeyenda">
 				<div class="explicacionColor">
 					<div id="verde"></div>
@@ -97,22 +104,23 @@
 				</div>
 			</div>
 			<br>
-			<p class="infoLanding">A continuación debajo del mapa se observan los valores alcanzables para que esten en el umbral de peligro.</p>
+			<p class="infoLanding">A continuación debajo del mapa se observan los valores alcanzables para que esten en
+				el umbral de peligro.</p>
 		</div>
 
-		
+
 		<div id="zonaMapa2"></div>
 	</div>
-		
-		<!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
-		<div id="zonaMapaInferior">
 
-			<!-- icono de informacion que te lleva abajo -------------------------------------------------------- -->
-			<a href="#zonaContaminantes" class="baseEnlaceZonaLanding" id="enlaceInformacionLanding">
-				<img src="images/informacion_icono.png" alt="enlace a informacion" class="iconoMoverse">
-			</a>
+	<!-- informacion de parte de abajo del mapa -------------------------------------------------------- -->
+	<div id="zonaMapaInferior">
 
-		</div>
+		<!-- icono de informacion que te lleva abajo -------------------------------------------------------- -->
+		<a href="#zonaContaminantes" class="baseEnlaceZonaLanding" id="enlaceInformacionLanding">
+			<img src="images/informacion_icono.png" alt="enlace a informacion" class="iconoMoverse">
+		</a>
+
+	</div>
 
 	</div>
 	<!-- fin de la zona del mapa -------------------------------------------------------- -->
@@ -434,6 +442,18 @@
 	<script src="/node_modules/@turf/turf/turf.min.js"></script>
 	<script src="/srcMapaIDW/leaflet-idw-directdraw.js"></script>
 	<script src="mapa.js"></script>
+	<script>
+		const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
+
+		fechaInicio = fechaAyerFuera;
+		fechaFin = fechaHoyFuera;
+
+		generarYGenerarMapa(fechaInicio, fechaFin, "Ciudadano");
+		setInterval(function () {
+			// Aquí llamas a tu función con los argumentos necesarios
+			generarYGenerarMapa(fechaInicio, fechaFin, "Ciudadano");
+		}, 50000);
+	</script>
 </body>
 
 </html>
@@ -441,4 +461,3 @@
 <!-- ---------------------------------------------------------- -->
 <!-- ---------------------------------------------------------- -->
 <!-- ---------------------------------------------------------- -->
-

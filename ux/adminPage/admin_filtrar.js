@@ -11,6 +11,10 @@ function redirectToURLEditAdmin() {
   window.location.href = 'cuenta/admin_editarUsuario.html';
 }
 
+function redirectToURLEditAdmin2() {
+  window.location.href = '../cuenta/admin_editarUsuario.html';
+}
+
 var tipoBusqueda = "persona"; // posibles: persona, dispositivo, lugar
 var tipoTags = "persona";
 
@@ -54,7 +58,7 @@ function setTipoTags(nuevoTipo) {
       tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Nombre</th><th onclick='ordenarTabla(2, 0)'>Apellidos</th><th onclick='ordenarTabla(3, 0)'>Correo</th><th onclick='ordenarTabla(4, 0)'>Telefono</th></thead>";
       break;
     case "dispositivo":
-      tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Id dispositivo</th><th onclick='ordenarTabla(2, 0)'>Mediciones</th><th onclick='ordenarTabla(3, 0)' id='conectionTable'><img src='images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
+      tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Id dispositivo</th><th onclick='ordenarTabla(2, 0)'>Mediciones</th><th onclick='ordenarTabla(3, 0)' id='conectionTable'><img src='../images/coverturaSenyal_icono.svg'></th><th onclick='ordenarTabla(4, 0)'>Fecha Ultima Medicion</th></thead>"
       break;
     case "lugar":
       tablaColumnas.innerHTML = "<thead><th th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>CCAA</th><th onclick='ordenarTabla(2, 0)'>Provincia</th><th onclick='ordenarTabla(3, 0)'>CP</th><th onclick='ordenarTabla(4, 0)' >Calle</th></thead>";
@@ -159,12 +163,12 @@ function refrescarTabla() {
                         conexioncelda.setAttribute("id", "conectionTable")
 
                         var imgconexioncelda = document.createElement("img")
-                        imgconexioncelda.src = "images/wifi_icono.png"
+                        imgconexioncelda.src = "../images/wifi_icono.png"
                         imgconexioncelda.setAttribute("class", "wifiIcono")
                         conexioncelda.appendChild(imgconexioncelda)
 
                         var imgconexionceldaerror = document.createElement("img")
-                        imgconexionceldaerror.src = "images/trianguloPeligro_icono.svg"
+                        imgconexionceldaerror.src = "../images/trianguloPeligro_icono.svg"
                         imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
                         imgconexionceldaerror.setAttribute("title", "Conexion error with device")
                         imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
@@ -193,7 +197,7 @@ function refrescarTabla() {
 
                       var conexioncelda = document.createElement("td")
                       var imgconexioncelda = document.createElement("img")
-                      imgconexioncelda.src = "images/wifi_icono.png"
+                      imgconexioncelda.src = "../images/wifi_icono.png"
                       imgconexioncelda.setAttribute("class", "wifiIcono")
                       conexioncelda.appendChild(imgconexioncelda)
                       conexioncelda.setAttribute("id", "conectionTable")
@@ -205,7 +209,7 @@ function refrescarTabla() {
                       // 1 dia (24 horas) = 86400000 milisegundos
                       if (diferencia > 86400000) {
                         var imgconexionceldaerror = document.createElement("img")
-                        imgconexionceldaerror.src = "images/trianguloPeligro_icono.svg"
+                        imgconexionceldaerror.src = "../images/trianguloPeligro_icono.svg"
                         imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
                         imgconexionceldaerror.setAttribute("title", "Conexion error with device")
                         imgconexionceldaerror.setAttribute("class", "errorConexionTablaImagen")
@@ -304,14 +308,14 @@ function ordenarTabla(n, type) {
         if ((type == 0 && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) || (type == 1 && parseFloat(x.innerHTML) > parseFloat(y.innerHTML))) {
           //si deben cambiarse, lo marcamos y rompemos el bucle para ejecutar el if de abajo
           shouldSwitch = true;
-          image.src = 'images/ordenar-arriba.png';
+          image.src = '../images/ordenar-arriba.png';
           break;
         }
       } else if (dir == "desc") {
         if ((type == 0 && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) || (type == 1 && parseFloat(x.innerHTML) < parseFloat(y.innerHTML))) {
           //si deben cambiarse, lo marcamos y rompemos el bucle para ejecutar el if de abajo
           shouldSwitch = true;
-          image.src = 'images/ordenar-abajo.png';
+          image.src = '../images/ordenar-abajo.png';
           break;
         }
       }

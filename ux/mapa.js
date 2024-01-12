@@ -16,7 +16,7 @@ let currentPosition;
 // .......................................................
 // fechaInicio, fechaFin --> generarYGenerarMapa()
 // .......................................................
-function generarYGenerarMapa(fechaInicio, fechaFin) {
+function generarYGenerarMapa(fechaInicio, fechaFin, pagina) {
     if (mymap) {
         currentPosition = {
             lat: mymap.getCenter().lat,
@@ -61,7 +61,7 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
     const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
     console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)*/
 
-    mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin);
+    mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin, pagina);
 
     // Añade un marcador al mapa
     /*L.marker([51.505, -0.09]).addTo(mymap)
@@ -71,7 +71,7 @@ function generarYGenerarMapa(fechaInicio, fechaFin) {
 // .......................................................
 // Mapa, fechaInicio, fechaFin --> mostrarLeyendaYMarcadores()
 // .......................................................
-function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
+function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin, pagina) {
     fetch('http://localhost:8080/medicionConTipoValorEntreFechas/' + fechaInicio + '/' + fechaFin, {
         method: "GET"
     }).then(function (respuesta) {
@@ -172,225 +172,221 @@ function mostrarLeyendaYMarcadores(mymap, fechaInicio, fechaFin) {
         console.log("Medio: " + JSON.stringify(medio));
         console.log("Bajo: " + JSON.stringify(bajo));
 
-        alto.forEach(markerData => {
-            const tipo = `${markerData.tipo_valor}`;
-
-            // Dividir la cadena 'lugar' en latitud y longitud
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-
-            //console.log("Lat: " + latitud + ", Lon: " + longitud);
-            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Alto') }).addTo(mymap);
-            marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
-            addToLegend(markerData.tipo_valor);
-            //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
-
-            marcadores.push(marker)
-
-            // Añade el marcador a la capa correspondiente
-            capas[tipo].addLayer(marker);
-        });
-
-        medio.forEach(markerData => {
-            const tipo = `${markerData.tipo_valor}`;
-
-            // Dividir la cadena 'lugar' en latitud y longitud
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-
-            //console.log("Lat: " + latitud + ", Lon: " + longitud);
-            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Medio') }).addTo(mymap);
-            marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
-            addToLegend(markerData.tipo_valor);
-            //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'yellow'));
-
-            marcadores.push(marker)
-
-            // Añade el marcador a la capa correspondiente
-            capas[tipo].addLayer(marker);
-        });
-
-        bajo.forEach(markerData => {
-            const tipo = `${markerData.tipo_valor}`;
-
-            // Dividir la cadena 'lugar' en latitud y longitud
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-
-            //console.log("Lat: " + latitud + ", Lon: " + longitud);
-            const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Bajo') }).addTo(mymap);
-            marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
-            addToLegend(markerData.tipo_valor);
-            //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'green'));
-
-            marcadores.push(marker)
-
-            // Añade el marcador a la capa correspondiente
-            capas[tipo].addLayer(marker);
-        });
-
-        /*console.log("Puntos interpolacion bueno: " + puntosInterpolacion)
-
-        puntosInterpolacion.forEach(a => {
-            console.log("Puntos interpolacion individual: " + a)
-        })
-
-        console.log("Puntos interpolacion muestra bueno: " + addressPoints)
-
-        addressPoints.forEach(a => {
-            console.log("Puntos interpolacion muestra individual: " + a)
-        })*/
-
-        const O3 = [];
-        const NO = [];
-        const SO2 = [];
-        const CO = [];
-        const C6H6 = [];
-
-        datos.forEach(markerData => {
-            const tipo = `${markerData.tipo_valor}`;
-
-            // Clasifica la medición en la lista correspondiente
-            if (markerData.tipo_valor === "O3") {
-                O3.push(markerData);
-            } else if (markerData.tipo_valor === "NO") {
-                NO.push(markerData);
-            } else if (markerData.tipo_valor === "SO2") {
-                SO2.push(markerData);
-            } else if (markerData.tipo_valor === "CO") {
-                CO.push(markerData);
-            } else if (markerData.tipo_valor === "C6H6") {
-                C6H6.push(markerData);
-            }
-        });
-
-        var puntosInterpolacionO3 = []
-
-        O3.forEach(markerData => {
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
-            puntosInterpolacionO3.push([latitud, longitud, parseInt(markerData.valor, 10)])
-        });
-
-        var puntosInterpolacionNO = []
-
-        NO.forEach(markerData => {
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
-            puntosInterpolacionNO.push([latitud, longitud, parseInt(markerData.valor, 10)])
-        });
-
-        var puntosInterpolacionSO2 = []
-
-        SO2.forEach(markerData => {
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
-            puntosInterpolacionSO2.push([latitud, longitud, parseInt(markerData.valor, 10)])
-        });
-
-        var puntosInterpolacionCO = []
-
-        CO.forEach(markerData => {
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
-            puntosInterpolacionCO.push([latitud, longitud, parseInt(markerData.valor, 10)])
-        });
-
-        var puntosInterpolacionC6H6 = []
-
-        C6H6.forEach(markerData => {
-            const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
-            //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
-            puntosInterpolacionC6H6.push([latitud, longitud, parseInt(markerData.valor, 10)])
-        });
-
-        if (puntosInterpolacionO3 != 0) {
-            var idwO3 = L.idwLayer(puntosInterpolacionO3, {
-                opacity: 0.3,
-                maxZoom: 18,
-                cellSize: 10,
-                exp: 3,
-                max: 270,
-                gradient: { 0: 'green', 0.77: 'yellow', 1: 'red' }
-            }).addTo(mymap);
-            const textoO3 = "O3"
-            const tipoO3 = `${textoO3}`;
-            // Añade el marcador a la capa correspondiente
-            capas[tipoO3].addLayer(idwO3);
-        } else {
-            console.log("No hay mediciones de Ozono")
+        if(pagina==="Ciudadano"){
+            mapaInterpolado(datos, capas, mymap);
+        } else if(pagina==="Admin"){
+            puntosMapaNormal(alto, medio, bajo, capas, mymap);
         }
-
-        if (puntosInterpolacionNO != 0) {
-            var idwNO = L.idwLayer(puntosInterpolacionNO, {
-                opacity: 0.3,
-                maxZoom: 18,
-                cellSize: 10,
-                exp: 3,
-                max: 250,
-                gradient: { 0: 'green', 0.6: 'yellow', 1: 'red' }
-            }).addTo(mymap);
-            const textoNO = "NO"
-            const tipoNO = `${textoNO}`;
-            // Añade el marcador a la capa correspondiente
-            capas[tipoNO].addLayer(idwNO);
-        } else {
-            console.log("No hay mediciones de Oxidos de nitrogeno")
-        }
-
-        if (puntosInterpolacionSO2 != 0) {
-            var idwSO2 = L.idwLayer(puntosInterpolacionSO2, {
-                opacity: 0.3,
-                maxZoom: 18,
-                cellSize: 10,
-                exp: 3,
-                max: 463,
-                gradient: { 0: 'green', 0.24: 'yellow', 1: 'red' }
-            }).addTo(mymap);
-            const textoSO2 = "SO2"
-            const tipoSO2 = `${textoSO2}`;
-            // Añade el marcador a la capa correspondiente
-            capas[tipoSO2].addLayer(idwSO2);
-        } else {
-            console.log("No hay mediciones de Dioxido de Azufre")
-        }
-
-        if (puntosInterpolacionCO != 0) {
-            var idwCO = L.idwLayer(puntosInterpolacionCO, {
-                opacity: 0.3,
-                maxZoom: 18,
-                cellSize: 10,
-                exp: 3,
-                max: 13,
-                gradient: { 0: 'green', 0.54: 'yellow', 1: 'red' }
-            }).addTo(mymap);
-            const textoCO = "CO"
-            const tipoCO = `${textoCO}`;
-            // Añade el marcador a la capa correspondiente
-            capas[tipoCO].addLayer(idwCO);
-        } else {
-            console.log("No hay mediciones de Monoxido de carbono")
-        }
-
-        if (puntosInterpolacionC6H6.length != 0) {
-            var idwC6H6 = L.idwLayer(puntosInterpolacionC6H6, {
-                opacity: 0.3,
-                maxZoom: 18,
-                cellSize: 10,
-                exp: 3,
-                max: 7,
-                gradient: { 0: 'green', 0.43: 'yellow', 1: 'red' }
-            }).addTo(mymap);
-            const textoC6H6 = "C6H6"
-            const tipoC6H6 = `${textoC6H6}`;
-            // Añade el marcador a la capa correspondiente
-            capas[tipoC6H6].addLayer(idwC6H6);
-        } else {
-            console.log("No hay mediciones de Benceno")
-        }
-
-
         //Espacio estacion medida oficial -- INICIO
         obtenerEstacionMedidaOficial(mymap);
         //Espacio estacion medida oficial -- FIN
     })
+}
+
+function puntosMapaNormal(alto, medio, bajo, capas, mymap){
+    alto.forEach(markerData => {
+        const tipo = `${markerData.tipo_valor}`;
+
+        // Dividir la cadena 'lugar' en latitud y longitud
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+        //console.log("Lat: " + latitud + ", Lon: " + longitud);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Alto') }).addTo(mymap);
+        marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
+        addToLegend(markerData.tipo_valor);
+        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
+
+        marcadores.push(marker)
+
+        // Añade el marcador a la capa correspondiente
+        capas[tipo].addLayer(marker);
+    });
+
+    medio.forEach(markerData => {
+        const tipo = `${markerData.tipo_valor}`;
+
+        // Dividir la cadena 'lugar' en latitud y longitud
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+        //console.log("Lat: " + latitud + ", Lon: " + longitud);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Medio') }).addTo(mymap);
+        marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
+        addToLegend(markerData.tipo_valor);
+        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'yellow'));
+
+        marcadores.push(marker)
+
+        // Añade el marcador a la capa correspondiente
+        capas[tipo].addLayer(marker);
+    });
+
+    bajo.forEach(markerData => {
+        const tipo = `${markerData.tipo_valor}`;
+
+        // Dividir la cadena 'lugar' en latitud y longitud
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+
+        //console.log("Lat: " + latitud + ", Lon: " + longitud);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Bajo') }).addTo(mymap);
+        marker.bindPopup(`Tipo: ${markerData.tipo_valor}<br>Valor: ${markerData.valor}`);
+        addToLegend(markerData.tipo_valor);
+        //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'green'));
+
+        marcadores.push(marker)
+
+        // Añade el marcador a la capa correspondiente
+        capas[tipo].addLayer(marker);
+    });
+}
+
+function mapaInterpolado(datos, capas, mymap){
+    const O3 = [];
+    const NO = [];
+    const SO2 = [];
+    const CO = [];
+    const C6H6 = [];
+
+    datos.forEach(markerData => {
+        const tipo = `${markerData.tipo_valor}`;
+
+        // Clasifica la medición en la lista correspondiente
+        if (markerData.tipo_valor === "O3") {
+            O3.push(markerData);
+        } else if (markerData.tipo_valor === "NO") {
+            NO.push(markerData);
+        } else if (markerData.tipo_valor === "SO2") {
+            SO2.push(markerData);
+        } else if (markerData.tipo_valor === "CO") {
+            CO.push(markerData);
+        } else if (markerData.tipo_valor === "C6H6") {
+            C6H6.push(markerData);
+        }
+    });
+
+    var puntosInterpolacionO3 = []
+
+    O3.forEach(markerData => {
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+        puntosInterpolacionO3.push([latitud, longitud, parseInt(markerData.valor, 10)])
+    });
+
+    var puntosInterpolacionNO = []
+
+    NO.forEach(markerData => {
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+        puntosInterpolacionNO.push([latitud, longitud, parseInt(markerData.valor, 10)])
+    });
+
+    var puntosInterpolacionSO2 = []
+
+    SO2.forEach(markerData => {
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+        puntosInterpolacionSO2.push([latitud, longitud, parseInt(markerData.valor, 10)])
+    });
+
+    var puntosInterpolacionCO = []
+
+    CO.forEach(markerData => {
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+        puntosInterpolacionCO.push([latitud, longitud, parseInt(markerData.valor, 10)])
+    });
+
+    var puntosInterpolacionC6H6 = []
+
+    C6H6.forEach(markerData => {
+        const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
+        //puntosInterpolacion.push([latitud, longitud, markerData.valor]) parseInt(d, 10);
+        puntosInterpolacionC6H6.push([latitud, longitud, parseInt(markerData.valor, 10)])
+    });
+
+    if (puntosInterpolacionO3 != 0) {
+        var idwO3 = L.idwLayer(puntosInterpolacionO3, {
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 270,
+            gradient: { 0: 'green', 0.77: 'yellow', 1: 'red' }
+        }).addTo(mymap);
+        const textoO3 = "O3"
+        const tipoO3 = `${textoO3}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoO3].addLayer(idwO3);
+    } else {
+        console.log("No hay mediciones de Ozono")
+    }
+
+    if (puntosInterpolacionNO != 0) {
+        var idwNO = L.idwLayer(puntosInterpolacionNO, {
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 250,
+            gradient: { 0: 'green', 0.6: 'yellow', 1: 'red' }
+        }).addTo(mymap);
+        const textoNO = "NO"
+        const tipoNO = `${textoNO}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoNO].addLayer(idwNO);
+    } else {
+        console.log("No hay mediciones de Oxidos de nitrogeno")
+    }
+
+    if (puntosInterpolacionSO2 != 0) {
+        var idwSO2 = L.idwLayer(puntosInterpolacionSO2, {
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 463,
+            gradient: { 0: 'green', 0.24: 'yellow', 1: 'red' }
+        }).addTo(mymap);
+        const textoSO2 = "SO2"
+        const tipoSO2 = `${textoSO2}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoSO2].addLayer(idwSO2);
+    } else {
+        console.log("No hay mediciones de Dioxido de Azufre")
+    }
+
+    if (puntosInterpolacionCO != 0) {
+        var idwCO = L.idwLayer(puntosInterpolacionCO, {
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 13,
+            gradient: { 0: 'green', 0.54: 'yellow', 1: 'red' }
+        }).addTo(mymap);
+        const textoCO = "CO"
+        const tipoCO = `${textoCO}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoCO].addLayer(idwCO);
+    } else {
+        console.log("No hay mediciones de Monoxido de carbono")
+    }
+
+    if (puntosInterpolacionC6H6.length != 0) {
+        var idwC6H6 = L.idwLayer(puntosInterpolacionC6H6, {
+            opacity: 0.3,
+            maxZoom: 18,
+            cellSize: 10,
+            exp: 3,
+            max: 7,
+            gradient: { 0: 'green', 0.43: 'yellow', 1: 'red' }
+        }).addTo(mymap);
+        const textoC6H6 = "C6H6"
+        const tipoC6H6 = `${textoC6H6}`;
+        // Añade el marcador a la capa correspondiente
+        capas[tipoC6H6].addLayer(idwC6H6);
+    } else {
+        console.log("No hay mediciones de Benceno")
+    }
 }
 
 // .......................................................
@@ -527,7 +523,7 @@ function convertirFecha(fecha) {
     //console.log("Fecha convertida dia antes: " + fechaNuevaDiaAntes)
     fechaInicio = fechaNuevaDiaAntes;
     fechaFin = fechaNueva;
-    generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva);
+    generarYGenerarMapa(fechaNuevaDiaAntes, fechaNueva, "Admin");
 }
 
 // .......................................................
@@ -923,8 +919,7 @@ var marcadores = [];
 
 //const fechaInicio = '2023-10-14 16:32:40'
 //const fechaFin = '2023-10-16 16:32:40'
-const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
-//console.log("Fecha hoy fuera:" + fechaHoyFuera + "Fecha ayer fuera:" + fechaAyerFuera)
+/*const [fechaHoyFuera, fechaAyerFuera] = getFechaHoy()
 
 fechaInicio = fechaAyerFuera;
 fechaFin = fechaHoyFuera;
@@ -933,5 +928,5 @@ generarYGenerarMapa(fechaInicio, fechaFin);
 setInterval(function () {
     // Aquí llamas a tu función con los argumentos necesarios
     generarYGenerarMapa(fechaInicio, fechaFin);
-}, 50000);
+}, 50000);*/
 //generarYGenerarMapa();
