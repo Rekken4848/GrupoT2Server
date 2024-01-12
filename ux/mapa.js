@@ -622,7 +622,7 @@ function obtenerEstacionMedidaOficial(mymap) {
         const longitud = "-1.074932";
 
         console.log("Lat: " + latitud + ", Lon: " + longitud);
-        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('Alto') }).addTo(mymap);
+        const marker = L.marker([latitud, longitud], { icon: getCustomIcon('') }).addTo(mymap);
         marker.bindPopup(`SO2: ${finalDatosSO2}<br>NO: ${finalDatosNO}<br>NO2: ${finalDatosNO2}<br>O3: ${finalDatosO3}<br>Temp: ${finalDatosTemperatura}<br>PM10: ${finalDatosPM10}`);
         //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
 
