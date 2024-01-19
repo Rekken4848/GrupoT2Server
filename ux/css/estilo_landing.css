@@ -367,6 +367,17 @@ input:hover {
     }
 }
 
+@media(min-width: 1000px) {
+    .contaminanteContainer {
+        margin-bottom: 2vh;
+    }
+
+    .wrap {
+        width: 85vmin;
+        margin: 2rem auto;
+        margin: 2em;
+    }
+}
 
 @media(max-width: 1000px) {
 
@@ -408,7 +419,16 @@ input:hover {
         color: white;
     }
 
+    .contaminanteContainer {
+        width: 100%;
+        min-width: 100%; /* Ajusta según sea necesario */
+    }
 
+    .wrap {
+        width: 100vmin;
+        margin: 0rem auto;
+        margin: 0em;
+    }
 }
 
 
@@ -421,6 +441,16 @@ input:hover {
         font-size: 13px;
     }
 
+    .contaminanteContainer {
+        width: 100%;
+        min-width: 100%; /* Ajusta según sea necesario */
+    }
+
+    .wrap {
+        width: 100vmin;
+        margin: 0rem auto;
+        margin: 0em;
+    }
 }
 
 @media(max-width: 400px) {
@@ -436,15 +466,24 @@ input:hover {
         padding: 0px 2% 0px 2%;
     }
 
+    .contaminanteContainer {
+        width: 100%;
+        min-width: 100%; /* Ajusta según sea necesario */
+    }
+
+    .wrap {
+        width: 100vmin;
+        margin: 0rem auto;
+        margin: 0em;
+    }
 }
 
 
 .contaminanteContainer {
     background: rgb(236, 236, 236);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-    margin-bottom: 2vh;
+    /*margin-bottom: 2vh;*/
 }
-
 
 #table {
     display: flex;
@@ -510,13 +549,10 @@ p {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    width: 85vmin;
     height: 25em;
-    margin: 2rem auto;
     transition: .3s ease-in-out;
     position: relative;
     overflow: hidden;
-    margin: 2em;
     border: 8px solid;
     border-image: linear-gradient(-50deg, #BDB69C, #ADA585, #7D7452, #BD9D61, #C6BD9A, #ADA585, #BDB69C) 1;
 }
@@ -826,10 +862,10 @@ p {
 
 
 .thlanding {
-    background-color: #BDB69C;
+    background-color: #3c3a25;
     color: white;
     font-weight: normal;
-    padding: 20px 30px;
+    padding: 20px 40px;
     text-align: center;
 }
 
@@ -837,7 +873,9 @@ td {
     background-color: rgb(238, 238, 238);
     color: rgb(111, 111, 111);
     padding: 20px 30px;
+    text-align: center !important;
 }
+
 
 
 
