@@ -89,9 +89,14 @@
         
         <div id="filtrosYHerramientasContenedor">
             <div id="contenedorIzquierdo">
-                <button class="caja" id="botonMasFiltrado"
-                    onclick="document.getElementById('contenedorPopUps').style.visibility = 'visible';"><img
-                        src="../images/ajustes_icono.png" alt="icono ajustes Filtro"></button>
+                <label>Filtrar por:</label>
+                <label><input onclick="setTipoTags('persona');" type="radio" name="opcionesTags" value="persona" id="personaFiltro"
+                        checked data-section="paginaAdmin" data-value="popupFiltroEtiquetaPersona">Persona</label><br>
+                <label><input onclick="setTipoTags('dispositivo');" type="radio" name="opcionesTags" value="dispositivo"
+                        id="dispositivoFiltro" data-section="paginaAdmin"
+                        data-value="popupFiltroEtiquetaDispositivo">Dispositivo</label><br>
+                <label><input onclick="setTipoTags('lugar');" type="radio" name="opcionesTags" value="lugar" id="lugarFiltro"
+                        data-section="paginaAdmin" data-value="popupFiltroEtiquetaLugar">Lugar</label><br>
             </div>
             
             <div id="contenedorDerecho">
