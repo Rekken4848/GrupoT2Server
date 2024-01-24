@@ -100,7 +100,12 @@ label{
     body{
         width: fit-content;
     }
+
+    #descargarMapaLanding {
+        font-size: 30;
+    }
 }
+
 @media(max-width: 400px ){
     .baseEnlaceZonaLanding{
         width: 6vh;
@@ -141,3 +146,26 @@ footer #textoFooter p {
 
 
 
+#descargarMapaLanding {
+    background-color: transparent !important;
+    height: 50%;
+    color: rgb(255, 255, 255) !important;
+    margin-right: 3vh !important;
+    width: 25vh !important;
+    box-shadow: none !important;
+    /*background: rgba(233, 233, 233, 0.4) !important;*/
+    height: 60% !important;
+    color: rgb(255, 255, 255) !important;
+    margin-right: 3vh !important;
+    padding: 0px !important;
+    font-size: 20px !important; /* Ajusta el tamaño del texto */
+    text-align: center !important;
+}
+
+/*#descargarMapaLanding {
+    background: rgba(233, 233, 233, 0.4) !important;
+    height: 60% !important;
+    color: rgb(255, 255, 255) !important;
+    margin-right: 3vh !important;
+    padding: 10px 20px;
+}*/

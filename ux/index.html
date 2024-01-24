@@ -24,6 +24,7 @@
 	<link href="css/estilo_comun.css" rel="stylesheet" type="text/css">
 	<link href="css/estilo_landing.css" rel="stylesheet" type="text/css">
 	<link href="css/estilo_pagAdmin.css" rel="stylesheet" type="text/css">
+	<link href="css/estilo_admin_comun.css" rel="stylesheet" type="text/css">
 
 	<link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
 
@@ -48,11 +49,21 @@
 		<div id="fondoHeader">
 			<!--button type="button" class="boton" id="descargarMapa">Descargar Mapa</button-->
 
+            <div id="headerUserContainer">
+
+				<a href="adminPage/login.html">
+					<button type="button" class="boton" id="descargarMapaLanding">Acceso restringido</button>
+					</a>
+            </div>
+			
+
 			<select name="listaIdiomas" id="listaIdiomas"
 				onchange="cambiaIdioma(this.options[this.selectedIndex].value);">
 				<option value="es">Castellano</option>
 				<option value="vlca">Valencià</option>
 			</select>
+
+			
 		</div>
 
 	</header>

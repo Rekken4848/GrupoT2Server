@@ -374,6 +374,8 @@ td:nth-child(6), th:nth-child(6) {
     position: absolute;
     bottom: 44px;
     right: 75px;
+    background-color: #619999 !important;
+    font-size: 14px;
 }
 
 @media(max-width: 1000px) {

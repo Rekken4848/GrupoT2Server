@@ -614,7 +614,12 @@ function obtenerEstacionMedidaOficial(mymap) {
         var finalDatosPM10 = datosPM10 / contador;
         console.log("EstacionesFinal. SO2: " + finalDatosSO2 + ". NO: " + finalDatosNO);
 
-        //const tipo = `${markerData.tipo_valor}`;
+        var SO2redondeado = Math.round(finalDatosSO2 * 100) / 100;
+        var NOredondeado = Math.round(finalDatosNO * 100) / 100;
+        var NO2redondeado = Math.round(finalDatosNO2 * 100) / 100;
+        var O3redondeado = Math.round(finalDatosO3 * 100) / 100;
+        var Temperaturaredondeado = Math.round(finalDatosTemperatura * 100) / 100;
+        var PM10redondeado = Math.round(finalDatosPM10 * 100) / 100;
 
         // Dividir la cadena 'lugar' en latitud y longitud
         //const [latitud, longitud] = markerData.lugar.split(',').map(parseFloat);
@@ -623,7 +628,7 @@ function obtenerEstacionMedidaOficial(mymap) {
 
         console.log("Lat: " + latitud + ", Lon: " + longitud);
         const marker = L.marker([latitud, longitud], { icon: getCustomIcon('') }).addTo(mymap);
-        marker.bindPopup(`SO2: ${finalDatosSO2}<br>NO: ${finalDatosNO}<br>NO2: ${finalDatosNO2}<br>O3: ${finalDatosO3}<br>Temp: ${finalDatosTemperatura}<br>PM10: ${finalDatosPM10}`);
+        marker.bindPopup(`SO2: ${SO2redondeado} μg/m3<br>NO: ${NOredondeado} μg/m3<br>NO2: ${NO2redondeado} μg/m3<br>O3: ${O3redondeado} μg/m3<br>Temp: ${Temperaturaredondeado} μg/m3<br>PM10: ${PM10redondeado} μg/m3`);
         //marker.setIcon(getCustomIcon(markerData.tipo_valor, 'red'));
 
         marcadores.push(marker)
