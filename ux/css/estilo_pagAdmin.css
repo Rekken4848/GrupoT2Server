@@ -57,14 +57,17 @@ button img{
     align-items: center;
     
 }
-#contenedorIzquierdo button,
+#contenedorIzquierdo label,
 #contenedorDerecho button{
     margin-left: 1vh;
 }
 #contenedorIzquierdo input{
-    height: 3.5vh;
-    width: 20vh;
-    border-radius: 1vh;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+#contenedorIzquierdo label {
+    display: flex;
+    align-items: center;
 }
 
 #contenedorEmpleadosLista{
@@ -189,6 +192,7 @@ td:nth-child(6), th:nth-child(6) {
 *   Pop up filtro
 * ------------------------------------------------------------------
 */
+
 #contenedorPopUps {
     background-color:rgb(240, 240, 240);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

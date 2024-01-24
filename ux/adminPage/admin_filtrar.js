@@ -55,6 +55,7 @@ function setTipoTags(nuevoTipo) {
 
   switch (nuevoTipo) {
     case "persona":
+      document.getElementById('personaFiltro').checked=true;
       tablaColumnas.innerHTML = "<thead><th onclick='ordenarTabla(0, 0)'>DNI</th><th onclick='ordenarTabla(1, 0)'>Nombre</th><th onclick='ordenarTabla(2, 0)'>Apellidos</th><th onclick='ordenarTabla(3, 0)'>Correo</th><th onclick='ordenarTabla(4, 0)'>Telefono</th></thead>";
       break;
     case "dispositivo":
