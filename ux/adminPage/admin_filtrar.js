@@ -164,7 +164,7 @@ function refrescarTabla() {
                         conexioncelda.setAttribute("id", "conectionTable")
 
                         var imgconexioncelda = document.createElement("img")
-                        imgconexioncelda.src = "../images/wifi_icono.png"
+                        imgconexioncelda.src = "../images/customIcons/wifi.png"
                         imgconexioncelda.setAttribute("class", "wifiIcono")
                         conexioncelda.appendChild(imgconexioncelda)
 
@@ -198,7 +198,7 @@ function refrescarTabla() {
 
                       var conexioncelda = document.createElement("td")
                       var imgconexioncelda = document.createElement("img")
-                      imgconexioncelda.src = "../images/wifi_icono.png"
+                      imgconexioncelda.src = "../images/customIcons/wifi.png"
                       imgconexioncelda.setAttribute("class", "wifiIcono")
                       conexioncelda.appendChild(imgconexioncelda)
                       conexioncelda.setAttribute("id", "conectionTable")

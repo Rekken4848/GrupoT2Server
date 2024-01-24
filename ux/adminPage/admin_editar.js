@@ -13,8 +13,28 @@ var dni_persona_editando = "";
 function cursorLapiz() {
     editando = !editando;
     if (editando) {
-        document.getElementById('botonEditarTrabajador').style.background = 'rgb(156, 222, 222)';
-        document.getElementById('fondoPagina').style.cursor = "url(../images/lapiz_icono_para_cursor.svg), help";
+        //document.getElementById('botonEditarTrabajador').style.background = 'rgb(156, 222, 222)';
+
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+
+        // Establece las dimensiones del canvas
+        canvas.width = 32; // ajusta según sea necesario
+        canvas.height = 32;
+
+        // Carga la imagen PNG
+        var img = new Image();
+        img.src = '../images/customIcons/pencil-shorter-2.png';
+
+        // Cuando la imagen se carga, dibújala en el canvas
+        img.onload = function () {
+            context.drawImage(img, 0, 0, 32, 32); // ajusta según sea necesario
+
+            // Establece el cursor personalizado con la imagen del canvas
+            document.getElementById('fondoPagina').style.cursor = 'url(' + canvas.toDataURL() + '), help';
+        };
+
+        //document.getElementById('fondoPagina').style.cursor = "url(../images/customIcons/pencil-shorter-2.png), help";
 
     } else {
         document.getElementById('botonEditarTrabajador').style.background = 'white';

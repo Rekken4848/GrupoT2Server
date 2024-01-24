@@ -217,7 +217,7 @@ td:nth-child(6), th:nth-child(6) {
 
 #divClose {
     padding-top: 10px;
-    padding-right: 15px;
+    padding-right: 105px;
     width: 100%;
     display: flex;
     justify-content: end;
@@ -229,7 +229,8 @@ td:nth-child(6), th:nth-child(6) {
 
 #divClose img {
     background: rgb(240, 240, 240);
-    width: 3vh;
+    width: 8vh;
+    height: 8vh;
 }
 #divClose button {
     background: rgb(240, 240, 240);

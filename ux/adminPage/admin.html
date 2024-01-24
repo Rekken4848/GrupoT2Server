@@ -100,11 +100,11 @@
             </div>
             
             <div id="contenedorDerecho">
-                <button class="caja" id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="../images/lapiz_icono.svg"
+                <button class="caja" id="botonEditarTrabajador" onclick="cursorLapiz()"><img src="../images/customIcons/pencil-shorter.png"
                         alt="icono editar trabajador"></button>
                 
                 <!--button id="botonAnyadirTrabajador" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'visible';"><img src="../images/plus.png" alt="icono anyadir trabajador"></button-->
-                <button class="caja" id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="../images/plus.png"
+                <button class="caja" id="botonAnyadirTrabajador" onclick=anyadirCodigoPostal()><img src="../images/customIcons/anyadir_icono.png"
                         alt="icono anyadir trabajador"></button>
 
                         <button id="marcaNotifAvisosContenedor">
@@ -112,7 +112,7 @@
                             <div>
                                 <p id="numeroAvisos">7</p>
                             </div>-->
-                    <img onclick="enviarAPagAnuncios()" src="../images/campana.png" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
+                    <img onclick="enviarAPagAnuncios()" src="../images/customIcons/bell.png" alt="icono campana notificaciones" onload="checkNumeroAvisos()">
                 </button>
             </div>
             
@@ -162,8 +162,8 @@
     <!-- popup filtro -------------------------------------------------------- -->
     <div id="contenedorPopUps">
         <div id="divClose">
-            <button class="x" onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
-                    src="../images/cross.png" alt="icono cerrar"></button>
+            <button class="x" id="cross_icon" onclick="document.getElementById('contenedorPopUps').style.visibility = 'hidden';"><img
+                    src="../images/customIcons/cross.png" alt="icono cerrar"></button>
         </div>
         <div class="contenedorFiltroEspecificado">
             <div class="tituloFiltroEspecificado">
@@ -185,8 +185,8 @@
     <!-- popup anyadir -------------------------------------------------------- -->
     <div id="contenedorPopUpsAnyadir">
         <div id="divClose">
-            <button class="x" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
-                    src="../images/cross.png" alt="icono cerrar"></button>
+            <button class="x" id="cross_icon" onclick="document.getElementById('contenedorPopUpsAnyadir').style.visibility = 'hidden';"><img
+                    src="../images/customIcons/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <!--button onclick="visibilidadFormAnyadir(0);" id="adminTitulo"><p>Admin</p></button-->
@@ -303,8 +303,8 @@
     <!-- popup editar -------------------------------------------------------- -->
     <div id="contenedorPopUpsEditar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';" class="x"><img
-                    src="../images/cross.png" alt="icono cerrar"></button>
+            <button onclick="document.getElementById('contenedorPopUpsEditar').style.visibility = 'hidden';" class="x" id="cross_icon"><img
+                    src="../images/customIcons/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="personTituloEditar" data-section="paginaAdmin" data-value="popupEditarTitulo">Persona</p>
@@ -368,8 +368,8 @@
     <!-- popup confirmarEliminar -------------------------------------------------------- -->
     <div id="contenedorConfirmarEliminar">
         <div id="divClose">
-            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';" class="x"><img
-                    src="../images/cross.png" alt="icono cerrar"></button>
+            <button onclick="document.getElementById('contenedorConfirmarEliminar').style.visibility = 'hidden';" class="x" id="cross_icon"><img
+                    src="../images/customIcons/cross.png" alt="icono cerrar"></button>
         </div>
         <div id="tituloPopUpFiltros">
             <p id="confirmarEliminar" data-section="paginaAdmin" data-value="popupEliminarTitulo">¿Confirmas el eliminar esta persona?</p>
