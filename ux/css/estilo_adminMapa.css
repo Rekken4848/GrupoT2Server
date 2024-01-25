@@ -2,14 +2,14 @@
 *   Zona mapa
 * ------------------------------------------------------------------
 */
-body{
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    flex-direction: column;
+body {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
-#contenedorFecha{
+#contenedorFecha {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -18,7 +18,8 @@ body{
   position: relative;
   background: none;
   z-index: 800;
-  position: relative; /* position must be set for z-index to work */
+  position: relative;
+  /* position must be set for z-index to work */
 }
 
 #fecha {
@@ -28,7 +29,7 @@ body{
   align-items: center;
   justify-content: center;
   padding: 18px 10px 10px 10px;
-  border-radius: 0px 0px  5px 5px;
+  border-radius: 0px 0px 5px 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -50,9 +51,9 @@ body{
   width: 80px;
   height: 30px;
   border: none;
-  background-color: rgb(76, 156, 130);;
+  background-color: #619999;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -71,6 +72,7 @@ body{
   justify-content: space-between;
   z-index: 1;
 }
+
 #zonaMapa2 {
   background-size: cover;
   background-repeat: no-repeat;
@@ -80,13 +82,13 @@ body{
   flex-direction: column;
   justify-content: space-between;
   z-index: 1;
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins', sans-serif;
 }
 
 @media(max-width: 1000px) {
-    #zonaMapa {
-        height: 94vh;
-    }
+  #zonaMapa {
+    height: 94vh;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -94,208 +96,214 @@ body{
 * ------------------------------------------------------------------
 */
 #contenedorDescargarMapa {
-    background-color: rgb(240, 240, 240);
-    border-radius: 1vh;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: large;
-    padding-bottom: 2vh;
+  background-color: rgb(240, 240, 240);
+  border-radius: 1vh;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: large;
+  padding-bottom: 2vh;
 
-    position: absolute;
-    top: 9vh;
-    left: 10vh;
+  position: absolute;
+  top: 9vh;
+  left: 10vh;
 
-    visibility: hidden;
+  visibility: hidden;
 }
 
 #divClose {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    margin: 2vh;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: 2vh;
 }
 
 #divClose img {
-    width: 3vh;
-    margin-right: 2vh;
+  width: 3vh;
+  margin-right: 2vh;
 }
 
 #zonaMapaPopUp {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #MapaPreview {
-    width: 70%;
+  width: 70%;
 }
 
 #MapaPreview img {
-    width: 100%;
+  width: 100%;
 }
 
-#tituloMapaDescarga, #locationMapaDescarga, #dateYFilterMapaDescarga,
+#tituloMapaDescarga,
+#locationMapaDescarga,
+#dateYFilterMapaDescarga,
 #formatoYDescarga {
-    margin-top: 2vh;
-    width: 70%;
-    display: flex;
-    align-items: center;
+  margin-top: 2vh;
+  width: 70%;
+  display: flex;
+  align-items: center;
 }
 
-#tituloMapaDescarga input, #locationMapaDescarga input, #dateYFilterMapaDescarga input {
-    height: 50%;
-    width: 100%;
-    background: rgba(233, 233, 233, 0);
-    border: 0px;
-    border-bottom: 2px solid black;
-    margin-left: 1vh;
+#tituloMapaDescarga input,
+#locationMapaDescarga input,
+#dateYFilterMapaDescarga input {
+  height: 50%;
+  width: 100%;
+  background: rgba(233, 233, 233, 0);
+  border: 0px;
+  border-bottom: 2px solid black;
+  margin-left: 1vh;
 }
 
 #formatoYDescarga {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 #formatoContenedor {
-    width: 50%;
-    display: flex;
-    align-items: center;
+  width: 50%;
+  display: flex;
+  align-items: center;
 }
 
 #formatoContenedor select {
-    height: 50%;
-    margin-left: 1vh;
+  height: 50%;
+  margin-left: 1vh;
 }
 
 #buttonDownload {
-    color: white;
-    background-color: rgb(95, 192, 160);
-    width: 15vh;
-    height: 5vh;
-    font-size: larger;
+  color: white;
+  background-color: rgb(95, 192, 160);
+  width: 15vh;
+  height: 5vh;
+  font-size: larger;
 }
 
 @media(max-width: 1000px) {
-    #contenedorDescargarMapa {
-        font-size: 1.5vh;
-        left: 5vh;
-    }
+  #contenedorDescargarMapa {
+    font-size: 1.5vh;
+    left: 5vh;
+  }
 
-    #formatoContenedor select {
-        height: 2vh;
-        font-size: 1.5vh;
-    }
+  #formatoContenedor select {
+    height: 2vh;
+    font-size: 1.5vh;
+  }
 
-    #buttonDownload {
-        font-size: 2vh;
-        width: 10vh;
-    }
+  #buttonDownload {
+    font-size: 2vh;
+    width: 10vh;
+  }
 }
 
 /* Basic reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .menu{
-    z-index: 2;
-  }
-  .menu ul {
-    list-style-type: none;
-  }
-  
-  .menu li {
-    display: inline-block;
-    position: relative;
-    margin-right: 20px;
-  }
-  
-  .menu li a {
-    display: block;
-    text-decoration: none;
-    padding: 10px 5px;
-    transition: color 0.3s ease;
-  }
-  
-  .menu li a:hover {
-    color: #DAA06D;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    z-index: 1;
-    overflow: hidden;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0;
-    left: 50%; /* Position it relative to the button */
-    transform: translateX(-50%);
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  .dropdown-content a {
-    color: #333;
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #f9f9f9;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .radio-inputs {
-    flex-wrap: wrap;
-    border-radius: 0.5rem;
-    background-color: #EEE;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
-    width: 130px;
-    font-size: 14px;
-  }
-  .radio-inputs .radio input:hover + .name {
-    background-color: #fff;
-        font-weight: 600;
-  }
-  
-  .radio-inputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-  
-  .radio-inputs .radio input {
-    display: none;
-  }
-  
-  .radio-inputs .radio .name {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
-  }
+.menu {
+  z-index: 2;
+}
+
+.menu ul {
+  list-style-type: none;
+}
+
+.menu li {
+  display: inline-block;
+  position: relative;
+  margin-right: 20px;
+}
+
+.menu li a {
+  display: block;
+  text-decoration: none;
+  padding: 10px 5px;
+  transition: color 0.3s ease;
+}
+
+.menu li a:hover {
+  color: #DAA06D;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 1;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  left: 50%;
+  /* Position it relative to the button */
+  transform: translateX(-50%);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dropdown-content a {
+  color: #333;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f9f9f9;
+}
+
+.radio-inputs {
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #EEE;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 130px;
+  font-size: 14px;
+}
+
+.radio-inputs .radio input:hover+.name {
+  background-color: #fff;
+  font-weight: 600;
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: .5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all .15s ease-in-out;
+}
 
 
-  #fondoDescargar {
-    background-color: white;
-    color: rgba(51, 65, 85, 1);
-  }
-  
+#fondoDescargar {
+  background-color: white;
+  color: rgba(51, 65, 85, 1);
+}

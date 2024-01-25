@@ -375,7 +375,6 @@ td:nth-child(6), th:nth-child(6) {
 #botonConfirmarE{
     width: 100px;
     color: white;
-    background-color: rgb(76, 156, 130);
     position: absolute;
     bottom: 44px;
     right: 75px;
@@ -459,6 +458,7 @@ td:nth-child(6), th:nth-child(6) {
     background-color: red;
     color: white;
     width: 10vh;
+    font-size: 14px;
 }
 
 @media(max-width: 1000px) {

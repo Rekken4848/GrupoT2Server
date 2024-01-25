@@ -148,8 +148,10 @@ function refrescarTablaAvisos(){
                 botonCompletar.setAttribute("class", "botonCompletarAviso")
                 if(item.estado=="Completado"){
                     botonCompletar.innerText = "Ya completado"
+                    botonCompletar.style.backgroundColor ='#015a01'
                 } else{
                     botonCompletar.innerText = "Completar"
+                    botonCompletar.style.backgroundColor = '#008000'
                     botonCompletar.onclick = function () {
                         var anuncioLeido = {
                             anuncio_id: item.anuncio_id,
